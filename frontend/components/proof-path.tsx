@@ -117,7 +117,7 @@ export function ProofPath({
         )}
       </div>
 
-      {!compact && path.nodes.length > 0 && (
+      {path.nodes.length > 0 && (
         <div className="overflow-x-auto px-2 py-3">
           <svg
             width={width}
@@ -171,7 +171,25 @@ export function ProofPath({
         </div>
       )}
 
-      <ol className="space-y-1.5 px-4 pt-1 pb-4 text-body-sm" aria-label="Proof path steps">
+      {compact ? (
+        <details className="group px-4 pb-3 text-body-sm">
+          <summary className="cursor-pointer select-none text-caption text-text-muted hover:text-text-primary">
+            Show steps ({steps.length})
+          </summary>
+          <StepList steps={steps} />
+        </details>
+      ) : (
+        <div className="px-4 pb-4">
+          <StepList steps={steps} />
+        </div>
+      )}
+    </figure>
+  );
+}
+
+function StepList({ steps }: { steps: ReturnType<typeof proofSteps> }) {
+  return (
+      <ol className="space-y-1.5 pt-1 text-body-sm" aria-label="Proof path steps">
         {steps.map((s, i) => (
           <li key={i} className="flex flex-wrap items-center gap-x-1.5 gap-y-1 leading-6">
             {s.names.map((nm, j) => (
@@ -189,6 +207,5 @@ export function ProofPath({
           </li>
         ))}
       </ol>
-    </figure>
   );
 }

@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, BellRing, CalendarClock, ClipboardCheck, FileWarning, Network, Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState, type ReactNode } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { EmptyState } from "@/components/empty-state";
 import { ExpiryRunway } from "@/components/home/expiry-runway";
 import { PageContainer, PageHeader } from "@/components/page-header";
@@ -18,7 +19,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
-import type { AlertOut, Page, RunwayItem, ServiceRisk, ServiceRiskDetail } from "@/lib/types";
+import { useThemeTokens } from "@/lib/hooks";
+import type { AlertOut, GraphOut, Page, RunwayItem, ServiceRisk, ServiceRiskDetail } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/lib/workspace";
 
@@ -101,15 +103,7 @@ export function HomeScreen() {
 
       <section aria-label="Summary" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Metric href={`${base}/alerts`} icon={BellRing} label="Open alerts" value={s && openTotal} loading={summary.isPending}>
-          {s && (
-            <span className="flex flex-wrap gap-x-2 text-caption text-text-muted">
-              {(["critical", "high", "moderate"] as const).map((k) => (
-                <span key={k} className="tabular">
-                  {s.open_alerts[k] ?? 0} {k}
-                </span>
-              ))}
-            </span>
-          )}
+          {s && <SeverityBar counts={s.open_alerts} />}
         </Metric>
         <Metric href={`${base}/exceptions?status=active`} icon={FileWarning} label="Active exceptions" value={s?.active_exceptions} loading={summary.isPending} />
         <Metric
@@ -119,11 +113,26 @@ export function HomeScreen() {
           value={s?.expiring_7d}
           loading={summary.isPending}
           tone={s && s.expiring_7d > 0 ? "warn" : undefined}
-        />
+        >
+          {runway.data && asOf != null && <WeekDots items={runway.data} asOf={asOf} />}
+        </Metric>
         <Metric href={`${base}/reviews`} icon={ClipboardCheck} label="Reviews waiting for you" value={s?.my_reviews} loading={summary.isPending} />
       </section>
 
       <div className="grid gap-6 lg:grid-cols-12">
+        <Card
+          title="Risk map"
+          className="lg:col-span-7"
+          action={
+            <Button asChild variant="ghost" size="sm">
+              <Link href={`${base}/graph`}>
+                <Network aria-hidden /> Full graph
+              </Link>
+            </Button>
+          }
+        >
+          <RiskMap selected={selectedId} onSelect={select} />
+        </Card>
         <Card title="Top risk services" className="lg:col-span-5" error={services.error} onRetry={services.refetch}>
           {services.isPending ? (
             <RowsSkeleton />
@@ -136,7 +145,7 @@ export function HomeScreen() {
                     onClick={() => select(r.service.id)}
                     aria-current={r.service.id === selectedId}
                     className={cn(
-                      "flex w-full items-center gap-3 rounded-md px-2 py-2.5 text-left transition-colors hover:bg-brand-soft",
+                      "flex w-full items-center gap-3 rounded-md px-2 py-2 text-left transition-colors hover:bg-brand-soft",
                       r.service.id === selectedId && "bg-brand-soft shadow-[inset_2px_0_0_var(--brand)]",
                     )}
                   >
@@ -145,10 +154,10 @@ export function HomeScreen() {
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-medium">{r.service.label}</span>
                       <span className="block truncate text-caption text-text-muted">
-                        Tier {r.tier} · {r.team?.label ?? "No team"} · {r.active_exceptions} active
+                        {r.team?.label ?? "No team"} · {r.active_exceptions} active
                       </span>
                     </span>
-                    <span className="hidden gap-1 sm:flex">
+                    <span className="hidden gap-1 xl:flex">
                       {r.rule_hits.filter(isRuleId).map((h) => (
                         <RuleChip key={h} rule={h} compact />
                       ))}
@@ -159,18 +168,18 @@ export function HomeScreen() {
             </ol>
           )}
         </Card>
+      </div>
 
+      <div className="grid gap-6 lg:grid-cols-12">
         <Card
           title={detail.data ? `Why ${detail.data.service.label}?` : "Why?"}
-          className="lg:col-span-7"
+          className="lg:col-span-8"
           error={detail.error}
           onRetry={detail.refetch}
           action={
             detail.data && (
               <Button asChild variant="ghost" size="sm">
-                <Link href={`${base}/graph?focus=${detail.data.service.id}`}>
-                  <Network aria-hidden /> Open on graph
-                </Link>
+                <Link href={`${base}/services/${detail.data.service.id}`}>Service details</Link>
               </Button>
             )
           }
@@ -178,28 +187,16 @@ export function HomeScreen() {
           {!detail.data ? (
             <RowsSkeleton />
           ) : (
-            <div className="grid gap-6 md:grid-cols-[auto_1fr]">
-              <div className="flex flex-col items-center gap-2">
-                <ScoreRing score={detail.data.score} band={detail.data.band} size="lg" />
-                <span className="text-caption text-text-muted">{detail.data.customer_facing ? "Customer-facing" : "Internal"}</span>
+            <div className="space-y-5">
+              <div className="grid items-center gap-6 sm:grid-cols-[auto_1fr]">
+                <div className="flex flex-col items-center gap-1">
+                  <ScoreRing score={detail.data.score} band={detail.data.band} size="md" />
+                  <span className="text-caption text-text-muted">{detail.data.customer_facing ? "Customer-facing" : "Internal"}</span>
+                </div>
+                <ScoreBreakdown breakdown={detail.data.breakdown} names={detail.data.names} compact />
               </div>
-              <div className="min-w-0 space-y-5">
-                <ScoreBreakdown breakdown={detail.data.breakdown} names={detail.data.names} limit={4} />
-                {detail.data.proof && <ProofPath path={detail.data.proof} compact />}
-              </div>
+              {detail.data.proof && <ProofPath path={detail.data.proof} compact />}
             </div>
-          )}
-        </Card>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-12">
-        <Card title="Expiry runway · next 30 days" className="lg:col-span-8" error={runway.error} onRetry={runway.refetch}>
-          {runway.isPending || asOf == null ? (
-            <RowsSkeleton />
-          ) : runway.data?.length ? (
-            <ExpiryRunway items={runway.data} asOf={asOf} />
-          ) : (
-            <p className="text-body-sm text-text-muted">Nothing expires in the next 30 days.</p>
           )}
         </Card>
 
@@ -225,6 +222,16 @@ export function HomeScreen() {
           </ul>
         </Card>
       </div>
+
+      <Card title="Expiry runway · next 30 days" error={runway.error} onRetry={runway.refetch}>
+        {runway.isPending || asOf == null ? (
+          <RowsSkeleton />
+        ) : runway.data?.length ? (
+          <ExpiryRunway items={runway.data} asOf={asOf} />
+        ) : (
+          <p className="text-body-sm text-text-muted">Nothing expires in the next 30 days.</p>
+        )}
+      </Card>
 
       <AskSteward base={base} />
     </PageContainer>
@@ -356,6 +363,80 @@ function RowsSkeleton() {
       {Array.from({ length: 5 }, (_, i) => (
         <Skeleton key={i} className="h-10" />
       ))}
+    </div>
+  );
+}
+
+const SEV_ORDER = ["critical", "high", "moderate", "low"] as const;
+const SEV_FILL = { critical: "bg-sev-critical", high: "bg-sev-high", moderate: "bg-sev-moderate", low: "bg-sev-low" } as const;
+
+/** Open alerts by severity as one bar; the counts stay readable as text for screen readers and on hover. */
+function SeverityBar({ counts }: { counts: Record<string, number> }) {
+  const total = SEV_ORDER.reduce((a, k) => a + (counts[k] ?? 0), 0) || 1;
+  const label = SEV_ORDER.map((k) => `${counts[k] ?? 0} ${k}`).join(", ");
+  return (
+    <span className="mt-2 block" title={label}>
+      <span className="flex h-2 overflow-hidden rounded-full bg-sunken" role="img" aria-label={label}>
+        {SEV_ORDER.map((k) => (counts[k] ? <span key={k} className={`${SEV_FILL[k]} h-full`} style={{ width: `${(counts[k] / total) * 100}%` }} /> : null))}
+      </span>
+      <span className="mt-1 flex gap-2 text-[11px] text-text-muted" aria-hidden>
+        {SEV_ORDER.filter((k) => counts[k]).map((k) => (
+          <span key={k} className="flex items-center gap-1">
+            <span className={`size-1.5 rounded-full ${SEV_FILL[k]}`} />
+            {counts[k]}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+/** Next seven days as dots: filled where something expires (count on hover). */
+function WeekDots({ items, asOf }: { items: RunwayItem[]; asOf: number }) {
+  const days = Array.from({ length: 7 }, (_, d) => items.filter((i) => Math.floor((i.expires_at - asOf) / 86400) === d).length);
+  const overdue = items.filter((i) => i.expires_at < asOf).length;
+  return (
+    <span className="mt-2 flex items-center gap-1" role="img" aria-label={`${overdue} overdue; next 7 days: ${days.join(", ")}`}>
+      {overdue > 0 && <span className="mr-1 rounded bg-sev-critical-soft px-1 text-[10px] font-semibold text-sev-critical">{overdue} overdue</span>}
+      {days.map((n, d) => (
+        <span key={d} title={`Day +${d}: ${n}`} className={cn("size-2.5 rounded-full", n ? (n > 1 ? "bg-sev-high" : "bg-sev-moderate") : "bg-sunken")} />
+      ))}
+    </span>
+  );
+}
+
+// Canvas graph loaded as a whole module on the client (its ForceGraph ref needs a direct import).
+const RiskMapCanvas = dynamic(() => import("@/components/home/risk-map-canvas"), { ssr: false });
+
+function RiskMap({ selected, onSelect }: { selected?: string; onSelect: (id: string) => void }) {
+  const api = useApi();
+  const { wsId } = useWorkspace();
+  const tokens = useThemeTokens();
+  const box = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 600, h: 320 });
+  const graph = useQuery({
+    queryKey: ["graph", wsId, "services"],
+    queryFn: ({ signal }) => api<GraphOut>(wsPath(wsId, "/graph"), { signal, query: { kinds: "Service" } }),
+  });
+  useEffect(() => {
+    if (!box.current) return;
+    const ro = new ResizeObserver(([e]) => setSize({ w: e.contentRect.width, h: e.contentRect.height }));
+    ro.observe(box.current);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div>
+      <div ref={box} className="h-80 cursor-grab touch-pan-y active:cursor-grabbing" role="img" aria-label="Services sized and colored by risk, linked by dependencies. The ranked list beside it has the same data.">
+        {graph.data && tokens ? <RiskMapCanvas graph={graph.data} tokens={tokens} size={size} selected={selected} onSelect={onSelect} /> : <Skeleton className="h-full" />}
+      </div>
+      <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption text-text-muted">
+        {(["critical", "high", "moderate", "low"] as const).map((b) => (
+          <span key={b} className="flex items-center gap-1.5 capitalize">
+            <span className={`size-2.5 rounded-full ${SEV_FILL[b]}`} aria-hidden /> {b}
+          </span>
+        ))}
+        <span className="ml-auto">Size = score · arrows = depends on · drag or click</span>
+      </p>
     </div>
   );
 }
