@@ -161,7 +161,7 @@ WORKSPACE_FIELDS = (
 )
 
 
-def _unset() -> dict[str, None]:
+def _unset() -> dict[str, Any]:
     return dict.fromkeys(WORKSPACE_FIELDS)
 
 
