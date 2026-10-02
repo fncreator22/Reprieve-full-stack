@@ -65,7 +65,7 @@ async def risk_service(service_id: str, ctx: WorkspaceContext = Depends(viewer))
     if not rows:
         raise not_found("service")
     r = rows[0]
-    breakdown = (
+    breakdown: dict[str, Any] = (
         json.loads(r["risk_json"])
         if r["risk_json"]
         else {
