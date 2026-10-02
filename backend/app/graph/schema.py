@@ -22,7 +22,8 @@ def _ids(labels: tuple[str, ...]) -> tuple[tuple[str, str], ...]:
 PLATFORM_LABELS = ("User", "Workspace", "Invitation", "ApiKey")
 PLATFORM = SchemaSpec(
     unique=_ids(PLATFORM_LABELS) + (("User", "clerk_user_id"), ("Workspace", "slug")),
-    mandatory=_ids(PLATFORM_LABELS),
+    mandatory=(("User", "clerk_user_id"),)
+    + _ids(("Workspace", "Invitation", "ApiKey")),  # F15: User merges on clerk id
     indexes=(("User", "email"), ("Invitation", "token_hash"), ("ApiKey", "prefix")),
 )
 

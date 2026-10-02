@@ -1,0 +1,48 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
+import structlog
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
+
+from app import errors
+from app.api import account, data, risk_alerts, system
+from app.config import get_settings
+from app.graph.client import close_db
+from app.ids import new_id
+
+structlog.configure(processors=[structlog.processors.TimeStamper(fmt="iso"), structlog.processors.JSONRenderer()])
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    await system.bootstrap()
+    yield
+    await close_db()
+
+
+app = FastAPI(title="Reprieve API", version="0.1.0", lifespan=lifespan)
+errors.install(app)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in get_settings().web_origin.split(",")],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allow_headers=["Authorization", "Content-Type", "If-Match", "Idempotency-Key", "X-Request-ID"],
+    expose_headers=["X-Request-ID", "Retry-After"],
+)
+
+
+@app.middleware("http")
+async def request_id(request: Request, call_next) -> Response:  # type: ignore[no-untyped-def]
+    rid = request.headers.get("x-request-id") or new_id("req")
+    request.state.request_id = rid[:64]
+    structlog.contextvars.bind_contextvars(request_id=request.state.request_id)
+    response: Response = await call_next(request)
+    response.headers["X-Request-ID"] = request.state.request_id
+    return response
+
+
+app.include_router(system.router)
+app.include_router(account.router, prefix="/api/v1")
+app.include_router(risk_alerts.router, prefix="/api/v1")
+app.include_router(data.router, prefix="/api/v1")
