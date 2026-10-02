@@ -58,7 +58,7 @@ Checkout → checkout-api · Mobile wallet pay → mobile-api · Merchant payout
 
 ## 3. Noise (realistic background)
 
-Healthy active exceptions spread across non-control services: severity 1–3, expiry 20–200 days out, granted 10–150 days ago, verified compensating controls, valid owners. Plus historical `closed`/`revoked` exceptions and three `draft`s. Noise is allowed to trigger R4/R8 where the graph genuinely warrants it; it must not trigger any alert on a control service.
+22 healthy active exceptions spread across non-control services: severity 1–3, expiry 20–200 days out, granted 10–150 days ago, verified compensating controls, valid owners. Plus 17 historical `closed`/`revoked` exceptions and three `draft`s. Noise is allowed to trigger R4/R8 where the graph genuinely warrants it; it must not trigger any alert on a control service.
 
 ## 4. Ground truth file
 

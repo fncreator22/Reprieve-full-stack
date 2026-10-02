@@ -1340,54 +1340,6 @@
    "verified_ok": true,
    "verify_interval_days": 30,
    "relies_on": []
-  },
-  {
-   "id": "cc_n23",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1790553600,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
-  },
-  {
-   "id": "cc_n24",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1790899200,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
-  },
-  {
-   "id": "cc_n25",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1792108800,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
-  },
-  {
-   "id": "cc_n26",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1790985600,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
-  },
-  {
-   "id": "cc_n29",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1791504000,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
-  },
-  {
-   "id": "cc_n30",
-   "description": "Compensating monitoring and alerting",
-   "last_verified_at": 1791158400,
-   "verified_ok": true,
-   "verify_interval_days": 30,
-   "relies_on": []
   }
  ],
  "exceptions": [
@@ -2170,250 +2122,55 @@
    "requester_kind": "person"
   },
   {
-   "id": "exc_n23",
-   "title": "Audit log retention below policy",
+   "id": "exc_h01",
+   "title": "Container image runs as root",
    "kind": "security_waiver",
-   "status": "active",
-   "severity": 1,
-   "granted_at": 1782864000,
-   "expires_at": 1805414400,
-   "description": "Audit log retention below policy",
-   "control_id": "ctl_mfa_admin",
+   "status": "closed",
+   "severity": 4,
+   "granted_at": 1773446400,
+   "expires_at": 1783641600,
+   "description": "Container image runs as root",
+   "control_id": "ctl_encrypt_at_rest",
    "service_ids": [
     "svc_data_warehouse"
    ],
-   "owner_id": "per_pedro_alves",
-   "approver_id": "per_laura_jensen",
-   "compensating_control_ids": [
-    "cc_n23"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n24",
-   "title": "Feature flag forced on for beta merchants",
-   "kind": "flag_override",
-   "status": "active",
-   "severity": 3,
-   "granted_at": 1782864000,
-   "expires_at": 1795651200,
-   "description": "Feature flag forced on for beta merchants",
-   "control_id": "ctl_code_review",
-   "service_ids": [
-    "svc_auth"
-   ],
-   "owner_id": "per_omar_haddad",
-   "approver_id": "per_yuki_tanaka",
-   "compensating_control_ids": [
-    "cc_n24"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n25",
-   "title": "Contract tests skipped for internal client",
-   "kind": "skipped_test",
-   "status": "active",
-   "severity": 2,
-   "granted_at": 1779235200,
-   "expires_at": 1803513600,
-   "description": "Contract tests skipped for internal client",
-   "control_id": "ctl_test_coverage",
-   "service_ids": [
-    "svc_ml_features"
-   ],
-   "owner_id": "per_fatima_zahra",
-   "approver_id": "per_laura_jensen",
-   "compensating_control_ids": [
-    "cc_n25"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n26",
-   "title": "Legacy API version kept enabled",
-   "kind": "flag_override",
-   "status": "active",
-   "severity": 2,
-   "granted_at": 1783814400,
-   "expires_at": 1805500800,
-   "description": "Legacy API version kept enabled",
-   "control_id": "ctl_change_approval",
-   "service_ids": [
-    "svc_card_vault"
-   ],
-   "owner_id": "per_hana_sato",
-   "approver_id": "per_marcus_bell",
-   "compensating_control_ids": [
-    "cc_n26"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n27",
-   "title": "Partner data share for pilot",
-   "kind": "data_export_permission",
-   "status": "active",
-   "severity": 2,
-   "granted_at": 1788739200,
-   "expires_at": 1801958400,
-   "description": "Partner data share for pilot",
-   "control_id": "ctl_pii_export",
-   "service_ids": [
-    "svc_onboarding_kyc"
-   ],
-   "owner_id": "per_ingrid_larsen",
-   "approver_id": "per_olivia_brown",
-   "compensating_control_ids": [],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n28",
-   "title": "Legacy API version kept enabled",
-   "kind": "flag_override",
-   "status": "active",
-   "severity": 2,
-   "granted_at": 1779321600,
-   "expires_at": 1809302400,
-   "description": "Legacy API version kept enabled",
-   "control_id": "ctl_change_approval",
-   "service_ids": [
-    "svc_payouts"
-   ],
-   "owner_id": "per_aisha_khan",
-   "approver_id": "per_elena_petrova",
-   "compensating_control_ids": [],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n29",
-   "title": "Reserved capacity extension",
-   "kind": "cost_limit_extension",
-   "status": "active",
-   "severity": 2,
-   "granted_at": 1779408000,
-   "expires_at": 1809129600,
-   "description": "Reserved capacity extension",
-   "control_id": "ctl_cost_budget",
-   "service_ids": [
-    "svc_secrets_manager"
-   ],
-   "owner_id": "per_kenji_mori",
-   "approver_id": "per_rachel_green",
-   "compensating_control_ids": [
-    "cc_n29"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_n30",
-   "title": "Log ingestion over budget",
-   "kind": "cost_limit_extension",
-   "status": "active",
-   "severity": 3,
-   "granted_at": 1789171200,
-   "expires_at": 1798070400,
-   "description": "Log ingestion over budget",
-   "control_id": "ctl_cost_budget",
-   "service_ids": [
-    "svc_payouts"
-   ],
-   "owner_id": "per_ben_carter",
-   "approver_id": "per_elena_petrova",
-   "compensating_control_ids": [
-    "cc_n30"
-   ],
-   "requester_kind": "person"
-  },
-  {
-   "id": "exc_h01",
-   "title": "Hotfix deployed without second reviewer",
-   "kind": "emergency_change",
-   "status": "closed",
-   "severity": 3,
-   "granted_at": 1767052800,
-   "expires_at": 1778976000,
-   "description": "Hotfix deployed without second reviewer",
-   "control_id": "ctl_code_review",
-   "service_ids": [
-    "svc_push_notifications"
-   ],
    "owner_id": "per_kofi_asante",
-   "approver_id": "per_daniel_kim",
+   "approver_id": "per_laura_jensen",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "closed_at": 1776384000,
+   "closed_at": 1781049600,
    "closed_reason": "Underlying fix shipped"
   },
   {
    "id": "exc_h02",
-   "title": "Flaky e2e suite quarantined",
-   "kind": "skipped_test",
+   "title": "Reserved capacity extension",
+   "kind": "cost_limit_extension",
    "status": "closed",
    "severity": 1,
-   "granted_at": 1757980800,
-   "expires_at": 1764201600,
-   "description": "Flaky e2e suite quarantined",
-   "control_id": "ctl_test_coverage",
+   "granted_at": 1769904000,
+   "expires_at": 1782000000,
+   "description": "Reserved capacity extension",
+   "control_id": "ctl_cost_budget",
    "service_ids": [
-    "svc_reconciliation"
+    "svc_ml_features"
    ],
-   "owner_id": "per_aisha_khan",
-   "approver_id": "per_elena_petrova",
+   "owner_id": "per_nora_fischer",
+   "approver_id": "per_laura_jensen",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "closed_at": 1761609600,
+   "closed_at": 1779408000,
    "closed_reason": "Underlying fix shipped"
   },
   {
    "id": "exc_h03",
-   "title": "Log ingestion over budget",
-   "kind": "cost_limit_extension",
+   "title": "Legacy API version kept enabled",
+   "kind": "flag_override",
    "status": "revoked",
-   "severity": 4,
-   "granted_at": 1770508800,
-   "expires_at": 1777939200,
-   "description": "Log ingestion over budget",
-   "control_id": "ctl_cost_budget",
-   "service_ids": [
-    "svc_reporting"
-   ],
-   "owner_id": "per_laura_jensen",
-   "approver_id": "per_laura_jensen",
-   "compensating_control_ids": [],
-   "requester_kind": "person",
-   "revoked_at": 1775347200
-  },
-  {
-   "id": "exc_h04",
-   "title": "Hotfix deployed without second reviewer",
-   "kind": "emergency_change",
-   "status": "closed",
-   "severity": 1,
-   "granted_at": 1762732800,
-   "expires_at": 1772582400,
-   "description": "Hotfix deployed without second reviewer",
-   "control_id": "ctl_change_approval",
-   "service_ids": [
-    "svc_onboarding_kyc"
-   ],
-   "owner_id": "per_mateo_garcia",
-   "approver_id": "per_olivia_brown",
-   "compensating_control_ids": [],
-   "requester_kind": "person",
-   "closed_at": 1769990400,
-   "closed_reason": "Underlying fix shipped"
-  },
-  {
-   "id": "exc_h05",
-   "title": "Log ingestion over budget",
-   "kind": "cost_limit_extension",
-   "status": "closed",
    "severity": 3,
-   "granted_at": 1774915200,
-   "expires_at": 1784678400,
-   "description": "Log ingestion over budget",
-   "control_id": "ctl_cost_budget",
+   "granted_at": 1774483200,
+   "expires_at": 1784764800,
+   "description": "Legacy API version kept enabled",
+   "control_id": "ctl_change_approval",
    "service_ids": [
     "svc_payments_gateway"
    ],
@@ -2421,36 +2178,134 @@
    "approver_id": "per_marcus_bell",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "closed_at": 1782086400,
+   "revoked_at": 1782172800
+  },
+  {
+   "id": "exc_h04",
+   "title": "Reserved capacity extension",
+   "kind": "cost_limit_extension",
+   "status": "closed",
+   "severity": 4,
+   "granted_at": 1770336000,
+   "expires_at": 1779667200,
+   "description": "Reserved capacity extension",
+   "control_id": "ctl_cost_budget",
+   "service_ids": [
+    "svc_webhooks"
+   ],
+   "owner_id": "per_ingrid_larsen",
+   "approver_id": "per_olivia_brown",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1777075200,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h05",
+   "title": "Audit log retention below policy",
+   "kind": "security_waiver",
+   "status": "closed",
+   "severity": 3,
+   "granted_at": 1772841600,
+   "expires_at": 1780704000,
+   "description": "Audit log retention below policy",
+   "control_id": "ctl_encrypt_at_rest",
+   "service_ids": [
+    "svc_reporting"
+   ],
+   "owner_id": "per_laura_jensen",
+   "approver_id": "per_laura_jensen",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1778112000,
    "closed_reason": "Underlying fix shipped"
   },
   {
    "id": "exc_h06",
-   "title": "Service account with broad IAM role",
-   "kind": "security_waiver",
+   "title": "Load test skipped before release",
+   "kind": "skipped_test",
    "status": "revoked",
-   "severity": 3,
-   "granted_at": 1759017600,
-   "expires_at": 1769817600,
-   "description": "Service account with broad IAM role",
-   "control_id": "ctl_encrypt_at_rest",
+   "severity": 1,
+   "granted_at": 1770940800,
+   "expires_at": 1779580800,
+   "description": "Load test skipped before release",
+   "control_id": "ctl_test_coverage",
    "service_ids": [
-    "svc_ledger"
+    "svc_fraud_scoring"
    ],
-   "owner_id": "per_aisha_khan",
-   "approver_id": "per_elena_petrova",
+   "owner_id": "per_grace_mensah",
+   "approver_id": "per_marcus_bell",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "revoked_at": 1767225600
+   "revoked_at": 1776988800
   },
   {
    "id": "exc_h07",
+   "title": "Partner data share for pilot",
+   "kind": "data_export_permission",
+   "status": "closed",
+   "severity": 1,
+   "granted_at": 1764115200,
+   "expires_at": 1772323200,
+   "description": "Partner data share for pilot",
+   "control_id": "ctl_pii_export",
+   "service_ids": [
+    "svc_k8s_platform"
+   ],
+   "owner_id": "per_kenji_mori",
+   "approver_id": "per_rachel_green",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1769731200,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h08",
+   "title": "Legacy API version kept enabled",
+   "kind": "flag_override",
+   "status": "closed",
+   "severity": 1,
+   "granted_at": 1767312000,
+   "expires_at": 1774915200,
+   "description": "Legacy API version kept enabled",
+   "control_id": "ctl_change_approval",
+   "service_ids": [
+    "svc_observability"
+   ],
+   "owner_id": "per_zoe_adams",
+   "approver_id": "per_rachel_green",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1772323200,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h09",
+   "title": "Contract tests skipped for internal client",
+   "kind": "skipped_test",
+   "status": "revoked",
+   "severity": 2,
+   "granted_at": 1759190400,
+   "expires_at": 1768780800,
+   "description": "Contract tests skipped for internal client",
+   "control_id": "ctl_test_coverage",
+   "service_ids": [
+    "svc_card_vault"
+   ],
+   "owner_id": "per_luis_ortega",
+   "approver_id": "per_marcus_bell",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "revoked_at": 1766188800
+  },
+  {
+   "id": "exc_h10",
    "title": "Database index created in production by hand",
    "kind": "emergency_change",
    "status": "closed",
-   "severity": 1,
-   "granted_at": 1771372800,
-   "expires_at": 1780963200,
+   "severity": 2,
+   "granted_at": 1767052800,
+   "expires_at": 1775433600,
    "description": "Database index created in production by hand",
    "control_id": "ctl_code_review",
    "service_ids": [
@@ -2460,34 +2315,132 @@
    "approver_id": "per_daniel_kim",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "closed_at": 1778371200,
+   "closed_at": 1772841600,
    "closed_reason": "Underlying fix shipped"
   },
   {
-   "id": "exc_h08",
+   "id": "exc_h11",
+   "title": "Admin console reachable without VPN",
+   "kind": "security_waiver",
+   "status": "closed",
+   "severity": 2,
+   "granted_at": 1773532800,
+   "expires_at": 1783296000,
+   "description": "Admin console reachable without VPN",
+   "control_id": "ctl_mfa_admin",
+   "service_ids": [
+    "svc_card_vault"
+   ],
+   "owner_id": "per_marcus_bell",
+   "approver_id": "per_marcus_bell",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1780704000,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h12",
+   "title": "Kill switch disabled during migration",
+   "kind": "flag_override",
+   "status": "revoked",
+   "severity": 2,
+   "granted_at": 1766534400,
+   "expires_at": 1778803200,
+   "description": "Kill switch disabled during migration",
+   "control_id": "ctl_code_review",
+   "service_ids": [
+    "svc_payouts"
+   ],
+   "owner_id": "per_ben_carter",
+   "approver_id": "per_elena_petrova",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "revoked_at": 1776211200
+  },
+  {
+   "id": "exc_h13",
+   "title": "Autoscaling ceiling raised",
+   "kind": "cost_limit_extension",
+   "status": "closed",
+   "severity": 1,
+   "granted_at": 1774483200,
+   "expires_at": 1780272000,
+   "description": "Autoscaling ceiling raised",
+   "control_id": "ctl_cost_budget",
+   "service_ids": [
+    "svc_webhooks"
+   ],
+   "owner_id": "per_mateo_garcia",
+   "approver_id": "per_olivia_brown",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1777680000,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h14",
+   "title": "Database index created in production by hand",
+   "kind": "emergency_change",
+   "status": "closed",
+   "severity": 2,
+   "granted_at": 1766707200,
+   "expires_at": 1773273600,
+   "description": "Database index created in production by hand",
+   "control_id": "ctl_code_review",
+   "service_ids": [
+    "svc_reporting"
+   ],
+   "owner_id": "per_nora_fischer",
+   "approver_id": "per_laura_jensen",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "closed_at": 1770681600,
+   "closed_reason": "Underlying fix shipped"
+  },
+  {
+   "id": "exc_h15",
+   "title": "Database index created in production by hand",
+   "kind": "emergency_change",
+   "status": "revoked",
+   "severity": 4,
+   "granted_at": 1768694400,
+   "expires_at": 1775347200,
+   "description": "Database index created in production by hand",
+   "control_id": "ctl_change_approval",
+   "service_ids": [
+    "svc_etl_pipeline"
+   ],
+   "owner_id": "per_laura_jensen",
+   "approver_id": "per_laura_jensen",
+   "compensating_control_ids": [],
+   "requester_kind": "person",
+   "revoked_at": 1772755200
+  },
+  {
+   "id": "exc_h16",
    "title": "Hotfix deployed without second reviewer",
    "kind": "emergency_change",
    "status": "closed",
    "severity": 1,
-   "granted_at": 1759104000,
-   "expires_at": 1770595200,
+   "granted_at": 1769212800,
+   "expires_at": 1775520000,
    "description": "Hotfix deployed without second reviewer",
    "control_id": "ctl_change_approval",
    "service_ids": [
-    "svc_data_warehouse"
+    "svc_reporting"
    ],
-   "owner_id": "per_dmitri_volkov",
+   "owner_id": "per_fatima_zahra",
    "approver_id": "per_laura_jensen",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "closed_at": 1768003200,
+   "closed_at": 1772928000,
    "closed_reason": "Underlying fix shipped"
   },
   {
-   "id": "exc_h09",
+   "id": "exc_h17",
    "title": "Feature flag forced on for beta merchants",
    "kind": "flag_override",
-   "status": "revoked",
+   "status": "closed",
    "severity": 2,
    "granted_at": 1760227200,
    "expires_at": 1765929600,
@@ -2500,7 +2453,8 @@
    "approver_id": "per_marcus_bell",
    "compensating_control_ids": [],
    "requester_kind": "person",
-   "revoked_at": 1763337600
+   "closed_at": 1763337600,
+   "closed_reason": "Underlying fix shipped"
   },
   {
    "id": "exc_d01",

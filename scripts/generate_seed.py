@@ -319,7 +319,7 @@ CTL_FOR = {"security_waiver": ["ctl_mfa_admin", "ctl_encrypt_at_rest", "ctl_vuln
            "emergency_change": ["ctl_change_approval", "ctl_code_review"]}
 noise_services = [s["id"] for s in services if s["id"] not in CONTROL_SERVICES]
 spare_runbooks = ["rbk_vault_break_glass", "rbk_ledger_replay", "rbk_auth_lockout", "rbk_etl_backfill"]
-for i in range(1, 31):
+for i in range(1, 23):
     svc = rng.choice(noise_services)
     kind = rng.choice(sorted(NOISE_TITLES))
     sev = rng.choice([1, 1, 2, 2, 2, 3])
@@ -332,7 +332,7 @@ for i in range(1, 31):
         rng.choice(CTL_FOR[kind]), [svc], owner, cc_ids=cc_ids)
 
 # Historical: closed / revoked (the departed Kofi owns one), and drafts
-for i in range(1, 10):
+for i in range(1, 18):
     svc = rng.choice(noise_services)
     kind = rng.choice(sorted(NOISE_TITLES))
     status = "closed" if i % 3 else "revoked"

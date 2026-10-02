@@ -14,8 +14,19 @@ BATCH = 500
 
 # Labels a query may be templated with via the `$$LABEL$$` token. Code constants only, never user input.
 TEMPLATABLE_LABELS = frozenset(
-    {"Person", "Team", "Service", "Control", "CompensatingControl", "CustomerPath", "Runbook", "Evidence", "Exception",
-     "Alert", "Review"}
+    {
+        "Person",
+        "Team",
+        "Service",
+        "Control",
+        "CompensatingControl",
+        "CustomerPath",
+        "Runbook",
+        "Evidence",
+        "Exception",
+        "Alert",
+        "Review",
+    }
 )
 
 Row = dict[str, Any]
@@ -44,13 +55,17 @@ class Repo:
         self.graph_name = graph
         self.g = db.select_graph(graph)
 
-    async def read(self, qid: str, *, label: str | None = None, timeout: int = READ_TIMEOUT_MS, **params: Any) -> list[Row]:
+    async def read(
+        self, qid: str, *, label: str | None = None, timeout: int = READ_TIMEOUT_MS, **params: Any
+    ) -> list[Row]:
         return _rows(await self.g.ro_query(load(qid, label), params, timeout=timeout))
 
     async def write(self, qid: str, *, label: str | None = None, **params: Any) -> list[Row]:
         return _rows(await self.g.query(load(qid, label), params, timeout=WRITE_TIMEOUT_MS))
 
-    async def write_batched(self, qid: str, rows: list[dict[str, Any]], *, label: str | None = None, **params: Any) -> None:
+    async def write_batched(
+        self, qid: str, rows: list[dict[str, Any]], *, label: str | None = None, **params: Any
+    ) -> None:
         for i in range(0, len(rows), BATCH):
             await self.write(qid, label=label, rows=rows[i : i + BATCH], **params)
 
