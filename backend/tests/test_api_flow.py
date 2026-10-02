@@ -122,6 +122,8 @@ async def test_sample_flow(api):
     assert any(a["subject"]["id"] == "exc_etl_pii_columns" for a in after)
 
     # registry + people + this-is-me
+    team = (await api.get(f"{base}/teams/team_payments", headers=A)).json()
+    assert team["label"] == "Team" and any(e["type"] == "OWNS" for e in team["edges"])
     assert len((await api.get(f"{base}/people", headers=A)).json()) == 40
     assert (await api.post(f"{base}/link-person", headers=A, json={"person_id": "per_priya_raman"})).status_code == 422
     assert (await api.post(f"{base}/link-person", headers=A, json={"person_id": "per_marcus_bell"})).status_code == 204
