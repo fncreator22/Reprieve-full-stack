@@ -14,17 +14,20 @@ export function RelativeDate({
   value,
   asOf,
   withDate = false,
+  realTime = false,
   className,
 }: {
   value: number;
   asOf?: number | null;
+  /** Record timestamps (created, decided) are real time, not the workspace's simulated clock (F7). */
+  realTime?: boolean;
   /** Append the short absolute date: "in 5 days (22 Oct)". */
   withDate?: boolean;
   className?: string;
 }) {
   const ws = useOptionalWorkspace();
   const now = useNowSeconds();
-  const base = asOf ?? ws?.asOf ?? now;
+  const base = realTime ? now : (asOf ?? ws?.asOf ?? now);
   const absolute = formatAbsolute(value);
   return (
     <Tooltip>
