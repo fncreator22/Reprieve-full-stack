@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ScreenPlaceholder } from "@/components/screen-placeholder";
+import { ControlsList } from "@/components/registry/registry";
 
 export const metadata: Metadata = { title: "Controls" };
 
-export default function ControlsPage() {
-  return <ScreenPlaceholder title="Controls" subtitle="Controls that exceptions waive." screenId="SCR-P-11" />;
+export default function Page() {
+  return <ControlsList />;
 }
