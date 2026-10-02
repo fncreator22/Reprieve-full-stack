@@ -391,3 +391,15 @@ export function severityFromLevel(level: number): Severity {
   if (level === 3) return "moderate";
   return "low";
 }
+
+/** GET /people rows (flat person properties plus current teams). */
+export interface PersonRow {
+  id: string;
+  name: string;
+  email?: string | null;
+  title?: string | null;
+  role?: string | null;
+  status: "active" | "left";
+  teams: Ref[];
+  owned_active: number;
+}

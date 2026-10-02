@@ -25,7 +25,7 @@ import { useAuthBridge } from "@/lib/auth";
 import { errorMessage, requestIdOf } from "@/lib/errors";
 import { slugify } from "@/lib/format";
 import { openStream } from "@/lib/sse";
-import { SLUG_PATTERN, type EntityOut, type Page, type ServiceRisk, type WorkspaceOut } from "@/lib/types";
+import { SLUG_PATTERN, type PersonRow, type ServiceRisk, type WorkspaceOut } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { lastWorkspace, meQueryKey, useMe } from "@/lib/workspace";
 
@@ -365,8 +365,7 @@ function IdentityStep({ ws, onDone }: { ws: WorkspaceOut; onDone: () => void }) 
   const people = useQuery({
     queryKey: ["people", ws.id, "onboarding", q],
     queryFn: async ({ signal }) => {
-      const res = await api<Page<EntityOut> | EntityOut[]>(wsPath(ws.id, "/people"), { signal, query: { q, limit: 50 } });
-      return Array.isArray(res) ? res : res.items;
+      return api<PersonRow[]>(wsPath(ws.id, "/people"), { signal, query: { q } });
     },
     placeholderData: (prev) => prev,
   });
@@ -422,8 +421,8 @@ function IdentityStep({ ws, onDone }: { ws: WorkspaceOut; onDone: () => void }) 
         ) : (
           <RadioGroup value={selected} onValueChange={setSelected} aria-label="People" className="gap-0">
             {list.map((p) => {
-              const title = typeof p.props.title === "string" ? p.props.title : typeof p.props.role === "string" ? p.props.role : null;
-              const left = p.props.status === "left";
+              const title = p.title ?? p.role;
+              const left = p.status === "left";
               return (
                 <label
                   key={p.id}
@@ -460,8 +459,8 @@ function HandoffStep({ ws }: { ws: WorkspaceOut }) {
   const top = useQuery({
     queryKey: ["risk-services", ws.id, "top"],
     queryFn: async ({ signal }) => {
-      const res = await api<Page<ServiceRisk> | ServiceRisk[]>(wsPath(ws.id, "/risk/services"), { signal, query: { limit: 1 } });
-      return (Array.isArray(res) ? res : res.items)[0] ?? null;
+      const res = await api<ServiceRisk[]>(wsPath(ws.id, "/risk/services"), { signal, query: { limit: 1 } });
+      return res[0] ?? null;
     },
   });
   const finish = useMutation({

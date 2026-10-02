@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     env_name: str = "local"
+    dev_auth: bool = False  # only honored when env_name == "local"
     graph_prefix: str = "dev_"
 
     falkordb_host: str = "localhost"

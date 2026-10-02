@@ -185,3 +185,13 @@ async def test_email_from_clerk_backend_api_when_claim_missing(api, monkeypatch)
         mock.get(f"{clerk.CLERK_API}/users/user_noclaim").respond(200, json=user)
         me = (await api.get("/me", headers={"Authorization": f"Bearer {tok}"})).json()
     assert me["user"]["email"] == "ana@example.com" and me["user"]["name"] == "Ana Lee"
+
+
+async def test_dev_auth_only_local(api, monkeypatch):
+    from app.config import get_settings
+
+    s = get_settings()
+    monkeypatch.setattr(s, "dev_auth", True)
+    assert (await api.get("/me")).json()["user"]["email"] == "dev@localhost"
+    monkeypatch.setattr(s, "env_name", "production")
+    assert (await api.get("/me")).status_code == 401
