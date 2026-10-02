@@ -404,3 +404,18 @@ export interface PersonRow {
   teams: Ref[];
   owned_active: number;
 }
+
+/** GET /reviews rows. */
+export interface ReviewListItem {
+  id: string;
+  status: ReviewOut["status"];
+  opened_at: number;
+  decision?: Decision | null;
+  decided_at?: number | null;
+  alert: Ref;
+  exception: Ref;
+  assignees: Assignee[];
+}
+export type ReviewPage = Page<ReviewListItem> & { needs_identity?: boolean };
+/** GET /reviews/{id} adds whether the caller may decide; POST /decide adds the applied effects. */
+export type ReviewDetail = ReviewOut & { can_decide?: boolean; effects?: string[] };

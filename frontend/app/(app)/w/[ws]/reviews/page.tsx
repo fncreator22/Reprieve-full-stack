@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ScreenPlaceholder } from "@/components/screen-placeholder";
+import { ReviewsInbox } from "@/components/reviews/reviews-inbox";
 
 export const metadata: Metadata = { title: "Reviews" };
 
 export default function ReviewsPage() {
-  return <ScreenPlaceholder title="Reviews" subtitle="Decisions waiting on you and your team." screenId="SCR-P-12" />;
+  return <ReviewsInbox />;
 }
