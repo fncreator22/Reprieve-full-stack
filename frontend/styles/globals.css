@@ -216,3 +216,5 @@
     scroll-behavior: auto !important;
   }
 }
+/* Diagonal hatch: marks overdue score contributions without relying on color (05 §13). */
+@utility hatched { background-image: repeating-linear-gradient(135deg, transparent 0 3px, rgb(255 255 255 / .35) 3px 5px); }

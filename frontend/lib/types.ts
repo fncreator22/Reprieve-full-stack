@@ -159,6 +159,7 @@ export interface ServiceRiskDetail extends ServiceRisk {
   breakdown: ScoreBreakdown;
   proof: ProofPath | null;
   alert_ids: string[];
+  names: Record<string, string>;
 }
 export interface RiskSummary {
   as_of: number;

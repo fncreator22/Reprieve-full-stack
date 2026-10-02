@@ -83,7 +83,15 @@ async def risk_service(service_id: str, ctx: WorkspaceContext = Depends(viewer))
     alerts = await ctx.org.read("alerts_about", id=service_id)
     r4 = next((a for a in alerts if a["rule_id"] == "R4"), None)
     proof = (await views.get_alert(ctx, r4["id"]))["proof"] if r4 else None
-    return {**views.service_risk(r), "breakdown": breakdown, "proof": proof, "alert_ids": [a["id"] for a in alerts]}
+    ids = [c["exception_id"] for c in breakdown["contributions"]]
+    names = {n["id"]: n["name"] for n in await ctx.org.read("hydrate_nodes", ids=ids)} if ids else {}
+    return {
+        **views.service_risk(r),
+        "breakdown": breakdown,
+        "proof": proof,
+        "alert_ids": [a["id"] for a in alerts],
+        "names": names,
+    }
 
 
 @router.get("/risk/trend", response_model=list[TrendPoint])

@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApi, wsPath } from "@/lib/api";
-import type { NotificationOut, Page, RiskSummary } from "@/lib/types";
+import type { NotificationOut, RiskSummary } from "@/lib/types";
 import { useWorkspace } from "@/lib/workspace";
 
 export const riskSummaryKey = (wsId: string) => ["risk-summary", wsId] as const;
@@ -28,7 +28,7 @@ export function useNotifications() {
   const { wsId } = useWorkspace();
   return useQuery({
     queryKey: notificationsKey(wsId),
-    queryFn: ({ signal }) => api<Page<NotificationOut>>(wsPath(wsId, "/notifications"), { signal, query: { limit: 20 } }),
+    queryFn: ({ signal }) => api<NotificationOut[]>(wsPath(wsId, "/notifications"), { signal }),
   });
 }
 
@@ -42,10 +42,10 @@ export function useMarkNotificationsRead() {
     // Optimistic: mark read immediately, roll back on failure (04 §7).
     onMutate: async (id) => {
       await qc.cancelQueries({ queryKey: notificationsKey(wsId) });
-      const prev = qc.getQueryData<Page<NotificationOut>>(notificationsKey(wsId));
+      const prev = qc.getQueryData<NotificationOut[]>(notificationsKey(wsId));
       const now = Math.floor(Date.now() / 1000);
-      qc.setQueryData<Page<NotificationOut>>(notificationsKey(wsId), (old) =>
-        old && { ...old, items: old.items.map((n) => (id === "all" || n.id === id ? { ...n, read_at: n.read_at ?? now } : n)) },
+      qc.setQueryData<NotificationOut[]>(notificationsKey(wsId), (old) =>
+        old?.map((n) => (id === "all" || n.id === id ? { ...n, read_at: n.read_at ?? now } : n)),
       );
       return { prev };
     },

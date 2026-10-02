@@ -227,6 +227,7 @@ class ServiceRiskDetail(ServiceRisk):
     breakdown: ScoreBreakdown
     proof: ProofPath | None
     alert_ids: list[str]
+    names: dict[str, str] = {}  # exception id → title, for the breakdown
 
 
 class RiskSummary(Base):

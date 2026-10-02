@@ -5,8 +5,8 @@ Order follows `06` §2.3 / `04` §10. Each screen: real API data, loading/empty/
 | # | Screen | Status | Notes |
 | --- | --- | --- | --- |
 | 0 | Shell, landing, onboarding (foundation) | done | Verified end to end in browser with dev auth |
-| 1 | Home (SCR-P-01) | in progress | |
-| 2 | Alerts list + detail (P-03, P-04) | todo | |
+| 1 | Home (SCR-P-01) | done | Metrics, ranked services, why-panel (breakdown + proof), expiry runway with collisions, attention feed, Ask Steward. Trend sparkline skipped (needs history) |
+| 2 | Alerts list + detail (P-03, P-04) | in progress | |
 | 3 | Reviews inbox + detail + DecisionDialog (P-12) | todo | |
 | 4 | Graph explorer (P-02) | todo | |
 | 5 | Steward page + panel (P-13) | todo | |

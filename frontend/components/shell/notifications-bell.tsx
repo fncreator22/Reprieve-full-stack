@@ -18,7 +18,7 @@ export function NotificationsBell() {
   const { slug } = useWorkspace();
   const q = useNotifications();
   const mark = useMarkNotificationsRead();
-  const items = q.data?.items ?? [];
+  const items = q.data ?? [];
   const unread = items.filter((n) => !n.read_at).length;
   const now = useNowSeconds();
 
