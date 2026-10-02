@@ -8,7 +8,8 @@ from typing import Any
 from cachetools import TTLCache
 from fastapi import Depends, Header, Path, Query
 
-from app.auth.clerk import verify
+from app.auth.clerk import Claims, verify
+from app.config import get_settings
 from app.errors import ApiError
 from app.graph.client import get_db, graph_names, platform_graph
 from app.graph.repo import Repo
@@ -53,9 +54,13 @@ def workspace_as_of(w: dict[str, Any]) -> int:
 
 
 async def current_user(authorization: str | None = Header(default=None)) -> CurrentUser:
-    if not authorization or not authorization.startswith("Bearer "):
+    s = get_settings()
+    if not authorization and s.dev_auth and s.env_name == "local":
+        claims = Claims("dev_local", "dev@localhost", True, "Local Dev")  # local-only bypass, never in other envs
+    elif not authorization or not authorization.startswith("Bearer "):
         raise ApiError("UNAUTHENTICATED", "Sign in to continue.")
-    claims = await verify(authorization.removeprefix("Bearer ").strip())
+    else:
+        claims = await verify(authorization.removeprefix("Bearer ").strip())
     if not claims.email_verified:
         raise ApiError("EMAIL_NOT_VERIFIED", "Verify your email to continue.")
     cached = _user_cache.get(claims.clerk_user_id)

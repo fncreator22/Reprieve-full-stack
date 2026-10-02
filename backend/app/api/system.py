@@ -9,7 +9,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, Header, Request
 from sse_starlette.sse import EventSourceResponse
 
-from app.auth.deps import WorkspaceContext, platform_repo, viewer
+from app.auth.deps import WorkspaceContext, any_status, platform_repo
 from app.config import get_settings
 from app.errors import ApiError
 from app.graph.client import get_db
@@ -48,7 +48,9 @@ async def tick(x_internal_secret: str | None = Header(None)) -> dict[str, Any]:
 
 
 @router.get("/api/v1/workspaces/{ws_id}/events")
-async def workspace_events(request: Request, ctx: WorkspaceContext = Depends(viewer)) -> EventSourceResponse:
+async def workspace_events(
+    request: Request, ctx: WorkspaceContext = Depends(any_status)
+) -> EventSourceResponse:  # open during provisioning
     q = events.subscribe(ctx.ws_id)
     user_id = ctx.user.id
 

@@ -38,10 +38,7 @@ export function CommandPalette() {
 
   const search = useQuery({
     queryKey: ["search", wsId, q],
-    queryFn: async ({ signal }) => {
-      const res = await api<Page<Ref> | Ref[]>(wsPath(wsId, "/search"), { query: { q }, signal, wakeBudgetMs: 0 });
-      return Array.isArray(res) ? res : res.items;
-    },
+    queryFn: ({ signal }) => api<Ref[]>(wsPath(wsId, "/search"), { query: { q }, signal, wakeBudgetMs: 0 }),
     enabled: commandOpen && q.length >= 2,
     staleTime: 10_000,
   });
