@@ -42,9 +42,14 @@ def load(qid: str, label: str | None = None) -> str:
     return text
 
 
+def _value(v: Any) -> Any:
+    props = getattr(v, "properties", None)  # Node / Edge → plain dict of properties
+    return dict(props) if isinstance(props, dict) else v
+
+
 def _rows(result: Any) -> list[Row]:
     names = [h[1] for h in result.header]
-    return [dict(zip(names, r, strict=True)) for r in result.result_set]
+    return [{n: _value(v) for n, v in zip(names, r, strict=True)} for r in result.result_set]
 
 
 class Repo:
