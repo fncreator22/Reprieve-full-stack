@@ -44,7 +44,13 @@ def load(qid: str, label: str | None = None) -> str:
 
 def _value(v: Any) -> Any:
     props = getattr(v, "properties", None)  # Node / Edge → plain dict of properties
-    return dict(props) if isinstance(props, dict) else v
+    if isinstance(props, dict):
+        return dict(props)
+    if isinstance(v, list):
+        return [_value(x) for x in v]
+    if isinstance(v, dict):
+        return {k: _value(x) for k, x in v.items()}
+    return v
 
 
 def _rows(result: Any) -> list[Row]:

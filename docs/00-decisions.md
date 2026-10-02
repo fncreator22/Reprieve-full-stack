@@ -26,6 +26,8 @@
 | F14 | 02 §4.3 | Unpinned FalkorDB tag | `v4.22.0` (see `spike-notes.md`) |
 | F15 | 03 §6.2, §7.3 | MANDATORY constraints are enforced when `MERGE` creates the node, before `SET`/`ON CREATE SET` run (spike), so mandatory non-key properties make upserts impossible, and Q-ALT-UP's `MERGE` on `fingerprint` violates mandatory `id` | MANDATORY only on merge keys (`id`, `Ref.key`); other required fields are validated by Pydantic. Alert IDs are deterministic: `alt_` + first 24 hex chars of the fingerprint hash, and Q-ALT-UP merges on `id` |
 | F16 | 03 §8.1 | R8 fingerprint `R8\|path\|exc` opens one alert per (customer path, exception): ~60 alerts on the sample, which is alert fatigue | One R8 alert per customer path (`R8\|path_id`), `involved` = every reachable exception, severity from the most severe one. R4 and R8 proofs show the 5 strongest paths (`PROOF_CAP`) |
+| F17 | 03 §11, §12.2 | Steward was to emit `StewardAnswer` as JSON with its own `citations`; trusting model-reported citations weakens groundedness and streams poorly | Steward writes markdown citing node IDs inline (`svc_…`). The server builds `StewardAnswer`: citations = IDs present in this turn's tool results; sentences citing unknown IDs are removed and counted in `removed_claims` |
+| F18 | 03 §12.1 | `acknowledge_alert` / `approve_draft_exception` action types had no tool | R0 ships `create_review` proposals only; the others arrive with text ingestion (E2) |
 
 ## Defaults chosen where the docs were silent or contradictory
 

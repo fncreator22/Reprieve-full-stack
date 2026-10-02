@@ -10,6 +10,9 @@ os.environ.setdefault("GRAPH_PREFIX", "test_")
 
 @pytest.fixture
 async def db():
+    from app.auth import deps
+
+    deps._user_cache.clear()  # graphs are wiped per test; cached user ids would dangle
     d = FalkorDB(host=os.getenv("FALKORDB_HOST", "localhost"), port=int(os.getenv("FALKORDB_PORT", "6379")))
     yield d
     for name in await d.list_graphs():
