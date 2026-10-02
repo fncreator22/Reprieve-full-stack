@@ -12,7 +12,7 @@ Order follows `06` §2.3 / `04` §10. Each screen: real API data, loading/empty/
 | 5 | Steward page + panel (P-13) | done | Shared chat in page and side panel: streaming, tool trace, markdown with citation chips (open drawer), proof-path cards, proposed-action approve/dismiss, removed-claims notice, degraded banner + Quick answers (page-aware owner lookup), stop button, prompt hand-off from Home |
 | 6 | Exceptions list, detail, create, drafts (P-05..P-08) | done | List (search/filters in URL, active first), detail (relationship chips → drawer, renewal chain, open alerts, timeline, activate), create form with field errors (draft or save+activate), paste-text drafts with unresolved hints and approve/reject |
 | 7 | Registry: services, people, teams, controls (P-09..P-11) | done | Tabbed lists, service detail (risk breakdown, dependencies, exceptions), person detail (team history, owned, fallback-for, left warning), admin Add sheet |
-| 8 | Settings: profile, AI mode; notifications (P-18) | in progress | |
+| 8 | Settings: profile, AI mode; notifications (P-18) | done | Profile (name, theme), workspace (info, run Sentinel, reset sample via alert dialog), AI mode (cloud/off; private marked as coming). Members/notification prefs are R1, so their tabs were dropped. Notifications bell was built with the shell |
 
 Libraries (added when first needed): GSAP, Lenis (marketing only), React Bits, LottieFiles.
 
