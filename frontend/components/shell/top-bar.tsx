@@ -74,7 +74,7 @@ function Breadcrumbs() {
   const parts = pathname.split("/").slice(3).filter(Boolean); // after /w/[ws]
   if (parts.length < 2) return null; // detail pages only (05 §7.4)
   return (
-    <nav aria-label="Breadcrumb" className="hidden min-w-0 md:block">
+    <nav aria-label="Breadcrumb" className="hidden min-w-0 @5xl:block">
       <ol className="flex items-center gap-1.5 text-body-sm text-text-muted">
         {parts.map((p, i) => {
           const label = SEGMENT_LABELS[p] ?? middleTruncate(decodeURIComponent(p));
@@ -117,7 +117,7 @@ export function TopBar({ sentinel }: { sentinel: SentinelState }) {
   });
 
   return (
-    <header className="sticky top-0 z-(--z-topbar) flex h-(--topbar-h) items-center gap-2 border-b border-border-subtle bg-canvas/85 px-3 backdrop-blur sm:px-4">
+    <header className="@container sticky top-0 z-(--z-topbar) flex h-(--topbar-h) items-center gap-2 border-b border-border-subtle bg-canvas/85 px-3 backdrop-blur sm:px-4">
       <Link href={`/w/${slug}/home`} aria-label="Reprieve home" className="sm:hidden">
         <LogoMark className="size-6" />
       </Link>
@@ -129,14 +129,14 @@ export function TopBar({ sentinel }: { sentinel: SentinelState }) {
           onClick={() => setCommandOpen(true)}
           aria-label="Search and commands"
           aria-keyshortcuts="Meta+K Control+K"
-          className="inline-flex h-9 items-center gap-2 rounded-md border border-border-subtle bg-surface px-2.5 text-body-sm text-text-muted hover:border-border-strong hover:text-text-primary md:w-56"
+          className="inline-flex h-9 items-center gap-2 rounded-md border border-border-subtle bg-surface px-2.5 text-body-sm text-text-muted hover:border-border-strong hover:text-text-primary @3xl:w-56"
         >
           <Search aria-hidden className="size-4" />
-          <span className="hidden md:inline">Search</span>
-          <kbd className="ml-auto hidden rounded border border-border-subtle bg-sunken px-1.5 font-mono text-[11px] md:inline">⌘K</kbd>
+          <span className="hidden @3xl:inline">Search</span>
+          <kbd className="ml-auto hidden rounded border border-border-subtle bg-sunken px-1.5 font-mono text-[11px] @3xl:inline">⌘K</kbd>
         </button>
         {workspace && (
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 @4xl:flex">
             <ClockChip
               mode={workspace.clock_mode}
               asOf={workspace.as_of}

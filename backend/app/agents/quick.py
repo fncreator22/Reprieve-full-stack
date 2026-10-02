@@ -17,7 +17,9 @@ async def top_risk(ctx: WorkspaceContext) -> dict[str, Any]:
         f"({top['band']}) `{top['service']['id']}`."
     ]
     for c in detail.data["breakdown"]["contributions"][:3]:
-        lines.append(f"- `{c['exception_id']}` contributes {c['value']:.1f} ({c['hops']} hops away)")
+        name = detail.data.get("names", {}).get(c["exception_id"], c["exception_id"])
+        where = "on this service" if c["hops"] == 0 else f"{c['hops']} hop{'s' if c['hops'] > 1 else ''} away"
+        lines.append(f"- {name} `{c['exception_id']}` contributes {c['value']:.1f} ({where})")
     if len(ranked.data) > 1:
         rest = ", ".join(f"{r['service']['label']} {r['score']:.0f} `{r['service']['id']}`" for r in ranked.data[1:4])
         lines.append(f"\nNext: {rest}.")

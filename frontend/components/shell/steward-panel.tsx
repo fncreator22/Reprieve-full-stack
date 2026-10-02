@@ -3,19 +3,13 @@
 import { Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { EmptyState } from "@/components/empty-state";
+import { StewardChat } from "@/components/steward/steward-chat";
 import { useShell } from "@/components/shell/shell-context";
 import { useMediaQuery } from "@/lib/hooks";
 
-/** Steward panel body. Placeholder: the conversation UI is built in the follow-up task. */
+/** Steward panel body: the shared conversation (SCR-P-13). */
 export function StewardPanelBody() {
-  return (
-    <EmptyState
-      icon={Sparkles}
-      title="Steward is on its way"
-      description="Ask about risk, owners, and expiries with cited answers. The conversation panel arrives in the next build."
-    />
-  );
+  return <StewardChat compact />;
 }
 
 /**
