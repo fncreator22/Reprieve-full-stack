@@ -20,7 +20,7 @@ import { useShell } from "@/components/shell/shell-context";
 import { useEntityDrawer } from "@/components/shell/use-drawer";
 import { useApi, wsPath } from "@/lib/api";
 import { middleTruncate } from "@/lib/format";
-import type { Page, Ref } from "@/lib/types";
+import type { Ref } from "@/lib/types";
 import { useWorkspace } from "@/lib/workspace";
 
 const PAGES = [...PRIMARY_NAV.filter((i) => i.key !== "registry"), ...REGISTRY_NAV, ...FOOTER_NAV];
