@@ -110,6 +110,12 @@ async def reprovision(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(an
     return workspace_out(w, ctx.role.value, ctx.person_id)
 
 
+@router.post("/workspaces/{ws_id}/sample-data", response_model=WorkspaceOut)
+async def sample_data(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
+    """Reset the sample (03 §10.2) or retry a failed provisioning; same path as rehydrate."""
+    return await reprovision(tasks, ctx)
+
+
 @router.patch("/workspaces/{ws_id}/onboarding", response_model=WorkspaceOut)
 async def onboarding(body: OnboardingPatch, ctx: WorkspaceContext = Depends(viewer)) -> dict[str, Any]:
     w = await workspaces.set_fields(

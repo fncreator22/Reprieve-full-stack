@@ -463,3 +463,25 @@ async def cancel_review(review_id: str, ctx: WorkspaceContext = Depends(admin)) 
         raise ApiError("INVARIANT_VIOLATION", "Only draft or pending reviews can be cancelled.")
     events.publish(ctx.ws_id, "review.decided", {"id": review_id, "decision": "cancelled"})
     return await reviews.review_out(ctx, review_id)
+
+
+# Generic read for registry kinds without a dedicated route. Last, so specific routes win.
+READ_ONLY_KINDS = {"evidence": "Evidence"}
+GET_KIND = Annotated[str, Path(pattern="^(teams|controls|customer-paths|runbooks|compensating-controls|evidence)$")]
+
+
+@router.get("/{kind}/{entity_id}")
+async def get_entity(kind: GET_KIND, entity_id: str, ctx: WorkspaceContext = Depends(viewer)) -> dict[str, Any]:
+    label = READ_ONLY_KINDS.get(kind) or REGISTRY[kind][0]
+    rows = await ctx.org.read("entity_get", label=label, id=entity_id)
+    if not rows:
+        raise not_found(label.lower())
+    n = rows[0]["n"]
+    edges = await ctx.org.read("entity_edges", id=entity_id, limit=100)
+    return {
+        "id": entity_id,
+        "label": label,
+        "name": n.get("name") or n.get("description") or entity_id,
+        "props": n,
+        "edges": edges,
+    }

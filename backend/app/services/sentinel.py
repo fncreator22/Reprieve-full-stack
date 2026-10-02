@@ -58,7 +58,11 @@ async def run(ws_id: str, trigger: str) -> dict[str, Any] | None:
         duration_ms=duration,
         error=error,
     )
-    events.publish(ws_id, "sentinel.finished", {**result, "duration_ms": duration, "error": error})
+    events.publish(
+        ws_id,
+        "sentinel.finished",
+        {**result, "duration_ms": duration, "error": error, "ok": error is None, "alerts_created": result["created"]},
+    )
     return result
 
 
