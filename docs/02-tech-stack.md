@@ -428,7 +428,7 @@ Structured output: JSON-schema response format where supported; otherwise JSON m
 
 ```bash
 # prerequisites: Docker, Python 3.12 + uv, Node LTS + pnpm (or npm), (optional) Ollama
-git clone <repo> && cd reprieve
+git clone https://github.com/fncreator22/Reprieve-full-stack.git && cd Reprieve-full-stack
 cp .env.example .env && cp frontend/.env.example frontend/.env.local
 make up          # FalkorDB + API (+ web)
 make seed        # deterministic Northwind Pay seed, idempotent

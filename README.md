@@ -43,6 +43,7 @@ every deviation from the original specs).
 Prerequisites: Docker, [uv](https://docs.astral.sh/uv/), Node LTS + pnpm.
 
 ```bash
+git clone https://github.com/fncreator22/Reprieve-full-stack.git && cd Reprieve-full-stack
 cp .env.example .env                 # fill in Clerk + (optionally) OpenAI
 docker compose up -d falkordb        # FalkorDB v4.22.0 on :6379, Browser on http://localhost:3001
 cd backend && uv sync && uv run uvicorn app.main:app --reload   # API on :8000 (docs at /docs)
@@ -53,13 +54,13 @@ Sign up, choose **Explore with sample data**, and the Northwind Pay workspace is
 
 ### Clerk setup
 
-In the Clerk dashboard → **Sessions → Customize session token**, add:
+Set `CLERK_SECRET_KEY` in the backend `.env` (Clerk dashboard → API keys) and the publishable/secret keys in
+`frontend/.env.local`. That's all: the API fetches Clerk's signing keys and each user's email (and whether it is
+verified) from Clerk's Backend API, and rejects unverified emails.
 
-```json
-{ "email": "{{user.primary_email_address}}", "email_verified": "{{user.email_verified}}", "name": "{{user.full_name}}" }
-```
-
-Set `CLERK_JWKS_URL` and `CLERK_ISSUER` in `.env`. The API rejects tokens without a verified email.
+Optional: if your Clerk plan offers **Customize session token**, adding
+`{ "email": "{{user.primary_email_address}}", "email_verified": "{{user.email_verified}}", "name": "{{user.full_name}}" }`
+skips the per-user lookup.
 
 ## Tests and evaluation
 
