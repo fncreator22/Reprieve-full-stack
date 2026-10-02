@@ -125,3 +125,22 @@ async def test_proposed_action_needs_approval(ws, monkeypatch):
     assert ok["review"]["status"] == "pending"
     again = await c.post(f"{base}/chat/actions/{action['action_id']}/approve", headers=H)
     assert again.status_code == 404
+
+
+async def test_alert_explain_fallback_and_cached_ai(ws, monkeypatch):
+    c, base = ws
+    alert = (await c.get(f"{base}/alerts?rule=R2", headers=H)).json()["items"][0]
+    calls = []
+
+    async def fake(ws_id, ai_mode, messages, schema, name):
+        calls.append(name)
+        return {"text": f"Owner left, so route it to the lead `{alert['subject']['id']}`. Also `svc_fake` matters."}
+
+    monkeypatch.setattr(llm, "complete_json", fake)
+    ai = (await c.get(f"{base}/alerts/{alert['id']}/explain", headers=H)).json()
+    assert ai["source"] == "ai" and "svc_fake" not in ai["text"] and ai["citations"]
+    again = (await c.get(f"{base}/alerts/{alert['id']}/explain", headers=H)).json()
+    assert again == ai and calls == ["alert_summary"]  # cached for this alert version
+    await c.put(f"{base}/ai-settings", headers=H, json={"ai_mode": "off"})
+    off = (await c.get(f"{base}/alerts/{alert['id']}/explain", headers=H)).json()
+    assert off["source"] == "deterministic" and "Path:" in off["text"]
