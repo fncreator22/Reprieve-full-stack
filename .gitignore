@@ -1,0 +1,15 @@
+.env
+.env.local
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+.next/
+out/
+coverage/
+.DS_Store
+.context/
+eval/report.md
