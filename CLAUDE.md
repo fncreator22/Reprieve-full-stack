@@ -16,6 +16,8 @@ Read the relevant section by path.
 8. Pin versions. Do not upgrade dependencies.
 
 ## Workflow
+- Use the `ponytail` skill (.claude/skills/ponytail) for all coding: reuse first, stdlib/native before deps, shortest correct diff. Run `ponytail-review` on diffs before committing.
+- UI work: `docs/05` is the design system; use `impeccable` / `design-taste-frontend` as the quality bar and `playwright-cli` to verify screens.
 - One task per session, by ID from docs/06 §7. Write the failing test first.
 - Run `make test` (FalkorDB on :6379, or FALKORDB_PORT=...) and `make lint` before saying done.
 - New ideas go to docs/parking-lot.md, not into code.
