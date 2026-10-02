@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ScreenPlaceholder } from "@/components/screen-placeholder";
+import { ExceptionForm } from "@/components/exceptions/exception-form";
 
 export const metadata: Metadata = { title: "New exception" };
 
-export default function ExceptionsNewPage() {
-  return <ScreenPlaceholder title="New exception" subtitle="Record what is waived, where, by whom, and until when." screenId="SCR-P-06" />;
+export default function NewExceptionPage() {
+  return <ExceptionForm />;
 }

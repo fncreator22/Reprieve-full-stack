@@ -10,9 +10,10 @@ WITH e, c, o, CASE WHEN e.status = 'active' AND e.expires_at < $as_of THEN 'expi
                    WHEN e.status = 'active' AND e.expires_at <= $as_of + $window_s THEN 'expiring'
                    ELSE e.status END AS eff
 WHERE $effective IS NULL OR eff IN $effective
-WITH e, c, o, eff ORDER BY e.expires_at ASC, e.id ASC SKIP $skip LIMIT $limit
+WITH e, c, o, eff, CASE e.status WHEN 'active' THEN 0 WHEN 'draft' THEN 1 ELSE 2 END AS bucket
+ORDER BY bucket, e.expires_at ASC, e.id ASC SKIP $skip LIMIT $limit
 OPTIONAL MATCH (e)-[:AFFECTS]->(s:Service)
 OPTIONAL MATCH (a:Alert)-[:INVOLVES]->(e) WHERE a.status <> 'resolved'
-RETURN e AS e, eff, {id: c.id, name: c.name} AS control, {id: o.id, name: o.name, status: o.status} AS owner,
-       collect(DISTINCT {id: s.id, name: s.name}) AS services, count(DISTINCT a) AS alerts
-ORDER BY e.expires_at ASC, e.id ASC
+RETURN e AS e, eff, bucket, {id: c.id, name: c.name} AS control, {id: o.id, name: o.name, status: o.status} AS owner,
+       collect(DISTINCT {id: s.id, name: s.name}) AS services, collect(DISTINCT a.id) AS alert_ids
+ORDER BY bucket, e.expires_at ASC, e.id ASC

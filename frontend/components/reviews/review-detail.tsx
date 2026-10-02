@@ -5,6 +5,7 @@ import { ArrowRightLeft, Ban, Check, CircleSlash, ClockArrowUp, Repeat, type Luc
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
+import { fromDay, toDay } from "@/components/exceptions/shared";
 import { PageContainer, PageHeader } from "@/components/page-header";
 import { PrecedentCard } from "@/components/precedent-card";
 import { ProofPath } from "@/components/proof-path";
@@ -31,8 +32,6 @@ const DECISIONS: Record<Decision, { label: string; icon: LucideIcon; effect: str
   reassign: { label: "Reassign", icon: ArrowRightLeft, effect: "Moves ownership to another active person." },
   defer: { label: "Defer", icon: ClockArrowUp, effect: "Snoozes the alert for up to 30 days. Nothing else changes." },
 };
-const toDay = (s: number) => new Date(s * 1000).toISOString().slice(0, 10);
-const fromDay = (d: string) => Date.parse(`${d}T00:00:00Z`) / 1000;
 
 /** SCR-P-12 detail: context, owner resolution, precedent, and the decision (04 FLOW-04). */
 export function ReviewDetail({ id }: { id: string }) {
