@@ -55,6 +55,18 @@
       "skillPath": "skills/imagegen-frontend-web/SKILL.md",
       "computedHash": "65f5ae59fa317567809438310b1c54f78cd133426deb43e4d3d4ca4c8f541628"
     },
+    "img2threejs": {
+      "source": "img2threejs/img2threejs",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "91cec015dd9a70e558ee67abd479cc91ce49fd7134375b50bc6e6514c4db102e"
+    },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "42a9980e5b84f5f1e3d304f1c8d4c341f0d1dfd5bf4c0001d4a70da67233b69b"
+    },
     "industrial-brutalist-ui": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -66,6 +78,12 @@
       "sourceType": "github",
       "skillPath": "skills/minimalist-skill/SKILL.md",
       "computedHash": "08873a3131d3be27bef9bf3304b310b16b44ca6e3561aebe532797be3443f6bd"
+    },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "skillPath": "skills/playwright-cli/SKILL.md",
+      "computedHash": "ffbd59a973d4e2c19c6ecc31254a14497069c362f1d1820b6a6cfbe62de34a73"
     },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",
