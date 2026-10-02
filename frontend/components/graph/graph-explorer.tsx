@@ -13,21 +13,20 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
 import { useMediaQuery, usePrefersReducedMotion, useThemeTokens } from "@/lib/hooks";
-import { canvasFont, drawShape, nodeColor } from "@/lib/graph-draw";
+import { drawShape } from "@/lib/graph-draw";
 import type { ThemeTokens } from "@/lib/tokens";
 import type { GraphOut } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/lib/workspace";
 
-// Canvas library touches `window`; load it on the client only.
-const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), { ssr: false });
+// Canvas module loads whole on the client (its ForceGraph ref needs a direct import).
+const GraphCanvas = dynamic(() => import("@/components/graph/graph-canvas"), { ssr: false });
 
 const KINDS = ["Service", "Exception", "Person", "Team", "Control", "CompensatingControl", "CustomerPath", "Runbook"] as const;
 const KIND_LABEL: Record<string, string> = { CompensatingControl: "Compensating control", CustomerPath: "Customer path" };
 const HOP_MS = 90; // 05 §12.2 --dur-path
 
-type GNode = GraphOut["nodes"][number] & { x?: number; y?: number };
-type GLink = { source: string | GNode; target: string | GNode; type: string };
+import type { GLink, GNode } from "@/components/graph/graph-canvas"; // types only
 const idOf = (v: string | GNode) => (typeof v === "string" ? v : v.id);
 
 /** SCR-P-02: force graph with filters, animated proof path, and an accessible list view. */
@@ -43,8 +42,7 @@ export function GraphExplorer() {
   const mobile = useMediaQuery("(max-width: 639px)");
   const box = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 800, h: 600 });
-  const progress = useRef({ value: 1 });
-  const [, repaint] = useState(0);
+  const [progress, setProgress] = useState(1);
 
   const focus = params.get("focus");
   const view = params.get("view") ?? (mobile ? "list" : "canvas");
@@ -79,19 +77,19 @@ export function GraphExplorer() {
   );
 
   useEffect(() => {
-    if (!pathLinks.length || reduced) {
-      progress.current.value = 1;
-      return;
-    }
-    progress.current.value = 0;
-    const tween = gsap.to(progress.current, {
+    const state = { value: 1 };
+    if (!pathLinks.length || reduced) return;
+    state.value = 0;
+    const raf = requestAnimationFrame(() => setProgress(0)); // hide the path until it draws in
+    const tween = gsap.to(state, {
       value: 1,
       duration: (pathLinks.length * HOP_MS) / 1000 + 0.5,
       ease: "power1.inOut",
       delay: 0.6, // let the layout settle first
-      onUpdate: () => repaint((n) => n + 1),
+      onUpdate: () => setProgress(state.value),
     });
     return () => {
+      cancelAnimationFrame(raf);
       tween.kill();
     };
   }, [pathLinks, reduced]);
@@ -104,7 +102,6 @@ export function GraphExplorer() {
   }, [view, graph.isPending]); // the box mounts only after data loads
 
   const pathActive = pathSet.size > 0;
-  const drawnIndex = (l: GLink) => pathLinks.indexOf(l);
 
   return (
     <div className="flex h-[calc(100dvh-8.5rem)] flex-col">
@@ -159,45 +156,16 @@ export function GraphExplorer() {
       ) : (
         <div ref={box} className="relative flex-1 overflow-hidden" aria-label={`Graph of ${data.nodes.length} nodes. Use the List view for a text version.`} role="img">
           {tokens && (
-            <ForceGraph2D
-              width={size.w}
-              height={size.h}
-              graphData={data}
-              backgroundColor="rgba(0,0,0,0)"
-              cooldownTicks={120}
-              autoPauseRedraw={false}
-              nodeRelSize={5}
-              onNodeClick={(n) => open((n as GNode).id)}
-              nodeLabel={(n) => `${(n as GNode).label}: ${(n as GNode).name}`}
-              linkColor={(l) => {
-                const i = drawnIndex(l as GLink);
-                if (i < 0) return pathActive ? tokens.border : tokens.borderStrong;
-                return i < progress.current.value * pathLinks.length ? tokens.proof : tokens.border;
-              }}
-              linkWidth={(l) => (drawnIndex(l as GLink) >= 0 && drawnIndex(l as GLink) < progress.current.value * pathLinks.length ? 2.5 : 1)}
-              linkDirectionalArrowLength={3}
-              linkDirectionalArrowRelPos={1}
-              nodeCanvasObject={(raw, ctx, scale) => {
-                const n = raw as GNode;
-                const onPath = pathSet.has(n.id);
-                const r = n.label === "Service" ? 6 + (n.score ?? 0) / 25 : 5;
-                ctx.globalAlpha = pathActive && !onPath ? 0.2 : 1;
-                drawShape(ctx, n.label, n.x ?? 0, n.y ?? 0, r);
-                ctx.fillStyle = nodeColor(n, tokens);
-                ctx.fill();
-                if (onPath || n.id === focus) {
-                  ctx.lineWidth = 2 / scale;
-                  ctx.strokeStyle = onPath ? tokens.proof : tokens.brand;
-                  ctx.stroke();
-                }
-                if (scale > 1.6 || onPath || n.id === focus) {
-                  ctx.font = canvasFont(11 / scale);
-                  ctx.textAlign = "center";
-                  ctx.fillStyle = tokens.text;
-                  ctx.fillText(n.name.length > 28 ? `${n.name.slice(0, 27)}…` : n.name, n.x ?? 0, (n.y ?? 0) + r + 10 / scale);
-                }
-                ctx.globalAlpha = 1;
-              }}
+            <GraphCanvas
+              data={data}
+              tokens={tokens}
+              size={size}
+              pathLinks={pathLinks}
+              pathSet={pathSet}
+              progress={pathLinks.length && !reduced ? progress : 1}
+              focus={focus}
+              still={reduced}
+              onOpen={open}
             />
           )}
           <Legend tokens={tokens} />
