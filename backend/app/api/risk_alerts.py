@@ -218,3 +218,13 @@ async def owner_candidates(
 async def propose_review(alert_id: str, body: ProposeReviewIn, ctx: WorkspaceContext = Depends(reviewer)) -> Any:
     review_id = await reviews.propose(ctx, alert_id, body.exception_id, body.rationale)
     return await reviews.review_out(ctx, review_id)
+
+
+@router.get("/alerts/{alert_id}/explain")
+async def explain_alert(alert_id: str, ctx: WorkspaceContext = Depends(viewer)) -> dict[str, Any]:
+    from app.agents.explain import explain  # local: agents.tools imports this module
+
+    rows = await ctx.org.read("alert_get", id=alert_id)
+    if not rows:
+        raise not_found("alert")
+    return await explain(ctx, views.alert_out(rows[0]), rows[0]["a"])
