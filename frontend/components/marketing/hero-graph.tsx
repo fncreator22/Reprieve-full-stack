@@ -1,66 +1,93 @@
 "use client";
 
-import { Pause, Play } from "lucide-react";
-import { useState } from "react";
-import { entityMeta } from "@/components/entity-meta";
-import { NodeShape } from "@/components/node-shape";
+import { Hand, Pause, Play } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { HeroLink, HeroNode } from "@/components/marketing/hero-graph-canvas"; // types only: the canvas module is client-only
+import { usePrefersReducedMotion, useThemeTokens } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
-type N = { id: string; kind: string; name: string; x: number; y: number; sev?: "high" | "critical" | "moderate" };
+// Canvas physics graph (same library as the Graph explorer); client only, loaded as a module so its ref works.
+const HeroCanvas = dynamic(() => import("@/components/marketing/hero-graph-canvas"), { ssr: false });
+
+type N = HeroNode;
+type L = HeroLink;
+const idOf = (v: string | N) => (typeof v === "string" ? v : v.id);
 
 // Illustrative graph modeled on the Northwind Pay sample workspace.
 const NODES: N[] = [
-  { id: "cp", kind: "CustomerPath", name: "Checkout", x: 64, y: 84 },
-  { id: "api", kind: "Service", name: "checkout-api", x: 196, y: 150 },
-  { id: "core", kind: "Service", name: "payments-core", x: 330, y: 214 },
-  { id: "e1", kind: "Exception", name: "TLS waiver", x: 452, y: 112, sev: "high" },
-  { id: "e2", kind: "Exception", name: "Skipped e2e", x: 474, y: 226, sev: "critical" },
-  { id: "e3", kind: "Exception", name: "Flag override", x: 430, y: 330, sev: "moderate" },
-  { id: "e4", kind: "Exception", name: "Key rotation", x: 300, y: 340, sev: "high" },
-  { id: "team", kind: "Team", name: "Payments", x: 172, y: 300 },
-  { id: "per", kind: "Person", name: "Owner (left)", x: 62, y: 352 },
-  { id: "ctl", kind: "Control", name: "Encrypt in transit", x: 470, y: 30 },
+  { id: "cp", label: "CustomerPath", name: "Checkout", story: "Shoppers pay through Checkout. It requires checkout-api, so anything checkout-api depends on is on the customer path." },
+  { id: "api", label: "Service", name: "checkout-api", story: "checkout-api depends on payments-core. Risk two hops away still lands on customers." },
+  { id: "core", label: "Service", name: "payments-core", story: "payments-core carries 4 active exceptions. Each was approved alone; together they make it the riskiest service." },
+  { id: "e1", label: "Exception", name: "TLS waiver", severity: 4, story: "Legacy TLS allowed for an acquirer. Its compensating control was last verified 60 days ago." },
+  { id: "e2", label: "Exception", name: "Skipped e2e", severity: 5, story: "End-to-end tests skipped for a release. Severity 5, and it expires the same week as two others." },
+  { id: "e3", label: "Exception", name: "Flag override", severity: 3, story: "A kill switch forced off during a migration. Renewed three times: temporary is becoming permanent." },
+  { id: "e4", label: "Exception", name: "Key rotation", severity: 4, story: "Key rotation deferred. Its owner left in August, so nobody is reviewing it." },
+  { id: "team", label: "Team", name: "Payments", story: "The Payments team owns payments-core. Its current lead is who the review should go to." },
+  { id: "per", label: "Person", name: "Owner (left)", story: "Recorded owner of the key-rotation waiver. Left the company; Reprieve reroutes the review to the team lead." },
+  { id: "ctl", label: "Control", name: "Encrypt in transit", story: "The control the TLS waiver switches off. Reprieve weights exceptions by how important the waived control is." },
+  { id: "cc", label: "CompensatingControl", name: "Manual review", story: "Three exceptions rely on the same person's manual review. If they are out, all three mitigations fail at once." },
 ];
-const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
-
-// Proof path first (drawn in order), then context edges.
-const PATH: [string, string][] = [
-  ["cp", "api"],
-  ["api", "core"],
-  ["e1", "core"],
-  ["e2", "core"],
-  ["e3", "core"],
-  ["e4", "core"],
+const LINKS: L[] = [
+  { source: "cp", target: "api", path: true },
+  { source: "api", target: "core", path: true },
+  { source: "e1", target: "core", path: true },
+  { source: "e2", target: "core", path: true },
+  { source: "e3", target: "core", path: true },
+  { source: "e4", target: "core", path: true },
+  { source: "team", target: "core" },
+  { source: "per", target: "e4" },
+  { source: "e1", target: "ctl" },
+  { source: "team", target: "api" },
+  { source: "e2", target: "cc" },
+  { source: "e3", target: "cc" },
 ];
-const CONTEXT: [string, string][] = [
-  ["team", "core"],
-  ["per", "team"],
-  ["e1", "ctl"],
-  ["team", "api"],
-];
-
-const SEV_COLOR = { high: "var(--sev-high)", critical: "var(--sev-critical)", moderate: "var(--sev-moderate)" };
 
 /**
- * Landing hero mini-graph (05 §12.3): nodes breathe, the proof path draws hop by hop and replays when
- * a service is hovered or focused. Reduced motion shows a static highlighted path.
+ * Landing hero graph (05 §12.3): drag any node (it springs back), hover to light up its neighbours,
+ * click to read its part of the story. Particles trace the proof path; reduced motion keeps it static.
  */
 export function HeroGraph({ className }: { className?: string }) {
-  const [run, setRun] = useState(0);
+  const tokens = useThemeTokens();
+  const reduced = usePrefersReducedMotion();
   const [paused, setPaused] = useState(false);
-  const replay = () => setRun((r) => r + 1);
+  const [hover, setHover] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string>("core");
+  const box = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 520, h: 380 });
+  const data = useMemo(() => ({ nodes: NODES.map((n) => ({ ...n })), links: LINKS.map((l) => ({ ...l })) }), []);
+
+  const neighbours = useMemo(() => {
+    const m: Record<string, Set<string>> = {};
+    for (const l of LINKS) {
+      (m[idOf(l.source)] ??= new Set()).add(idOf(l.target));
+      (m[idOf(l.target)] ??= new Set()).add(idOf(l.source));
+    }
+    return m;
+  }, []);
+  const focus = hover ?? null;
+  const lit = (id: string) => !focus || id === focus || neighbours[focus]?.has(id);
+  const still = paused || reduced;
+
+  useEffect(() => {
+    if (!box.current) return;
+    const ro = new ResizeObserver(([e]) => setSize({ w: e.contentRect.width, h: e.contentRect.height }));
+    ro.observe(box.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const story = NODES.find((n) => n.id === selected)!;
 
   return (
-    <figure
-      data-paused={paused}
-      className={cn("relative data-[paused=true]:**:[animation-play-state:paused]", className)}
-    >
+    <figure className={cn("relative", className)}>
       <div aria-hidden className="absolute inset-0 -z-10 rounded-[28px] aurora-mesh blur-2xl" />
       <div className="glass rounded-xl border border-border-subtle p-3 shadow-e3 sm:p-5">
         <div className="flex items-center justify-between px-1 pb-2">
-          <p className="eyebrow text-proof">Proof path</p>
+          <p className="eyebrow text-proof">Live risk graph</p>
           <div className="flex items-center gap-3">
-            <p className="hidden text-caption text-text-muted sm:block">Hover a service to trace it</p>
+            <p className="hidden items-center gap-1 text-caption text-text-muted sm:flex">
+              <Hand className="size-3.5" aria-hidden /> Drag, hover or click a node
+            </p>
             <button
               type="button"
               onClick={() => setPaused((v) => !v)}
@@ -68,76 +95,50 @@ export function HeroGraph({ className }: { className?: string }) {
               className="inline-flex min-h-6 items-center gap-1 rounded-sm px-1.5 text-caption text-text-secondary hover:text-text-primary motion-reduce:hidden"
             >
               {paused ? <Play aria-hidden className="size-3" /> : <Pause aria-hidden className="size-3" />}
-              {paused ? "Play motion" : "Pause motion"}
+              {paused ? "Play" : "Pause"}
             </button>
           </div>
         </div>
-        <svg viewBox="0 0 540 390" className="h-auto w-full" role="group" aria-label="Example risk graph" aria-describedby="hero-graph-desc">
-          {CONTEXT.map(([a, b]) => (
-            <line
-              key={`${a}-${b}`}
-              x1={byId[a].x}
-              y1={byId[a].y}
-              x2={byId[b].x}
-              y2={byId[b].y}
-              stroke="var(--border-strong)"
-              strokeOpacity={0.5}
-              strokeWidth={1}
+        <div ref={box} className={cn("h-[340px] touch-pan-y sm:h-[380px]", hover ? "cursor-pointer" : "cursor-grab active:cursor-grabbing")} aria-hidden>
+          {tokens && (
+            <HeroCanvas
+              size={size}
+              data={data}
+              tokens={tokens}
+              lit={lit}
+              hover={hover}
+              selected={selected}
+              still={still}
+              onHover={setHover}
+              onSelect={setSelected}
             />
-          ))}
-          <g key={run}>
-            {PATH.map(([a, b], i) => (
-              <g key={`${a}-${b}`}>
-                <line x1={byId[a].x} y1={byId[a].y} x2={byId[b].x} y2={byId[b].y} stroke="var(--proof)" strokeOpacity={0.16} strokeWidth={7} strokeLinecap="round" />
-                <line
-                  x1={byId[a].x}
-                  y1={byId[a].y}
-                  x2={byId[b].x}
-                  y2={byId[b].y}
-                  pathLength={1}
-                  strokeDasharray="1"
-                  stroke="var(--proof)"
-                  strokeWidth={2.5}
-                  strokeLinecap="round"
-                  className="motion-safe:animate-draw-line"
-                  style={{ animationDelay: `${300 + i * 90}ms` }}
-                />
-              </g>
-            ))}
-          </g>
-          {NODES.map((n, i) => {
-            const meta = entityMeta(n.kind);
-            const isService = n.kind === "Service";
-            const fill = n.sev ? SEV_COLOR[n.sev] : meta.color;
-            return (
-              <g
-                key={n.id}
-                className="motion-safe:animate-drift [transform-box:fill-box]"
-                style={{ animationDelay: `${(i % 5) * -1.1}s`, animationDuration: `${5 + (i % 3)}s` }}
-                onMouseEnter={isService ? replay : undefined}
-                onFocus={isService ? replay : undefined}
-                tabIndex={isService ? 0 : undefined}
-                role={isService ? "button" : undefined}
-                aria-label={isService ? `Trace the proof path through ${n.name}` : undefined}
-              >
-                {isService && <circle cx={n.x} cy={n.y} r={22} fill="var(--brand-soft)" />}
-                <NodeShape shape={meta.shape} cx={n.x} cy={n.y} r={isService ? 13 : 10} fill={fill} stroke="var(--bg-surface)" strokeWidth={2} />
-                <text x={n.x} y={n.y + (isService ? 34 : 28)} textAnchor="middle" className="fill-text-secondary font-sans text-[12px]">
-                  {n.name}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-        <p className="mt-2 rounded-md bg-proof-soft px-3 py-2 text-body-sm text-text-primary">
-          <span className="font-medium">Checkout</span> requires <span className="font-medium">checkout-api</span>, which
-          depends on <span className="font-medium">payments-core</span>: <span className="font-medium text-proof">4 active exceptions</span>
+          )}
+        </div>
+        <p className="mt-2 min-h-[3.25rem] rounded-md bg-proof-soft px-3 py-2 text-body-sm text-text-primary" aria-live="polite">
+          <span className="font-semibold">{story.name}: </span>
+          {story.story}
         </p>
+        <div className="mt-2 flex flex-wrap gap-1.5" aria-label="Pick a node">
+          {NODES.filter((n) => n.label === "Service" || n.label === "Exception" || n.id === "per").map((n) => (
+            <button
+              key={n.id}
+              type="button"
+              onClick={() => setSelected(n.id)}
+              aria-pressed={selected === n.id}
+              className={cn(
+                "rounded-full border px-2 py-0.5 text-caption",
+                selected === n.id ? "border-proof bg-proof-soft text-text-primary" : "border-border-subtle text-text-muted hover:text-text-primary",
+              )}
+            >
+              {n.name}
+            </button>
+          ))}
+        </div>
       </div>
-      <figcaption id="hero-graph-desc" className="sr-only">
+      <figcaption className="sr-only">
         Example graph. The Checkout customer path requires the checkout-api service, which depends on payments-core.
         Payments-core carries four active exceptions: a TLS waiver, a skipped end-to-end test, a feature-flag override and a
-        delayed key rotation. Its owning team, Payments, still lists an owner who has left. Each exception looks
+        delayed key rotation. The key-rotation owner has left, and three mitigations rely on one person. Each exception looks
         reasonable alone; together they put checkout at critical risk.
       </figcaption>
     </figure>

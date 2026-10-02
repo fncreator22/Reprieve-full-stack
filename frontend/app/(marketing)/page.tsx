@@ -20,6 +20,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { HeroGraph } from "@/components/marketing/hero-graph";
 import { Reveal } from "@/components/marketing/reveal";
+import { ProofChain, ScoreStack, StepVisual, StepsLine } from "@/components/marketing/visuals";
 import { PrecedentCard } from "@/components/precedent-card";
 import { ProofPath } from "@/components/proof-path";
 import { RuleChip } from "@/components/rule-chip";
@@ -154,12 +155,13 @@ function HowItWorks() {
           </div>
         </Reveal>
         <ol className="relative mt-14 grid gap-8 md:grid-cols-4 md:gap-6">
-          <span aria-hidden className="absolute top-6 right-[12%] left-[12%] hidden h-px bg-aurora opacity-50 md:block" />
+          <StepsLine />
           {STEPS.map((s, i) => {
             const Icon = s.icon;
             return (
               <li key={s.title} className="relative">
                 <Reveal delay={i * 0.08} className="flex flex-col items-start md:items-center md:text-center">
+                  <StepVisual step={i} />
                   <span className="relative inline-flex size-12 items-center justify-center rounded-full border border-border-subtle bg-raised shadow-e2">
                     <Icon aria-hidden className="size-5 text-brand" strokeWidth={1.5} />
                     <span className="absolute -top-1 -right-1 inline-flex size-5 items-center justify-center rounded-full bg-brand-solid font-mono text-[11px] text-text-on-brand">
@@ -251,10 +253,14 @@ function Features() {
           </BentoCard>
         </Reveal>
         <Reveal className="md:col-span-2" delay={0.06}>
-          <BentoCard icon={Route} title="Proof paths" body="Every claim links to the nodes and edges behind it. Open any path on the graph." className="h-full" />
+          <BentoCard icon={Route} title="Proof paths" body="Every claim links to the nodes and edges behind it. Open any path on the graph." className="h-full">
+            <ProofChain />
+          </BentoCard>
         </Reveal>
         <Reveal className="md:col-span-2" delay={0.1}>
-          <BentoCard icon={Sigma} title="Deterministic scores" body="Scores come from a published formula. AI writes explanations; it never sets a number." className="h-full" />
+          <BentoCard icon={Sigma} title="Deterministic scores" body="Scores come from a published formula. AI writes explanations; it never sets a number." className="h-full">
+            <ScoreStack />
+          </BentoCard>
         </Reveal>
         <Reveal className="md:col-span-2" delay={0.14}>
           <BentoCard icon={Check} title="Human approval" body="The Steward proposes reviews and drafts. Nothing changes until a person approves." className="h-full">

@@ -16,6 +16,13 @@ Order follows `06` §2.3 / `04` §10. Each screen: real API data, loading/empty/
 
 Libraries (added when first needed): GSAP, Lenis (marketing only), React Bits, LottieFiles.
 
+## Visual pass (owner feedback: hero not interactive, too much text)
+
+- Landing hero: physics graph (react-force-graph-2d), drag with spring-back, hover neighbours, click for each node's story, particles on the proof path
+- How it works: animated step visuals (SVG) + GSAP ScrollTrigger connector; feature cards filled (proof chain, score stack)
+- App Home: risk map (services by band, click to select), severity bar and 7-day dots in metrics, compact score breakdown, proof path graph-first
+- Fixes: canvas fonts ignored CSS variables (graph labels fell back to 10px); next/dynamic does not forward refs (canvas modules are now loaded whole)
+
 ## Polish backlog
 
 - Top-bar breadcrumb shows raw IDs on detail pages; show entity titles.

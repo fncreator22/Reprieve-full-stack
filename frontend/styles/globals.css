@@ -218,3 +218,5 @@
 }
 /* Diagonal hatch: marks overdue score contributions without relying on color (05 §13). */
 @utility hatched { background-image: repeating-linear-gradient(135deg, transparent 0 3px, rgb(255 255 255 / .35) 3px 5px); }
+/* Proof-chain hop highlight on the landing page (one hop lights up at a time). */
+@keyframes hop { 0%, 30%, 100% { box-shadow: none; } 12% { box-shadow: 0 0 0 2px var(--proof), 0 0 16px -2px var(--proof); } }

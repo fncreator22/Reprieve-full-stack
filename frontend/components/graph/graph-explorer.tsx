@@ -13,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
 import { useMediaQuery, usePrefersReducedMotion, useThemeTokens } from "@/lib/hooks";
+import { canvasFont, drawShape, nodeColor } from "@/lib/graph-draw";
 import type { ThemeTokens } from "@/lib/tokens";
 import type { GraphOut } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -28,55 +29,6 @@ const HOP_MS = 90; // 05 §12.2 --dur-path
 type GNode = GraphOut["nodes"][number] & { x?: number; y?: number };
 type GLink = { source: string | GNode; target: string | GNode; type: string };
 const idOf = (v: string | GNode) => (typeof v === "string" ? v : v.id);
-
-function nodeColor(n: GNode, t: ThemeTokens) {
-  if (n.label === "Exception") {
-    const s = n.severity ?? 1;
-    return t.severity[s >= 5 ? "critical" : s >= 4 ? "high" : s >= 3 ? "moderate" : "low"];
-  }
-  return t.node[n.label as keyof ThemeTokens["node"]] ?? t.textMuted;
-}
-
-/** Shape per node type so the graph reads without color (05 §3.1.6). */
-function drawShape(ctx: CanvasRenderingContext2D, label: string, x: number, y: number, r: number) {
-  ctx.beginPath();
-  const poly = (sides: number, rot = -Math.PI / 2) => {
-    for (let i = 0; i < sides; i++) {
-      const a = rot + (i * 2 * Math.PI) / sides;
-      ctx[i ? "lineTo" : "moveTo"](x + r * Math.cos(a), y + r * Math.sin(a));
-    }
-    ctx.closePath();
-  };
-  switch (label) {
-    case "Exception":
-      poly(4);
-      break;
-    case "Team":
-      poly(6, 0);
-      break;
-    case "Control":
-      poly(3);
-      break;
-    case "CompensatingControl":
-      poly(5);
-      break;
-    case "CustomerPath":
-      for (let i = 0; i < 10; i++) {
-        const a = -Math.PI / 2 + (i * Math.PI) / 5;
-        const rr = i % 2 ? r * 0.45 : r * 1.15;
-        ctx[i ? "lineTo" : "moveTo"](x + rr * Math.cos(a), y + rr * Math.sin(a));
-      }
-      ctx.closePath();
-      break;
-    case "Person":
-    case "Runbook":
-    case "Evidence":
-      ctx.roundRect(x - r * 0.85, y - r * 0.85, r * 1.7, r * 1.7, label === "Person" ? r * 0.4 : 1);
-      break;
-    default:
-      ctx.arc(x, y, r, 0, 2 * Math.PI);
-  }
-}
 
 /** SCR-P-02: force graph with filters, animated proof path, and an accessible list view. */
 export function GraphExplorer() {
@@ -239,7 +191,7 @@ export function GraphExplorer() {
                   ctx.stroke();
                 }
                 if (scale > 1.6 || onPath || n.id === focus) {
-                  ctx.font = `${11 / scale}px var(--font-instrument), system-ui, sans-serif`;
+                  ctx.font = canvasFont(11 / scale);
                   ctx.textAlign = "center";
                   ctx.fillStyle = tokens.text;
                   ctx.fillText(n.name.length > 28 ? `${n.name.slice(0, 27)}…` : n.name, n.x ?? 0, (n.y ?? 0) + r + 10 / scale);
