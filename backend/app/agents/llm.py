@@ -161,3 +161,32 @@ async def stream_chat(
             if emitted:  # cannot transparently retry after streaming visible text
                 break
     raise ApiError("LLM_UNAVAILABLE", "The AI provider is unavailable. Quick answers still work.") from last
+
+
+async def complete_json(
+    ws_id: str, ai_mode: str, messages: list[dict[str, Any]], schema: dict[str, Any], name: str
+) -> dict[str, Any]:
+    """Non-streaming structured output: JSON-schema response format, falling back to JSON mode, one retry."""
+    plist = providers(ai_mode)
+    if not plist:
+        raise ApiError("AI_DISABLED" if ai_mode == "off" else "LLM_UNAVAILABLE", "No AI provider is configured.")
+    check_budget(ws_id)
+    last: Exception | None = None
+    for p in plist:
+        for fmt in ({"type": "json_schema", "json_schema": {"name": name, "schema": schema}}, {"type": "json_object"}):
+            try:
+                r = await p.client.chat.completions.create(model=p.model, messages=messages, response_format=fmt)  # type: ignore[call-overload]
+                if r.usage:
+                    _charge(ws_id, {"total_tokens": r.usage.total_tokens})
+                return dict(json.loads(r.choices[0].message.content or "{}"))
+            except (json.JSONDecodeError, openai.BadRequestError) as ex:
+                last = ex  # model rejected the schema format or returned non-JSON: try JSON mode once
+            except (
+                openai.APIConnectionError,
+                openai.APITimeoutError,
+                openai.RateLimitError,
+                openai.InternalServerError,
+            ) as ex:
+                last = ex
+                break
+    raise ApiError("LLM_UNAVAILABLE", "The AI provider is unavailable.") from last
