@@ -1,0 +1,13 @@
+name: sentinel-tick
+on:
+  schedule: [{ cron: "*/15 * * * *" }]
+  workflow_dispatch: {}
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -fsS --max-time 120 -X POST "$API_URL/internal/sentinel/tick" -H "X-Internal-Secret: $INTERNAL_TICK_SECRET"
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          INTERNAL_TICK_SECRET: ${{ secrets.INTERNAL_TICK_SECRET }}
