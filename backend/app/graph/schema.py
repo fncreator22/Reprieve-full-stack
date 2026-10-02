@@ -27,16 +27,39 @@ PLATFORM = SchemaSpec(
 )
 
 ORG_ID_LABELS = (
-    "Person", "Team", "Service", "Control", "Exception", "CompensatingControl", "Evidence", "CustomerPath", "Runbook",
-    "Review", "Alert", "RiskSnapshot", "ImportJob", "AuditEvent", "Notification", "SentinelRun",
+    "Person",
+    "Team",
+    "Service",
+    "Control",
+    "Exception",
+    "CompensatingControl",
+    "Evidence",
+    "CustomerPath",
+    "Runbook",
+    "Review",
+    "Alert",
+    "RiskSnapshot",
+    "ImportJob",
+    "AuditEvent",
+    "Notification",
+    "SentinelRun",
 )
 ORG = SchemaSpec(
     unique=_ids(ORG_ID_LABELS) + (("Alert", "fingerprint"), ("RuleConfig", "rule_id"), ("SchemaMeta", "key")),
     mandatory=_ids(ORG_ID_LABELS),  # F15: MANDATORY is checked at MERGE-create time, so only merge keys
     indexes=(
-        ("Exception", "status"), ("Exception", "expires_at"), ("Exception", "kind"), ("Alert", "status"),
-        ("Alert", "rule_id"), ("Review", "status"), ("Person", "status"), ("Person", "email"), ("Service", "name"),
-        ("Notification", "recipient_user_id"), ("AuditEvent", "at"), ("SentinelRun", "started_at"),
+        ("Exception", "status"),
+        ("Exception", "expires_at"),
+        ("Exception", "kind"),
+        ("Alert", "status"),
+        ("Alert", "rule_id"),
+        ("Review", "status"),
+        ("Person", "status"),
+        ("Person", "email"),
+        ("Service", "name"),
+        ("Notification", "recipient_user_id"),
+        ("AuditEvent", "at"),
+        ("SentinelRun", "started_at"),
     ),
 )
 

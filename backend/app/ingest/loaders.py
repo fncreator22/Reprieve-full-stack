@@ -35,12 +35,15 @@ def read_bundle(path: Path = SAMPLE_BUNDLE) -> dict[str, Any]:
 
 
 async def load_bundle(repo: Repo, bundle: dict[str, Any], *, source: str, actor: str = "system") -> None:
-    common = {"source": source, "now": now(), "actor": actor}
+    common: dict[str, Any] = {"source": source, "now": now(), "actor": actor}
     for key, qid in _STEPS:
         rows = bundle.get(key) or []
         if rows:
             await repo.write_batched(qid, rows, **common)
-    links = [{"exception_id": e["id"], "cc_id": c} for e in bundle.get("exceptions", [])
-             for c in e.get("compensating_control_ids", [])]
+    links = [
+        {"exception_id": e["id"], "cc_id": c}
+        for e in bundle.get("exceptions", [])
+        for c in e.get("compensating_control_ids", [])
+    ]
     if links:
         await repo.write_batched("load_exception_ccs", links)

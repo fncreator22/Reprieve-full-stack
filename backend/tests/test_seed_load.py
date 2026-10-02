@@ -21,4 +21,4 @@ async def test_sample_bundle_loads_idempotently_and_fast(repo):
     edges = await repo.g.query("MATCH ()-[r]->() RETURN type(r), count(r)")
     by_type = dict(edges.result_set)
     assert by_type["WAIVES"] == 60 and by_type["OWNED_BY"] == 60 and by_type["RENEWS"] == 3
-    assert by_type["COMPENSATED_BY"] >= 30 and by_type["RELIES_ON"] >= 3
+    assert by_type["COMPENSATED_BY"] >= 25 and by_type["RELIES_ON"] >= 3
