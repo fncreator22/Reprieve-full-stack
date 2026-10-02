@@ -148,3 +148,31 @@ async def test_sample_flow(api):
         r = await api.get(f"{base}{path}", headers=B)
         assert r.status_code == 404 and r.json()["code"] == "NOT_FOUND", path
     assert (await api.get("/workspaces/ws_notavalidid!", headers=A)).status_code == 404
+
+
+async def test_email_from_clerk_backend_api_when_claim_missing(api, monkeypatch):
+    """Tokens without custom claims: the API looks the user up via Clerk's Backend API (respx-mocked)."""
+    import time
+
+    import jwt as pyjwt
+    import respx
+
+    from app.auth import clerk
+    from app.config import get_settings
+    from tests.api_helpers import _KEY
+
+    monkeypatch.setattr(get_settings(), "clerk_secret_key", "sk_test_x")
+    now = int(time.time())
+    tok = pyjwt.encode({"sub": "user_noclaim", "exp": now + 600}, _KEY, algorithm="RS256", headers={"kid": "test"})
+    user = {
+        "primary_email_address_id": "idn_1",
+        "first_name": "Ana",
+        "last_name": "Lee",
+        "email_addresses": [
+            {"id": "idn_1", "email_address": "ana@example.com", "verification": {"status": "verified"}}
+        ],
+    }
+    with respx.mock(assert_all_called=True) as mock:
+        mock.get(f"{clerk.CLERK_API}/users/user_noclaim").respond(200, json=user)
+        me = (await api.get("/me", headers={"Authorization": f"Bearer {tok}"})).json()
+    assert me["user"]["email"] == "ana@example.com" and me["user"]["name"] == "Ana Lee"

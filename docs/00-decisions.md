@@ -36,7 +36,7 @@
 | AI mode in R0 | R0 ships a simple AI mode select (cloud / off) in Settings: 04 and 06 §2.3 list it in R0, 06 §2.2 put it in V1. `private` arrives with the Ollama work in R1. |
 | Workspace in URLs | Frontend routes use the slug (`/w/acme`); the API uses `ws_id`; the client maps slug → id from `GET /me` memberships. |
 | Pagination | Cursor-based "Load more" everywhere (05 §7.4 page numbers dropped). |
-| Email verification | Enforced by Clerk at sign-up. The API requires the session-token claims `email` and `email_verified` (configure in Clerk → Sessions → Customize session token) and returns `EMAIL_NOT_VERIFIED` when false. |
+| Email verification | Enforced by Clerk at sign-up. The API reads `email`/`email_verified` from session-token claims when present; otherwise it loads the primary email and its verification status from Clerk's Backend API with `CLERK_SECRET_KEY` (cached 5 min). JWKS also comes from the Backend API when `CLERK_JWKS_URL` is unset. Unverified → `EMAIL_NOT_VERIFIED`. |
 | Review deciders | R0: assigned reviewer (role reviewer+) or admin. FLOW-05's "team lead decides" assumes the lead's linked user has reviewer role; revisit with RBAC UI in R1. |
 | Render free hours | A 15-minute tick keeps the free instance awake (~744 of 750 h/month); acceptable, move to a paid instance before public beta. |
 | Seed data generation | Python stdlib `random.Random(seed)` with curated name lists (no `faker` dependency). |

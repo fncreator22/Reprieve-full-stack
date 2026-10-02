@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     clerk_jwks_url: str = ""
     clerk_issuer: str = ""
     clerk_webhook_secret: str = ""
+    clerk_secret_key: str = ""
 
     web_origin: str = "http://localhost:3000"
     internal_tick_secret: str = ""
