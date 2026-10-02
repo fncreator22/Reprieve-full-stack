@@ -120,6 +120,27 @@ async def _detect_and_persist(ws_id: str, org: Repo, platform: Repo, as_of: int,
         await org.write_batched("snapshots_write", snaps, as_of=as_of)
 
     created = [u for u in upserted if u["created"]]
+    urgent = [u for u in created if u["severity"] in ("high", "critical")]
+    if urgent:
+        rule_of = {f.alert_id: f.rule_id for f in res.findings}
+        await Repo(org.db, graph_names(ws_id).mem).write(
+            "mem_handoff_upsert",
+            now=t,
+            rows=[
+                {
+                    "id": "hnd_" + u["id"][4:],
+                    "alert_id": u["id"],
+                    "title": u["title"],
+                    "kind": "owner_unresolved" if rule_of.get(u["id"]) == "R2" else "review_suggested",
+                    "priority": 1 if u["severity"] == "critical" else 2,
+                }
+                for u in urgent
+            ],
+        )
+    if resolved:
+        await Repo(org.db, graph_names(ws_id).mem).write(
+            "mem_handoff_done", alert_ids=[r["id"] for r in resolved], now=t, result='{"resolution": "auto_cleared"}'
+        )
     for u in created:
         events.publish(ws_id, "alert.created", {"id": u["id"], "severity": u["severity"], "title": u["title"]})
     for r in resolved:

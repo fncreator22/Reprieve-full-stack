@@ -121,6 +121,15 @@ async def test_sample_flow(api):
     after = (await api.get(f"{base}/alerts?rule=R1&limit=100", headers=A)).json()["items"]
     assert any(a["subject"]["id"] == "exc_etl_pii_columns" for a in after)
 
+    # memory: outcomes, precedent, handoffs (new high alerts handed to Steward; closed when a review opens)
+    outs = (await api.get(f"{base}/memory/outcomes", headers=A)).json()
+    assert {o["decision"] for o in outs} >= {"reassign", "renew"}
+    prec = (await api.get(f"{base}/memory/precedent?control_id=ctl_key_rotation", headers=A)).json()
+    assert prec and prec[0]["decision"] == "reassign"
+    hands = (await api.get(f"{base}/memory/handoffs", headers=A)).json()
+    by_alert = {h["payload_id"]: h for h in hands}
+    assert by_alert[ghost["id"]]["status"] == "done" and by_alert[ghost["id"]]["kind"] == "owner_unresolved"
+    assert any(h["status"] == "open" for h in hands)
     # registry + people + this-is-me
     team = (await api.get(f"{base}/teams/team_payments", headers=A)).json()
     assert team["label"] == "Team" and any(e["type"] == "OWNS" for e in team["edges"])

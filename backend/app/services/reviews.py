@@ -98,6 +98,9 @@ async def propose(
     )
     if status == "pending":
         await _notify_assignees(ctx, review_id, assignees, a["title"])
+    await ctx.mem.write(
+        "mem_handoff_done", alert_ids=[alert_id], now=now(), result=json.dumps({"review_id": review_id})
+    )
     return review_id
 
 
