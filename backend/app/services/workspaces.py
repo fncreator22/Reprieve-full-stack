@@ -31,7 +31,7 @@ async def create(platform: Repo, user_id: str, name: str, slug: str, data_mode: 
         )
     ws_id = new_id("ws")
     simulated = data_mode == "sample"
-    await platform.write(
+    created = await platform.write(
         "p_workspace_create",
         id=ws_id,
         slug=slug,
@@ -43,6 +43,8 @@ async def create(platform: Repo, user_id: str, name: str, slug: str, data_mode: 
         now=now(),
         schema_version=SCHEMA_VERSION,
     )
+    if not created:  # user mirror missing (platform graph restored); client retries after re-auth
+        raise ApiError("UNAUTHENTICATED", "Your account record was refreshed. Try again.")
     return ws_id
 
 

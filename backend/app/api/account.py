@@ -74,7 +74,11 @@ async def create_workspace(
     body: WorkspaceCreate, tasks: BackgroundTasks, user: CurrentUser = Depends(current_user)
 ) -> dict[str, Any]:
     platform = platform_repo()
-    ws_id = await workspaces.create(platform, user.id, body.name, body.slug, body.data_mode)
+    try:
+        ws_id = await workspaces.create(platform, user.id, body.name, body.slug, body.data_mode)
+    except ApiError:
+        forget_user(user.clerk_user_id)
+        raise
     tasks.add_task(workspaces.provision, platform, ws_id, body.data_mode)
     w = (await platform.read("p_workspace_get", ws_id=ws_id))[0]["w"]
     return workspace_out(w, "owner", None)
