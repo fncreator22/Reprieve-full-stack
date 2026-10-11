@@ -5,7 +5,7 @@ import pytest
 
 from app.api.system import bootstrap as system_bootstrap
 from app.graph import client as graph_client
-from app.ids import now
+from app.ids import new_id, now
 from app.main import app
 from tests.api_helpers import auth
 
@@ -24,10 +24,11 @@ async def api(db):
 
 async def test_api_key_lifecycle_and_authentication(api):
     # 1. Create a workspace
+    slug = f"secops-{new_id('ws')[3:12]}"
     r_ws = await api.post(
         "/workspaces",
         headers=ADMIN_A,
-        json={"name": "SecOps Org", "slug": "secops-org", "data_mode": "sample"},
+        json={"name": "SecOps Org", "slug": slug, "data_mode": "sample"},
     )
     assert r_ws.status_code == 201, r_ws.text
     ws_id = r_ws.json()["id"]
@@ -189,10 +190,11 @@ async def test_api_key_expiration_enforcement(api):
 
 async def test_api_key_unauthorized_access(api):
     # Workspace created by Admin A
+    slug = f"prot-{new_id('ws')[3:12]}"
     r_ws = await api.post(
         "/workspaces",
         headers=ADMIN_A,
-        json={"name": "Protected Org", "slug": "protected-org", "data_mode": "blank"},
+        json={"name": "Protected Org", "slug": slug, "data_mode": "blank"},
     )
     ws_id = r_ws.json()["id"]
 

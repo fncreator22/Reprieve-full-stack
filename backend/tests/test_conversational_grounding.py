@@ -21,6 +21,7 @@ from app.agents.tools import LABEL_OF
 from app.api.system import bootstrap
 from app.auth.deps import CurrentUser, WorkspaceContext
 from app.graph import client as graph_client
+from app.ids import new_id
 from app.graph.repo import Repo
 from app.graph.schema import ORG, ensure_schema
 from app.ingest.loaders import load_bundle, read_bundle
@@ -51,12 +52,13 @@ async def live_ws(db):
     async with httpx.AsyncClient(
         transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1"
     ) as client:
+        slug = f"cg-ws-{new_id('ws')[3:12]}"
         resp = await client.post(
             "/workspaces",
             headers=TEST_AUTH_HEADER,
             json={
                 "name": "Grounding Evaluation Workspace",
-                "slug": "grounding-eval-ws",
+                "slug": slug,
                 "data_mode": "sample",
             },
         )

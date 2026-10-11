@@ -23,7 +23,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import { StewardOrb } from "@/components/marketing/steward-orb";
 import { CaseStudiesSection } from "@/components/marketing/case-studies-section";
-import { DeveloperHub } from "@/components/marketing/developer-hub";
 import { BookCallModal } from "@/components/marketing/book-call-modal";
 import { LinearSpotlightCard } from "@/components/marketing/linear-spotlight-card";
 import { CollisionScrubber } from "@/components/marketing/collision-scrubber";
@@ -176,11 +175,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION: Operational Graph Intelligence Bento Grid */}
+      {/* SECTION 2: Operational Graph Intelligence & Zero-Login Developer Protocol */}
       <FeaturesCard />
-
-      {/* SECTION 2: Developer & Agent Hub (Interactive Dynamic Terminal CLI, MCP Protocol, CI/CD) */}
-      <DeveloperHub />
 
       {/* SECTION 3: Documented Engineering Post-Mortems (CrowdStrike, Knight Capital, GitLab, Northwind Pay) */}
       <div id="case-studies">

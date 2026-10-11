@@ -8,6 +8,7 @@ import pytest
 from app.agents import llm
 from app.api.system import bootstrap
 from app.graph import client as graph_client
+from app.ids import new_id
 from app.ingest.extractor import ExtractedException, PersonHint, instruction_warnings
 from app.ingest.resolver import resolve
 from app.main import app
@@ -52,8 +53,9 @@ async def ws(db):
     graph_client._db = None
     await bootstrap()
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t/api/v1") as c:
+        slug = f"in-ws-{new_id('ws')[3:12]}"
         r = await c.post(
-            "/workspaces", headers=H, json={"name": "Ingest test", "slug": "ingest-ws", "data_mode": "sample"}
+            "/workspaces", headers=H, json={"name": "Ingest test", "slug": slug, "data_mode": "sample"}
         )
         yield c, f"/workspaces/{r.json()['id']}"
     await graph_client.close_db()

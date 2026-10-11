@@ -21,7 +21,7 @@ log = structlog.get_logger()
 
 async def set_fields(platform: Repo, ws_id: str, **fields: Any) -> dict[str, Any]:
     rows = await platform.write("p_workspace_set", **{**_unset(), **fields}, ws_id=ws_id)
-    return rows[0]["w"]
+    return rows[0]["w"] if rows else {}
 
 
 async def create(platform: Repo, user_id: str, name: str, slug: str, data_mode: str) -> str:
