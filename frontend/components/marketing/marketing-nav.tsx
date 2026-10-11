@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
-import { CLERK_ENABLED } from "@/lib/auth-config";
+import { useAuthBridge } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
@@ -22,6 +22,8 @@ const LINKS = [
 export function MarketingNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { enabled: authEnabled, isSignedIn } = useAuthBridge();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -65,30 +67,29 @@ export function MarketingNav() {
               ⌘K
             </kbd>
           </button>
-          {CLERK_ENABLED ? (
+          {authEnabled && isSignedIn ? (
             <>
-              <SignedIn>
-                <Button asChild variant="ghost">
-                  <Link href="/workspaces">Dashboard</Link>
-                </Button>
-                <div className="flex items-center pl-1">
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "size-8 rounded-full ring-1 ring-white/20 hover:ring-brand",
-                      },
-                    }}
-                  />
-                </div>
-              </SignedIn>
-              <SignedOut>
-                <Button asChild variant="ghost">
-                  <Link href="/sign-in">Sign in</Link>
-                </Button>
-                <Button asChild>
-                  <Link href="/sign-up">Get started</Link>
-                </Button>
-              </SignedOut>
+              <Button asChild variant="ghost">
+                <Link href="/workspaces">Dashboard</Link>
+              </Button>
+              <div className="flex items-center pl-1">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "size-8 rounded-full ring-1 ring-white/20 hover:ring-brand",
+                    },
+                  }}
+                />
+              </div>
+            </>
+          ) : authEnabled ? (
+            <>
+              <Button asChild variant="ghost">
+                <Link href="/sign-in">Sign in</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/sign-up">Get started</Link>
+              </Button>
             </>
           ) : (
             <>
@@ -127,31 +128,30 @@ export function MarketingNav() {
               ))}
             </ul>
             <div className="mt-auto flex flex-col gap-2 p-4">
-              {CLERK_ENABLED ? (
+              {authEnabled && isSignedIn ? (
                 <>
-                  <SignedIn>
-                    <div className="flex items-center justify-between pb-2">
-                      <span className="text-body-sm text-text-muted">Account</span>
-                      <UserButton />
-                    </div>
-                    <Button asChild size="lg">
-                      <Link href="/workspaces" onClick={() => setOpen(false)}>
-                        Open Dashboard
-                      </Link>
-                    </Button>
-                  </SignedIn>
-                  <SignedOut>
-                    <Button asChild size="lg">
-                      <Link href="/sign-up" onClick={() => setOpen(false)}>
-                        Get started
-                      </Link>
-                    </Button>
-                    <Button asChild size="lg" variant="secondary">
-                      <Link href="/sign-in" onClick={() => setOpen(false)}>
-                        Sign in
-                      </Link>
-                    </Button>
-                  </SignedOut>
+                  <div className="flex items-center justify-between pb-2">
+                    <span className="text-body-sm text-text-muted">Account</span>
+                    <UserButton />
+                  </div>
+                  <Button asChild size="lg">
+                    <Link href="/workspaces" onClick={() => setOpen(false)}>
+                      Open Dashboard
+                    </Link>
+                  </Button>
+                </>
+              ) : authEnabled ? (
+                <>
+                  <Button asChild size="lg">
+                    <Link href="/sign-up" onClick={() => setOpen(false)}>
+                      Get started
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="secondary">
+                    <Link href="/sign-in" onClick={() => setOpen(false)}>
+                      Sign in
+                    </Link>
+                  </Button>
                 </>
               ) : (
                 <>
