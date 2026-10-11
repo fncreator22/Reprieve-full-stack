@@ -3,24 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
-  Zap,
-  TrendingUp,
   Sparkles,
-  ShieldCheck,
-  GitBranch,
   Terminal,
   Cpu,
   Layers,
-  Lock,
   BarChart3,
-  Network,
   GitPullRequest,
-  Clock,
   Play,
   RotateCcw,
   Check,
   Copy,
-  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -126,7 +118,7 @@ function ClerkLogo({ className = "size-5" }: { className?: string }) {
   );
 }
 
-// ─── TERMINAL & CODE SAMPLES ─────────────────────────────────────────────────
+// ─── TERMINAL & CODE CONFIGURATIONS ──────────────────────────────────────────
 
 interface TerminalLog {
   text: string;
@@ -181,37 +173,45 @@ const MCP_SAMPLE_CONFIG = `{
   }
 }`;
 
-const SDK_EXAMPLE_CODE = `// Pre-approval CI risk scan
-import { ReprieveClient } from "@reprieve/sdk";
-const reprieve = new ReprieveClient({ apiKey: process.env.REPRIEVE_API_KEY });
+// ─── 3 CLEAN DEVELOPER SURFACES ──────────────────────────────────────────────
 
-const audit = await reprieve.simulate({
-  serviceId: "svc_payments_gateway",
-  horizonDays: 30
-});
-// ✓ 0 cascading collisions detected (exit 0)`;
+type DeveloperSurfaceId = "cli" | "mcp" | "ci";
 
-const MCP_TOOLS = [
-  { name: "predict_avalanche", desc: "Calculates avalanche centrality (P = p0^h) over N-day sliding horizon" },
-  { name: "predict_expiry_collisions", desc: "Finds temporal collision windows where waivers expire simultaneously" },
-  { name: "proof_path", desc: "Returns shortest proof path between any two graph nodes" },
-  { name: "what_if_as_of", desc: "Runs full graph detection at a future simulation date (read-only)" },
-  { name: "list_alerts", desc: "Active alerts in workspace ranked by deterministic severity" },
-  { name: "get_alert", desc: "Full alert detail including shortest proof path and nodes" },
-  { name: "list_exceptions", desc: "Active exceptions in workspace with control, owner, service" },
-  { name: "get_exception", desc: "Full exception detail with control, owner, and services" },
-  { name: "list_expiring", desc: "Exceptions expiring within N days across sliding window" },
-  { name: "list_orphaned", desc: "Exceptions whose owner has left company or is inactive" },
-  { name: "list_services", desc: "Services with risk score, PageRank, and exception count" },
-  { name: "get_service", desc: "Full service detail including dependency graph context" },
-  { name: "propose_review", desc: "Proposes a ProposedAction to schedule review (human must approve)" },
-  { name: "recall_precedent", desc: "Searches episodic memory for prior human decisions on this control" },
+interface DeveloperSurface {
+  id: DeveloperSurfaceId;
+  title: string;
+  badge: string;
+  desc: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const DEVELOPER_SURFACES: DeveloperSurface[] = [
+  {
+    id: "cli",
+    title: "CLI Scanner",
+    badge: "Zero-Login",
+    desc: "Local AST scan for code waivers with zero login required",
+    icon: Terminal,
+  },
+  {
+    id: "mcp",
+    title: "MCP Protocol",
+    badge: "14 Tools",
+    desc: "14 read-only graph reasoning tools for Cursor & Claude",
+    icon: Cpu,
+  },
+  {
+    id: "ci",
+    title: "GitHub CI Gate",
+    badge: "Pre-Merge Gate",
+    desc: "Automated PR comments blocking cascading failures",
+    icon: GitPullRequest,
+  },
 ];
 
 export const FeaturesCard = () => {
-  const [activeFeatureTab, setActiveFeatureTab] = useState(0);
+  const [activeSurface, setActiveSurface] = useState<DeveloperSurfaceId>("cli");
   const [selectedMetric, setSelectedMetric] = useState(0);
-  const [activeCodeTab, setActiveCodeTab] = useState<"cli" | "ci" | "mcp" | "sdk">("cli");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // Terminal scan playback state
@@ -257,62 +257,11 @@ export const FeaturesCard = () => {
     });
   };
 
-  const features = [
-    {
-      id: 0,
-      title: "MCP Agent Protocol",
-      desc: "14 graph reasoning tools for Cursor, Claude Desktop & Steward",
-      icon: Cpu,
-      stat: "14 Tools",
-      codeTab: "mcp" as const,
-    },
-    {
-      id: 1,
-      title: "GitHub PR & Action Gates",
-      desc: "Blocks multi-hop compound cascades before PRs merge",
-      icon: GitPullRequest,
-      stat: "Pre-Merge Gate",
-      codeTab: "ci" as const,
-    },
-    {
-      id: 2,
-      title: "Graph Traversal (R1–R8)",
-      desc: "Deterministic Cypher queries across 8 rules in <12ms",
-      icon: GitBranch,
-      stat: "<12ms",
-      codeTab: "cli" as const,
-    },
-    {
-      id: 3,
-      title: "Avalanche Risk Centrality",
-      desc: "Predicts multi-hop cascading failure probability P = p0^h",
-      icon: TrendingUp,
-      stat: "P = p0^h",
-      codeTab: "cli" as const,
-    },
-    {
-      id: 4,
-      title: "Temporal Scrubber",
-      desc: "Sliding window collision detection across squads & peak events",
-      icon: Clock,
-      stat: "30-90d Window",
-      codeTab: "sdk" as const,
-    },
-    {
-      id: 5,
-      title: "Steward Grounding",
-      desc: "Zero-hallucination agent: uncited claims stripped before reply",
-      icon: Lock,
-      stat: "100% Grounded",
-      codeTab: "mcp" as const,
-    },
-  ];
-
   const metrics = [
     { label: "Graph Query Latency", value: "12ms", trend: "-34%" },
     { label: "Collision Window Scan", value: "15ms", trend: "-18%" },
     { label: "False Positive Rate", value: "0.00%", trend: "-100%" },
-    { label: "Memory Grounding Accuracy", value: "100%", trend: "+0.00%" },
+    { label: "Grounding Accuracy", value: "100%", trend: "+0.00%" },
   ];
 
   const integrations = [
@@ -323,40 +272,6 @@ export const FeaturesCard = () => {
     { name: "Next.js", role: "Web Engine", logo: NextJsLogo },
     { name: "Clerk", role: "Session Auth", logo: ClerkLogo },
   ];
-
-  const stats = [
-    {
-      label: "Deterministic Rules",
-      value: "8 Graph Rules",
-      subtext: "R1–R8 Cypher invariants · 0 AI guesses",
-      icon: ShieldCheck,
-    },
-    {
-      label: "Evaluation Latency",
-      value: "<15ms Traversal",
-      subtext: "In-memory FalkorDB C-graph engine",
-      icon: Zap,
-    },
-    {
-      label: "Grounded Proof Paths",
-      value: "100% Ground Truth",
-      subtext: "All citations cite living graph nodes",
-      icon: Network,
-    },
-    {
-      label: "Developer Ergonomics",
-      value: "Zero-Login Sandbox",
-      subtext: "Local CLI scan · No prod credentials",
-      icon: Lock,
-    },
-  ];
-
-  const activeFeature = features[activeFeatureTab];
-
-  const handleSelectFeature = (feat: typeof features[number]) => {
-    setActiveFeatureTab(feat.id);
-    setActiveCodeTab(feat.codeTab);
-  };
 
   return (
     <section
@@ -381,72 +296,79 @@ export const FeaturesCard = () => {
           </p>
         </div>
 
-        {/* Main Bento Grid */}
+        {/* Main Bento Grid: 3 Clean Developer Surfaces + Interactive Runtime Viewer */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          {/* LEFT: Core Features Selector (5 Columns) */}
+          {/* LEFT: 3 Clean Developer Surfaces (5 Columns) */}
           <div className="lg:col-span-5 rounded-2xl border border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between transition-all duration-300 hover:border-zinc-700/80 shadow-2xl">
             <div>
               <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold">
-                <Network className="w-3.5 h-3.5 text-brand" />
-                Deterministic Graph Core &amp; Protocols
+                <Terminal className="w-3.5 h-3.5 text-brand" />
+                Developer Surfaces
               </div>
-              <h3 className="text-2xl font-bold tracking-tight mb-1 text-white">Core Features</h3>
-              <p className="text-xs text-zinc-400 mb-5">
-                Click to switch developer surface and view interactive runtime code
+              <h3 className="text-2xl font-bold tracking-tight mb-1 text-white">Three Native Interfaces</h3>
+              <p className="text-xs text-zinc-400 mb-6">
+                Direct integration touchpoints designed for zero developer friction.
               </p>
 
-              {/* Feature Grid Selector */}
-              <div className="grid grid-cols-2 gap-2.5">
-                {features.map((feature) => {
-                  const Icon = feature.icon;
-                  const isActive = activeFeatureTab === feature.id;
+              {/* 3 Spacious Surface Cards */}
+              <div className="flex flex-col gap-3.5">
+                {DEVELOPER_SURFACES.map((surface) => {
+                  const Icon = surface.icon;
+                  const isActive = activeSurface === surface.id;
                   return (
                     <button
-                      key={feature.id}
+                      key={surface.id}
                       type="button"
-                      onClick={() => handleSelectFeature(feature)}
+                      onClick={() => setActiveSurface(surface.id)}
                       className={cn(
-                        "group/card relative overflow-hidden rounded-xl p-3 border transition-all duration-200 flex flex-col text-left cursor-pointer",
+                        "group/item relative flex items-start gap-4 rounded-xl p-4 text-left transition-all duration-200 border cursor-pointer",
                         isActive
-                          ? "bg-zinc-800/90 border-brand/60 shadow-md shadow-brand/10 ring-1 ring-brand/30"
-                          : "bg-zinc-900/60 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900"
+                          ? "bg-zinc-900 border-brand/60 shadow-lg shadow-brand/10 ring-1 ring-brand/30"
+                          : "bg-zinc-900/40 border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900/70"
                       )}
                     >
-                      <div className="flex items-center justify-between w-full mb-1.5">
-                        <Icon
-                          className={cn(
-                            "w-4 h-4 transition-colors",
-                            isActive ? "text-brand" : "text-zinc-500 group-hover/card:text-zinc-300"
-                          )}
-                        />
-                        <span className="text-[10px] font-mono text-zinc-400 bg-black/40 px-1.5 py-0.5 rounded border border-white/5">
-                          {feature.stat}
-                        </span>
+                      <div
+                        className={cn(
+                          "p-2.5 rounded-lg border transition-colors shrink-0",
+                          isActive
+                            ? "bg-brand/10 border-brand/40 text-brand"
+                            : "bg-black/50 border-white/5 text-zinc-400 group-hover/item:text-zinc-200"
+                        )}
+                      >
+                        <Icon className="size-5" />
                       </div>
-                      <span className="text-xs font-bold text-white text-left leading-snug">{feature.title}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <span className="text-sm font-bold text-white tracking-tight">{surface.title}</span>
+                          <span
+                            className={cn(
+                              "text-[10px] font-mono px-2 py-0.5 rounded border uppercase tracking-wider font-semibold",
+                              isActive
+                                ? "bg-brand/10 border-brand/30 text-brand"
+                                : "bg-zinc-800/80 border-zinc-700/60 text-zinc-400"
+                            )}
+                          >
+                            {surface.badge}
+                          </span>
+                        </div>
+                        <p className="text-xs text-zinc-400 leading-relaxed">{surface.desc}</p>
+                      </div>
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Active Feature Detail Callout */}
-            <div className="mt-5 p-4 rounded-xl bg-zinc-900/90 border border-zinc-800/90">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">Selected Capability</span>
-                <span className="text-xs font-mono font-bold text-brand bg-brand/10 px-2 py-0.5 rounded border border-brand/20">
-                  {activeFeature.stat}
-                </span>
-              </div>
-              <p className="text-sm font-bold text-white">{activeFeature.title}</p>
-              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">{activeFeature.desc}</p>
+            <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+              <span>Select surface to view runtime specs</span>
+              <span className="text-zinc-400 font-semibold">Zero-Login Architecture</span>
             </div>
           </div>
 
-          {/* RIGHT: Interactive Pre-Approval CI Scan & Developer Protocol Hub (7 Columns) */}
+          {/* RIGHT: Synchronized Runtime Specs & Terminal (7 Columns) */}
           <div className="lg:col-span-7 rounded-2xl border border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between transition-all duration-300 hover:border-zinc-700/80 shadow-2xl">
             <div>
-              {/* Header with Switcher Tabs */}
+              {/* Header with Active Surface Indicator and Quick Action */}
               <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-800">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
@@ -454,134 +376,112 @@ export const FeaturesCard = () => {
                     <span className="size-2.5 rounded-full bg-[#ffbd2e]" />
                     <span className="size-2.5 rounded-full bg-[#27c93f]" />
                   </div>
-                  <span className="ml-2 font-mono text-[11px] text-zinc-400">reprieve-runtime v1.2</span>
+                  <span className="ml-2 font-mono text-[11px] text-zinc-400">
+                    {activeSurface === "cli" && "reprieve scan --strict"}
+                    {activeSurface === "mcp" && "claude_desktop_config.json"}
+                    {activeSurface === "ci" && ".github/workflows/reprieve.yml"}
+                  </span>
                 </div>
 
-                {/* Mode Switcher Tabs */}
-                <div className="flex rounded-lg bg-black/60 p-1 border border-zinc-800">
-                  <button
-                    type="button"
-                    onClick={() => setActiveCodeTab("cli")}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all",
-                      activeCodeTab === "cli" ? "bg-brand text-white shadow-sm" : "text-zinc-400 hover:text-zinc-200"
-                    )}
-                  >
-                    <Terminal className="size-3" />
-                    <span>Terminal CLI</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveCodeTab("ci")}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all",
-                      activeCodeTab === "ci" ? "bg-brand text-white shadow-sm" : "text-zinc-400 hover:text-zinc-200"
-                    )}
-                  >
-                    <GitPullRequest className="size-3" />
-                    <span>GitHub Actions</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveCodeTab("mcp")}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all",
-                      activeCodeTab === "mcp" ? "bg-brand text-white shadow-sm" : "text-zinc-400 hover:text-zinc-200"
-                    )}
-                  >
-                    <Cpu className="size-3" />
-                    <span>MCP Protocol</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveCodeTab("sdk")}
-                    className={cn(
-                      "flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] font-medium transition-all",
-                      activeCodeTab === "sdk" ? "bg-brand text-white shadow-sm" : "text-zinc-400 hover:text-zinc-200"
-                    )}
-                  >
-                    <Zap className="size-3" />
-                    <span>SDK Scan</span>
-                  </button>
+                {/* Surface Indicator & Copy Action */}
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-zinc-700/60 bg-zinc-900 text-zinc-400">
+                    {activeSurface === "cli" && "CLI Scanner"}
+                    {activeSurface === "mcp" && "MCP Protocol"}
+                    {activeSurface === "ci" && "GitHub Actions"}
+                  </span>
+                  {activeSurface === "cli" && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleCopy("npx reprieve scan --strict", "cli-npx")}
+                      className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2.5"
+                    >
+                      {copiedKey === "cli-npx" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
+                      <span>{copiedKey === "cli-npx" ? "Copied" : "Copy Command"}</span>
+                    </Button>
+                  )}
+                  {activeSurface === "mcp" && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleCopy(MCP_SAMPLE_CONFIG, "mcp-config")}
+                      className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2.5"
+                    >
+                      {copiedKey === "mcp-config" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
+                      <span>{copiedKey === "mcp-config" ? "Copied" : "Copy JSON"}</span>
+                    </Button>
+                  )}
+                  {activeSurface === "ci" && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleCopy(GITHUB_ACTION_YAML, "ci-yaml")}
+                      className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2.5"
+                    >
+                      {copiedKey === "ci-yaml" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
+                      <span>{copiedKey === "ci-yaml" ? "Copied" : "Copy YAML"}</span>
+                    </Button>
+                  )}
                 </div>
               </div>
 
-              {/* Quick Install Strip */}
-              <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3.5 py-2.5 mt-4 font-mono text-[11px]">
-                <div className="flex flex-wrap items-center gap-2 text-zinc-300">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Quick Install:</span>
-                  <span className="inline-flex items-center gap-1 rounded bg-black/60 px-2 py-0.5 text-emerald-400 border border-emerald-500/20">
-                    <span className="text-zinc-600">$</span> npm i -g reprieve-cli
-                  </span>
-                  <span className="text-zinc-600">or</span>
-                  <span className="inline-flex items-center gap-1 rounded bg-black/60 px-2 py-0.5 text-zinc-300 border border-white/10">
-                    <span className="text-zinc-600">$</span> npx reprieve scan --strict
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleCopy("npm i -g reprieve-cli", "cli-npm")}
-                    className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2"
-                  >
-                    {copiedKey === "cli-npm" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                    <span>{copiedKey === "cli-npm" ? "Copied" : "Copy npm"}</span>
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleCopy("npx reprieve scan --strict", "cli-npx")}
-                    className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2"
-                  >
-                    {copiedKey === "cli-npx" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                    <span>{copiedKey === "cli-npx" ? "Copied" : "Copy npx"}</span>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Dynamic Tab Body */}
+              {/* Dynamic Surface Body */}
               <div className="mt-4">
-                {/* 1. Terminal CLI Tab */}
-                {activeCodeTab === "cli" && (
+                {/* 1. CLI Tab */}
+                {activeSurface === "cli" && (
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    {/* Quick Install Strip */}
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 rounded-xl border border-zinc-800 bg-zinc-900/60 px-3.5 py-2.5 font-mono text-[11px]">
+                      <div className="flex flex-wrap items-center gap-2 text-zinc-300">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Quick Install:</span>
+                        <span className="inline-flex items-center gap-1 rounded bg-black/60 px-2 py-0.5 text-emerald-400 border border-emerald-500/20">
+                          <span className="text-zinc-600">$</span> npm i -g reprieve-cli
+                        </span>
+                        <span className="text-zinc-600">or</span>
+                        <span className="inline-flex items-center gap-1 rounded bg-black/60 px-2 py-0.5 text-zinc-300 border border-white/10">
+                          <span className="text-zinc-600">$</span> npx reprieve scan --strict
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleCopy("npx reprieve scan --strict", "cli-npx")}
+                          className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] px-2.5"
+                        >
+                          {copiedKey === "cli-npx" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
+                          <span>{copiedKey === "cli-npx" ? "Copied" : "Copy npx"}</span>
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold text-white">Pre-Approval AST Waiver &amp; Risk Gate</span>
+                        <span className="text-xs font-semibold text-white">Pre-Approval AST Waiver &amp; Risk Breaker</span>
                         <span className="rounded bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 font-mono text-[10px] text-emerald-400">
                           Zero-Login Ready
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={runSimulation}
-                          disabled={isRunning}
-                          className="h-7 border-brand/40 bg-brand/10 text-brand hover:bg-brand/20 font-mono text-[11px]"
-                        >
-                          {isRunning ? (
-                            <>
-                              <RotateCcw className="mr-1 size-3 animate-spin" />
-                              Scanning...
-                            </>
-                          ) : (
-                            <>
-                              <Play className="mr-1 size-3 fill-current" />
-                              Re-run Scan
-                            </>
-                          )}
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleCopy("npx reprieve scan --strict", "cli-scan")}
-                          className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[11px]"
-                        >
-                          {copiedKey === "cli-scan" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                          <span>{copiedKey === "cli-scan" ? "Copied" : "Copy"}</span>
-                        </Button>
-                      </div>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={runSimulation}
+                        disabled={isRunning}
+                        className="h-7 border-brand/40 bg-brand/10 text-brand hover:bg-brand/20 font-mono text-[11px]"
+                      >
+                        {isRunning ? (
+                          <>
+                            <RotateCcw className="mr-1 size-3 animate-spin" />
+                            Scanning...
+                          </>
+                        ) : (
+                          <>
+                            <Play className="mr-1 size-3 fill-current" />
+                            Re-run Scan
+                          </>
+                        )}
+                      </Button>
                     </div>
 
                     <div className="rounded-xl border border-zinc-800 bg-[#07080a] p-4 font-mono text-[12px] leading-relaxed text-zinc-200 shadow-inner overflow-x-auto min-h-[220px] max-h-[260px] overflow-y-auto">
@@ -636,9 +536,47 @@ export const FeaturesCard = () => {
                   </div>
                 )}
 
-                {/* 2. GitHub Actions Tab */}
-                {activeCodeTab === "ci" && (
-                  <div className="space-y-3">
+                {/* 2. MCP Protocol Tab (Clean, spacious JSON and protocol invariants) */}
+                {activeSurface === "mcp" && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-semibold text-white">Native Model Context Protocol Server</span>
+                        <span className="rounded bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[10px] text-brand">
+                          Cursor · Claude Desktop
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-zinc-500">14 Read-Only Graph Tools</span>
+                    </div>
+
+                    <pre className="rounded-xl border border-zinc-800 bg-[#07080a] p-4 font-mono text-[12px] leading-relaxed text-zinc-300 overflow-x-auto min-h-[170px] max-h-[220px]">
+                      <code>{MCP_SAMPLE_CONFIG}</code>
+                    </pre>
+
+                    {/* Clean spacious highlights */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">14 Tools</div>
+                        <p className="text-xs font-medium text-zinc-200">Read-Only Reasoning</p>
+                        <p className="text-[11px] text-zinc-500">predict_avalanche, proof_path, collisions, what_if</p>
+                      </div>
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-brand uppercase tracking-wider font-semibold">Grounded</div>
+                        <p className="text-xs font-medium text-zinc-200">Zero Hallucinations</p>
+                        <p className="text-[11px] text-zinc-500">Uncited entity IDs stripped by guard before delivery</p>
+                      </div>
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider font-semibold">Rate Guard</div>
+                        <p className="text-xs font-medium text-zinc-200">Max 6 Tools / Turn</p>
+                        <p className="text-[11px] text-zinc-500">Deterministic loop preventing runaway inference costs</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. GitHub CI Tab */}
+                {activeSurface === "ci" && (
+                  <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-semibold text-white">Pre-Merge Pull Request Risk Circuit Breaker</span>
@@ -646,113 +584,30 @@ export const FeaturesCard = () => {
                           GitHub Actions
                         </span>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleCopy(GITHUB_ACTION_YAML, "ci-yaml")}
-                        className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[11px]"
-                      >
-                        {copiedKey === "ci-yaml" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                        <span>{copiedKey === "ci-yaml" ? "Copied" : "Copy YAML"}</span>
-                      </Button>
+                      <span className="text-[11px] font-mono text-zinc-500">Automated PR Check</span>
                     </div>
 
-                    <pre className="rounded-xl border border-zinc-800 bg-[#07080a] p-4 font-mono text-[11.5px] leading-relaxed text-zinc-300 overflow-x-auto max-h-[250px] overflow-y-auto">
+                    <pre className="rounded-xl border border-zinc-800 bg-[#07080a] p-4 font-mono text-[11.5px] leading-relaxed text-zinc-300 overflow-x-auto min-h-[170px] max-h-[220px] overflow-y-auto">
                       <code>{GITHUB_ACTION_YAML}</code>
                     </pre>
-                  </div>
-                )}
 
-                {/* 3. MCP Protocol Tab */}
-                {activeCodeTab === "mcp" && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold text-white">Native MCP Server for AI Coding Agents</span>
-                        <span className="rounded bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[10px] text-brand">
-                          Cursor · Claude Desktop
-                        </span>
+                    {/* Clean spacious highlights */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">AST Scanner</div>
+                        <p className="text-xs font-medium text-zinc-200">Code Waiver Mining</p>
+                        <p className="text-[11px] text-zinc-500">Detects #nosec, @skip, TODO(waiver) in repo pull requests</p>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleCopy(MCP_SAMPLE_CONFIG, "mcp-config")}
-                        className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[11px]"
-                      >
-                        {copiedKey === "mcp-config" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                        <span>{copiedKey === "mcp-config" ? "Copied" : "Copy JSON"}</span>
-                      </Button>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <div>
-                        <div className="text-[10px] font-mono text-zinc-400 mb-1.5 flex justify-between">
-                          <span>claude_desktop_config.json</span>
-                          <span className="text-emerald-400">Bearer Auth</span>
-                        </div>
-                        <pre className="rounded-xl border border-zinc-800 bg-[#07080a] p-3 font-mono text-[11px] leading-relaxed text-zinc-300 overflow-x-auto max-h-[190px]">
-                          <code>{MCP_SAMPLE_CONFIG}</code>
-                        </pre>
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-red-400 uppercase tracking-wider font-semibold">Circuit Breaker</div>
+                        <p className="text-xs font-medium text-zinc-200">Cascading Failures Block</p>
+                        <p className="text-[11px] text-zinc-500">Fails CI exit code 1 if compound avalanche risk exceeds 75.0</p>
                       </div>
-
-                      <div>
-                        <div className="text-[10px] font-mono text-zinc-400 mb-1.5 flex justify-between">
-                          <span>14 Exposed Graph Tools</span>
-                          <span className="text-brand">Read-Only</span>
-                        </div>
-                        <div className="space-y-1.5 max-h-[190px] overflow-y-auto pr-1">
-                          {MCP_TOOLS.slice(0, 6).map((t) => (
-                            <div key={t.name} className="rounded-lg border border-zinc-800/80 bg-zinc-900/60 p-2 text-xs">
-                              <span className="font-mono text-[11px] font-bold text-white">{t.name}</span>
-                              <p className="text-[10px] text-zinc-400 line-clamp-1 mt-0.5">{t.desc}</p>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-3.5 space-y-1">
+                        <div className="text-[11px] font-mono text-purple-300 uppercase tracking-wider font-semibold">Bot Annotation</div>
+                        <p className="text-xs font-medium text-zinc-200">Automated PR Comment</p>
+                        <p className="text-[11px] text-zinc-500">Posts shortest proof path directly on GitHub pull requests</p>
                       </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. SDK Scan Tab */}
-                {activeCodeTab === "sdk" && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-semibold text-white">Programmatic TypeScript SDK Simulation</span>
-                        <span className="rounded bg-zinc-800 border border-zinc-700 px-2 py-0.5 font-mono text-[10px] text-zinc-300">
-                          @reprieve/sdk
-                        </span>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleCopy(SDK_EXAMPLE_CODE, "sdk-code")}
-                        className="h-7 border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[11px]"
-                      >
-                        {copiedKey === "sdk-code" ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
-                        <span>{copiedKey === "sdk-code" ? "Copied" : "Copy Code"}</span>
-                      </Button>
-                    </div>
-
-                    <div className="bg-[#07080a] border border-zinc-800 rounded-xl p-4 font-mono text-[12px] leading-relaxed overflow-x-auto max-h-[220px]">
-                      {SDK_EXAMPLE_CODE.split("\n").map((line, idx) => (
-                        <div key={idx} className="flex gap-2">
-                          <span className="text-zinc-600 select-none w-5 text-right shrink-0">{idx + 1}</span>
-                          <span
-                            className={cn(
-                              line.includes("//")
-                                ? "text-zinc-600"
-                                : line.includes("✓")
-                                ? "text-emerald-400 font-medium"
-                                : line.includes("const") || line.includes("await") || line.includes("import")
-                                ? "text-zinc-200 font-medium"
-                                : "text-zinc-400"
-                            )}
-                          >
-                            {line}
-                          </span>
-                        </div>
-                      ))}
                     </div>
                   </div>
                 )}
@@ -783,21 +638,21 @@ export const FeaturesCard = () => {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-2 gap-3">
                 {metrics.map((metric, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setSelectedMetric(idx)}
                     className={cn(
-                      "text-left p-3 rounded-xl transition-all duration-200 border cursor-pointer",
+                      "text-left p-3.5 rounded-xl transition-all duration-200 border cursor-pointer",
                       selectedMetric === idx
                         ? "bg-zinc-800/90 border-zinc-600 shadow-sm"
                         : "bg-zinc-900/60 border-zinc-800/80 hover:border-zinc-700 hover:bg-zinc-900"
                     )}
                   >
                     <p className="text-[11px] text-zinc-400">{metric.label}</p>
-                    <div className="flex items-baseline justify-between mt-1">
+                    <div className="flex items-baseline justify-between mt-1.5">
                       <span className="text-base font-bold text-white font-mono">{metric.value}</span>
                       <span className="text-[10px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
                         {metric.trend}
@@ -832,7 +687,7 @@ export const FeaturesCard = () => {
               </div>
 
               {/* 6 Original Logos Grid */}
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
                 {integrations.map((int, idx) => {
                   const Logo = int.logo;
                   return (
@@ -859,31 +714,31 @@ export const FeaturesCard = () => {
           </div>
         </div>
 
-        {/* BOTTOM GUARANTEE STRIP: 8 Rules, <15ms, 100% Ground Truth, Zero Login */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <div
-                key={idx}
-                className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950 p-5 transition-all duration-300 hover:border-zinc-700 shadow-lg"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-brand">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Invariant 0{idx + 1}</span>
-                </div>
-                <p className="text-xs text-zinc-400 font-medium">{stat.label}</p>
-                <p className="text-xl font-bold text-white mt-1 font-mono">
-                  {stat.value}
-                </p>
-                <p className="text-[11px] text-zinc-500 mt-1.5 leading-snug">
-                  {stat.subtext}
-                </p>
-              </div>
-            );
-          })}
+        {/* BOTTOM GUARANTEE SPECIFICATIONS STRIP (Unified wide 4-metric anchor) */}
+        <div className="grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-[#0a0b0e] p-6 shadow-xl sm:grid-cols-4 sm:p-8">
+          <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
+            <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">14 Tools</div>
+            <p className="text-body-sm font-medium text-zinc-200">Read-Only Reasoning</p>
+            <p className="text-[11px] font-mono text-zinc-400">8 Cypher rules (R1 to R8)</p>
+          </div>
+
+          <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
+            <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">12ms</div>
+            <p className="text-body-sm font-medium text-zinc-200">Pre-Merge Gate Latency</p>
+            <p className="text-[11px] font-mono text-zinc-400">Evaluates in GitHub Actions CI</p>
+          </div>
+
+          <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
+            <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">100%</div>
+            <p className="text-body-sm font-medium text-zinc-200">Grounded Proof Paths</p>
+            <p className="text-[11px] font-mono text-zinc-400">Every alert cites graph nodes</p>
+          </div>
+
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="text-display-md sm:text-display-lg font-mono font-bold text-brand">0 Login</div>
+            <p className="text-body-sm font-medium text-zinc-200">Developer Ergonomics</p>
+            <p className="text-[11px] font-mono text-zinc-400">PR comments and CLI integration</p>
+          </div>
         </div>
       </div>
     </section>

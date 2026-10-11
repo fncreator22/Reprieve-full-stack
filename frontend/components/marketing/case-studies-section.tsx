@@ -101,33 +101,6 @@ const DOCUMENTED_INCIDENTS: IncidentAnalysis[] = [
 export function CaseStudiesSection({ onBookCall }: CaseStudiesSectionProps) {
   return (
     <section aria-labelledby="case-studies-heading" className="mx-auto max-w-[1240px] px-4 py-20 sm:px-6 sm:py-28">
-      {/* Architectural Specifications Strip */}
-      <div className="mb-16 grid grid-cols-2 gap-4 rounded-2xl border border-white/10 bg-[#0a0b0e] p-6 shadow-xl sm:grid-cols-4 sm:p-8">
-        <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
-          <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">8 Rules</div>
-          <p className="text-body-sm font-medium text-zinc-200">Deterministic Cypher</p>
-          <p className="text-[11px] font-mono text-zinc-400">Formal graph queries (R1 to R8)</p>
-        </div>
-
-        <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
-          <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">&lt; 15ms</div>
-          <p className="text-body-sm font-medium text-zinc-200">Pre-Merge Gate Latency</p>
-          <p className="text-[11px] font-mono text-zinc-400">Evaluates in GitHub Actions CI</p>
-        </div>
-
-        <div className="space-y-1 text-center sm:text-left sm:border-r border-white/10 sm:pr-6">
-          <div className="text-display-md sm:text-display-lg font-mono font-bold text-white">100%</div>
-          <p className="text-body-sm font-medium text-zinc-200">Grounded Proof Paths</p>
-          <p className="text-[11px] font-mono text-zinc-400">Every alert cites graph nodes</p>
-        </div>
-
-        <div className="space-y-1 text-center sm:text-left">
-          <div className="text-display-md sm:text-display-lg font-mono font-bold text-brand">0 Login</div>
-          <p className="text-body-sm font-medium text-zinc-200">Developer Ergonomics</p>
-          <p className="text-[11px] font-mono text-zinc-400">PR comments and CLI integration</p>
-        </div>
-      </div>
-
       {/* Heading */}
       <div className="mx-auto max-w-3xl text-center space-y-4 mb-16">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-300">
