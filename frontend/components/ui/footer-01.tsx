@@ -163,6 +163,7 @@ export default function Footer01() {
                 id="footer-01-email"
                 type="email"
                 required
+                suppressHydrationWarning
                 placeholder="developer@company.com"
                 autoComplete="email"
                 className="bg-zinc-950 border-zinc-800 text-white placeholder:text-zinc-500 focus-visible:ring-brand"
