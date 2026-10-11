@@ -61,9 +61,10 @@ export function CollisionScrubber({ className }: { className?: string }) {
           step={1}
           value={horizonDays}
           onChange={(e) => setHorizonDays(Number(e.target.value))}
+          aria-label="Temporal Horizon Scrubber in days"
           className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-zinc-800 accent-brand transition-all"
         />
-        <div className="mt-1 flex justify-between text-[10px] font-mono text-zinc-500">
+        <div className="mt-1 flex justify-between text-[12px] font-mono text-zinc-400">
           <span>Today</span>
           <span>30 Days</span>
           <span>60 Days</span>
@@ -85,7 +86,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
                   ? isCoreCollision
                     ? "border-red-500/40 bg-red-950/20 text-red-200"
                     : "border-white/[0.12] bg-[#141517] text-zinc-200"
-                  : "border-white/[0.03] bg-[#090a0b] text-zinc-600 opacity-40"
+                  : "border-white/[0.08] bg-[#0c0d10] text-zinc-400 border-dashed"
               )}
             >
               <div className="flex items-center gap-2">
@@ -100,9 +101,9 @@ export function CollisionScrubber({ className }: { className?: string }) {
                   )}
                 />
                 <span className="font-medium">{item.name}</span>
-                <span className="text-[10px] text-zinc-500">({item.service})</span>
+                <span className="font-mono text-[12px] text-zinc-400">({item.service})</span>
               </div>
-              <span className="font-mono text-[11px]">
+              <span className="font-mono text-[12px] text-zinc-300">
                 {isExpiring ? `T-${item.expiryDay}d` : `Day ${item.expiryDay}`}
               </span>
             </div>

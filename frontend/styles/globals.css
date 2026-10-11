@@ -69,7 +69,7 @@
   --bg-canvas:#0A0C11; --bg-surface:#11141B; --bg-raised:#171B24; --bg-overlay:#1D222D; --bg-sunken:#0D1015;
   --border-subtle:#232937; --border-default:#2E3546; --border-strong:#3A4358;
   --text-primary:#EEF1F7; --text-secondary:#A9B2C5; --text-muted:#8791A6;
-  --brand:#8B7DFF; --brand-solid:#6D5EF6; --brand-soft:rgba(139,125,255,.14);
+  --brand:#8B7DFF; --brand-solid:#5848e5; --brand-soft:rgba(139,125,255,.14);
   --proof:#22D3EE; --proof-soft:rgba(34,211,238,.12);
   --aurora-glow:0 0 0 1px rgba(139,125,255,.4), 0 8px 32px -8px rgba(124,108,255,.45);
   --aurora-mesh-opacity:.14;

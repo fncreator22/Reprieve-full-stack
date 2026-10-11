@@ -1,252 +1,221 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import {
-  AlertTriangle,
-  ArrowRight,
-  ExternalLink,
-  FileText,
-  Route,
-  ShieldAlert,
-  ShieldCheck,
-  Calendar,
-} from "lucide-react";
+import { ExternalLink, ArrowRight, ShieldCheck, AlertTriangle, FileText, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface CaseStudiesSectionProps {
-  onBookCall: () => void;
-}
-
-interface IncidentAnalysis {
-  badge: string;
+interface IncidentWipeData {
+  id: string;
   target: string;
-  scope: string;
-  title: string;
-  sourceUrl?: string;
-  sourceLabel?: string;
-  sandboxHref?: string;
-  crisisSummary: string;
-  repreveInterception: string;
-  cypherRules: string[];
-  proofChain: string[];
-  engineeringLesson: string;
+  date: string;
+  sourceUrl: string;
+  sourceLabel: string;
+  lossFigure: string;
+  whatHappened: string;
+  withReprieve: string;
+  rules: string[];
 }
 
-const DOCUMENTED_INCIDENTS: IncidentAnalysis[] = [
+const INCIDENTS: IncidentWipeData[] = [
   {
-    badge: "Public Incident Analysis",
+    id: "crowdstrike",
     target: "CrowdStrike Falcon Sensor",
-    scope: "8.5M Systems Crashed · Global Outage (July 2024)",
-    title: "Cascading Configuration Bypass Across Mission-Critical Dependencies",
+    date: "July 2024",
     sourceUrl: "https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/",
     sourceLabel: "Official CrowdStrike PIR & Hub",
-    crisisSummary:
-      "A template update in Channel File 291 passed syntax validation but bypassed phased rollout stages. The unmonitored exception reached production endpoints simultaneously, causing out-of-bounds memory reads and cascading kernel panics across 8.5 million machines worldwide.",
-    repreveInterception:
-      "Reprieve's pre-merge CI scanner analyzes configuration ASTs against the dependency graph. Sentinel evaluates Rule R4 (Service Concentration) and Rule R8 (Customer-Path Exposure), detecting that this bypass sits directly on root execution paths with zero isolation, halting the release before deployment.",
-    cypherRules: ["Rule R4: Service Concentration", "Rule R8: Customer-Path Exposure"],
-    proofChain: ["Channel File #291", "AFFECTS", "CSAgent Core", "DEPENDS_ON", "Kernel Sensor Engine"],
-    engineeringLesson:
-      "Isolated configuration bypasses cannot be evaluated without mapping every downstream dependency in the service graph.",
+    lossFigure: "8.5M Systems Crashed",
+    whatHappened:
+      "A template update in Channel File 291 passed isolated syntax validation but bypassed phased rollout, triggering out-of-bounds reads and cascading kernel panics globally.",
+    withReprieve:
+      "Pre-merge AST scanner detects bypass on root dependency paths with zero isolation before merge.",
+    rules: ["Rule R4: Service Concentration", "Rule R8: Customer-Path Exposure"],
   },
   {
-    badge: "Regulatory Enforcement Record",
+    id: "knight-capital",
     target: "Knight Capital Group",
-    scope: "$440M Capital Loss in 45 Min · SEC Administrative Action",
-    title: "Dormant Feature Flag Reuse and Incomplete Deployment",
-    sourceUrl: "https://www.sec.gov/news/press-release/2013-222",
+    date: "August 2012",
+    sourceUrl: "https://www.sec.gov/newsroom/press-releases/2013-222",
     sourceLabel: "SEC Release No. 2013-222",
-    crisisSummary:
-      "A developer repurposed a retired feature flag ('Power Peg') previously used for test execution. During deployment across eight production servers, one server was inadvertently omitted. The dormant code remained enabled on that node with no active owner, executing millions of unintended market orders in 45 minutes.",
-    repreveInterception:
-      "Reprieve tracks temporary feature flags, skipped checks, and code waivers as living nodes bound to verified owners and expiration dates. Sentinel fires Rule R2 (Ghost Owner) and Rule R5 (Renewal Treadmill), identifying that a retired flag with an inactive owner was triggered, halting deployment immediately.",
-    cypherRules: ["Rule R2: Ghost Owner", "Rule R5: Renewal Treadmill"],
-    proofChain: ["Power Peg Flag", "OWNED_BY", "Inactive Owner", "AFFECTS", "SMARS Order Router"],
-    engineeringLesson:
-      "Dormant flags and waivers without living, verified owners are time bombs that standard unit tests and ticket boards cannot see.",
+    lossFigure: "$440M Lost in 45 Min",
+    whatHappened:
+      "Repurposed retired 'Power Peg' flag deployed onto 7 of 8 servers; omitted node ran dormant unowned test code executing millions of unintended market orders.",
+    withReprieve:
+      "Sentinel halts deployment immediately upon detecting a retired flag bound to an inactive owner.",
+    rules: ["Rule R2: Ghost Owner", "Rule R5: Renewal Treadmill"],
   },
   {
-    badge: "Engineering Post-Mortem",
+    id: "gitlab",
     target: "GitLab Database Outage",
-    scope: "300GB Primary Desync · Multi-Hour Outage (Jan 2017)",
-    title: "Multiple Concurrent Safeguard Waivers and Shared Fallback Failure",
-    sourceUrl: "https://about.gitlab.com/blog/2017/02/01/gitlab-dot-com-database-incident/",
+    date: "January 2017",
+    sourceUrl: "https://about.gitlab.com/blog/gitlab-dot-com-database-incident/",
     sourceLabel: "GitLab Public Incident Report",
-    crisisSummary:
-      "During severe replication lag, multiple automated backup verification routines and replication checks were temporarily waived or disabled. When an engineer executed a manual recovery operation on the wrong node, zero compensating backup controls were active to absorb the error.",
-    repreveInterception:
-      "Reprieve models secondary replicas and automated backup jobs as compensating controls in the architecture graph. Sentinel evaluates Rule R3 (Shared Fallback Bottleneck) and Rule R7 (Broken Compensating Control), detecting that disabling verification while primary load is degraded eliminates all safety margin.",
-    cypherRules: ["Rule R3: Shared Fallback Bottleneck", "Rule R7: Broken Compensating Control"],
-    proofChain: ["Backup Verifier", "WAIVED", "Postgres Primary", "SHARED_FALLBACK", "Secondary Replica"],
-    engineeringLesson:
-      "Waiving an operational safeguard is only safe if compensating controls remain verified and active across all shared fallbacks.",
-  },
-  {
-    badge: "Interactive Reference Sandbox",
-    target: "Northwind Pay (Simulated)",
-    scope: "185 Microservices · $40M Daily Volume · Pre-Seeded",
-    title: "Multi-Squad Cyber Monday Waiver Collisions on Checkout",
-    sandboxHref: "/w/northwind-pay/home",
-    crisisSummary:
-      "Four squads took isolated, justifiable shortcuts: a TLS waiver on payments-gateway, a skipped load test on auth-cache, and two unmanaged feature flags. All four were scheduled to expire during Cyber Week, two hops away from checkout-api.",
-    repreveInterception:
-      "Reprieve's deterministic avalanche engine calculates Avalanche Centrality (P = p0^h) and Temporal Expiry Collisions in 12ms. Sentinel generates a shortest proof path pinpointing checkout-api failure 18 days before peak holiday traffic.",
-    cypherRules: ["Rule R1: Expiring Waivers", "Rule R6: Expiry Collision Window", "Avalanche Centrality (P = p0^h)"],
-    proofChain: ["Checkout Path", "REQUIRES", "checkout-api", "DEPENDS_ON", "payments-core", "COLLIDES", "4 Active Waivers"],
-    engineeringLesson:
-      "Pre-seeded in our live sandbox. You can inspect the full graph, timeline scrubber, and proof paths with zero login.",
+    lossFigure: "300GB Primary Desync",
+    whatHappened:
+      "Automated backup verification routines were temporarily disabled during replication lag; engineer accidental deletion on primary had zero live compensating controls.",
+    withReprieve:
+      "Graph model identifies that waiving backup verifiers during degraded primary load completely eliminates safety margin.",
+    rules: ["Rule R3: Shared Fallback Bottleneck", "Rule R7: Broken Compensating Control"],
   },
 ];
 
-export function CaseStudiesSection({ onBookCall }: CaseStudiesSectionProps) {
+function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
+  const [sliderPos, setSliderPos] = useState(50);
+
   return (
-    <section aria-labelledby="case-studies-heading" className="mx-auto max-w-[1240px] px-4 py-20 sm:px-6 sm:py-28">
-      {/* Heading */}
-      <div className="mx-auto max-w-3xl text-center space-y-4 mb-16">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-300">
-          <FileText className="size-3.5 text-brand" />
-          <span>Documented Outage Post-Mortems</span>
+    <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-7 shadow-xl space-y-5">
+      {/* Top Header: Company, Date & Verified Official Source */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+        <div className="flex items-center gap-3">
+          <span className="flex size-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] font-mono text-[12px] font-bold text-white">
+            <FileText className="size-3.5 text-brand" aria-hidden="true" />
+          </span>
+          <div>
+            <h3 className="font-display text-[1.25rem] font-bold text-white flex items-center gap-2">
+              {incident.target}
+              <span className="font-mono text-[12px] font-normal text-zinc-400">({incident.date})</span>
+            </h3>
+          </div>
         </div>
-        <h2 id="case-studies-heading" className="text-display-lg font-display font-bold text-white tracking-tight">
-          How Graph Governance Intercepts Real Disasters
-        </h2>
-        <p className="text-body-lg text-zinc-300 leading-relaxed">
-          Major outages rarely stem from a single broken function. They happen when isolated waivers and unmonitored bypasses collide across microservice boundaries. Here is how Reprieve&apos;s deterministic rules model and intercept documented public incidents.
-        </p>
+
+        {/* Official Source Link */}
+        <a
+          href={incident.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[12px] font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-brand"
+        >
+          <span>{incident.sourceLabel}</span>
+          <ExternalLink className="size-3 text-zinc-400" aria-hidden="true" />
+        </a>
       </div>
 
-      {/* Clean High-Contrast Incident Cards */}
-      <div className="space-y-8">
-        {DOCUMENTED_INCIDENTS.map((incident, idx) => (
-          <div
-            key={incident.target}
-            className="rounded-2xl border border-white/15 bg-[#0a0b0e] p-6 sm:p-8 shadow-2xl transition-all hover:border-brand/50 space-y-6"
-          >
-            {/* Header info */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
-              <div className="flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-lg border border-white/15 bg-white/[0.05] font-mono font-bold text-white text-body-base">
-                  0{idx + 1}
-                </span>
-                <div>
-                  <h3 className="text-h3 font-bold text-white flex flex-wrap items-center gap-2.5">
-                    {incident.target}
-                    <span className="rounded border border-white/15 bg-white/[0.05] px-2.5 py-0.5 font-mono text-[11px] text-zinc-300">
-                      {incident.scope}
-                    </span>
-                  </h3>
-                  <p className="mt-0.5 text-body-sm font-medium text-zinc-300">{incident.title}</p>
-                </div>
-              </div>
+      {/* Interactive Wipe Band Container */}
+      <div className="relative rounded-xl border border-white/[0.08] bg-[#08090c] p-6 overflow-hidden select-none">
+        {/* Split Grid for Desktop & Mobile */}
+        <div className="grid gap-6 md:grid-cols-2 md:divide-x md:divide-white/[0.08]">
+          {/* Left Pane: What Happened (Catastrophic Loss) */}
+          <div className="space-y-3 md:pr-6">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-wider text-red-400">
+                <AlertTriangle className="size-3.5" aria-hidden="true" />
+                <span>What Happened</span>
+              </span>
+              <span className="font-mono text-[1.125rem] sm:text-[1.375rem] font-bold text-red-400">
+                {incident.lossFigure}
+              </span>
+            </div>
+            <p className="text-[14px] leading-relaxed text-zinc-300">
+              {incident.whatHappened}
+            </p>
+          </div>
 
-              {/* Source Link / Verification Pill */}
-              <div>
-                {incident.sourceUrl && (
-                  <a
-                    href={incident.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.06] px-3.5 py-2 font-mono text-[12px] font-medium text-white hover:bg-white/[0.1] hover:border-brand transition-colors"
+          {/* Right Pane: With Reprieve (Accent Color Interception) */}
+          <div className="space-y-3 md:pl-6">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-wider text-brand">
+                <ShieldCheck className="size-3.5" aria-hidden="true" />
+                <span>With Reprieve</span>
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {incident.rules.map((rule) => (
+                  <span
+                    key={rule}
+                    className="rounded border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-brand"
                   >
-                    <span>{incident.sourceLabel}</span>
-                    <ExternalLink className="size-3.5 text-zinc-300" />
-                  </a>
-                )}
-                {incident.sandboxHref && (
-                  <Button asChild size="sm" variant="outline" className="border-white/20 bg-white/[0.06] text-white hover:bg-white/[0.1] font-mono text-[12px]">
-                    <Link href={incident.sandboxHref}>
-                      <span>Explore Sandbox</span>
-                      <ArrowRight className="ml-1.5 size-3.5" />
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </div>
-
-            {/* Clear Side-by-Side Narrative */}
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-red-400 font-semibold font-mono text-[12px] uppercase tracking-wider">
-                  <AlertTriangle className="size-4" />
-                  <span>The Real Failure Mode</span>
-                </div>
-                <p className="text-body-sm text-zinc-200 leading-relaxed font-normal">
-                  {incident.crisisSummary}
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-emerald-400 font-semibold font-mono text-[12px] uppercase tracking-wider">
-                  <ShieldCheck className="size-4" />
-                  <span>How Reprieve Intercepts It</span>
-                </div>
-                <p className="text-body-sm text-zinc-200 leading-relaxed font-normal">
-                  {incident.repreveInterception}
-                </p>
-              </div>
-            </div>
-
-            {/* Evaluated Rules and Proof Chain */}
-            <div className="rounded-xl border border-white/10 bg-[#121317] p-4 space-y-3">
-              <div className="flex flex-wrap items-center gap-2 text-[12px] font-mono">
-                <span className="text-zinc-400 uppercase tracking-wider">Evaluated Graph Rules:</span>
-                <div className="flex flex-wrap gap-2">
-                  {incident.cypherRules.map((rule) => (
-                    <span key={rule} className="rounded border border-brand/40 bg-brand/15 px-2.5 py-0.5 text-brand font-medium">
-                      {rule}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 text-[12px] font-mono pt-1">
-                <span className="text-zinc-400">Shortest Proof Path:</span>
-                {incident.proofChain.map((node, i) => (
-                  <span key={i} className="flex items-center gap-2">
-                    <span
-                      className={`rounded px-2.5 py-0.5 font-medium ${
-                        i % 2 === 0
-                          ? "border border-white/15 bg-white/[0.06] text-white"
-                          : "text-zinc-400"
-                      }`}
-                    >
-                      {node}
-                    </span>
-                    {i < incident.proofChain.length - 1 && <span className="text-zinc-500">&rarr;</span>}
+                    {rule}
                   </span>
                 ))}
               </div>
             </div>
-
-            {/* Architectural Takeaway */}
-            <div className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-4 text-body-sm">
-              <ShieldAlert className="size-4 text-amber-400 shrink-0 mt-0.5" />
-              <p className="text-zinc-300">
-                <strong className="text-white">Architecture Takeaway:</strong> {incident.engineeringLesson}
-              </p>
-            </div>
+            <p className="text-[14px] leading-relaxed text-zinc-300">
+              {incident.withReprieve}
+            </p>
           </div>
+        </div>
+
+        {/* Accessible Draggable Range Divider */}
+        <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-4">
+          <label
+            htmlFor={`wipe-range-${incident.id}`}
+            className="font-mono text-[11px] text-zinc-400 uppercase tracking-wider"
+          >
+            Interactive Wipe Compare:
+          </label>
+          <div className="flex-1 max-w-xs">
+            <input
+              id={`wipe-range-${incident.id}`}
+              type="range"
+              min="0"
+              max="100"
+              value={sliderPos}
+              onChange={(e) => setSliderPos(Number(e.target.value))}
+              aria-label={`Comparison wipe ratio for ${incident.target}`}
+              className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand focus-visible:outline-2 focus-visible:outline-brand"
+            />
+          </div>
+          <span className="font-mono text-[11px] text-zinc-400 w-12 text-right">
+            {sliderPos}% / {100 - sliderPos}%
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CaseStudiesSection() {
+  return (
+    <section
+      id="case-studies"
+      aria-labelledby="case-studies-heading"
+      className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 sm:py-32"
+    >
+      {/* Section Header */}
+      <div className="max-w-3xl space-y-4 mb-14 text-left">
+        <span className="text-[12px] font-mono uppercase tracking-[0.1em] text-zinc-400 font-semibold">
+          DOCUMENTED OUTAGE POST-MORTEMS
+        </span>
+        <h2 id="case-studies-heading" className="text-[2.25rem] sm:text-[2.75rem] font-display font-bold text-white tracking-tight leading-[1.15]">
+          How Graph Governance Intercepts Real Disasters
+        </h2>
+        <p className="text-[1.125rem] text-zinc-300 leading-relaxed">
+          Major outages rarely stem from a single broken function. They collide across microservice boundaries. Here is how Reprieve&apos;s deterministic rules model and intercept documented public incidents.
+        </p>
+      </div>
+
+      {/* 3 Full-Width Incident Wipe Bands */}
+      <div className="space-y-6">
+        {INCIDENTS.map((incident) => (
+          <IncidentWipeBand key={incident.id} incident={incident} />
         ))}
       </div>
 
-      {/* Bottom CTA */}
-      <div className="mt-16 rounded-2xl border border-white/15 bg-[#0a0b0e] p-8 sm:p-12 text-center space-y-5 shadow-2xl">
-        <h3 className="text-h2 font-bold text-white">
-          Ready to verify your microservice architecture against cascading failures?
-        </h3>
-        <p className="max-w-xl mx-auto text-body-lg text-zinc-300 leading-relaxed">
-          Book a 15-minute architecture audit, or explore our pre-seeded Northwind Pay sandbox to test all 8 rules in real time.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3 pt-2">
-          <Button size="lg" onClick={onBookCall} className="gap-2 font-bold px-8 shadow-md">
-            <Calendar className="size-4" />
-            Book Architecture Audit
-          </Button>
-          <Button asChild size="lg" variant="outline" className="border-white/20 bg-white/[0.05] text-white hover:bg-white/[0.1]">
-            <Link href="/w/northwind-pay/home">
-              Launch Live Sandbox (0 Login) &rarr;
-            </Link>
-          </Button>
+      {/* Dedicated Standalone Simulation Strip (Separated from Documented Incidents) */}
+      <div className="mt-8 rounded-2xl border border-brand/30 bg-[#0f1019] p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="rounded bg-brand/15 border border-brand/30 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
+                SIMULATED BENCHMARK
+              </span>
+              <span className="font-mono text-[12px] text-zinc-400">185 Microservices · $40M Daily Volume</span>
+            </div>
+            <h3 className="text-[1.25rem] font-display font-bold text-white">
+              Try It Yourself: Interactive Sandbox Simulation
+            </h3>
+            <p className="text-[14px] text-zinc-300 leading-relaxed">
+              Explore four colliding Cyber Monday waivers 2 hops from customer checkout. Test all 8 detection rules, inspect shortest proof paths, and run temporal collision scrubbers with zero login required.
+            </p>
+          </div>
+
+          <div className="shrink-0">
+            <Button asChild size="lg" className="bg-brand-solid text-white hover:bg-brand-solid/90 shadow-lg px-6 font-semibold">
+              <Link href="/w/northwind-pay/home">
+                Launch Live Sandbox (0 Login)
+                <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

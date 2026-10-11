@@ -176,7 +176,7 @@ export default function Footer01() {
                 <ArrowRight className="size-4" />
               </Button>
             </form>
-            <p className="text-[11px] font-mono text-zinc-500">
+            <p className="text-[12px] font-mono text-zinc-400">
               Zero marketing spam. Only Cypher detection rules &amp; incident post-mortems.
             </p>
           </div>
@@ -223,7 +223,7 @@ export default function Footer01() {
             <span>© {new Date().getFullYear()} Reprieve, Inc. All rights reserved.</span>
             <div className="inline-flex items-center gap-2 text-zinc-400">
               <SteadyStatusDot />
-              <span>FalkorDB in-memory graph operational · &lt;15ms</span>
+              <span>FalkorDB in-memory graph operational · 12ms</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -244,11 +244,23 @@ export default function Footer01() {
       </Container>
 
       {/* Subtle, architectural brand typography without cheap gradient slop */}
-      <Container aria-hidden className="pointer-events-none select-none pb-2">
-        <p className="-mb-[0.22em] text-center text-[clamp(4.5rem,18vw,14rem)] leading-none font-bold font-mono tracking-tighter text-white/[0.03]">
-          REPRIEVE
-        </p>
-      </Container>
+      <div aria-hidden="true" className="pointer-events-none select-none pb-2 flex justify-center">
+        <svg
+          viewBox="0 0 1000 140"
+          className="w-full max-w-5xl h-auto fill-white/[0.04]"
+          aria-hidden="true"
+        >
+          <text
+            x="50%"
+            y="65%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            className="font-mono font-bold tracking-tighter text-[120px]"
+          >
+            REPRIEVE
+          </text>
+        </svg>
+      </div>
     </footer>
   );
 }
