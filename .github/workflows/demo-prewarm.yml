@@ -1,0 +1,48 @@
+name: demo-prewarm
+on:
+  # Manual trigger: run this 10 minutes before any live demo
+  workflow_dispatch: {}
+  # Also run 5 minutes before the hackathon submission window (Oct 18 at 00:00 IST = Oct 17 18:30 UTC)
+  schedule: [{ cron: "25 18 17 10 *" }]
+
+jobs:
+  prewarm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wake backend (Render free tier cold-start ≤60s)
+        run: |
+          echo "Warming backend..."
+          for i in 1 2 3 4 5; do
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 90 "$API_URL/health")
+            echo "Attempt $i: HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "Backend is warm."
+              break
+            fi
+            sleep 15
+          done
+        env:
+          API_URL: ${{ secrets.API_URL }}
+
+      - name: Wake deep health check (initialises FalkorDB connection pool)
+        run: |
+          curl -fsS --max-time 60 "$API_URL/internal/health/deep" \
+            -H "X-Internal-Secret: $INTERNAL_TICK_SECRET" || echo "Deep health check failed (non-fatal)"
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          INTERNAL_TICK_SECRET: ${{ secrets.INTERNAL_TICK_SECRET }}
+
+      - name: Trigger sentinel tick on all workspaces
+        run: |
+          curl -s --max-time 60 \
+            -X POST "$API_URL/internal/sentinel/tick" \
+            -H "X-Internal-Secret: $INTERNAL_TICK_SECRET" || echo "Sentinel tick failed (non-fatal)"
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          INTERNAL_TICK_SECRET: ${{ secrets.INTERNAL_TICK_SECRET }}
+
+      - name: Confirm readiness
+        run: |
+          curl -fsS --max-time 30 "$API_URL/health" && echo "Ready for demo!"
+        env:
+          API_URL: ${{ secrets.API_URL }}

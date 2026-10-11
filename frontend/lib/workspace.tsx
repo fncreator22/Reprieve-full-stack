@@ -53,7 +53,7 @@ export type WorkspaceResolution =
 export function useResolveWorkspace(slug: string): WorkspaceResolution {
   const api = useApi();
   const me = useMe();
-  const membership = me.data?.memberships.find((m) => m.slug === slug);
+  const membership = me.data?.memberships.find((m) => m.slug === slug || m.workspace_id === slug);
   const ws = useQuery({
     queryKey: workspaceQueryKey(membership?.workspace_id ?? ""),
     queryFn: ({ signal }) => api<WorkspaceOut>(wsPath(membership!.workspace_id), { signal }),

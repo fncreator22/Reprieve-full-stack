@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useEntityDrawer } from "@/components/shell/use-drawer";
 import { RelativeDate } from "@/components/relative-date";
 import type { RunwayItem } from "@/lib/types";
@@ -31,6 +32,16 @@ export function ExpiryRunway({ items, asOf }: { items: RunwayItem[]; asOf: numbe
   );
   const x = (t: number) => `${Math.min(Math.max((t - asOf) / (SPAN * DAY), 0), 1) * 100}%`;
 
+  // Deduplicate items on mobile agenda list where an exception may span multiple teams
+  const mobileItems = useMemo(() => {
+    const seen = new Set<string>();
+    return items.filter((it) => {
+      if (seen.has(it.exception.id)) return false;
+      seen.add(it.exception.id);
+      return true;
+    });
+  }, [items]);
+
   return (
     <>
       <div className="hidden md:block">
@@ -59,9 +70,9 @@ export function ExpiryRunway({ items, asOf }: { items: RunwayItem[]; asOf: numbe
                       </span>
                     </div>
                   )}
-                  {team.items.map((it) => (
+                  {team.items.map((it, idx) => (
                     <button
-                      key={it.exception.id}
+                      key={`${team.name}-${it.exception.id}-${idx}`}
                       type="button"
                       onClick={() => open(it.exception.id)}
                       className={cn(
@@ -80,7 +91,7 @@ export function ExpiryRunway({ items, asOf }: { items: RunwayItem[]; asOf: numbe
         </ul>
       </div>
       <ul className="space-y-2 md:hidden">
-        {items.map((it) => (
+        {mobileItems.map((it) => (
           <li key={it.exception.id}>
             <button type="button" onClick={() => open(it.exception.id)} className="flex w-full justify-between gap-3 text-left text-body-sm">
               <span className="truncate">{it.exception.label}</span>

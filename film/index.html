@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reprieve — The Product Film (Bento Dynamic Style)</title>
+  <link rel="stylesheet" href="runtime/fonts.css">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg-light: #F7F8FA;
+      --bg-dark: #0A0D14;
+      --coral: #FF4757;
+      --amber: #FFB800;
+      --blue: #2F6FED;
+      --green: #10B981;
+      --slate: #131722;
+      --text-dark: #0B0E14;
+      --text-muted-dark: #626D82;
+      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+      --card-shadow-heavy: 0 30px 70px rgba(0, 0, 0, 0.16), 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--bg-light);
+    }
+
+    /* Common typography */
+    .huge-heading {
+      font-size: 86px;
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+    }
+    .huge-sub {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-top: 18px;
+    }
+
+    /* Scene wrappers (Each scene takes full 1920x1080) */
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ========================================================
+       SCENE 1: THE DISCONNECTED STACK (0s - 7s)
+       Clean light background, floating SaaS cards
+       ======================================================== */
+    #scene1 {
+      background: #F8F9FB;
+      padding: 130px 160px 0 160px;
+      justify-content: flex-start;
+    }
+    .sc1-card {
+      position: absolute;
+      background: #FFFFFF;
+      border-radius: 22px;
+      padding: 24px 30px;
+      box-shadow: var(--card-shadow-heavy);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transform-origin: center;
+    }
+    .sc1-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .sc1-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+    .sc1-desc {
+      font-size: 14px;
+      color: var(--text-muted-dark);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+    .sc1-badge {
+      margin-left: auto;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .badge-unreviewed { background: #FEE2E2; color: #DC2626; }
+    .badge-active { background: #FEF3C7; color: #D97706; }
+    .badge-ghost { background: #F3F4F6; color: #4B5563; }
+
+    /* ========================================================
+       SCENE 2: ONE GRAPH BENTO (7s - 14s)
+       Vibrant bento grid tiles assembling
+       ======================================================== */
+    #scene2 {
+      background: #F7F8FA;
+      padding: 0 140px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sc2-left {
+      max-width: 620px;
+    }
+    .sc2-grid {
+      display: grid;
+      grid-template-columns: 240px 240px;
+      grid-template-rows: 170px 170px 170px;
+      gap: 18px;
+    }
+    .bento-tile {
+      border-radius: 26px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-blue { background: #2F6FED; color: #fff; }
+    .bento-amber { background: #FFB800; color: #1E1B0E; }
+    .bento-coral { background: #FF4757; color: #fff; }
+    .bento-slate { background: #121620; color: #fff; }
+    .bento-white { background: #FFFFFF; color: var(--text-dark); border: 1px solid rgba(0,0,0,0.06); }
+    .bento-tag {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+    }
+    .bento-main {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    /* ========================================================
+       SCENE 3: DEVICE / GRAPH IN ACTION (14s - 22s)
+       Clean tablet device mockup with cursor interaction
+       ======================================================== */
+    #scene3 {
+      background: #ECEFF4;
+      align-items: center;
+      justify-content: center;
+      padding: 0 100px;
+    }
+    .device-frame {
+      width: 1340px;
+      height: 780px;
+      background: #FFFFFF;
+      border-radius: 36px;
+      border: 8px solid #1A1E26;
+      box-shadow: 0 45px 120px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .device-topbar {
+      height: 58px;
+      background: #FAFAFC;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 16px;
+    }
+    .window-dots {
+      display: flex;
+      gap: 7px;
+    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #FF5F56; }
+    .dot-y { background: #FFBD2E; }
+    .dot-g { background: #27C93F; }
+
+    .device-body {
+      flex: 1;
+      background: #FFFFFF;
+      position: relative;
+      padding: 40px;
+    }
+    .graph-pipeline-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 140px;
+    }
+    .pipeline-step {
+      background: #F9FAFB;
+      border: 2px solid #E5E7EB;
+      border-radius: 22px;
+      padding: 24px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 220px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s;
+    }
+    .pipeline-step.danger-step {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      box-shadow: 0 15px 35px rgba(239, 68, 68, 0.18);
+    }
+    .pipeline-connector {
+      width: 50px;
+      height: 4px;
+      background: #D1D5DB;
+      border-radius: 999px;
+    }
+    .pipeline-connector.red-conn {
+      background: #EF4444;
+    }
+
+    /* Virtual cursor */
+    #cursor {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      pointer-events: none;
+      z-index: 100;
+      top: 600px;
+      left: 100px;
+    }
+
+    /* ========================================================
+       SCENE 4: GHOST OWNER HIGHLIGHT (22s - 29s)
+       Vibrant Coral Red Ground (#FF4757) with white cards
+       ======================================================== */
+    #scene4 {
+      background: #FF4757;
+      color: #FFFFFF;
+      padding: 0 160px;
+      justify-content: center;
+    }
+    .sc4-content {
+      max-width: 1400px;
+    }
+    .sc4-pipeline {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 54px;
+    }
+    .sc4-card {
+      background: #FFFFFF;
+      color: var(--text-dark);
+      border-radius: 24px;
+      padding: 32px 38px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
+      flex: 1;
+    }
+    .sc4-card.dark-pill {
+      background: #121620;
+      color: #FFFFFF;
+      flex: 1.1;
+    }
+
+    /* ========================================================
+       SCENE 5: METRICS BENTO (29s - 35s)
+       Vibrant Amber Yellow Ground (#FFB800)
+       ======================================================== */
+    #scene5 {
+      background: #FFB800;
+      color: #11141A;
+      padding: 0 160px;
+      justify-content: center;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 54px;
+    }
+    .metric-clay-card {
+      background: #FFFFFF;
+      border-radius: 26px;
+      padding: 36px 30px;
+      box-shadow: 0 25px 60px rgba(180, 120, 0, 0.22);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 240px;
+    }
+    .metric-value {
+      font-size: 68px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .metric-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-muted-dark);
+      margin-top: 12px;
+      line-height: 1.35;
+    }
+
+    /* ========================================================
+       SCENE 6: BRAND CLIMAX (35s - 40s)
+       Clean Off-White Studio
+       ======================================================== */
+    #scene6 {
+      background: #F7F8FB;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .brand-ring-wrap {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="stage" data-composition-id="main" data-duration="40">
+
+  <!-- ==================== SCENE 1: DISCONNECTED STACK ==================== -->
+  <div id="scene1" class="scene">
+    <div style="max-width: 900px; margin-bottom: 50px;">
+      <h1 class="huge-heading" style="color: #0A0D14;">Exceptions scattered everywhere.</h1>
+      <p class="huge-sub" style="color: #626D82;">Approved one by one across four different tools.</p>
+    </div>
+
+    <!-- 4 SaaS Cards Flying In -->
+    <div id="sc1-c1" class="sc1-card" style="top: 520px; left: 160px; width: 440px;">
+      <div class="sc1-icon" style="background: #0052CC;">J</div>
+      <div>
+        <div class="sc1-title">Jira Service Desk</div>
+        <div class="sc1-desc">TLS 1.0 Waiver #SEC-412 · 30 Days</div>
+      </div>
+      <span class="sc1-badge badge-unreviewed">30d Expired</span>
+    </div>
+
+    <div id="sc1-c2" class="sc1-card" style="top: 670px; left: 240px; width: 480px;">
+      <div class="sc1-icon" style="background: #032D42;">S</div>
+      <div>
+        <div class="sc1-title">ServiceNow Change</div>
+        <div class="sc1-desc">Skip MFA for Checkout API release</div>
+      </div>
+      <span class="sc1-badge badge-active">Approved</span>
+    </div>
+
+    <div id="sc1-c3" class="sc1-card" style="top: 520px; left: 660px; width: 480px;">
+      <div class="sc1-icon" style="background: #FF9900;">A</div>
+      <div>
+        <div class="sc1-title">AWS IAM Console</div>
+        <div class="sc1-desc">Root HSM rotation deferred 60d</div>
+      </div>
+      <span class="sc1-badge badge-ghost">Ghost Owner</span>
+    </div>
+
+    <div id="sc1-c4" class="sc1-card" style="top: 670px; left: 780px; width: 460px;">
+      <div class="sc1-icon" style="background: #632CA6;">D</div>
+      <div>
+        <div class="sc1-title">Datadog Monitor</div>
+        <div class="sc1-desc">Latency spike alerts muted</div>
+      </div>
+      <span class="sc1-badge badge-unreviewed">Muted</span>
+    </div>
+
+    <div id="sc1-counter" style="position: absolute; right: 180px; top: 560px; text-align: right;">
+      <div style="font-size: 108px; font-weight: 900; letter-spacing: -0.05em; color: #DC2626; line-height: 1;">142</div>
+      <div style="font-size: 20px; font-weight: 700; color: #626D82; margin-top: 8px;">Disconnected security waivers</div>
+    </div>
+  </div>
+
+  <!-- ==================== SCENE 2: ONE GRAPH BENTO ==================== -->
+  <div id="scene2" class="scene">
+    <div class="sc2-left">
+      <h1 class="huge-heading" style="color: #0A0D14;">One Graph.</h1>
+      <p class="huge-sub" style="color: #626D82;">Instead of twenty disconnected spreadsheets.</p>
+      <div style="margin-top: 40px; display: inline-flex; align-items: center; gap: 12px; background: #E5E7EB; padding: 12px 24px; border-radius: 999px; font-weight: 700; font-size: 16px;">
+        <span style="color: var(--blue);">●</span> Powered by FalkorDB Property Graphs
+      </div>
+    </div>
+
+    <div class="sc2-grid" id="sc2-bento-grid">
+      <div class="bento-tile bento-blue">
+        <span class="bento-tag">Topology</span>
+        <span class="bento-main">25 Services Connected</span>
+      </div>
+      <div class="bento-tile bento-amber">
+        <span class="bento-tag">Waivers</span>
+        <span class="bento-main">Active Exceptions</span>
+      </div>
+      <div class="bento-tile bento-coral">
+        <span class="bento-tag">Ownership</span>
+        <span class="bento-main">People & Leads</span>
+      </div>
+      <div class="bento-tile bento-slate">
+        <span class="bento-tag">Journeys</span>
+        <span class="bento-main">Checkout Path</span>
+      </div>
+      <div class="bento-tile bento-white" style="grid-column: span 2;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="bento-tag" style="color: var(--green);">Sentinel Autonomous Engine</span>
+          <span style="background: #DEF7EC; color: #03543F; padding: 4px 12px; border-radius: 999px; font-size: 13px;">16ms Latency</span>
+        </div>
+        <span class="bento-main" style="color: #111827;">8 Compound Risk Detection Rules (R1–R8)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCENE 3: DEVICE & CURSOR INTERACTION ==================== -->
+  <div id="scene3" class="scene">
+    <div class="device-frame" id="device">
+      <div class="device-topbar">
+        <div class="window-dots">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+        </div>
+        <div style="margin-left: 20px; font-size: 14px; font-weight: 600; color: #6B7280; font-family: monospace;">
+          reprieve.dev / northwind-pay / alerts / r8-checkout
+        </div>
+      </div>
+
+      <div class="device-body">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h2 style="font-size: 32px; font-weight: 900; letter-spacing: -0.03em;">Checkout Dependency Graph</h2>
+            <p style="font-size: 16px; color: #6B7280; margin-top: 4px;">Live Multi-Hop Traversal across services & active waivers</p>
+          </div>
+          <div id="sc3-alert-badge" style="background: #FEE2E2; border: 1px solid #FCA5A5; color: #B91C1C; padding: 8px 20px; border-radius: 999px; font-weight: 800; font-size: 14px; opacity: 0;">
+            ⚠ CRITICAL EXPOSURE DETECTED
+          </div>
+        </div>
+
+        <div class="graph-pipeline-row">
+          <div class="pipeline-step" id="step-cp">
+            <span style="font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase;">CustomerPath</span>
+            <span style="font-size: 20px; font-weight: 900;">Checkout</span>
+          </div>
+
+          <div class="pipeline-connector" id="conn-1"></div>
+
+          <div class="pipeline-step" id="step-api">
+            <span style="font-size: 12px; font-weight: 800; color: #4B5563; text-transform: uppercase;">Service</span>
+            <span style="font-size: 20px; font-weight: 900;">checkout-api</span>
+          </div>
+
+          <div class="pipeline-connector" id="conn-2"></div>
+
+          <div class="pipeline-step" id="step-core">
+            <span style="font-size: 12px; font-weight: 800; color: #4B5563; text-transform: uppercase;">Service</span>
+            <span style="font-size: 20px; font-weight: 900;">payments-core</span>
+          </div>
+
+          <div class="pipeline-connector" id="conn-3"></div>
+
+          <div class="pipeline-step danger-step" id="step-waiver">
+            <span style="font-size: 12px; font-weight: 800; color: #DC2626; text-transform: uppercase;">Exception</span>
+            <span style="font-size: 20px; font-weight: 900; color: #991B1B;">TLS 1.0 Waiver</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cursor SVG -->
+      <svg id="cursor" viewBox="0 0 24 24" fill="none">
+        <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L5.85 2.85a.5.5 0 0 0-.35.36z" fill="#111827" stroke="#FFFFFF" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ==================== SCENE 4: GHOST OWNER HIGHLIGHT ==================== -->
+  <div id="scene4" class="scene">
+    <div class="sc4-content">
+      <h1 class="huge-heading">The owner left in August.</h1>
+      <p class="huge-sub" style="opacity: 0.9;">The security waiver is still live on production.</p>
+
+      <div class="sc4-pipeline">
+        <div class="sc4-card" id="sc4-card1">
+          <span style="display: block; font-size: 13px; font-weight: 800; color: #DC2626; text-transform: uppercase;">Orphaned Owner</span>
+          <span style="display: block; font-size: 26px; font-weight: 900; margin-top: 6px;">Priya Raman</span>
+          <span style="display: block; font-size: 15px; color: #6B7280; margin-top: 4px;">Departed August 31 · 2 Unmonitored Waivers</span>
+        </div>
+
+        <div style="font-size: 36px; font-weight: 900; opacity: 0.8;">→</div>
+
+        <div class="sc4-card dark-pill" id="sc4-card2">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 13px; font-weight: 800; color: #60A5FA; text-transform: uppercase;">Sentinel Autonomous Resolver</span>
+            <span style="background: rgba(96, 165, 250, 0.2); color: #93C5FD; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-family: monospace;">FalkorDB Cypher R2</span>
+          </div>
+          <span style="display: block; font-size: 24px; font-weight: 800; margin-top: 8px;">Reassigned to Marcus Bell</span>
+          <span style="display: block; font-size: 15px; opacity: 0.8; margin-top: 4px;">Active Payments Team Lead · Escalation Triggered</span>
+        </div>
+
+        <div style="font-size: 36px; font-weight: 900; opacity: 0.8;">→</div>
+
+        <div class="sc4-card" id="sc4-card3" style="border: 3px solid #10B981;">
+          <span style="display: block; font-size: 13px; font-weight: 800; color: #059669; text-transform: uppercase;">Audit State</span>
+          <span style="display: block; font-size: 26px; font-weight: 900; color: #047857; margin-top: 6px;">100% Accountable</span>
+          <span style="display: block; font-size: 15px; color: #6B7280; margin-top: 4px;">Zero unmonitored exceptions left in the dark</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCENE 5: METRICS BENTO ==================== -->
+  <div id="scene5" class="scene">
+    <div style="max-width: 1200px;">
+      <h1 class="huge-heading">16ms traversals.</h1>
+      <p class="huge-sub" style="color: #453200;">Deterministic graph reasoning. Zero LLM hallucinations.</p>
+
+      <div class="metrics-grid">
+        <div class="metric-clay-card" id="m-card1">
+          <span class="metric-value">16.0<span style="font-size: 32px;">ms</span></span>
+          <span class="metric-label">p95 Cypher rule query latency</span>
+        </div>
+        <div class="metric-clay-card" id="m-card2">
+          <span class="metric-value">5 / 5</span>
+          <span class="metric-label">Planted risk scenarios verified in CI/CD</span>
+        </div>
+        <div class="metric-clay-card" id="m-card3">
+          <span class="metric-value">0</span>
+          <span class="metric-label">False positives on isolated controls</span>
+        </div>
+        <div class="metric-clay-card" id="m-card4">
+          <span class="metric-value">3</span>
+          <span class="metric-label">FalkorDB graphs isolated per tenant</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCENE 6: BRAND CLIMAX ==================== -->
+  <div id="scene6" class="scene">
+    <svg class="brand-ring-wrap" id="sc6-logo" viewBox="0 0 32 32" fill="none">
+      <defs>
+        <linearGradient id="sc6-aurora" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7C6CFF" />
+          <stop offset="50%" stop-color="#3B82F6" />
+          <stop offset="100%" stop-color="#22D3EE" />
+        </linearGradient>
+      </defs>
+      <path d="M 24.42 8.93 A 11 11 0 1 1 16.96 5.04" stroke="url(#sc6-aurora)" stroke-width="3.4" stroke-linecap="round" />
+      <circle cx="16.96" cy="5.04" r="3.4" fill="#22D3EE" />
+    </svg>
+
+    <h1 id="sc6-title" style="font-size: 104px; font-weight: 900; letter-spacing: -0.04em; color: #0A0D14; line-height: 1;">
+      Reprieve
+    </h1>
+    <p id="sc6-sub" style="font-size: 30px; font-weight: 600; color: #4B5563; margin-top: 18px; max-width: 900px; line-height: 1.4;">
+      Exceptions are approved one by one.<br>
+      <strong style="color: #0A0D14; font-weight: 900;">Risk compounds all at once.</strong>
+    </p>
+
+    <div id="sc6-pill" style="margin-top: 40px; display: inline-flex; align-items: center; gap: 12px; background: #E5E7EB; padding: 14px 32px; border-radius: 999px; font-weight: 800; font-size: 16px; color: #111827;">
+      <span>reprieve.dev</span>
+      <span style="opacity: 0.4;">·</span>
+      <span>Powered by FalkorDB Graph Engine</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="runtime/vendor/gsap.min.js"></script>
+<script src="runtime/motion.js"></script>
+<script>
+  // 40.04 seconds = 1201 frames @ 30fps
+  const f = Motion.film({
+    fps: 30,
+    duration: 40.04,
+    width: 1920,
+    height: 1080
+  });
+
+  const tl = gsap.timeline({ paused: true });
+
+  // ===============================================================
+  // SCENE 1: DISCONNECTED STACK (0.0s - 7.0s)
+  // ===============================================================
+  tl.set("#scene1", { opacity: 1 }, 0);
+  tl.fromTo("#scene1 h1, #scene1 p", 
+    { y: 30, opacity: 0 }, 
+    { y: 0, opacity: 1, stagger: 0.1, duration: 0.7, ease: "power3.out" }, 0.2
+  );
+
+  // Cards fly in from corners with high energy
+  tl.fromTo("#sc1-c1", { x: -300, y: -100, rotate: -12, opacity: 0 }, { x: 0, y: 0, rotate: -3, opacity: 1, duration: 0.6, ease: "back.out(1.6)" }, 0.6);
+  tl.fromTo("#sc1-c2", { x: -200, y: 300, rotate: 10, opacity: 0 }, { x: 0, y: 0, rotate: 2, opacity: 1, duration: 0.6, ease: "back.out(1.6)" }, 0.9);
+  tl.fromTo("#sc1-c3", { x: 300, y: -150, rotate: 8, opacity: 0 }, { x: 0, y: 0, rotate: -1, opacity: 1, duration: 0.6, ease: "back.out(1.6)" }, 1.2);
+  tl.fromTo("#sc1-c4", { x: 400, y: 200, rotate: -8, opacity: 0 }, { x: 0, y: 0, rotate: 3, opacity: 1, duration: 0.6, ease: "back.out(1.6)" }, 1.5);
+
+  // Counter slams down
+  tl.fromTo("#sc1-counter", 
+    { scale: 2.2, opacity: 0 }, 
+    { scale: 1, opacity: 1, duration: 0.7, ease: "bounce.out" }, 2.0
+  );
+
+  // Scene 1 snap exit
+  tl.to("#scene1", { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 6.6);
+
+  // ===============================================================
+  // SCENE 2: ONE GRAPH BENTO (7.0s - 14.0s)
+  // ===============================================================
+  tl.set("#scene2", { opacity: 1 }, 7.0);
+  tl.fromTo(".sc2-left h1, .sc2-left p", 
+    { y: 40, opacity: 0 }, 
+    { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out" }, 7.1
+  );
+
+  // Bento tiles snap in with elastic spring
+  tl.fromTo(".bento-tile", 
+    { scale: 0.4, y: 60, opacity: 0 }, 
+    { scale: 1, y: 0, opacity: 1, stagger: 0.08, duration: 0.7, ease: "back.out(1.8)" }, 7.4
+  );
+
+  // Scene 2 snap exit
+  tl.to("#scene2", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 13.6);
+
+  // ===============================================================
+  // SCENE 3: DEVICE & CURSOR INTERACTION (14.0s - 22.0s)
+  // ===============================================================
+  tl.set("#scene3", { opacity: 1 }, 14.0);
+  tl.fromTo("#device", 
+    { scale: 0.75, y: 80, opacity: 0 }, 
+    { scale: 1, y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 14.1
+  );
+
+  // Cursor moves smoothly
+  tl.fromTo("#cursor", 
+    { x: 100, y: 600, opacity: 0 }, 
+    { x: 380, y: 460, opacity: 1, duration: 0.9, ease: "power2.inOut" }, 15.0
+  );
+
+  // Cursor click squash
+  tl.to("#cursor", { scale: 0.8, duration: 0.1 }, 16.0);
+  tl.to("#cursor", { scale: 1.0, duration: 0.15 }, 16.1);
+
+  // Steps pop and turn red in cascade
+  tl.to("#step-cp", { scale: 1.08, borderColor: "#2F6FED", duration: 0.25 }, 16.2);
+  tl.to("#conn-1", { background: "#2F6FED", duration: 0.2 }, 16.4);
+  tl.to("#step-api", { scale: 1.08, borderColor: "#2F6FED", duration: 0.25 }, 16.6);
+  tl.to("#conn-2", { background: "#EF4444", duration: 0.2 }, 16.8);
+  tl.to("#step-core", { scale: 1.08, borderColor: "#EF4444", background: "#FEF2F2", duration: 0.25 }, 17.0);
+  tl.to("#conn-3", { background: "#EF4444", duration: 0.2 }, 17.2);
+  tl.to("#step-waiver", { scale: 1.15, duration: 0.3, ease: "bounce.out" }, 17.4);
+
+  // Alert badge slams in
+  tl.fromTo("#sc3-alert-badge", 
+    { scale: 0, opacity: 0 }, 
+    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 17.8
+  );
+
+  // Scene 3 snap exit
+  tl.to("#scene3", { opacity: 0, scale: 0.9, duration: 0.4, ease: "power2.in" }, 21.6);
+
+  // ===============================================================
+  // SCENE 4: GHOST OWNER HIGHLIGHT (22.0s - 29.0s)
+  // Coral background
+  // ===============================================================
+  tl.set("#scene4", { opacity: 1 }, 22.0);
+  tl.fromTo("#scene4 h1, #scene4 p", 
+    { y: 30, opacity: 0 }, 
+    { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out" }, 22.1
+  );
+
+  tl.fromTo(["#sc4-card1", "#sc4-card2", "#sc4-card3"], 
+    { y: 60, scale: 0.8, opacity: 0 }, 
+    { y: 0, scale: 1, opacity: 1, stagger: 0.15, duration: 0.7, ease: "back.out(1.7)" }, 22.6
+  );
+
+  // Scene 4 snap exit
+  tl.to("#scene4", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 28.6);
+
+  // ===============================================================
+  // SCENE 5: METRICS BENTO (29.0s - 35.0s)
+  // Amber yellow background
+  // ===============================================================
+  tl.set("#scene5", { opacity: 1 }, 29.0);
+  tl.fromTo("#scene5 h1, #scene5 p", 
+    { y: 30, opacity: 0 }, 
+    { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, ease: "power3.out" }, 29.1
+  );
+
+  tl.fromTo([".metric-clay-card"], 
+    { y: 50, scale: 0.85, opacity: 0 }, 
+    { y: 0, scale: 1, opacity: 1, stagger: 0.1, duration: 0.6, ease: "back.out(1.6)" }, 29.5
+  );
+
+  // Scene 5 snap exit
+  tl.to("#scene5", { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 34.6);
+
+  // ===============================================================
+  // SCENE 6: BRAND CLIMAX (35.0s - 40.04s)
+  // Clean off-white studio
+  // ===============================================================
+  tl.set("#scene6", { opacity: 1 }, 35.0);
+  tl.fromTo("#sc6-logo", 
+    { scale: 2.4, rotate: -90, opacity: 0 }, 
+    { scale: 1, rotate: 0, opacity: 1, duration: 0.9, ease: "back.out(1.8)" }, 35.2
+  );
+  tl.fromTo("#sc6-title", 
+    { y: 25, opacity: 0 }, 
+    { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 35.8
+  );
+  tl.fromTo(["#sc6-sub", "#sc6-pill"], 
+    { y: 20, opacity: 0 }, 
+    { y: 0, opacity: 1, stagger: 0.15, duration: 0.6, ease: "power3.out" }, 36.2
+  );
+
+  // Seek contract
+  window.__seek = function(t) {
+    tl.seek(t);
+  };
+</script>
+</body>
+</html>

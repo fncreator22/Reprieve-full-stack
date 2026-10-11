@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Network } from "lucide-react";
+import { ArrowRight, Download, Network } from "lucide-react";
+import { toast } from "sonner";
 import { entityMeta } from "@/components/entity-meta";
 import { NodeShape } from "@/components/node-shape";
 import { humanizeEdge } from "@/lib/format";
@@ -99,22 +100,54 @@ export function ProofPath({
       : graphHref;
   const steps = proofSteps(path);
 
+  const exportEvidence = () => {
+    const packet = {
+      standard: "Reprieve-Proof-Path-Evidence-v1.0",
+      exported_at: new Date().toISOString(),
+      summary: path.summary,
+      nodes: path.nodes,
+      edges: path.edges,
+      steps: steps,
+      workspace: ws?.slug ?? "sample",
+      attestation: "Extracted via Cypher shortest-path query. 100% Grounded against FalkorDB entity graph.",
+    };
+    const blob = new Blob([JSON.stringify(packet, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `reprieve-proof-evidence-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success("Audit Evidence JSON exported! Ready for review.");
+  };
+
   return (
     <figure className={cn("rounded-lg border border-border-subtle bg-surface", className)}>
-      <div className="flex items-start justify-between gap-3 border-b border-border-subtle px-4 py-3">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border-subtle px-4 py-3">
         <div className="min-w-0">
           <p className="eyebrow text-proof">Proof path</p>
           <figcaption className="mt-1 text-body-sm text-text-primary">{path.summary}</figcaption>
         </div>
-        {href && (
-          <Link
-            href={href}
-            className="inline-flex min-h-8 shrink-0 items-center gap-1.5 rounded-md px-2 text-body-sm font-medium text-brand hover:bg-brand-soft"
+        <div className="flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            onClick={exportEvidence}
+            title="Export Evidence for SOC2 / Audit Binder"
+            className="inline-flex min-h-8 items-center gap-1.5 rounded-md px-2 text-body-sm font-mono text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors"
           >
-            <Network aria-hidden className="size-4" />
-            Show on graph
-          </Link>
-        )}
+            <Download aria-hidden className="size-3.5 text-proof" />
+            <span>Export Evidence</span>
+          </button>
+          {href && (
+            <Link
+              href={href}
+              className="inline-flex min-h-8 shrink-0 items-center gap-1.5 rounded-md px-2 text-body-sm font-medium text-brand hover:bg-brand-soft"
+            >
+              <Network aria-hidden className="size-4" />
+              Show on graph
+            </Link>
+          )}
+        </div>
       </div>
 
       {path.nodes.length > 0 && (

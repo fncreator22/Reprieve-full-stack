@@ -1,0 +1,1 @@
+| [`<project-slug>`](./<project-slug>/AGENT-GUIDE.md) | <one-line summary of the project> | <Full Project / Section / Component> | <comma-separated tags: industry, style, tech stack, mood> | <list of available sections> | <ideal scenarios and use cases> | <Complete / In Progress / Partial> | YYYY-MM-DD |

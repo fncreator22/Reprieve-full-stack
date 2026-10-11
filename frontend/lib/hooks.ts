@@ -72,3 +72,33 @@ export function useNowSeconds(tickMs = 30_000): number {
   }, [tickMs]);
   return now;
 }
+
+import { useQuery } from "@tanstack/react-query";
+import { useApi, wsPath } from "@/lib/api";
+import type { SimulationForecastOut } from "@/lib/types";
+
+/** Fetches deterministic simulation forecast across temporal horizon and target service. */
+export function useSimulationForecast(
+  wsId: string,
+  horizonDays = 30,
+  targetServiceId?: string | null,
+  options?: { enabled?: boolean }
+) {
+  const api = useApi();
+  return useQuery({
+    queryKey: ["simulation-forecast", wsId, horizonDays, targetServiceId],
+    queryFn: ({ signal }) =>
+      api<SimulationForecastOut>(
+        wsPath(wsId, "/prediction/simulation"),
+        {
+          signal,
+          query: {
+            horizon_days: horizonDays,
+            target_service_id: targetServiceId ?? undefined,
+          },
+        }
+      ),
+    enabled: options?.enabled ?? (!!wsId && horizonDays >= 0),
+    staleTime: 15_000,
+  });
+}

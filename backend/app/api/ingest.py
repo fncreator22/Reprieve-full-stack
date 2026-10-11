@@ -59,7 +59,9 @@ def _draft_out(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _limit(ws_id: str) -> None:
+def _limit(ws_id: str, user_kind: str = "") -> None:
+    if user_kind == "cli_machine":
+        return
     q, t = _window[ws_id], time.time()
     while q and t - q[0] > 3600:
         q.popleft()
@@ -70,7 +72,9 @@ def _limit(ws_id: str) -> None:
 
 @router.post("/ingest-text", status_code=201)
 async def ingest_text(body: IngestIn, ctx: WorkspaceContext = Depends(member)) -> dict[str, Any]:
-    _limit(ctx.ws_id)
+    if ctx.workspace.get("ai_mode") == "off":
+        raise ApiError("AI_DISABLED", "AI is turned off for this workspace.")
+    _limit(ctx.ws_id, getattr(ctx.user, "clerk_user_id", ""))
     x = await extract(ctx.ws_id, ctx.workspace.get("ai_mode", "cloud"), body.text)
     reg = await ctx.org.read("registry_snapshot")
     by = defaultdict(list)
@@ -148,6 +152,69 @@ async def _get_draft(ctx: WorkspaceContext, draft_id: str) -> dict[str, Any]:
 @router.get("/drafts")
 async def list_drafts(ctx: WorkspaceContext = Depends(viewer)) -> list[dict[str, Any]]:
     return [_draft_out(r) for r in await ctx.org.read("drafts_list")]
+
+
+@router.get("/drafts/{draft_id}/impact-preview")
+async def draft_impact_preview(draft_id: str, ctx: WorkspaceContext = Depends(viewer)) -> dict[str, Any]:
+    """Read-only: show how approving this draft would affect the risk graph.
+
+    Returns the current baseline top-risk services and the services the draft
+    would touch, so the reviewer can assess risk before approving.
+    Does not persist anything or modify state.
+    """
+    from app.prediction.engine import run_prediction_simulation
+
+    d = await _get_draft(ctx, draft_id)
+    affected_services = [s["label"] for s in d.get("services", []) if s]
+    affected_ids = [s["id"] for s in d.get("services", []) if s]
+
+    # Run baseline prediction (30-day horizon)
+    baseline = await run_prediction_simulation(ctx.org, as_of=ctx.as_of, horizon_days=30)
+
+    # Identify top-5 risk services from baseline
+    top_services = sorted(
+        baseline.canvas_decorations.items(),
+        key=lambda kv: -kv[1].simulated_score,
+    )[:5]
+
+    # Check if any affected services are already high risk
+    high_risk_affected = [
+        {
+            "service_id": sid,
+            "current_score": baseline.canvas_decorations[sid].simulated_score,
+            "current_band": baseline.canvas_decorations[sid].risk_band,
+        }
+        for sid in affected_ids
+        if sid in baseline.canvas_decorations
+        and baseline.canvas_decorations[sid].simulated_score >= 50.0
+    ]
+
+    severity = d.get("severity", 3)
+    horizon_note = (
+        "CAUTION: This draft affects already high-risk services. Approving may push them to CRITICAL."
+        if high_risk_affected and severity >= 4
+        else "Approve to add this exception to the risk graph. Sentinel will re-evaluate automatically."
+    )
+
+    return {
+        "draft_id": draft_id,
+        "draft_title": d["title"],
+        "draft_severity": severity,
+        "affected_services": affected_services,
+        "high_risk_affected_services": high_risk_affected,
+        "baseline_top_services": [
+            {
+                "service_id": sid,
+                "simulated_score": dec.simulated_score,
+                "risk_band": dec.risk_band,
+                "is_spof": dec.is_spof,
+            }
+            for sid, dec in top_services
+        ],
+        "horizon_days": 30,
+        "horizon_note": horizon_note,
+        "warnings": d.get("warnings", []),
+    }
 
 
 @router.post("/drafts/{draft_id}/approve")

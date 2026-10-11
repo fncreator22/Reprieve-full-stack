@@ -10,9 +10,11 @@ from app.auth.deps import (
     any_status,
     current_user,
     forget_user,
+    owner_any_status,
     platform_repo,
     viewer,
 )
+from app.config import get_settings
 from app.errors import ApiError
 from app.ids import now
 from app.models.api import (
@@ -23,6 +25,7 @@ from app.models.api import (
     MeOut,
     MePatch,
     OnboardingPatch,
+    ROLE_RANK,
     Role,
     WorkspaceCreate,
     WorkspaceOut,
@@ -55,12 +58,38 @@ def workspace_out(w: dict[str, Any], role: str, person_id: str | None) -> dict[s
 
 @router.get("/me", response_model=MeOut)
 async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
-    rows = await platform_repo().read("p_memberships", user_id=user.id)
-    return {"user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs}, "memberships": rows}
+    if user.api_key_ws_id:
+        ws_rows = await platform_repo().read("p_workspace_get", ws_id=user.api_key_ws_id)
+        memberships = []
+        if ws_rows:
+            w = ws_rows[0]["w"]
+            memberships.append({
+                "workspace_id": user.api_key_ws_id,
+                "role": (user.api_key_role or Role.admin).value,
+                "person_id": None,
+                "status": w.get("status", "ready"),
+                "slug": w.get("slug", ""),
+                "name": w.get("name", ""),
+            })
+        return {"user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs}, "memberships": memberships}
+    rows = await platform_repo().read("p_memberships", user_id=user.id, email=user.email)
+    by_ws: dict[str, dict[str, Any]] = {}
+    for r in rows:
+        ws_id = r["workspace_id"]
+        if ws_id not in by_ws:
+            by_ws[ws_id] = r
+        else:
+            current_rank = ROLE_RANK.get(Role(by_ws[ws_id].get("role", "viewer")), 0)
+            new_rank = ROLE_RANK.get(Role(r.get("role", "viewer")), 0)
+            if new_rank > current_rank:
+                by_ws[ws_id] = r
+    return {"user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs}, "memberships": list(by_ws.values())}
 
 
 @router.patch("/me", response_model=MeOut)
 async def patch_me(body: MePatch, user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
+    if user.api_key_id:
+        raise ApiError("FORBIDDEN", "API keys cannot modify user profile.")
     prefs = json.dumps({**user.prefs, **body.prefs}) if body.prefs is not None else None
     await platform_repo().write("p_user_update", user_id=user.id, name=body.name, prefs_json=prefs)
     forget_user(user.clerk_user_id)
@@ -72,7 +101,9 @@ async def patch_me(body: MePatch, user: CurrentUser = Depends(current_user)) -> 
 @router.post("/workspaces", response_model=WorkspaceOut, status_code=status.HTTP_201_CREATED)
 async def create_workspace(
     body: WorkspaceCreate, tasks: BackgroundTasks, user: CurrentUser = Depends(current_user)
-) -> dict[str, Any]:
+):
+    if user.api_key_id:
+        raise ApiError("FORBIDDEN", "API keys are workspace-scoped and cannot create new workspaces.")
     platform = platform_repo()
     try:
         ws_id = await workspaces.create(platform, user.id, body.name, body.slug, body.data_mode)
@@ -87,16 +118,48 @@ async def create_workspace(
 @router.get("/workspaces", response_model=list[WorkspaceOut])
 async def list_workspaces(user: CurrentUser = Depends(current_user)) -> list[dict[str, Any]]:
     platform = platform_repo()
+    if user.api_key_ws_id:
+        ws_rows = await platform.read("p_workspace_get", ws_id=user.api_key_ws_id)
+        if ws_rows:
+            return [workspace_out(ws_rows[0]["w"], (user.api_key_role or Role.admin).value, None)]
+        return []
+    raw_memberships = await platform.read("p_memberships", user_id=user.id, email=user.email)
+    by_ws: dict[str, dict[str, Any]] = {}
+    for m in raw_memberships:
+        ws_id = m["workspace_id"]
+        if ws_id not in by_ws:
+            by_ws[ws_id] = m
+        else:
+            current_rank = ROLE_RANK.get(Role(by_ws[ws_id].get("role", "viewer")), 0)
+            new_rank = ROLE_RANK.get(Role(m.get("role", "viewer")), 0)
+            if new_rank > current_rank:
+                by_ws[ws_id] = m
     out = []
-    for m in await platform.read("p_memberships", user_id=user.id):
-        w = (await platform.read("p_workspace_get", ws_id=m["workspace_id"]))[0]["w"]
-        out.append(workspace_out(w, m["role"], m["person_id"]))
+    for m in by_ws.values():
+        ws_rows = await platform.read("p_workspace_get", ws_id=m["workspace_id"])
+        if ws_rows:
+            w = ws_rows[0]["w"]
+            out.append(workspace_out(w, m["role"], m["person_id"]))
     return out
 
 
 @router.get("/workspaces/{ws_id}", response_model=WorkspaceOut)
 async def get_workspace(ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
     return workspace_out(ctx.workspace, ctx.role.value, ctx.person_id)
+
+
+@router.delete("/workspaces/{ws_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_workspace(
+    confirm_slug: str | None = None,
+    ctx: WorkspaceContext = Depends(owner_any_status),
+) -> None:
+    """Permanently delete a workspace (owner only). Drops all graphs, removes API keys and platform memberships."""
+    if ctx.user.api_key_id:
+        raise ApiError("FORBIDDEN", "API keys cannot delete workspaces.")
+    if confirm_slug is not None and confirm_slug != ctx.workspace.get("slug"):
+        raise ApiError("VALIDATION_ERROR", f"Slug confirmation mismatch. Expected '{ctx.workspace.get('slug')}'.")
+    await workspaces.delete(ctx.platform, ctx.ws_id)
+    forget_user(ctx.user.clerk_user_id)
 
 
 @router.post("/workspaces/{ws_id}/reprovision", response_model=WorkspaceOut)
@@ -114,6 +177,41 @@ async def reprovision(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(an
 async def sample_data(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
     """Reset the sample (03 §10.2) or retry a failed provisioning; same path as rehydrate."""
     return await reprovision(tasks, ctx)
+
+
+@router.post("/workspaces/{ws_id}/reset-blank", response_model=WorkspaceOut)
+async def reset_blank(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
+    """Wipe all graph data and reset workspace to clean blank slate with 0 alerts. Admins only."""
+    if not ctx.at_least(Role.admin):
+        raise ApiError("FORBIDDEN", "Only admins can reset a workspace.")
+    w = await workspaces.set_fields(
+        ctx.platform,
+        ctx.ws_id,
+        status="provisioning",
+        data_mode="blank",
+        clock_mode="live",
+        as_of=now(),
+    )
+    tasks.add_task(workspaces.provision, ctx.platform, ctx.ws_id, "blank")
+    return workspace_out(w, ctx.role.value, ctx.person_id)
+
+
+@router.post("/workspaces/{ws_id}/load-sample", response_model=WorkspaceOut)
+async def load_sample(tasks: BackgroundTasks, ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
+    """Populate workspace with Northwind Pay demo dataset. Admins only."""
+    if not ctx.at_least(Role.admin):
+        raise ApiError("FORBIDDEN", "Only admins can load sample data.")
+    as_of = get_settings().as_of_default
+    w = await workspaces.set_fields(
+        ctx.platform,
+        ctx.ws_id,
+        status="provisioning",
+        data_mode="sample",
+        clock_mode="simulated",
+        as_of=as_of,
+    )
+    tasks.add_task(workspaces.provision, ctx.platform, ctx.ws_id, "sample")
+    return workspace_out(w, ctx.role.value, ctx.person_id)
 
 
 @router.patch("/workspaces/{ws_id}/onboarding", response_model=WorkspaceOut)

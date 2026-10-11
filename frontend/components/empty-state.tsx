@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { ThinkingOrb, type OrbState } from "@/components/ui/thinking-orb";
 
 /** Abstract constellation line art (05 §2.2): nodes and edges in currentColor. */
 export function Constellation({ className }: { className?: string }) {
@@ -21,10 +22,11 @@ export function Constellation({ className }: { className?: string }) {
   );
 }
 
-/** 05 §8 EmptyState: icon or illustration, title, one sentence, one primary action. */
+/** 05 §8 EmptyState: icon, illustration, or 64px ThinkingOrb, title, one sentence, one primary action. */
 export function EmptyState({
   icon: Icon,
   illustration = false,
+  orb = false,
   title,
   description,
   action,
@@ -32,6 +34,7 @@ export function EmptyState({
 }: {
   icon?: LucideIcon;
   illustration?: boolean;
+  orb?: boolean | OrbState;
   title: string;
   description?: ReactNode;
   action?: ReactNode;
@@ -39,7 +42,11 @@ export function EmptyState({
 }) {
   return (
     <div className={cn("flex flex-col items-center px-6 py-12 text-center", className)}>
-      {illustration ? (
+      {orb ? (
+        <div className="mb-4 flex items-center justify-center">
+          <ThinkingOrb size={64} state={typeof orb === "string" ? orb : "searching"} />
+        </div>
+      ) : illustration ? (
         <Constellation className="mb-4 text-brand" />
       ) : (
         Icon && (

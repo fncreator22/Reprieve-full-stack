@@ -92,11 +92,41 @@ Current eval on the sample dataset ([spec](docs/07-seed-spec.md)):
    on their own.
 5. **Smoke.** `API_URL=… INTERNAL_TICK_SECRET=… SMOKE_TOKEN=<session JWT> make smoke`.
 
-## Limitations and roadmap
+## What's shipped (Sprint Oct 9–10)
+
+### Sentinel auto-prediction cache
+After every detection tick, Sentinel runs a 30-day avalanche simulation and writes
+`sim_score`, `sim_band`, `sim_is_spof`, `sim_pulse`, and `sim_color` directly onto each Service node.
+The graph canvas reads these cached properties on load — no on-demand simulation click required.
+Risk overlays (pulsing halos, severity colours, cascade particles) appear immediately.
+
+### Draft impact preview
+Before a reviewer approves a staged exception draft, they can call:
+```
+GET /api/v1/workspaces/{ws_id}/exceptions/drafts/{draft_id}/impact-preview
+```
+Returns the current top-5 risk services and which of those the draft would touch,
+with a caution note if the draft severity is ≥ 4 and already-high-risk services are affected.
+Zero state mutation — pure read.
+
+### MCP tool endpoint
+All 14 Steward tools are accessible to any MCP-compatible agent (Claude Desktop, Cursor, etc.):
+```bash
+# List available tools
+curl https://<api-url>/api/v1/workspaces/<ws_id>/mcp/tools \
+  -H "Authorization: Bearer <token>"
+
+# Call predict_avalanche for payments-gateway
+curl -X POST https://<api-url>/api/v1/workspaces/<ws_id>/mcp/tools/predict_avalanche \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"service_id": "svc_payments_gateway"}'
+```
+
+
 
 Not a GRC suite and not an auditor-grade evidence system. Next: CSV/JSON import, invites and role management, email
-notifications, audit-log UI, rule tuning UI, text ingestion of tickets and chats into staged drafts, MCP endpoint,
-connectors (Jira, Slack, Okta, ServiceNow).
+notifications, audit-log UI, rule tuning UI, connectors (Jira, Slack, Okta, ServiceNow).
 
 ## License
 

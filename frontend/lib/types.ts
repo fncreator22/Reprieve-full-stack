@@ -93,6 +93,33 @@ export interface AiSettings {
   ai_mode: AiMode;
 }
 
+export interface ApiKeyOut {
+  id: string;
+  name: string;
+  prefix: string;
+  preview: string;
+  role: Role;
+  scopes: string[];
+  created_by: string;
+  created_at: number;
+  expires_at: number | null;
+  last_used_at: number | null;
+  revoked: boolean;
+  revoked_at: number | null;
+  status: "active" | "expired" | "revoked";
+}
+
+export interface ApiKeyCreatedOut extends ApiKeyOut {
+  secret: string;
+}
+
+export interface ApiKeyCreateIn {
+  name: string;
+  role?: Role;
+  expires_in_days?: number | null;
+  test_key?: boolean;
+}
+
 // graph / proof
 export interface ProofNode {
   id: string;
@@ -419,3 +446,63 @@ export interface ReviewListItem {
 export type ReviewPage = Page<ReviewListItem> & { needs_identity?: boolean };
 /** GET /reviews/{id} adds whether the caller may decide; POST /decide adds the applied effects. */
 export type ReviewDetail = ReviewOut & { can_decide?: boolean; effects?: string[] };
+
+// Prediction and Temporal Simulation Types
+export interface ProofEdge {
+  from: string;
+  to: string;
+  type: string;
+}
+
+export interface ProofGraph {
+  nodes: string[];
+  edges: ProofEdge[];
+}
+
+export interface AvalancheCentralityItem {
+  service_id: string;
+  service_name: string;
+  score: number;
+  band: Severity;
+  spof_rank: number;
+  cascade_probability: number;
+  reachable_services: string[];
+  customer_paths: string[];
+  proof: ProofGraph;
+}
+
+export interface TemporalCollisionItem {
+  cluster_id: string;
+  window_start: number;
+  window_end: number;
+  exception_ids: string[];
+  affected_services: string[];
+  collision_severity?: number;
+  severity_score?: number;
+  severity_band?: Severity;
+  proof: ProofGraph;
+}
+
+export interface CanvasNodeDecoration {
+  node_id: string;
+  simulated_score: number;
+  risk_band: Severity;
+  color: string;
+  pulse: boolean;
+  pulse_color?: string | null;
+  spof_rank?: number | null;
+  cascade_probability?: number | null;
+  collision_count: number;
+  is_target: boolean;
+}
+
+export interface SimulationForecastOut {
+  as_of: number;
+  projected_date: number;
+  horizon_days: number;
+  target_service_id?: string | null;
+  avalanche_centrality: AvalancheCentralityItem[];
+  temporal_collisions: TemporalCollisionItem[];
+  canvas_decorations: Record<string, CanvasNodeDecoration>;
+  execution_time_ms: number;
+}

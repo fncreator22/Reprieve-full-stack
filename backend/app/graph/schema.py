@@ -24,7 +24,7 @@ PLATFORM = SchemaSpec(
     unique=_ids(PLATFORM_LABELS) + (("User", "clerk_user_id"), ("Workspace", "slug")),
     mandatory=(("User", "clerk_user_id"),)
     + _ids(("Workspace", "Invitation", "ApiKey")),  # F15: User merges on clerk id
-    indexes=(("User", "email"), ("Invitation", "token_hash"), ("ApiKey", "prefix")),
+    indexes=(("User", "email"), ("Invitation", "token_hash"), ("ApiKey", "prefix"), ("ApiKey", "secret_hash")),
 )
 
 ORG_ID_LABELS = (

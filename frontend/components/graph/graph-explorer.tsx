@@ -1,21 +1,25 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import gsap from "gsap";
-import { List, Network, RotateCcw } from "lucide-react";
+import { Database, List, Network, Play, Plus, RotateCcw, Sparkles } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
 import { useEntityDrawer } from "@/components/shell/use-drawer";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TemporalSlider } from "@/components/graph/temporal-slider";
+import { SimulationProofCard } from "@/components/graph/simulation-proof-card";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
-import { useMediaQuery, usePrefersReducedMotion, useThemeTokens } from "@/lib/hooks";
+import { useMediaQuery, usePrefersReducedMotion, useSimulationForecast, useThemeTokens } from "@/lib/hooks";
 import { drawShape } from "@/lib/graph-draw";
 import type { ThemeTokens } from "@/lib/tokens";
-import type { GraphOut } from "@/lib/types";
+import type { AvalancheCentralityItem, GraphOut, TemporalCollisionItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/lib/workspace";
 
@@ -32,7 +36,7 @@ const idOf = (v: string | GNode) => (typeof v === "string" ? v : v.id);
 /** SCR-P-02: force graph with filters, animated proof path, and an accessible list view. */
 export function GraphExplorer() {
   const api = useApi();
-  const { wsId } = useWorkspace();
+  const { wsId, slug } = useWorkspace();
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -43,6 +47,11 @@ export function GraphExplorer() {
   const box = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 800, h: 600 });
   const [progress, setProgress] = useState(1);
+  const [horizonDays, setHorizonDays] = useState(0);
+  const [selectedProofNode, setSelectedProofNode] = useState<{
+    avalancheItem?: AvalancheCentralityItem | null;
+    collisionItem?: TemporalCollisionItem | null;
+  } | null>(null);
 
   const focus = params.get("focus");
   const view = params.get("view") ?? (mobile ? "list" : "canvas");
@@ -60,6 +69,19 @@ export function GraphExplorer() {
   const graph = useQuery({
     queryKey: ["graph", wsId, focus, kinds.join(",")],
     queryFn: ({ signal }) => api<GraphOut>(wsPath(wsId, "/graph"), { signal, query: { focus: focus ?? undefined, depth: 2, kinds: kinds.join(",") } }),
+  });
+
+  const forecast = useSimulationForecast(wsId, horizonDays, focus);
+  const qc = useQueryClient();
+  const loadSample = useMutation({
+    mutationFn: () => api<unknown>(wsPath(wsId, "/load-sample"), { method: "POST" }),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["graph", wsId] });
+      void qc.invalidateQueries({ queryKey: ["workspace", wsId] });
+      void qc.invalidateQueries({ queryKey: ["risk-summary", wsId] });
+      toast.success("Loaded Northwind Pay demo data. Rendering canvas...");
+    },
+    onError: (e) => toast.error(errorMessage(e)),
   });
 
   const data = useMemo(() => {
@@ -103,6 +125,41 @@ export function GraphExplorer() {
 
   const pathActive = pathSet.size > 0;
 
+  const handleSelectDecoration = (nodeId: string) => {
+    const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === nodeId) ?? null;
+    const colItem = forecast.data?.temporal_collisions?.find((c) => c.affected_services.includes(nodeId) || c.cluster_id === nodeId) ?? null;
+    if (avItem || colItem) {
+      setSelectedProofNode({ avalancheItem: avItem, collisionItem: colItem });
+    }
+  };
+
+  const handleSimulateOutage = () => {
+    setHorizonDays(30);
+    setParam("focus", "svc_payments_gateway");
+    toast.error("🚨 30-Day Cascade Outage: payments-gateway bypass triggers failure across 4 downstream services!", {
+      duration: 6000,
+    });
+  };
+
+  useEffect(() => {
+    if (params.get("sim") === "1" || params.get("horizon") === "30") {
+      setHorizonDays(30);
+      if (!focus && data.nodes.some((n) => n.id === "svc_payments_gateway")) {
+        setParam("focus", "svc_payments_gateway");
+      }
+    }
+  }, [params, data.nodes, focus]);
+
+  useEffect(() => {
+    if (horizonDays === 30 && focus === "svc_payments_gateway" && forecast.data && !selectedProofNode) {
+      const avItem = forecast.data.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
+      const colItem = forecast.data.temporal_collisions?.[0] ?? null;
+      if (avItem || colItem) {
+        setSelectedProofNode({ avalancheItem: avItem, collisionItem: colItem });
+      }
+    }
+  }, [horizonDays, focus, forecast.data, selectedProofNode]);
+
   return (
     <div className="flex h-[calc(100dvh-8.5rem)] flex-col">
       <div className="flex flex-wrap items-center gap-2 border-b border-border-subtle px-4 py-2">
@@ -126,18 +183,58 @@ export function GraphExplorer() {
             );
           })}
         </div>
-        <div className="ml-auto flex gap-1">
-          {(focus || pathActive) && (
-            <Button variant="ghost" size="sm" onClick={() => router.replace(pathname)}>
-              <RotateCcw aria-hidden /> Reset
+        <div className="ml-auto flex items-center gap-2">
+          {data.nodes.some((n) => n.id === "svc_payments_gateway") && (
+            <Button
+              type="button"
+              variant="destructive"
+              size="sm"
+              onClick={handleSimulateOutage}
+              className="gap-1.5 shadow-xs font-semibold text-caption h-8"
+            >
+              <Play className="size-3 fill-current" />
+              <span>🚨 Simulate Outage (+30d)</span>
             </Button>
           )}
-          <Button variant={view === "canvas" ? "secondary" : "ghost"} size="sm" onClick={() => setParam("view", "canvas")} aria-pressed={view === "canvas"}>
-            <Network aria-hidden /> Canvas
-          </Button>
-          <Button variant={view === "list" ? "secondary" : "ghost"} size="sm" onClick={() => setParam("view", "list")} aria-pressed={view === "list"}>
-            <List aria-hidden /> List
-          </Button>
+          {(focus || pathActive) && (
+            <Button variant="ghost" size="sm" onClick={() => router.replace(pathname)}>
+              <RotateCcw aria-hidden /> Reset focus
+            </Button>
+          )}
+          <div className="flex items-center rounded-md border border-border-subtle bg-bg-surface p-0.5 shadow-xs" role="tablist" aria-label="Graph display mode">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "canvas"}
+              onClick={() => setParam("view", "canvas")}
+              className={cn(
+                "flex items-center gap-1.5 rounded px-2.5 py-1 text-caption font-medium transition-colors",
+                view === "canvas"
+                  ? "bg-brand text-text-on-brand shadow-xs font-semibold"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle",
+              )}
+              title="2D Interactive Physics Canvas: drag nodes, scroll to zoom, inspect dependency paths & risk halos"
+            >
+              <Network className="size-3.5" aria-hidden />
+              <span>Canvas (Graph)</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "list"}
+              onClick={() => setParam("view", "list")}
+              className={cn(
+                "flex items-center gap-1.5 rounded px-2.5 py-1 text-caption font-medium transition-colors",
+                view === "list"
+                  ? "bg-brand text-text-on-brand shadow-xs font-semibold"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle",
+              )}
+              title="Structured table list view of entities and relations"
+            >
+              <List className="size-3.5" aria-hidden />
+              <span>List (Table)</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -150,11 +247,62 @@ export function GraphExplorer() {
       ) : graph.isError ? (
         <p className="p-6 text-text-secondary">{errorMessage(graph.error)}</p>
       ) : !data.nodes.length ? (
-        <EmptyState illustration title="No data yet" description="Add a service or load the sample workspace." className="m-6" />
-      ) : view === "list" ? (
+        <div className="flex-1 overflow-y-auto p-6 flex flex-col items-center justify-center">
+          <EmptyState
+            illustration
+            title="Graph canvas is empty"
+            description="The 2D Force-Directed Canvas visualizes microservice dependencies, architectural waivers, cascading risk halos, and shortest proof paths. Because this workspace has no services or exceptions yet, there are no graph nodes to render."
+            action={
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Button asChild>
+                  <Link href={`/w/${slug}/services`}>
+                    <Plus aria-hidden /> Add your first service
+                  </Link>
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => loadSample.mutate()}
+                  loading={loadSample.isPending}
+                >
+                  <Database aria-hidden /> Load Northwind Pay demo to explore Canvas
+                </Button>
+              </div>
+            }
+          />
+          <div className="card-e1 max-w-xl w-full mt-6 p-5 space-y-3 text-left">
+            <h4 className="font-semibold text-body-sm text-text-primary flex items-center gap-2">
+              <Sparkles className="size-4 text-brand" />
+              What the Canvas view provides once data is loaded:
+            </h4>
+            <ul className="text-body-sm text-text-secondary space-y-2 list-disc list-inside">
+              <li>
+                <strong>Interactive Physics Simulation:</strong> Force-directed layout where microservices and waivers spring back when dragged.
+              </li>
+              <li>
+                <strong>Temporal Risk Forecasting:</strong> Slide through +7d, +30d, and +90d using the temporal scrubber to preview cascading failures.
+              </li>
+              <li>
+                <strong>Causal Proof Paths:</strong> Trace the shortest paths between skipped tests, security waivers, and payments services.
+              </li>
+              <li>
+                <strong>Automated Code Scanning:</strong> Run <code className="font-mono text-caption bg-surface-subtle px-1.5 py-0.5 rounded border border-border-subtle">reprieve scan .</code> in your codebase to attach your services automatically.
+              </li>
+            </ul>
+          </div>
+        </div>
+      )
+ : view === "list" ? (
         <GraphList graph={graph.data} onOpen={open} pathSet={pathSet} />
       ) : (
         <div ref={box} className="relative flex-1 overflow-hidden" aria-label={`Graph of ${data.nodes.length} nodes. Use the List view for a text version.`} role="img">
+          <div className="absolute top-3 left-3 z-10 w-[calc(100%-1.5rem)] max-w-sm sm:max-w-md pointer-events-auto">
+            <TemporalSlider
+              horizonDays={horizonDays}
+              onHorizonChange={setHorizonDays}
+              forecast={forecast.data}
+              isLoading={forecast.isPending}
+            />
+          </div>
           {tokens && (
             <GraphCanvas
               data={data}
@@ -165,9 +313,17 @@ export function GraphExplorer() {
               progress={pathLinks.length && !reduced ? progress : 1}
               focus={focus}
               still={reduced}
+              decorations={forecast.data?.canvas_decorations}
               onOpen={open}
+              onSelectDecoration={handleSelectDecoration}
             />
           )}
+          <SimulationProofCard
+            avalancheItem={selectedProofNode?.avalancheItem}
+            collisionItem={selectedProofNode?.collisionItem}
+            onClose={() => setSelectedProofNode(null)}
+            onAskSteward={(question) => router.push(`/w/${slug}/steward?q=${encodeURIComponent(question)}`)}
+          />
           <Legend tokens={tokens} />
         </div>
       )}

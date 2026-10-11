@@ -11,11 +11,14 @@ export const SEVERITY_META: Record<Severity, { label: string; icon: LucideIcon; 
   critical: { label: "Critical", icon: Siren, text: "text-sev-critical", soft: "bg-sev-critical-soft" },
 };
 
-export function SeverityBadge({ severity, className }: { severity: Severity; className?: string }) {
-  const meta = SEVERITY_META[severity];
+export function SeverityBadge({ severity, className }: { severity?: Severity | string | null; className?: string }) {
+  const normalizedKey = (severity?.toString().toLowerCase().trim() ?? "moderate") as Severity;
+  const meta = SEVERITY_META[normalizedKey] ?? SEVERITY_META.moderate;
   const Icon = meta.icon;
+  const badgeVariant = (normalizedKey in SEVERITY_META ? normalizedKey : "moderate") as Severity;
+
   return (
-    <Badge variant={severity} className={cn(className)}>
+    <Badge variant={badgeVariant} className={cn(className)}>
       <Icon aria-hidden strokeWidth={1.75} />
       {meta.label}
     </Badge>

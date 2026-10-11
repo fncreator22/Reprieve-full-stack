@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Check, ChevronsUpDown, Plus, Search, Sparkles } from "lucide-react";
+import { Check, ChevronsUpDown, HelpCircle, Plus, Search, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { QuickGuideModal } from "@/components/guide/quick-guide-modal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,6 +59,11 @@ function WorkspaceSwitcher() {
           </DropdownMenuItem>
         ))}
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/workspaces?select=1">
+            All workspaces
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/onboarding?new=1">
             <Plus aria-hidden />
@@ -116,59 +123,73 @@ export function TopBar({ sentinel }: { sentinel: SentinelState }) {
     meta: { success: "Sentinel run started." },
   });
 
+  const [guideOpen, setGuideOpen] = useState(false);
+
   return (
-    <header className="@container sticky top-0 z-(--z-topbar) flex h-(--topbar-h) items-center gap-2 border-b border-border-subtle bg-canvas/85 px-3 backdrop-blur sm:px-4">
-      <Link href={`/w/${slug}/home`} aria-label="Reprieve home" className="sm:hidden">
-        <LogoMark className="size-6" />
-      </Link>
-      <WorkspaceSwitcher />
-      <Breadcrumbs />
-      <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-        <button
-          type="button"
-          onClick={() => setCommandOpen(true)}
-          aria-label="Search and commands"
-          aria-keyshortcuts="Meta+K Control+K"
-          className="inline-flex h-9 items-center gap-2 rounded-md border border-border-subtle bg-surface px-2.5 text-body-sm text-text-muted hover:border-border-strong hover:text-text-primary @3xl:w-56"
-        >
-          <Search aria-hidden className="size-4" />
-          <span className="hidden @3xl:inline">Search</span>
-          <kbd className="ml-auto hidden rounded border border-border-subtle bg-sunken px-1.5 font-mono text-[11px] @3xl:inline">⌘K</kbd>
-        </button>
-        {workspace && (
-          <div className="hidden items-center gap-2 @4xl:flex">
-            <ClockChip
-              mode={workspace.clock_mode}
-              asOf={workspace.as_of}
-              canEdit={isAdmin}
-              presets={workspace.data_mode === "sample" ? SAMPLE_PRESETS : []}
-              onApply={(asOf) => clock.mutateAsync(asOf)}
-            />
-            <SentinelPill
-              state={sentinel === "idle" && rerun.isPending ? "running" : sentinel}
-              lastRunAt={workspace.last_sentinel_at}
-              onRetry={isAdmin ? () => rerun.mutate() : undefined}
-            />
-          </div>
-        )}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label={stewardOpen ? "Close Steward" : "Open Steward"}
-              aria-pressed={stewardOpen}
-              onClick={() => setStewardOpen(!stewardOpen)}
-              className={cn("hidden sm:inline-flex", stewardOpen && "bg-brand-soft text-brand")}
-            >
-              <Sparkles aria-hidden className="size-5" strokeWidth={1.5} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Steward</TooltipContent>
-        </Tooltip>
-        <NotificationsBell />
-        <AccountMenu />
-      </div>
-    </header>
+    <>
+      <header className="@container sticky top-0 z-(--z-topbar) flex h-(--topbar-h) items-center gap-2 border-b border-border-subtle bg-canvas/85 px-3 backdrop-blur sm:px-4">
+        <Link href={`/w/${slug}/home`} aria-label="Reprieve home" className="sm:hidden">
+          <LogoMark className="size-6" />
+        </Link>
+        <WorkspaceSwitcher />
+        <Breadcrumbs />
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <button
+            type="button"
+            onClick={() => setCommandOpen(true)}
+            aria-label="Search and commands"
+            aria-keyshortcuts="Meta+K Control+K"
+            className="inline-flex h-9 items-center gap-2 rounded-md border border-border-subtle bg-surface px-2.5 text-body-sm text-text-muted hover:border-border-strong hover:text-text-primary @3xl:w-56"
+          >
+            <Search aria-hidden className="size-4" />
+            <span className="hidden @3xl:inline">Search</span>
+            <kbd className="ml-auto hidden rounded border border-border-subtle bg-sunken px-1.5 font-mono text-[11px] @3xl:inline">⌘K</kbd>
+          </button>
+          {workspace && (
+            <div className="hidden items-center gap-2 @4xl:flex">
+              <ClockChip
+                mode={workspace.clock_mode}
+                asOf={workspace.as_of}
+                canEdit={isAdmin}
+                presets={workspace.data_mode === "sample" ? SAMPLE_PRESETS : []}
+                onApply={(asOf) => clock.mutateAsync(asOf)}
+              />
+              <SentinelPill
+                state={sentinel === "idle" && rerun.isPending ? "running" : sentinel}
+                lastRunAt={workspace.last_sentinel_at}
+                onRetry={isAdmin ? () => rerun.mutate() : undefined}
+              />
+            </div>
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setGuideOpen(true)}
+            className="hidden md:inline-flex items-center gap-1.5 text-caption font-medium text-text-secondary hover:text-text-primary hover:bg-surface-elevated h-8 px-2"
+          >
+            <HelpCircle className="size-4 text-brand" />
+            <span>Quick Guide</span>
+          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={stewardOpen ? "Close Steward" : "Open Steward"}
+                aria-pressed={stewardOpen}
+                onClick={() => setStewardOpen(!stewardOpen)}
+                className={cn("hidden sm:inline-flex", stewardOpen && "bg-brand-soft text-brand")}
+              >
+                <Sparkles aria-hidden className="size-5" strokeWidth={1.5} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Steward</TooltipContent>
+          </Tooltip>
+          <NotificationsBell />
+          <AccountMenu />
+        </div>
+      </header>
+      <QuickGuideModal open={guideOpen} onOpenChange={setGuideOpen} />
+    </>
   );
 }

@@ -76,3 +76,20 @@ async def provision(platform: Repo, ws_id: str, data_mode: str) -> None:
         log.exception("provision_failed", ws_id=ws_id)
         await set_fields(platform, ws_id, status="failed")
         events.publish(ws_id, "workspace.provisioning", {"step": "failed"})
+
+
+async def delete(platform: Repo, ws_id: str) -> None:
+    """Permanently delete a workspace: drops domain and memory graphs, deletes platform records & API keys."""
+    db = get_db()
+    names = graph_names(ws_id)
+    org, mem = Repo(db, names.org), Repo(db, names.mem)
+    try:
+        await org.drop()
+    except Exception:
+        log.warning("failed_to_drop_org_graph", ws_id=ws_id)
+    try:
+        await mem.drop()
+    except Exception:
+        log.warning("failed_to_drop_mem_graph", ws_id=ws_id)
+    await platform.write("p_workspace_delete", ws_id=ws_id)
+    events.publish(ws_id, "workspace.deleted", {"workspace_id": ws_id})

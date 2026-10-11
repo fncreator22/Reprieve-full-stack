@@ -383,6 +383,34 @@ class ReviewDecisionIn(Base):
     defer_until: int | None = None
 
 
+# ---------------------------------------------------------------- api keys
+class ApiKeyIn(Base):
+    name: Annotated[str, Field(min_length=1, max_length=100)]
+    role: Role = Role.admin
+    expires_in_days: int | None = Field(default=None, ge=1, le=365)
+    test_key: bool = False
+
+
+class ApiKeyOut(Base):
+    id: str
+    name: str
+    prefix: str
+    preview: str
+    role: Role
+    scopes: list[str] = []
+    created_by: str
+    created_at: int
+    expires_at: int | None = None
+    last_used_at: int | None = None
+    revoked: bool = False
+    revoked_at: int | None = None
+    status: Literal["active", "expired", "revoked"]
+
+
+class ApiKeyCreatedOut(ApiKeyOut):
+    secret: str
+
+
 # ---------------------------------------------------------------- registry
 class EntityOut(Base):
     id: str

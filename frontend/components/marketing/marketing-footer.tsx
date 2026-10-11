@@ -12,6 +12,16 @@ export function MarketingFooter() {
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-body-sm text-text-secondary">
             <li>
+              <Link href="/rules" className="hover:text-text-primary">
+                Detection Rules
+              </Link>
+            </li>
+            <li>
+              <Link href="/architecture" className="hover:text-text-primary">
+                Architecture
+              </Link>
+            </li>
+            <li>
               <Link href="/terms" className="hover:text-text-primary">
                 Terms
               </Link>
@@ -22,8 +32,8 @@ export function MarketingFooter() {
               </Link>
             </li>
             <li>
-              <Link href="/sign-in" className="hover:text-text-primary">
-                Sign in
+              <Link href="/cookies" className="hover:text-text-primary">
+                Cookies
               </Link>
             </li>
           </ul>

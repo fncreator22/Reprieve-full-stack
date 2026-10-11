@@ -69,10 +69,17 @@ class Repo:
     async def read(
         self, qid: str, *, label: str | None = None, timeout: int = READ_TIMEOUT_MS, **params: Any
     ) -> list[Row]:
-        return _rows(await self.g.ro_query(load(qid, label), params, timeout=timeout))
+        q = load(qid, label)
+        if "email" not in params and "$email" in q:
+            params["email"] = None
+        return _rows(await self.g.ro_query(q, params, timeout=timeout))
 
     async def write(self, qid: str, *, label: str | None = None, **params: Any) -> list[Row]:
-        return _rows(await self.g.query(load(qid, label), params, timeout=WRITE_TIMEOUT_MS))
+        q = load(qid, label)
+        if "email" not in params and "$email" in q:
+            params["email"] = None
+        return _rows(await self.g.query(q, params, timeout=WRITE_TIMEOUT_MS))
+
 
     async def write_batched(
         self, qid: str, rows: list[dict[str, Any]], *, label: str | None = None, **params: Any

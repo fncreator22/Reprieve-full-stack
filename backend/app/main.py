@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import errors
-from app.api import account, chat, data, ingest, memory, risk_alerts, system
+from app.api import account, api_keys, chat, data, ingest, memory, mcp, prediction, risk_alerts, system
 from app.config import get_settings
 from app.graph.client import close_db
 from app.ids import new_id
@@ -27,7 +27,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in get_settings().web_origin.split(",")],
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allow_headers=["Authorization", "Content-Type", "If-Match", "Idempotency-Key", "X-Request-ID"],
+    allow_headers=["Authorization", "Content-Type", "If-Match", "Idempotency-Key", "X-Request-ID", "X-API-Key"],
     expose_headers=["X-Request-ID", "Retry-After"],
 )
 
@@ -44,8 +44,11 @@ async def request_id(request: Request, call_next) -> Response:  # type: ignore[n
 
 app.include_router(system.router)
 app.include_router(account.router, prefix="/api/v1")
+app.include_router(api_keys.router, prefix="/api/v1")
 app.include_router(risk_alerts.router, prefix="/api/v1")
 app.include_router(chat.router, prefix="/api/v1")
 app.include_router(memory.router, prefix="/api/v1")
 app.include_router(ingest.router, prefix="/api/v1")
+app.include_router(prediction.router, prefix="/api/v1")
+app.include_router(mcp.router, prefix="/api/v1")
 app.include_router(data.router, prefix="/api/v1")

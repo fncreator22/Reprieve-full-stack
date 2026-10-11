@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autonomous Graph Intelligence — Live Kinetic Match</title>
+  <style>
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: local('JetBrains Mono'), local('Consolas'), local('Courier New');
+    }
+    :root {
+      --bg: #030509;
+      --cyan: #4EFAFF;
+      --purple: #B288FF;
+      --emerald: #34D399;
+      --amber: #F59E0B;
+      --text: #FFFFFF;
+      --sub: #9EABBA;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 45%, #0B1324 0%, #030509 85%);
+    }
+
+    /* Ambient CRT Scanline Overlay */
+    #scanlines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+      background-size: 100% 4px, 6px 100%;
+      opacity: 0.75;
+    }
+
+    /* Cinematic Vignette */
+    #vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.85) 100%);
+    }
+
+    #canvas {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 2;
+    }
+
+    /* HUD Corner Elements */
+    .hud-element {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.4);
+      z-index: 12;
+      pointer-events: none;
+    }
+    .hud-tl { top: 44px; left: 56px; }
+    .hud-tr { top: 44px; right: 56px; }
+    .hud-bl { bottom: 44px; left: 56px; }
+    .hud-br { bottom: 44px; right: 56px; }
+
+    /* Corner Bracket Reticles */
+    .reticle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 12;
+      pointer-events: none;
+    }
+    .r-tl { top: 38px; left: 42px; border-right: 0; border-bottom: 0; }
+    .r-tr { top: 38px; right: 42px; border-left: 0; border-bottom: 0; }
+    .r-bl { bottom: 38px; left: 42px; border-right: 0; border-top: 0; }
+    .r-br { bottom: 38px; right: 42px; border-left: 0; border-top: 0; }
+
+    /* Centered Text Group with Chromatic Aberration */
+    .center-text-group {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 110px;
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .main-title {
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 35px rgba(78, 250, 255, 0.6), 0 0 70px rgba(78, 250, 255, 0.25);
+      line-height: 1.08;
+      display: inline-block;
+    }
+    .sub-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: var(--sub);
+      margin-top: 14px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    /* Terminal overlay in Scene 1 (Dead Center) */
+    #terminal-overlay {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      line-height: 1.9;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      text-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
+    }
+    .term-prompt { color: #A7F3D0; font-weight: 700; margin-bottom: 14px; font-size: 26px; }
+    .term-bar { color: #38BDF8; font-weight: 700; }
+    .term-ok { color: #34D399; font-weight: 700; }
+
+    /* Final Statement in Scene 8 */
+    #final-hero {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .final-headline {
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 45px rgba(255, 255, 255, 0.7), 0 0 90px rgba(78, 250, 255, 0.4);
+      line-height: 1;
+    }
+    .final-sub {
+      font-size: 30px;
+      font-weight: 400;
+      font-style: italic;
+      color: #94A3B8;
+      margin-top: 28px;
+      letter-spacing: 0.03em;
+    }
+    .final-sub em {
+      color: #38BDF8;
+      font-style: normal;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+<div id="stage" data-composition-id="main" data-duration="10.05">
+  <div id="scanlines"></div>
+  <div id="vignette"></div>
+  <canvas id="canvas" width="1920" height="1080"></canvas>
+
+  <!-- HUD Corner Elements -->
+  <div class="reticle r-tl"></div>
+  <div class="reticle r-tr"></div>
+  <div class="reticle r-bl"></div>
+  <div class="reticle r-br"></div>
+
+  <div id="hud-status" class="hud-element hud-tl">SYS // INTELLIGENCE</div>
+  <div id="hud-tc" class="hud-element hud-tr">TC 00:00:00:00</div>
+  <div id="hud-bl" class="hud-element hud-bl">[██████████] OK · 16.0ms</div>
+  <div class="hud-element hud-br">FALKORDB · CYPHER ENGINE</div>
+
+  <!-- Scene 1: Terminal (0.0s - 1.8s) -->
+  <div id="terminal-overlay">
+    <div class="term-prompt">~/core $ g++ -O3 intelligence.cpp -o future</div>
+    <div id="term-l1">&gt; compiling graph_engine.cpp &nbsp; <span class="term-bar" id="b1">[░░░░░░░░░░]</span> <span class="term-ok" id="k1">..</span></div>
+    <div id="term-l2">&gt; compiling multi_agent.cpp &nbsp; &nbsp;<span class="term-bar" id="b2">[░░░░░░░░░░]</span> <span class="term-ok" id="k2">..</span></div>
+    <div id="term-l3">&gt; linking graph_reasoning &nbsp; &nbsp; <span class="term-bar" id="b3">[░░░░░░░░░░]</span> <span class="term-ok" id="k3">..</span></div>
+  </div>
+
+  <!-- Scene 2: Graph Infrastructure (1.8s - 3.2s) -->
+  <div id="txt-s2" class="center-text-group">
+    <div class="main-title">GRAPH INFRASTRUCTURE</div>
+    <div class="sub-title">// FalkorDB-Core &middot; Sub-16ms p95 &middot; Multi-Tenant</div>
+  </div>
+
+  <!-- Scene 3: Multi-Agent Systems (3.2s - 4.8s) -->
+  <div id="txt-s3" class="center-text-group">
+    <div class="main-title">MULTI-AGENT SYSTEMS</div>
+    <div class="sub-title">// Steward Agent &middot; Orchestrate &middot; Shared Memory</div>
+  </div>
+
+  <!-- Scene 4: Zero-Knowledge Security (4.8s - 6.2s) -->
+  <div id="txt-s4" class="center-text-group">
+    <div class="main-title">ZERO-KNOWLEDGE SECURITY</div>
+    <div class="sub-title">// 3 Tenant Graphs &middot; AES-256 &middot; Zero Data Leak</div>
+  </div>
+
+  <!-- Scene 5: Graph Topology & Reachability (6.2s - 7.6s) -->
+  <div id="txt-s5" class="center-text-group">
+    <div class="main-title">GRAPH TOPOLOGY & REACHABILITY</div>
+    <div class="sub-title">// 1,420+ ENTITIES &middot; 4,890 DEPENDENCY EDGES &middot; AVALANCHE CENTRALITY</div>
+  </div>
+
+  <!-- Scene 6: Papers -> Production (7.6s - 8.8s) -->
+  <div id="txt-s6" class="center-text-group">
+    <div class="main-title">PAPERS &rarr; PRODUCTION</div>
+    <div class="sub-title">// AVALANCHE CENTRALITY &middot; SUB-16MS DETERMINISTIC CYPHER &middot; PRODUCTION RUNTIME</div>
+  </div>
+
+  <!-- Scene 8: Final Punchline (9.4s - 10.05s) -->
+  <div id="final-hero">
+    <div class="final-headline">AUTONOMOUS INTELLIGENCE</div>
+    <div class="final-sub">Build systems that <em>reason through real connections.</em></div>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="runtime/vendor/gsap.min.js"></script>
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const W = 1920;
+  const H = 1080;
+  const hudTc = document.getElementById("hud-tc");
+  const hudBl = document.getElementById("hud-bl");
+
+  // Terminal progress bars
+  const b1 = document.getElementById("b1");
+  const b2 = document.getElementById("b2");
+  const b3 = document.getElementById("b3");
+  const k1 = document.getElementById("k1");
+  const k2 = document.getElementById("k2");
+  const k3 = document.getElementById("k3");
+
+  // Ambient Starfield Particles (continuous background life)
+  const starfield = [];
+  for (let s = 0; s < 140; s++) {
+    starfield.push({
+      x: (s * 137.5) % W,
+      y: (s * 293.1) % H,
+      speedX: ((s % 5) - 2) * 0.4,
+      speedY: ((s % 4) + 1) * 0.6,
+      size: (s % 3 === 0) ? 2.2 : 1.2,
+      alpha: 0.2 + (s % 10) * 0.06
+    });
+  }
+
+  // GSAP Master Timeline (10.05s duration)
+  const tl = gsap.timeline({ paused: true });
+
+  // S1: Terminal (0.0s - 1.8s)
+  tl.fromTo("#terminal-overlay", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 0.05);
+  tl.to("#terminal-overlay", { opacity: 0, scale: 0.1, filter: "blur(8px)", duration: 0.2, ease: "back.in(2)" }, 1.6);
+
+  // S2: Graph Infrastructure (1.8s - 3.2s)
+  tl.fromTo("#txt-s2", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 1.8);
+  tl.to("#txt-s2", { opacity: 0, scale: 1.1, duration: 0.2, ease: "power2.in" }, 3.1);
+
+  // S3: Multi-Agent Systems (3.2s - 4.8s)
+  tl.fromTo("#txt-s3", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 3.2);
+  tl.to("#txt-s3", { opacity: 0, scale: 1.1, duration: 0.2, ease: "power2.in" }, 4.7);
+
+  // S4: Zero-Knowledge Security (4.8s - 6.2s)
+  tl.fromTo("#txt-s4", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 4.8);
+  tl.to("#txt-s4", { opacity: 0, scale: 1.1, duration: 0.2, ease: "power2.in" }, 6.1);
+
+  // S5: Entities Scale (6.2s - 7.6s)
+  tl.fromTo("#txt-s5", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 6.2);
+  tl.to("#txt-s5", { opacity: 0, scale: 1.1, duration: 0.2, ease: "power2.in" }, 7.5);
+
+  // S6: Theory -> Production (7.6s - 8.8s)
+  tl.fromTo("#txt-s6", { opacity: 0, scale: 0.8, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, 7.6);
+  tl.to("#txt-s6", { opacity: 0, scale: 1.1, duration: 0.2, ease: "power2.in" }, 8.7);
+
+  // S8: Final Hero (9.4s - 10.05s)
+  tl.fromTo("#final-hero", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 9.4);
+
+  // ===============================================================
+  // DETERMINISTIC LIVE RENDERER (EVERY FRAME CALCULATED AT TIME t)
+  // ===============================================================
+  function drawCanvas(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Update HUD Timecode & Reactive Status
+    const frames = Math.floor((t % 1) * 60);
+    const secs = Math.floor(t % 60);
+    hudTc.innerText = `TC 00:00:${String(secs).padStart(2,'0')}:${String(frames).padStart(2,'0')}`;
+    const livePing = (15.2 + Math.sin(t * 8) * 1.2).toFixed(1);
+    hudBl.innerText = `[██████████] OK · ${livePing}ms`;
+
+    // 2. Continuous Camera Physics (Smooth Push-in & Micro-pan)
+    ctx.save();
+    const camZoom = 1.0 + (t / 10.05) * 0.08;
+    const camPanX = Math.sin(t * 1.5) * 8;
+    const camPanY = Math.cos(t * 1.2) * 5;
+    ctx.translate(W / 2 + camPanX, H / 2 + camPanY);
+    ctx.scale(camZoom, camZoom);
+    ctx.translate(-W / 2, -H / 2);
+
+    // 3. Ambient Drifting Cyber Dust / Starfield
+    drawAmbientStarfield(t);
+
+    // 4. Reactive Scene Canvas Dispatch
+    if (t < 1.8) {
+      renderScene1_Terminal(t);
+    } else if (t < 3.2) {
+      renderScene2_NeuralBrain(t - 1.8);
+    } else if (t < 4.8) {
+      renderScene3_MultiAgentOrbit(t - 3.2);
+    } else if (t < 6.2) {
+      renderSecurityPadlock(t - 4.8);
+    } else if (t < 7.6) {
+      renderCurvedGalaxyWarp(t - 6.2);
+    } else if (t < 8.8) {
+      renderDualHologram(t - 7.6);
+    } else if (t < 9.4) {
+      renderTriBladeVortex(t - 8.8);
+    } else {
+      renderFinalImpact(t - 9.4);
+    }
+
+    // 5. Reactive Scanline Energy Sweep
+    drawEnergyScanline(t);
+
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Ambient Starfield & Floating Dust
+  // -------------------------------------------------------------
+  function drawAmbientStarfield(t) {
+    ctx.save();
+    starfield.forEach((s) => {
+      const px = (s.x + s.speedX * t * 60 + W) % W;
+      const py = (s.y + s.speedY * t * 60 + H) % H;
+      ctx.fillStyle = `rgba(78, 250, 255, ${s.alpha * (0.8 + Math.sin(t * 5 + s.x) * 0.2)})`;
+      ctx.beginPath();
+      ctx.arc(px, py, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Energy Scanline Wave across screen
+  // -------------------------------------------------------------
+  function drawEnergyScanline(t) {
+    ctx.save();
+    const lineY = (t * 220) % H;
+    const grad = ctx.createLinearGradient(0, lineY - 30, 0, lineY + 30);
+    grad.addColorStop(0, "rgba(78, 250, 255, 0)");
+    grad.addColorStop(0.5, "rgba(78, 250, 255, 0.08)");
+    grad.addColorStop(1, "rgba(78, 250, 255, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, lineY - 30, W, 60);
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 1: Terminal with Reactive Progress Bars & Singularity
+  // -------------------------------------------------------------
+  function renderScene1_Terminal(t) {
+    const p1 = Math.min(10, Math.floor(t * 14));
+    const p2 = Math.min(10, Math.max(0, Math.floor((t - 0.4) * 14)));
+    const p3 = Math.min(10, Math.max(0, Math.floor((t - 0.8) * 14)));
+
+    b1.innerText = "[" + "█".repeat(p1) + "░".repeat(10 - p1) + "]";
+    b2.innerText = "[" + "█".repeat(p2) + "░".repeat(10 - p2) + "]";
+    b3.innerText = "[" + "█".repeat(p3) + "░".repeat(10 - p3) + "]";
+    k1.innerText = (p1 >= 10) ? "ok" : "..";
+    k2.innerText = (p2 >= 10) ? "ok" : "..";
+    k3.innerText = (p3 >= 10) ? "ok" : "..";
+
+    // Implosion into white singularity at t >= 1.6s
+    if (t >= 1.6) {
+      const impl = (t - 1.6) / 0.2;
+      const coreR = 6 + impl * 80;
+      const grad = ctx.createRadialGradient(W / 2, H / 2, 5, W / 2, H / 2, coreR);
+      grad.addColorStop(0, "#FFFFFF");
+      grad.addColorStop(0.5, "rgba(78, 250, 255, 0.9)");
+      grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(W / 2, H / 2, coreR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Scene 2: 3D Neural Particle Core with Electric Arcs
+  // -------------------------------------------------------------
+  function renderScene2_NeuralBrain(localT) {
+    const cx = W / 2, cy = H / 2 - 80;
+    const count = 380;
+    const rot = localT * 2.2;
+
+    ctx.save();
+    // Burst shockwave on entry
+    if (localT < 0.3) {
+      const wave = (localT / 0.3) * 500;
+      ctx.strokeStyle = `rgba(78, 250, 255, ${1 - localT / 0.3})`;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(cx, cy, wave, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    const points = [];
+    for (let i = 0; i < count; i++) {
+      const u = (i / count) * Math.PI * 2;
+      const v = ((i % 19) / 19) * Math.PI - Math.PI / 2;
+      const rx = 380 * Math.cos(v) * Math.cos(u);
+      const ry = 190 * Math.sin(v);
+      const rz = 260 * Math.cos(v) * Math.sin(u);
+
+      const x3d = rx * Math.cos(rot) + rz * Math.sin(rot);
+      const z3d = -rx * Math.sin(rot) + rz * Math.cos(rot);
+      const fov = 650 / (650 + z3d);
+
+      const px = cx + x3d * fov;
+      const py = cy + ry * fov;
+      const size = Math.max(1, 4.5 * fov);
+      const alpha = Math.max(0.2, (z3d + 260) / 520);
+
+      points.push({ px, py, alpha, size });
+
+      ctx.fillStyle = (i % 4 === 0) ? `rgba(255, 255, 255, ${alpha})` : `rgba(78, 250, 255, ${alpha * 0.85})`;
+      ctx.beginPath();
+      ctx.arc(px, py, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Dynamic Electric Lightning Arcs between random points
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.4)";
+    ctx.lineWidth = 1.5;
+    for (let l = 0; l < 8; l++) {
+      const p1 = points[(l * 43) % points.length];
+      const p2 = points[(l * 71) % points.length];
+      ctx.beginPath();
+      ctx.moveTo(p1.px, p1.py);
+      ctx.lineTo((p1.px + p2.px) / 2 + Math.sin(localT * 30 + l) * 15, (p1.py + p2.py) / 2 + Math.cos(localT * 30 + l) * 15);
+      ctx.lineTo(p2.px, p2.py);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 3: Multi-Agent Orbital System with Live Data Packets
+  // -------------------------------------------------------------
+  function renderScene3_MultiAgentOrbit(localT) {
+    const cx = W / 2, cy = H / 2 - 80;
+    const satellites = [
+      { name: "ORCHESTRATE", color: "#FFFFFF" },
+      { name: "CONTEXT",     color: "#4EFAFF" },
+      { name: "EXECUTE",     color: "#F59E0B" },
+      { name: "MEMORY",      color: "#60A5FA" },
+      { name: "TOOLS",       color: "#34D399" },
+      { name: "POLICY",      color: "#F472B6" },
+    ];
+
+    ctx.save();
+    // 3D Tilted Orbit Oval with pulsating line
+    ctx.strokeStyle = `rgba(255, 255, 255, ${0.25 + Math.sin(localT * 6) * 0.1})`;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, 500, 195, -0.1, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Central Radiant Sun Core with Pulsing Corona
+    const pulse = Math.sin(localT * 8) * 12;
+    const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 100 + pulse);
+    grad.addColorStop(0, "#FFFFFF");
+    grad.addColorStop(0.3, "rgba(78, 250, 255, 0.95)");
+    grad.addColorStop(0.7, "rgba(99, 102, 241, 0.25)");
+    grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 100 + pulse, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Orbiting Satellite Spheres & Flowing Data Packets
+    satellites.forEach((sat, idx) => {
+      const baseAng = (idx / satellites.length) * Math.PI * 2 + localT * 1.4;
+      const sx = cx + Math.cos(baseAng) * 500;
+      const sy = cy + Math.sin(baseAng) * 195;
+
+      // Data Packet streaming from Satellite into Central Core
+      const packetT = ((localT * 2.0 + idx * 0.3) % 1.0);
+      const packetX = sx + (cx - sx) * packetT;
+      const packetY = sy + (cy - sy) * packetT;
+      ctx.fillStyle = "#FFFFFF";
+      ctx.shadowColor = sat.color;
+      ctx.shadowBlur = 15;
+      ctx.beginPath();
+      ctx.arc(packetX, packetY, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Satellite Body
+      ctx.shadowColor = sat.color;
+      ctx.shadowBlur = 28;
+      ctx.fillStyle = sat.color;
+      ctx.beginPath();
+      ctx.arc(sx, sy, 24, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Inner Shadow Texture
+      ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+      ctx.beginPath();
+      ctx.arc(sx - 5, sy - 5, 11, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Label above satellite
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = "bold 13px 'JetBrains Mono', monospace";
+      ctx.fillText(sat.name, sx - 35, sy - 34);
+    });
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 4: 3D Point-Cloud Padlock with Reactive Pulse Radar
+  // -------------------------------------------------------------
+  function renderSecurityPadlock(localT) {
+    const cx = W / 2, cy = H / 2 - 80;
+    ctx.save();
+
+    // Rotating Outer Reticle with live ticks
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.3)";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([12, 16]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, 270, localT * 1.2, localT * 1.2 + Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Expanding Keyhole Pulse Wave
+    const pulseR = (localT * 160) % 240;
+    ctx.strokeStyle = `rgba(78, 250, 255, ${Math.max(0, 0.6 - pulseR / 240)})`;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 65, pulseR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Shackle with micro-jitter
+    const shackleR = 95;
+    const shackleY = cy - 70;
+    for (let a = Math.PI; a <= Math.PI * 2; a += 0.08) {
+      const jitter = (Math.sin(a * 20 + localT * 25) * 1.5);
+      const px = cx + Math.cos(a) * (shackleR + jitter);
+      const py = shackleY + Math.sin(a) * (shackleR + jitter);
+      ctx.fillStyle = (Math.sin(a * 10 + localT * 12) > 0) ? "#FFFFFF" : "#4EFAFF";
+      ctx.beginPath();
+      ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for (let l = 0; l <= 60; l += 6) {
+      ctx.fillStyle = "#4EFAFF";
+      ctx.beginPath();
+      ctx.arc(cx - shackleR, shackleY + l, 3.5, 0, Math.PI * 2);
+      ctx.arc(cx + shackleR, shackleY + l, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Body Point Cloud
+    const bw = 250, bh = 175;
+    const bx = cx - bw / 2, by = cy - 10;
+    for (let x = 0; x <= bw; x += 12) {
+      for (let y = 0; y <= bh; y += 12) {
+        const isBorder = (x <= 12 || x >= bw - 12 || y <= 12 || y >= bh - 12);
+        const jx = Math.sin(x + localT * 10) * 1.2;
+        const jy = Math.cos(y + localT * 10) * 1.2;
+        if (isBorder || Math.sin(x * y + localT * 8) > 0.4) {
+          ctx.fillStyle = isBorder ? "#FFFFFF" : "#4EFAFF";
+          ctx.beginPath();
+          ctx.arc(bx + x + jx, by + y + jy, isBorder ? 3.2 : 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    // Glowing Keyhole
+    const keyGlow = ctx.createRadialGradient(cx, cy + 65, 5, cx, cy + 65, 50);
+    keyGlow.addColorStop(0, "#FFFFFF");
+    keyGlow.addColorStop(0.5, "#4EFAFF");
+    keyGlow.addColorStop(1, "rgba(78, 250, 255, 0)");
+    ctx.fillStyle = keyGlow;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 65, 50, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.beginPath();
+    ctx.arc(cx, cy + 60, 15, 0, Math.PI * 2);
+    ctx.rect(cx - 7, cy + 68, 14, 20);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // -------------------------------------------------------------
+  // Scene 5: 3D Topological Wave Manifold (Graph Reachability)
+  // -------------------------------------------------------------
+  function renderCurvedGalaxyWarp(localT) {
+    ctx.save();
+    const cx = W / 2, cy = H / 2 - 30;
+
+    const cols = 64;
+    const rows = 32;
+    const spacingX = 38;
+    const spacingZ = 34;
+    const totalZ = rows * spacingZ;
+
+    // Projected point cache for wireframe mesh lines
+    const grid = [];
+
+    for (let r = 0; r < rows; r++) {
+      grid[r] = [];
+      const zRaw = (r * spacingZ - localT * 420) % totalZ;
+      const z = zRaw < 0 ? zRaw + totalZ : zRaw;
+      const zDepth = z + 240;
+      const scale = 590 / zDepth;
+      const alpha = Math.min(1.0, Math.max(0.12, (1.0 - z / totalZ) * 1.15));
+
+      for (let c = 0; c < cols; c++) {
+        const x3d = (c - cols / 2) * spacingX;
+        // Undulating 3D wave interference manifold with dual ripple harmonics
+        const y3d = Math.sin(x3d * 0.0045 + localT * 3.8) * Math.cos(z * 0.0035 + localT * 3.0) * 125 +
+                    Math.sin(x3d * 0.009 - z * 0.007 + localT * 4.4) * 48;
+
+        const px = cx + x3d * scale;
+        const py = cy + (y3d + 130) * scale;
+        const isPeak = y3d < -55;
+
+        grid[r][c] = { px, py, alpha, scale, isPeak, y3d };
+      }
+    }
+
+    // 1. Draw Mesh Wireframe Ribbons across rows
+    for (let r = 0; r < rows; r += 2) {
+      ctx.beginPath();
+      let started = false;
+      for (let c = 0; c < cols; c++) {
+        const pt = grid[r][c];
+        if (pt.px >= -50 && pt.px <= W + 50 && pt.py >= -50 && pt.py <= H + 50) {
+          if (!started) { ctx.moveTo(pt.px, pt.py); started = true; }
+          else { ctx.lineTo(pt.px, pt.py); }
+        }
+      }
+      const rowAlpha = grid[r][0].alpha * 0.32;
+      ctx.strokeStyle = `rgba(78, 250, 255, ${rowAlpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // 2. Draw 3D Luminous Nodes
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const pt = grid[r][c];
+        if (pt.px < -30 || pt.px > W + 30 || pt.py < -30 || pt.py > H + 30) continue;
+
+        if (pt.isPeak) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${pt.alpha})`;
+          ctx.beginPath();
+          ctx.arc(pt.px, pt.py, Math.max(2.0, 4.2 * pt.scale), 0, Math.PI * 2);
+          ctx.fill();
+        } else if (c % 2 === 0 && r % 2 === 0) {
+          ctx.fillStyle = `rgba(78, 250, 255, ${pt.alpha * 0.8})`;
+          ctx.beginPath();
+          ctx.arc(pt.px, pt.py, Math.max(1.2, 2.4 * pt.scale), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    // 3. Primary Dynamic 3D HUD Tracking Reticle over Wave Crest
+    const targetPt = grid[6][Math.floor(cols / 2 + Math.sin(localT * 2.5) * 8)];
+    if (targetPt) {
+      const tx = targetPt.px, ty = targetPt.py;
+      ctx.strokeStyle = "rgba(78, 250, 255, 0.9)";
+      ctx.lineWidth = 1.5;
+
+      const bSize = 34;
+      ctx.beginPath();
+      ctx.moveTo(tx - bSize, ty - bSize + 10); ctx.lineTo(tx - bSize, ty - bSize); ctx.lineTo(tx - bSize + 10, ty - bSize);
+      ctx.moveTo(tx + bSize, ty - bSize + 10); ctx.lineTo(tx + bSize, ty - bSize); ctx.lineTo(tx + bSize - 10, ty - bSize);
+      ctx.moveTo(tx - bSize, ty + bSize - 10); ctx.lineTo(tx - bSize, ty + bSize); ctx.lineTo(tx - bSize + 10, ty + bSize);
+      ctx.moveTo(tx + bSize, ty + bSize - 10); ctx.lineTo(tx + bSize, ty + bSize); ctx.lineTo(tx + bSize - 10, ty + bSize);
+      ctx.stroke();
+
+      ctx.fillStyle = "#4EFAFF";
+      ctx.font = "11px 'JetBrains Mono', monospace";
+      ctx.fillText("● TOPOLOGY_MAXIMA [REACHABILITY // DEPTH: 16-HOPS]", tx + bSize + 14, ty - 8);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.fillText(`COORDS: X: ${(512.4 + Math.sin(localT * 4) * 8).toFixed(1)} · Y: ${(108.9 + Math.cos(localT * 3) * 6).toFixed(1)} · Z: 840.1`, tx + bSize + 14, ty + 10);
+    }
+
+    // Secondary Telemetry Cluster Tag on Left Flank
+    const leftPt = grid[10][Math.floor(cols * 0.25)];
+    if (leftPt) {
+      ctx.fillStyle = "rgba(78, 250, 255, 0.75)";
+      ctx.font = "10px 'JetBrains Mono', monospace";
+      ctx.fillText("▲ CLUSTER_01 [DENSITY: 84.2%]", leftPt.px - 60, leftPt.py - 18);
+    }
+
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 6: Papers -> Production (Dual Hologram + 3D Glass Server Chassis)
+  // -------------------------------------------------------------
+  function renderDualHologram(localT) {
+    ctx.save();
+    // Mathematically perfect symmetry:
+    // Left Card: [340, 680], Center = 510, Width = 340. Left Margin = 340px.
+    // Right Chassis: [1240, 1580], Center = 1410, Width = 340. Right Margin = 340px.
+    // Gap: [680, 1240], Width = 560px. Exact Midpoint = (680 + 1240) / 2 = 960 (Canvas Center)!
+    const lx = 510;
+    const rx = 1410;
+    const cy = 440;
+    const midX = 960;
+
+    // =============================================================
+    // 1. LEFT HOLOGRAM: Academic Research Paper Card
+    // =============================================================
+    const pw = 340, ph = 460;
+    const px0 = lx - pw / 2, py0 = cy - ph / 2;
+
+    // Card Glass Background
+    ctx.fillStyle = "rgba(10, 22, 40, 0.78)";
+    ctx.fillRect(px0, py0, pw, ph);
+
+    // Card Outer Neon Frame
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.85)";
+    ctx.lineWidth = 1.8;
+    ctx.strokeRect(px0, py0, pw, ph);
+
+    // Glowing L-Brackets at 4 corners
+    const cLen = 16;
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(px0, py0 + cLen); ctx.lineTo(px0, py0); ctx.lineTo(px0 + cLen, py0);
+    ctx.moveTo(px0 + pw, py0 + cLen); ctx.lineTo(px0 + pw, py0); ctx.lineTo(px0 + pw - cLen, py0);
+    ctx.moveTo(px0, py0 + ph - cLen); ctx.lineTo(px0, py0 + ph); ctx.lineTo(px0 + cLen, py0 + ph);
+    ctx.moveTo(px0 + pw, py0 + ph - cLen); ctx.lineTo(px0 + pw, py0 + ph); ctx.lineTo(px0 + pw - cLen, py0 + ph);
+    ctx.stroke();
+
+    // Top Header Badge
+    ctx.fillStyle = "#4EFAFF";
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
+    ctx.fillText("● // FORMAL THEORY [AVALANCHE CENTRALITY]", px0 + 16, py0 + 26);
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.35)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(px0 + 16, py0 + 36); ctx.lineTo(px0 + pw - 16, py0 + 36);
+    ctx.stroke();
+
+    // Theorem Text & Mathematical Formulas
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 12px 'JetBrains Mono', monospace";
+    ctx.fillText("THEOREM 3.1: AVALANCHE CENTRALITY", px0 + 16, py0 + 58);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+    ctx.font = "10.5px 'JetBrains Mono', monospace";
+    ctx.fillText("Let G = (V, E) be workspace dependency DAG.", px0 + 16, py0 + 78);
+    ctx.fillText("Cascade risk: C_a(v) = ∑ p₀ʰ · |Reach(v, h)|", px0 + 16, py0 + 96);
+    ctx.fillText("Convergence: lim E[cascade] < ε (provable)", px0 + 16, py0 + 114);
+    ctx.fillText("Cypher: MATCH (s:Service)-[*1..6]->(e:Exception)", px0 + 16, py0 + 132);
+
+    // Recessed Graph Panel (Exponential Decay Plot)
+    const gx = px0 + 16, gy = py0 + 152, gw = pw - 32, gh = 280;
+    ctx.fillStyle = "rgba(4, 10, 22, 0.85)";
+    ctx.fillRect(gx, gy, gw, gh);
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.3)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(gx, gy, gw, gh);
+
+    // Graph Grid Axes
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.18)";
+    ctx.beginPath();
+    ctx.moveTo(gx + 30, gy + 15); ctx.lineTo(gx + 30, gy + gh - 25);
+    ctx.lineTo(gx + gw - 15, gy + gh - 25);
+    ctx.stroke();
+
+    // Graph Axis Labels
+    ctx.fillStyle = "rgba(78, 250, 255, 0.7)";
+    ctx.font = "10px 'JetBrains Mono', monospace";
+    ctx.fillText("P", gx + 15, gy + 28);
+    ctx.fillText("depth (h)", gx + gw - 65, gy + gh - 10);
+
+    // Exponential Decay Curve P = p0^h
+    ctx.save();
+    ctx.strokeStyle = "#4EFAFF";
+    ctx.lineWidth = 3.5;
+    ctx.shadowColor = "#4EFAFF";
+    ctx.shadowBlur = 18;
+    ctx.beginPath();
+    const curveStartX = gx + 35, curveStartY = gy + 45;
+    const curveEndX = gx + gw - 25, curveEndY = gy + gh - 35;
+    ctx.moveTo(curveStartX, curveStartY);
+    ctx.bezierCurveTo(curveStartX + 60, curveEndY - 20, curveStartX + 140, curveEndY - 8, curveEndX, curveEndY);
+    ctx.stroke();
+
+    // Under-Curve Gradient Area Fill
+    ctx.shadowBlur = 0;
+    ctx.lineTo(curveEndX, gy + gh - 25);
+    ctx.lineTo(curveStartX, gy + gh - 25);
+    ctx.closePath();
+    const curveGrad = ctx.createLinearGradient(0, curveStartY, 0, gy + gh - 25);
+    curveGrad.addColorStop(0, "rgba(78, 250, 255, 0.35)");
+    curveGrad.addColorStop(1, "rgba(78, 250, 255, 0.0)");
+    ctx.fillStyle = curveGrad;
+    ctx.fill();
+    ctx.restore();
+
+    // Formula Callout inside Graph
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 13px 'JetBrains Mono', monospace";
+    ctx.shadowColor = "#4EFAFF";
+    ctx.shadowBlur = 10;
+    ctx.fillText("P = p₀ʰ", gx + 120, gy + 90);
+    ctx.shadowBlur = 0;
+
+    // =============================================================
+    // 2. CENTER BRIDGE: Cascading Matrix Rain & High-Speed Packets
+    // =============================================================
+    const bridgeLeft = px0 + pw;     // 680
+    const bridgeRight = rx - 170;    // 1240
+    const colXs = [850, 960, 1070];  // Perfectly centered across 960!
+    const tokens = ["0xFA", "01", "p0^h", "10", "λ", "0xFF", "DAG", "16ms", "0x00", "p95", "1", "0", "CYPHER", "0x4E", "AST", "0x1B"];
+
+    ctx.save();
+    // 3 Vertical Cascades of Matrix Code
+    colXs.forEach((colX, cIdx) => {
+      for (let i = 0; i < 12; i++) {
+        const fallT = ((localT * 180 + i * 35 + cIdx * 65) % (ph - 40));
+        const glyphY = py0 + 20 + fallT;
+
+        // Skip middle column characters that would overlap the central arrow circle
+        if (cIdx === 1 && Math.abs(glyphY - cy) < 42) continue;
+
+        const glyph = tokens[(i + cIdx * 4) % tokens.length];
+        const isHead = i === 0 || Math.floor(fallT) % 70 < 15;
+
+        ctx.fillStyle = isHead ? "#FFFFFF" : `rgba(78, 250, 255, ${0.4 + (i % 3) * 0.25})`;
+        ctx.font = isHead ? "bold 11px 'JetBrains Mono', monospace" : "10px 'JetBrains Mono', monospace";
+        ctx.fillText(glyph, colX - 14, glyphY);
+      }
+    });
+
+    // Horizontal High-Energy Transfer Conduit
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.35)";
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([8, 8]);
+    ctx.beginPath();
+    ctx.moveTo(bridgeLeft, cy);
+    ctx.lineTo(bridgeRight, cy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Central Transfer Halo & Arrow at Dead Center (960, 440)
+    const haloR = 34;
+    const haloGlow = ctx.createRadialGradient(midX, cy, 4, midX, cy, haloR);
+    haloGlow.addColorStop(0, "rgba(78, 250, 255, 0.5)");
+    haloGlow.addColorStop(1, "rgba(78, 250, 255, 0.0)");
+    ctx.fillStyle = haloGlow;
+    ctx.beginPath();
+    ctx.arc(midX, cy, haloR, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.5)";
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(midX, cy, haloR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "bold 42px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = "#4EFAFF";
+    ctx.shadowBlur = 22;
+    ctx.fillText("→", midX, cy - 2);
+    ctx.shadowBlur = 0;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+
+    // 5 High-Speed Packets Flying Left -> Right
+    for (let p = 0; p < 5; p++) {
+      const pT = ((localT * 2.8 + p * 0.2) % 1.0);
+      const packetX = bridgeLeft + (bridgeRight - bridgeLeft) * pT;
+      const packetY = cy + Math.sin(pT * Math.PI) * -16;
+
+      ctx.fillStyle = "#FFFFFF";
+      ctx.shadowColor = "#4EFAFF";
+      ctx.shadowBlur = 20;
+      ctx.beginPath();
+      ctx.arc(packetX, packetY, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Trailing Comet Spark
+      ctx.fillStyle = "rgba(78, 250, 255, 0.6)";
+      ctx.beginPath();
+      ctx.arc(packetX - 12, packetY + 1, 3.2, 0, Math.PI * 2);
+      ctx.arc(packetX - 22, packetY + 2, 2.0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+    ctx.restore();
+
+    // =============================================================
+    // 3. RIGHT HOLOGRAM: 3D Isometric Glass Wireframe Server Chassis
+    // =============================================================
+    // Top Header Badge Centered Above Chassis
+    ctx.fillStyle = "#34D399";
+    ctx.font = "bold 11px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("● // PRODUCTION RUNTIME [16ms CYPHER]", rx, py0 + 26);
+    ctx.textAlign = "left";
+
+    const rackTiers = 4;
+    const tierH = 55;
+    const tierSpacing = 95;
+    const isoDx = 150; // Half-width along isometric X (matches paper width)
+    const isoDz = 44;  // Half-depth along isometric Z
+
+    // 4 Stacked Isometric Chassis Boxes
+    for (let s = 0; s < rackTiers; s++) {
+      const tierCy = cy - 135 + s * tierSpacing;
+
+      // Box Vertices
+      const topT = { x: rx, y: tierCy - isoDz };
+      const topR = { x: rx + isoDx, y: tierCy };
+      const topB = { x: rx, y: tierCy + isoDz };
+      const topL = { x: rx - isoDx, y: tierCy };
+
+      const botT = { x: rx, y: tierCy - isoDz + tierH };
+      const botR = { x: rx + isoDx, y: tierCy + tierH };
+      const botB = { x: rx, y: tierCy + isoDz + tierH };
+      const botL = { x: rx - isoDx, y: tierCy + tierH };
+
+      // 1. Rear Transparent Glass Edges (Subtle 3D Depth)
+      ctx.strokeStyle = "rgba(178, 136, 255, 0.35)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(topL.x, topL.y); ctx.lineTo(topT.x, topT.y); ctx.lineTo(topR.x, topR.y);
+      ctx.moveTo(topT.x, topT.y); ctx.lineTo(botT.x, botT.y);
+      ctx.moveTo(botL.x, botL.y); ctx.lineTo(botT.x, botT.y); ctx.lineTo(botR.x, botR.y);
+      ctx.stroke();
+
+      // 2. Front-Left Glass Face
+      ctx.fillStyle = "rgba(16, 24, 46, 0.72)";
+      ctx.beginPath();
+      ctx.moveTo(topL.x, topL.y); ctx.lineTo(topB.x, topB.y);
+      ctx.lineTo(botB.x, botB.y); ctx.lineTo(botL.x, botL.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = "rgba(178, 136, 255, 0.85)";
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // 3. Front-Right Glass Face
+      ctx.fillStyle = "rgba(12, 18, 38, 0.78)";
+      ctx.beginPath();
+      ctx.moveTo(topB.x, topB.y); ctx.lineTo(topR.x, topR.y);
+      ctx.lineTo(botR.x, botR.y); ctx.lineTo(botB.x, botB.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = "rgba(178, 136, 255, 0.85)";
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      // 4. Top Glass Face (Isometric Rhombus)
+      ctx.fillStyle = "rgba(78, 250, 255, 0.12)";
+      ctx.beginPath();
+      ctx.moveTo(topT.x, topT.y); ctx.lineTo(topR.x, topR.y);
+      ctx.lineTo(topB.x, topB.y); ctx.lineTo(topL.x, topL.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = "#B288FF";
+      ctx.lineWidth = 2.0;
+      ctx.stroke();
+
+      // 5. Internal Server Blade LEDs on Front-Left & Front-Right Faces
+      for (let led = 0; led < 6; led++) {
+        const u = 0.2 + (led / 5) * 0.65;
+        // Front-left LED coordinates
+        const lxLed = topL.x + (topB.x - topL.x) * u;
+        const lyLed = topL.y + (topB.y - topL.y) * u + tierH * 0.5;
+        const blink1 = Math.sin(localT * 18 + led * 1.5 + s * 2.2) > 0;
+        ctx.fillStyle = blink1 ? "#4EFAFF" : "#34D399";
+        ctx.beginPath();
+        ctx.arc(lxLed, lyLed, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Front-right LED coordinates
+        const rxLed = topB.x + (topR.x - topB.x) * u;
+        const ryLed = topB.y + (topR.y - topB.y) * u + tierH * 0.5;
+        const blink2 = Math.sin(localT * 16 + led * 1.8 + s * 1.7) > 0.1;
+        ctx.fillStyle = blink2 ? "#FFFFFF" : "#4EFAFF";
+        ctx.beginPath();
+        ctx.arc(rxLed, ryLed, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // 6. Vertical Corner Support Pillars (Chassis Frame)
+    ctx.strokeStyle = "rgba(78, 250, 255, 0.7)";
+    ctx.lineWidth = 2.2;
+    const topTierY = cy - 135;
+    const botTierY = cy - 135 + (rackTiers - 1) * tierSpacing;
+    ctx.beginPath();
+    // Left Pillar
+    ctx.moveTo(rx - isoDx, topTierY); ctx.lineTo(rx - isoDx, botTierY + tierH);
+    // Center Front Pillar
+    ctx.moveTo(rx, topTierY + isoDz); ctx.lineTo(rx, botTierY + isoDz + tierH);
+    // Right Pillar
+    ctx.moveTo(rx + isoDx, topTierY); ctx.lineTo(rx + isoDx, botTierY + tierH);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 7: Accelerating Tri-Blade Cosmic Vortex
+  // -------------------------------------------------------------
+  function renderTriBladeVortex(localT) {
+    const cx = W / 2, cy = H / 2 - 60;
+    const spin = localT * 18.0;
+
+    ctx.save();
+    for (let blade = 0; blade < 3; blade++) {
+      const bladeAng = (blade / 3) * Math.PI * 2 + spin;
+      const bladeColor = (blade === 0) ? "#4EFAFF" : (blade === 1) ? "#B288FF" : "#FFFFFF";
+
+      for (let i = 0; i < 110; i++) {
+        const tStep = i / 110;
+        const spiralAng = bladeAng + tStep * 3.2;
+        const dist = tStep * 290 + 15;
+        const px = cx + Math.cos(spiralAng) * dist;
+        const py = cy + Math.sin(spiralAng) * dist;
+
+        ctx.fillStyle = bladeColor;
+        ctx.shadowColor = bladeColor;
+        ctx.shadowBlur = 14;
+        ctx.beginPath();
+        ctx.arc(px, py, (1 - tStep) * 6.5 + 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.shadowBlur = 0;
+    ctx.restore();
+  }
+
+  // -------------------------------------------------------------
+  // Scene 8: Final Chromatic Typographic Aura
+  // -------------------------------------------------------------
+  function renderFinalImpact(localT) {
+    const cx = W / 2, cy = H / 2;
+    ctx.save();
+    const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 650);
+    grad.addColorStop(0, "rgba(78, 250, 255, 0.16)");
+    grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+
+  // ===============================================================
+  // CDP Seek Bridge
+  // ===============================================================
+  window.__duration = 9.78;
+  window.__seek = function(t) {
+    tl.seek(t);
+    drawCanvas(t);
+  };
+
+  window.__seek(0);
+</script>
+
+</body>
+</html>

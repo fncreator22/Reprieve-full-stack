@@ -195,3 +195,120 @@ async def test_dev_auth_only_local(api, monkeypatch):
     assert (await api.get("/me")).json()["user"]["email"] == "dev@localhost"
     monkeypatch.setattr(s, "env_name", "production")
     assert (await api.get("/me")).status_code == 401
+
+
+async def test_agent_created_workspace_and_email_membership_discovery(api, db):
+    """Workspaces created by CLI/agent linked by email and missing status are discovered by Clerk user."""
+    from app.auth.deps import platform_repo
+    from app.ids import new_id, now
+
+    ws_id = new_id("ws")
+    usr_id = new_id("usr")
+    slug = f"agent-{now()}"
+    user_email = f"agent_{now()}@example.com"
+
+    platform = platform_repo()
+    g = platform.g
+    await g.query(
+        "CREATE (w:Workspace {id: $ws_id, slug: $slug, name: 'Agent WS', status: 'ready', "
+        "data_mode: 'blank', clock_mode: 'live', as_of: 1234567, ai_mode: 'cloud', onboarding_step: 'welcome', "
+        "onboarding_done: false, schema_version: 1, created_at: 100, updated_at: 100})",
+        {"ws_id": ws_id, "slug": slug},
+    )
+    await g.query(
+        "CREATE (u:User {id: $usr_id, clerk_user_id: $clerk_id, email: $email, name: 'Script User', status: 'active'})",
+        {"usr_id": usr_id, "clerk_id": f"cli_{usr_id}", "email": user_email},
+    )
+    await g.query(
+        "MATCH (u:User {id: $usr_id}), (w:Workspace {id: $ws_id}) CREATE (u)-[:MEMBER_OF {role: 'owner'}]->(w)",
+        {"usr_id": usr_id, "ws_id": ws_id},
+    )
+
+    auth_header = auth(f"clerk_{now()}", user_email)
+    me = (await api.get("/me", headers=auth_header)).json()
+    assert len(me["memberships"]) == 1
+    assert me["memberships"][0]["workspace_id"] == ws_id
+    assert me["memberships"][0]["role"] == "owner"
+
+    workspaces = (await api.get("/workspaces", headers=auth_header)).json()
+    assert len(workspaces) == 1
+    assert workspaces[0]["id"] == ws_id
+
+    ws_res = await api.get(f"/workspaces/{ws_id}", headers=auth_header)
+    assert ws_res.status_code == 200
+    assert ws_res.json()["id"] == ws_id
+
+    # Verify p_users_for_persons finds user even if status was null on MEMBER_OF
+    await g.query(
+        "MATCH (u:User {id: $usr_id})-[m:MEMBER_OF]->(w:Workspace {id: $ws_id}) SET m.person_id = 'per_123'",
+        {"usr_id": usr_id, "ws_id": ws_id},
+    )
+    p_users = await platform.read("p_users_for_persons", ws_id=ws_id, person_ids=["per_123"])
+    assert len(p_users) == 1
+    assert p_users[0]["user_id"] == usr_id
+
+
+async def test_workspace_deletion(api):
+    """Test full workspace deletion: owner check, slug confirmation, graph purge, and membership cleanup."""
+    user = auth("owner_u", "owner@example.com")
+    other_user = auth("other_u", "other@example.com")
+
+    # Create workspace
+    res = await api.post("/workspaces", headers=user, json={"name": "To Delete", "slug": "to-delete-ws", "data_mode": "blank"})
+    assert res.status_code == 201
+    ws_id = res.json()["id"]
+
+    # Other user cannot delete
+    forbidden = await api.delete(f"/workspaces/{ws_id}", headers=other_user)
+    assert forbidden.status_code in (403, 404)
+
+    # Wrong confirmation slug fails
+    bad_slug = await api.delete(f"/workspaces/{ws_id}?confirm_slug=wrong-slug", headers=user)
+    assert bad_slug.status_code == 422
+
+    # Correct slug succeeds
+    ok = await api.delete(f"/workspaces/{ws_id}?confirm_slug=to-delete-ws", headers=user)
+    assert ok.status_code == 204
+
+    # Workspace no longer exists
+    missing = await api.get(f"/workspaces/{ws_id}", headers=user)
+    assert missing.status_code == 404
+
+    # Removed from /me memberships
+    me = (await api.get("/me", headers=user)).json()
+    assert all(m["workspace_id"] != ws_id for m in me["memberships"])
+
+
+async def test_reset_blank_and_load_sample(api):
+    """Test explicit reset to blank slate (0 alerts) and loading sample demo data."""
+    user = auth("admin_u", "admin@example.com")
+    res = await api.post("/workspaces", headers=user, json={"name": "Sample WS", "slug": "sample-ws-toggle", "data_mode": "sample"})
+    assert res.status_code == 201
+    ws_id = res.json()["id"]
+
+    # Sample workspace starts with open alerts
+    s1 = (await api.get(f"/workspaces/{ws_id}/risk/summary", headers=user)).json()
+    assert s1["active_exceptions"] > 0
+
+    # Reset to blank slate
+    rb = await api.post(f"/workspaces/{ws_id}/reset-blank", headers=user)
+    assert rb.status_code == 200
+    assert rb.json()["data_mode"] == "blank"
+
+    # Risk summary on blank workspace has 0 exceptions and 0 open alerts
+    s2 = (await api.get(f"/workspaces/{ws_id}/risk/summary", headers=user)).json()
+    assert s2["active_exceptions"] == 0
+    assert sum(s2["open_alerts"].values()) == 0
+
+    # Graph has 0 nodes
+    g = (await api.get(f"/workspaces/{ws_id}/graph", headers=user)).json()
+    assert len(g["nodes"]) == 0
+
+    # Explicitly load sample data again
+    ls = await api.post(f"/workspaces/{ws_id}/load-sample", headers=user)
+    assert ls.status_code == 200
+    assert ls.json()["data_mode"] == "sample"
+
+    s3 = (await api.get(f"/workspaces/{ws_id}/risk/summary", headers=user)).json()
+    assert s3["active_exceptions"] > 0
+

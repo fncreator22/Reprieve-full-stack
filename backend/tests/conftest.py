@@ -6,6 +6,7 @@ from falkordb.asyncio import FalkorDB
 from app.graph.repo import Repo
 
 os.environ.setdefault("GRAPH_PREFIX", "test_")
+os.environ["DEV_AUTH"] = "false"
 
 
 @pytest.fixture

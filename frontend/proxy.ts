@@ -4,7 +4,7 @@ import { CLERK_ENABLED } from "@/lib/auth-config";
 
 // Next 16 renamed middleware.ts → proxy.ts (decision F13). Product routes need a session;
 // unauthenticated visitors are sent to /sign-in with redirect_url preserved by Clerk.
-const isProtected = createRouteMatcher(["/w(.*)", "/onboarding(.*)"]);
+const isProtected = createRouteMatcher(["/w(.*)", "/onboarding(.*)", "/workspaces(.*)"]);
 
 export default CLERK_ENABLED
   ? clerkMiddleware(

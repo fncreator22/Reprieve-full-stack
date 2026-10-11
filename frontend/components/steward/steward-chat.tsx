@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { CitationChip } from "@/components/citation-chip";
 import { ProofPath } from "@/components/proof-path";
 import { ProposedActionCard } from "@/components/proposed-action-card";
+import { ThinkingOrb, type OrbState } from "@/components/ui/thinking-orb";
 import { Button } from "@/components/ui/button";
 import { isApiError, useApi, wsPath } from "@/lib/api";
 import { useAuthBridge } from "@/lib/auth";
@@ -23,6 +24,7 @@ type Msg = { role: "user" | "assistant"; text: string; answer?: StewardAnswer; t
 
 const SUGGESTED = ["Which service is carrying the most hidden risk?", "Who should own exceptions whose owner left?", "What expires next week?"];
 const DEGRADED = new Set(["LLM_UNAVAILABLE", "AI_DISABLED", "QUOTA_EXCEEDED"]);
+
 const TOOL_LABEL: Record<string, string> = {
   list_risk_services: "Reading risk ranking",
   explain_service: "Explaining a service score",
@@ -31,11 +33,26 @@ const TOOL_LABEL: Record<string, string> = {
   list_exceptions: "Listing exceptions",
   get_exception: "Reading an exception",
   find_current_owner: "Resolving the owner",
-  proof_path: "Finding the shortest path",
-  search_entities: "Searching",
+  proof_path: "Finding shortest proof path",
+  search_entities: "Searching graph entities",
   recall_precedent: "Recalling past decisions",
-  what_if_as_of: "Previewing another date",
-  propose_review: "Drafting a review",
+  what_if_as_of: "Previewing simulation date",
+  propose_review: "Drafting proposed action",
+};
+
+const TOOL_ORB_STATE: Record<string, OrbState> = {
+  list_risk_services: "searching",
+  explain_service: "solving",
+  list_alerts: "searching",
+  get_alert: "searching",
+  list_exceptions: "searching",
+  get_exception: "searching",
+  find_current_owner: "searching",
+  proof_path: "solving",
+  search_entities: "searching",
+  recall_precedent: "searching",
+  what_if_as_of: "solving",
+  propose_review: "shaping",
 };
 
 /** SCR-P-13 conversation: streaming answer, tool trace, citations, proof paths, approvals, degraded mode. */
@@ -210,16 +227,29 @@ function AssistantMessage({ msg, role, onApprove }: { msg: Msg; role: ReturnType
   const text = a?.answer_markdown ?? msg.text;
   return (
     <div className="flex gap-3">
-      <Sparkles className="mt-1 size-4 shrink-0 text-brand" aria-hidden />
+      {msg.streaming ? (
+        <ThinkingOrb size={20} state="composing" className="mt-1 shrink-0" aria-label="Steward is composing response" />
+      ) : (
+        <Sparkles className="mt-1 size-4 shrink-0 text-brand" aria-hidden />
+      )}
       <div className="min-w-0 flex-1 space-y-3">
         {msg.tools.length > 0 && (
           <details className="text-caption text-text-muted" open={msg.streaming}>
             <summary className="cursor-pointer select-none">How I got this ({msg.tools.length} steps)</summary>
             <ul className="mt-1.5 flex flex-wrap gap-1.5">
               {msg.tools.map((t) => (
-                <li key={t.id} className="flex items-center gap-1 rounded-full bg-sunken px-2 py-0.5" title={t.summary}>
-                  {t.summary ? <Check className="size-3 text-sev-low" aria-hidden /> : <Loader2 className="size-3 animate-spin" aria-hidden />}
-                  {TOOL_LABEL[t.name] ?? t.name}
+                <li key={t.id} className="flex items-center gap-1.5 rounded-full bg-sunken px-2.5 py-0.5" title={t.summary}>
+                  {t.summary ? (
+                    <Check className="size-3 text-sev-low" aria-hidden />
+                  ) : (
+                    <ThinkingOrb
+                      size={20}
+                      state={TOOL_ORB_STATE[t.name] ?? "working"}
+                      aria-label={TOOL_LABEL[t.name] ?? "Working…"}
+                      className="size-3.5"
+                    />
+                  )}
+                  <span>{TOOL_LABEL[t.name] ?? t.name}</span>
                 </li>
               ))}
             </ul>

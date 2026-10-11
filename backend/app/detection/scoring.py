@@ -80,7 +80,7 @@ def score_services(
             "multiplier": multiplier,
             "score": round(score, 1),
             "band": band(score, cfg["bands"]),
-            "contributions": sorted(contribs, key=lambda c: -c["value"]),
+            "contributions": sorted(contribs, key=lambda c: (-c["value"], c["exception_id"])),
             "rule_hits": hits,
             "config_version": cfg.get("version", 1),
             "as_of": as_of,

@@ -70,19 +70,25 @@ function Card({ step, title, description, children, footer }: { step: number; ti
 function PathStep({ value, onChange, onNext }: { value: Path; onChange: (p: Path) => void; onNext: () => void }) {
   const options = [
     {
+      value: "blank" as const,
+      icon: FilePlus2,
+      title: "Start blank (Clean Slate)",
+      body: "An empty workspace for your company. Connect your repositories via CLI (reprieve scan), configure MCP tools, or generate API keys to ingest live data.",
+      badge: "Recommended",
+    },
+    {
       value: "sample" as const,
       icon: Database,
       title: "Explore with sample data",
-      body: "Northwind Pay, a payments company with services, people and exceptions. Ready in about 30 seconds.",
-      badge: "Recommended",
+      body: "Northwind Pay, a realistic payments company with 12 services, 31 exceptions, and 8 risk alerts. Ready in ~15 seconds.",
+      badge: "Demo Data",
     },
-    { value: "blank" as const, icon: FilePlus2, title: "Start blank", body: "An empty workspace. Add your first service, then people and exceptions." },
   ];
   return (
     <Card
       step={1}
       title="How would you like to start?"
-      description="You can create more workspaces later."
+      description="Start blank to connect your own codebase, or explore with realistic sample data."
       footer={
         <Button className="ml-auto" onClick={onNext}>
           Continue
@@ -106,22 +112,37 @@ function PathStep({ value, onChange, onNext }: { value: Path; onChange: (p: Path
               <span className="min-w-0">
                 <span className="flex flex-wrap items-center gap-2 font-medium text-text-primary">
                   {o.title}
-                  {o.badge && <span className="rounded-full bg-brand-solid px-2 text-caption text-text-on-brand">{o.badge}</span>}
+                  {o.badge && (
+                    <span
+                      className={cn(
+                        "rounded-full px-2 py-0.5 text-caption font-medium",
+                        o.value === "blank"
+                          ? "bg-brand-solid text-text-on-brand"
+                          : "border border-border-subtle bg-surface-subtle text-text-secondary",
+                      )}
+                    >
+                      {o.badge}
+                    </span>
+                  )}
                 </span>
                 <span className="mt-1 block text-body-sm text-text-secondary">{o.body}</span>
               </span>
             </label>
           );
         })}
-        <div aria-disabled="true" className="flex items-start gap-4 rounded-lg border border-dashed border-border-subtle p-4 opacity-70">
-          <span className="mt-1 size-[18px] shrink-0 rounded-full border border-border-strong" aria-hidden />
+        <div aria-disabled="true" className="flex items-start gap-4 rounded-lg border border-dashed border-border-subtle p-4 opacity-75 bg-bg-surface/40">
+          <span className="mt-1 size-[18px] shrink-0 rounded-full border border-border-strong opacity-40" aria-hidden />
           <Upload aria-hidden className="mt-0.5 size-5 shrink-0 text-text-muted" strokeWidth={1.5} />
-          <span>
-            <span className="flex items-center gap-2 font-medium text-text-secondary">
-              Import my data
-              <span className="rounded-full border border-dashed border-border-strong px-2 text-caption">Coming in beta</span>
+          <span className="min-w-0">
+            <span className="flex flex-wrap items-center gap-2 font-medium text-text-secondary">
+              Import my data (Direct Upload)
+              <span className="inline-flex items-center rounded-full bg-brand-soft border border-brand/30 px-2.5 py-0.5 text-[11px] font-semibold text-brand tracking-wide uppercase">
+                Upcoming · In Development
+              </span>
             </span>
-            <span className="mt-1 block text-body-sm text-text-muted">CSV or JSON with column mapping and validation.</span>
+            <span className="mt-1 block text-body-sm text-text-muted">
+              Direct CSV or JSON bulk upload with column mapping and schema validation. Currently under active development.
+            </span>
           </span>
         </div>
       </RadioGroup>
@@ -212,6 +233,7 @@ function NameStep({ path, onBack, onCreated }: { path: Path; onBack: () => void;
               id="ws-name"
               autoComplete="organization"
               autoFocus
+              placeholder={path === "sample" ? "Northwind Pay" : "e.g. Acme Corp"}
               aria-invalid={!!errors.name}
               aria-describedby={describedBy("ws-name", errors.name?.message)}
               {...nameField}
@@ -221,12 +243,13 @@ function NameStep({ path, onBack, onCreated }: { path: Path; onBack: () => void;
             id="ws-slug"
             label="Address"
             error={errors.slug?.message}
-            helper={<span className="font-mono">reprieve.app/w/{slugValue || "your-team"}</span>}
+            helper={<span className="font-mono">reprieve.app/w/{slugValue || (path === "sample" ? "northwind-pay" : "your-team")}</span>}
           >
             <Input
               id="ws-slug"
               autoComplete="off"
               spellCheck={false}
+              placeholder={path === "sample" ? "northwind-pay" : "acme-corp"}
               className="font-mono"
               aria-invalid={!!errors.slug}
               aria-describedby={describedBy("ws-slug", errors.slug?.message)}
@@ -374,6 +397,13 @@ function IdentityStep({ ws, onDone }: { ws: WorkspaceOut; onDone: () => void }) 
     onSuccess: onDone,
   });
   const list = (people.data ?? []).filter((p) => !q || p.name.toLowerCase().includes(q.toLowerCase()));
+
+  // Auto-advance if people query resolved with 0 people so user is never stuck
+  useEffect(() => {
+    if (people.isSuccess && (people.data ?? []).length === 0 && !q) {
+      onDone();
+    }
+  }, [people.isSuccess, people.data, q, onDone]);
 
   return (
     <Card
@@ -525,14 +555,22 @@ export function OnboardingFlow() {
   const params = useSearchParams();
   const wantsNew = params.get("new") === "1";
   const me = useMe();
-  const [path, setPath] = useState<Path>(params.get("path") === "blank" ? "blank" : "sample");
+  const [path, setPath] = useState<Path>(params.get("path") === "sample" ? "sample" : "blank");
   const [step, setStep] = useState<Step | null>(wantsNew ? { n: 1 } : null);
 
   // Resume: decide where an existing user belongs.
   const target = useMemo(() => {
     const ms = me.data?.memberships ?? [];
     if (wantsNew || ms.length === 0) return null;
-    return ms.find((m) => m.slug === lastWorkspace()) ?? ms.find((m) => m.status === "provisioning") ?? ms[0];
+    const last = lastWorkspace();
+    const matchLast = ms.find((m) => m.slug === last);
+    if (matchLast) return matchLast;
+    const provisioning = ms.find((m) => m.status === "provisioning");
+    if (provisioning) return provisioning;
+    // If only one workspace exists, use it directly
+    if (ms.length === 1) return ms[0];
+    // Multiple workspaces exist and none is last-visited: null target so user can pick
+    return null;
   }, [me.data, wantsNew]);
   const targetWs = useQuery({
     queryKey: ["workspace", target?.workspace_id ?? "", "resume"],
@@ -542,6 +580,11 @@ export function OnboardingFlow() {
 
   useEffect(() => {
     if (step !== null || !me.data) return;
+    const ms = me.data.memberships ?? [];
+    if (!wantsNew && ms.length > 1 && !target) {
+      router.replace("/workspaces");
+      return;
+    }
     if (!target) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- decide the first step once /me resolves
       setStep({ n: 1 });
@@ -552,7 +595,7 @@ export function OnboardingFlow() {
     if (ws.status === "provisioning" || ws.status === "failed") setStep({ n: 3, ws });
     else if (!ws.onboarding_done && ws.onboarding_step === "identity" && ws.data_mode === "sample") setStep({ n: 4, ws });
     else router.replace(`/w/${ws.slug}/home`);
-  }, [me.data, router, step, target, targetWs.data]);
+  }, [me.data, router, step, target, targetWs.data, wantsNew]);
 
   if (me.isError) return <ServerErrorView requestId={requestIdOf(me.error)} message={errorMessage(me.error)} onRetry={() => me.refetch()} />;
   if (targetWs.isError && step === null)
@@ -567,6 +610,17 @@ export function OnboardingFlow() {
           <Skeleton className="h-8 w-2/3" />
           <Skeleton className="h-24" />
           <Skeleton className="h-24" />
+          {(me.data?.memberships ?? []).length > 0 && (
+            <div className="pt-4 text-center">
+              <p className="text-body-sm text-text-secondary">Taking longer than expected?</p>
+              <Link
+                href={`/w/${me.data!.memberships[0].slug}/home`}
+                className="text-body-sm font-medium text-brand hover:underline"
+              >
+                Enter {me.data!.memberships[0].name} &rarr;
+              </Link>
+            </div>
+          )}
         </div>
       ) : step.n === 1 ? (
         <PathStep value={path} onChange={setPath} onNext={() => setStep({ n: 2 })} />
@@ -586,10 +640,27 @@ export function OnboardingFlow() {
       ) : (
         <HandoffStep ws={step.ws} />
       )}
-      {me.data && me.data.memberships.length > 0 && wantsNew && (
-        <Link href="/onboarding" className="mt-6 text-body-sm text-text-secondary hover:text-text-primary">
-          Back to my workspace
-        </Link>
+      {(me.data?.memberships ?? []).length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-body-sm text-text-secondary">
+          <span>Or open existing workspace:</span>
+          {me.data!.memberships.slice(0, 3).map((m) => (
+            <Link
+              key={m.workspace_id}
+              href={`/w/${m.slug}/home`}
+              className="font-medium text-brand hover:underline"
+            >
+              {m.name}
+            </Link>
+          ))}
+          {me.data!.memberships.length > 3 && (
+            <Link
+              href="/workspaces"
+              className="font-medium text-text-primary hover:underline"
+            >
+              View all ({me.data!.memberships.length}) &rarr;
+            </Link>
+          )}
+        </div>
       )}
     </>
   );

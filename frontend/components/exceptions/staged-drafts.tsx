@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, ShieldAlert, Sparkles, X } from "lucide-react";
+import { AlertTriangle, Check, ShieldAlert, Sparkles, TrendingUp, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { KIND_LABEL, fromDay, selectClass, toDay, useLookups } from "@/components/exceptions/shared";
@@ -13,6 +13,18 @@ import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
 import type { ExceptionKind, Ref } from "@/lib/types";
 import { useWorkspace } from "@/lib/workspace";
+
+type ImpactPreview = {
+  draft_id: string;
+  draft_title: string;
+  draft_severity: number;
+  affected_services: string[];
+  high_risk_affected_services: { service_id: string; current_score: number; current_band: string }[];
+  baseline_top_services: { service_id: string; simulated_score: number; risk_band: string; is_spof: boolean }[];
+  horizon_days: number;
+  horizon_note: string;
+  warnings: string[];
+};
 
 type Draft = {
   id: string;
@@ -134,6 +146,9 @@ function DraftCard({ draft, canApprove }: { draft: Draft; canApprove: boolean })
           {u.expires_at && <span className="block text-caption text-sev-moderate">{u.expires_at}</span>}
         </label>
       </div>
+
+      <DraftImpactPreview draftId={draft.id} />
+
       {canApprove && (
         <footer className="flex justify-end gap-2">
           <Button variant="ghost" loading={reject.isPending} onClick={() => reject.mutate()}>
@@ -164,3 +179,91 @@ function Pick({ label, hint, value, onChange, options }: { label: string; hint?:
     </label>
   );
 }
+
+/** Risk impact preview panel — shows before approval what services this draft would touch. */
+function DraftImpactPreview({ draftId }: { draftId: string }) {
+  const api = useApi();
+  const { wsId } = useWorkspace();
+  const [open, setOpen] = useState(false);
+
+  const preview = useQuery<ImpactPreview>({
+    queryKey: ["draft-impact", wsId, draftId],
+    queryFn: ({ signal }) => api(wsPath(wsId, `/exceptions/drafts/${draftId}/impact-preview`), { signal }),
+    enabled: open,
+    staleTime: 30_000,
+  });
+
+  const hasDanger = (preview.data?.high_risk_affected_services.length ?? 0) > 0;
+
+  return (
+    <div className="mt-2">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 text-caption font-medium text-text-muted underline-offset-2 hover:text-text-primary hover:underline"
+      >
+        <TrendingUp className="size-3.5" aria-hidden />
+        {open ? "Hide" : "Show"} risk impact preview (30-day)
+      </button>
+
+      {open && (
+        <div className="mt-3 rounded-lg border border-border bg-surface-raised p-4 text-body-sm space-y-3">
+          {preview.isPending && <Skeleton className="h-20" />}
+
+          {preview.isError && (
+            <p className="text-sev-moderate text-caption">Could not load impact preview. Prediction engine may be warming up.</p>
+          )}
+
+          {preview.data && (
+            <>
+              {/* Caution banner for high-risk affected services */}
+              {hasDanger && (
+                <div className="flex gap-2 rounded-md bg-sev-critical-soft px-3 py-2.5">
+                  <AlertTriangle className="mt-0.5 size-4 shrink-0 text-sev-critical" aria-hidden />
+                  <div>
+                    <p className="font-semibold text-sev-critical">High-risk services affected</p>
+                    <p className="text-text-secondary mt-0.5">{preview.data.horizon_note}</p>
+                    <ul className="mt-1.5 space-y-0.5">
+                      {preview.data.high_risk_affected_services.map((s) => (
+                        <li key={s.service_id} className="font-mono text-caption">
+                          {s.service_id} — score <strong>{s.current_score.toFixed(0)}</strong> ({s.current_band})
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* Informational note when no high-risk services */}
+              {!hasDanger && (
+                <div className="flex gap-2 rounded-md bg-surface-overlay px-3 py-2">
+                  <ShieldAlert className="mt-0.5 size-4 shrink-0 text-text-muted" aria-hidden />
+                  <p className="text-text-muted">{preview.data.horizon_note}</p>
+                </div>
+              )}
+
+              {/* Top-5 risk services baseline */}
+              <div>
+                <p className="font-medium text-text-secondary mb-1.5">Baseline top-risk services (next {preview.data.horizon_days}d)</p>
+                <div className="space-y-1">
+                  {preview.data.baseline_top_services.map((s) => (
+                    <div key={s.service_id} className="flex items-center justify-between gap-3">
+                      <span className="font-mono text-caption text-text-muted truncate">{s.service_id}</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {s.is_spof && <span className="text-caption text-sev-critical font-semibold">SPOF</span>}
+                        <span className={`text-caption font-semibold ${s.risk_band === "critical" ? "text-sev-critical" : s.risk_band === "high" ? "text-sev-high" : "text-text-muted"}`}>
+                          {s.simulated_score.toFixed(0)} {s.risk_band}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+

@@ -5,7 +5,7 @@ import { ArrowRight, BellRing, CalendarClock, ClipboardCheck, FileWarning, Netwo
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, Suspense, type ReactNode } from "react";
 import { EmptyState } from "@/components/empty-state";
 import { ExpiryRunway } from "@/components/home/expiry-runway";
 import { PageContainer, PageHeader } from "@/components/page-header";
@@ -23,11 +23,16 @@ import { useThemeTokens } from "@/lib/hooks";
 import type { AlertOut, GraphOut, Page, RunwayItem, ServiceRisk, ServiceRiskDetail } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/lib/workspace";
+import { ExecutiveHookBanner } from "@/components/home/executive-hook-banner";
+import { QuickGuideModal } from "@/components/guide/quick-guide-modal";
+import { CiGateShowcase } from "@/components/integrations/ci-gate-showcase";
 
 const PROMPTS = [
   "Which service is carrying the most hidden risk?",
   "Who should own the exceptions whose owner left?",
   "What expires in the next two weeks?",
+  "What happens in 30 days if we don't act?",
+  "Show me the proof path for payments-gateway",
 ];
 
 /** SCR-P-01: where hidden risk concentrates right now, and what to do first. */
@@ -38,6 +43,8 @@ export function HomeScreen() {
   const pathname = usePathname();
   const params = useSearchParams();
   const base = `/w/${slug}`;
+  const [quickGuideOpen, setQuickGuideOpen] = useState(false);
+  const [ciGateOpen, setCiGateOpen] = useState(false);
 
   const summary = useRiskSummary();
   const services = useQuery({
@@ -77,19 +84,57 @@ export function HomeScreen() {
   if (services.data && services.data.every((s) => s.active_exceptions === 0 && s.score === 0)) {
     return (
       <PageContainer width="home">
-        <PageHeader title="Home" />
-        <EmptyState
-          illustration
-          title="No exceptions to analyse yet"
-          description="Add a service, the people who own it, then the first exception. Sentinel ranks risk as soon as there is a graph."
-          action={
-            <Button asChild>
-              <Link href={`${base}/services`}>
-                <Plus aria-hidden /> Add your first service
-              </Link>
-            </Button>
-          }
-        />
+        <PageHeader title="Home" subtitle="Blank workspace ready for ingestion." />
+        <div className="space-y-6">
+          <EmptyState
+            illustration
+            title="Clean workspace ready for your services"
+            description="Ingest your architecture and code waivers automatically via CLI or MCP, generate an API key, or add your first service manually."
+            action={
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Button asChild>
+                  <Link href={`${base}/services`}>
+                    <Plus aria-hidden /> Add service manually
+                  </Link>
+                </Button>
+                <Button asChild variant="secondary">
+                  <Link href={`${base}/settings/api-keys`}>
+                    Generate API key & connect CLI
+                  </Link>
+                </Button>
+                <Button type="button" variant="outline" onClick={() => setQuickGuideOpen(true)}>
+                  Quick Guide
+                </Button>
+                <Button type="button" variant="outline" onClick={() => setCiGateOpen(true)}>
+                  View PR Bot Gate
+                </Button>
+              </div>
+            }
+          />
+          <div className="card-e1 max-w-2xl mx-auto p-5 space-y-3">
+            <h3 className="font-semibold text-body-base text-text-primary flex items-center gap-2">
+              <Sparkles className="size-4 text-brand" />
+              Connect your codebase via CLI &amp; MCP
+            </h3>
+            <p className="text-body-sm text-text-secondary">
+              Set these environment variables in your terminal, CI/CD pipeline, or AI IDE to automatically attach your microservices and exception debt:
+            </p>
+            <div className="rounded-lg bg-surface-subtle p-3.5 font-mono text-caption text-text-primary space-y-1.5 overflow-x-auto border border-border-subtle">
+              <p>export REPRIEVE_WORKSPACE=&quot;{slug}&quot;</p>
+              <p>export REPRIEVE_API_KEY=&quot;&lt;your-api-key-from-settings&gt;&quot;</p>
+              <p className="text-text-muted pt-1"># Scan your repository for waivers, TODOs, and #nosec tags:</p>
+              <p className="text-brand">reprieve scan .</p>
+            </div>
+            <p className="text-caption text-text-muted">
+              Generate secure API keys anytime under{" "}
+              <Link href={`${base}/settings/api-keys`} className="text-brand font-medium hover:underline">
+                Settings &rarr; API keys
+              </Link>.
+            </p>
+          </div>
+        </div>
+        <QuickGuideModal open={quickGuideOpen} onOpenChange={setQuickGuideOpen} />
+        <CiGateShowcase open={ciGateOpen} onOpenChange={setCiGateOpen} />
       </PageContainer>
     );
   }
@@ -100,6 +145,11 @@ export function HomeScreen() {
   return (
     <PageContainer width="home">
       <PageHeader title="Home" subtitle="Where hidden risk is concentrating right now, and what to do first." />
+
+      <ExecutiveHookBanner
+        onOpenGuide={() => setQuickGuideOpen(true)}
+        onOpenCiGate={() => setCiGateOpen(true)}
+      />
 
       <section aria-label="Summary" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Metric href={`${base}/alerts`} icon={BellRing} label="Open alerts" value={s && openTotal} loading={summary.isPending}>
@@ -152,7 +202,14 @@ export function HomeScreen() {
                     <span className="tabular w-4 text-caption text-text-muted">{i + 1}</span>
                     <ScoreRing score={r.score} band={r.band} size="sm" />
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate font-medium">{r.service.label}</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="block truncate font-medium">{r.service.label}</span>
+                        {r.score >= 0.7 && (
+                          <span className="shrink-0 rounded bg-danger/10 px-1.5 py-0.2 text-[10px] font-bold text-danger border border-danger/20">
+                            ~$340k/hr risk
+                          </span>
+                        )}
+                      </div>
                       <span className="block truncate text-caption text-text-muted">
                         {r.team?.label ?? "No team"} · {r.active_exceptions} active
                       </span>
@@ -234,6 +291,9 @@ export function HomeScreen() {
       </Card>
 
       <AskSteward base={base} />
+
+      <QuickGuideModal open={quickGuideOpen} onOpenChange={setQuickGuideOpen} />
+      <CiGateShowcase open={ciGateOpen} onOpenChange={setCiGateOpen} />
     </PageContainer>
   );
 }
@@ -427,7 +487,9 @@ function RiskMap({ selected, onSelect }: { selected?: string; onSelect: (id: str
   return (
     <div>
       <div ref={box} className="h-80 cursor-grab touch-pan-y active:cursor-grabbing" role="img" aria-label="Services sized and colored by risk, linked by dependencies. The ranked list beside it has the same data.">
-        {graph.data && tokens ? <RiskMapCanvas graph={graph.data} tokens={tokens} size={size} selected={selected} onSelect={onSelect} /> : <Skeleton className="h-full" />}
+        <Suspense fallback={<Skeleton className="h-full" />}>
+          {graph.data && tokens ? <RiskMapCanvas graph={graph.data} tokens={tokens} size={size} selected={selected} onSelect={onSelect} /> : <Skeleton className="h-full" />}
+        </Suspense>
       </div>
       <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption text-text-muted">
         {(["critical", "high", "moderate", "low"] as const).map((b) => (

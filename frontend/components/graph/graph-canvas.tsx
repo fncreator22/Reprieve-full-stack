@@ -5,7 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import ForceGraph2D, { type ForceGraphMethods } from "react-force-graph-2d";
 import { canvasFont, drawShape, nodeColor } from "@/lib/graph-draw";
 import type { ThemeTokens } from "@/lib/tokens";
-import type { GraphOut } from "@/lib/types";
+import type { CanvasNodeDecoration, GraphOut } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export type GNode = GraphOut["nodes"][number] & { x?: number; y?: number; fx?: number; fy?: number };
@@ -25,7 +25,9 @@ export default function GraphCanvas({
   progress,
   focus,
   still,
+  decorations,
   onOpen,
+  onSelectDecoration,
 }: {
   data: { nodes: GNode[]; links: GLink[] };
   tokens: ThemeTokens;
@@ -35,7 +37,9 @@ export default function GraphCanvas({
   progress: number;
   focus: string | null;
   still: boolean;
+  decorations?: Record<string, CanvasNodeDecoration>;
   onOpen: (id: string) => void;
+  onSelectDecoration?: (id: string) => void;
 }) {
   const fg = useRef<ForceGraphMethods<GNode, GLink> | undefined>(undefined);
   const tuned = useRef(false);
@@ -92,14 +96,25 @@ export default function GraphCanvas({
         }}
         onEngineStop={() => fg.current?.zoomToFit(500, 40, (n) => !pathActive || pathSet.has(n.id))}
         onNodeHover={(n) => setHover(n?.id ?? null)}
-        onNodeClick={(n) => onOpen(n.id)}
+        onNodeClick={(n) => {
+          if (decorations?.[n.id] && onSelectDecoration) {
+            onSelectDecoration(n.id);
+          }
+          onOpen(n.id);
+        }}
         onNodeDragEnd={(n) => {
           // springs back into the layout instead of staying pinned
           n.fx = undefined;
           n.fy = undefined;
           fg.current?.d3ReheatSimulation();
         }}
-        nodeLabel={(n) => `${n.label}: ${n.name}`}
+        nodeLabel={(n) => {
+          const dec = decorations?.[n.id];
+          if (dec?.spof_rank) {
+            return `${n.label}: ${n.name} (SPOF Rank #${dec.spof_rank}, Simulated Risk: ${dec.simulated_score}/100)`;
+          }
+          return `${n.label}: ${n.name}`;
+        }}
         linkColor={(l) => {
           if (pathLinks.includes(l)) return drawn(l) ? tokens.proof : tokens.border;
           return lit(idOf(l.source)) && lit(idOf(l.target)) ? tokens.borderStrong : tokens.border;
@@ -107,36 +122,56 @@ export default function GraphCanvas({
         linkWidth={(l) => (drawn(l) ? 2.5 : hover && (idOf(l.source) === hover || idOf(l.target) === hover) ? 1.8 : 1)}
         linkDirectionalArrowLength={3.5}
         linkDirectionalArrowRelPos={1}
-        linkDirectionalParticles={(l) => (drawn(l) && !still ? 2 : 0)}
+        linkDirectionalParticles={(l) => {
+          if (drawn(l) && !still) return 2;
+          const sDec = decorations?.[idOf(l.source)];
+          const tDec = decorations?.[idOf(l.target)];
+          if ((sDec?.pulse || tDec?.pulse) && !still) return 2;
+          return 0;
+        }}
         linkDirectionalParticleWidth={3.5}
         linkDirectionalParticleSpeed={0.008}
-        linkDirectionalParticleColor={() => tokens.proof}
+        linkDirectionalParticleColor={(l) => {
+          if (pathLinks.includes(l)) return tokens.proof;
+          const sDec = decorations?.[idOf(l.source)];
+          if (sDec?.color) return sDec.color;
+          return tokens.proof;
+        }}
         nodeCanvasObject={(n, ctx, scale) => {
           const x = n.x ?? 0;
           const y = n.y ?? 0;
           const on = lit(n.id);
+          const dec = decorations?.[n.id];
           const r = (n.label === "Service" ? 7 + (n.score ?? 0) / 18 : 6) / Math.min(scale, 1.6);
           ctx.globalAlpha = on ? 1 : 0.18;
-          if (n.id === hover || n.id === focus) {
+          if (dec?.pulse) {
+            ctx.beginPath();
+            const pulseOffset = still ? 3 : Math.sin(Date.now() / 250) * 2.5 + 3.5;
+            ctx.arc(x, y, r + pulseOffset / scale, 0, 2 * Math.PI);
+            ctx.fillStyle = dec.pulse_color || `${tokens.severity[dec.risk_band] || tokens.severity.critical}33`;
+            ctx.fill();
+          } else if (n.id === hover || n.id === focus) {
             ctx.beginPath();
             ctx.arc(x, y, r + 6 / scale, 0, 2 * Math.PI);
             ctx.fillStyle = `${tokens.brand}33`;
             ctx.fill();
           }
           drawShape(ctx, n.label, x, y, r);
-          ctx.fillStyle = nodeColor(n, tokens);
+          ctx.fillStyle = dec?.color || nodeColor(n, tokens);
           ctx.fill();
-          if (pathSet.has(n.id) || n.id === focus || n.id === hover) {
+          if (pathSet.has(n.id) || n.id === focus || n.id === hover || dec?.pulse) {
             ctx.lineWidth = 2 / scale;
-            ctx.strokeStyle = pathSet.has(n.id) ? tokens.proof : tokens.brand;
+            ctx.strokeStyle = pathSet.has(n.id) ? tokens.proof : dec?.color || tokens.brand;
             ctx.stroke();
           }
-          const showLabel = n.id === hover || n.id === focus || pathSet.has(n.id) || scale > 1.4 || (n.label === "Service" && scale > 0.8) || (hover && on);
+          const showLabel = n.id === hover || n.id === focus || pathSet.has(n.id) || scale > 1.4 || (n.label === "Service" && scale > 0.8) || (hover && on) || (dec && dec.simulated_score > 50);
           if (showLabel) {
             ctx.font = canvasFont(11 / scale, n.id === hover ? 600 : 500);
             ctx.textAlign = "center";
             ctx.fillStyle = n.id === hover ? tokens.text : tokens.textMuted;
-            ctx.fillText(n.name.length > 28 ? `${n.name.slice(0, 27)}…` : n.name, x, y + r + 11 / scale);
+            const extra = dec?.spof_rank ? ` #${dec.spof_rank}` : "";
+            const baseName = n.name.length > 24 ? `${n.name.slice(0, 23)}…` : n.name;
+            ctx.fillText(`${baseName}${extra}`, x, y + r + 11 / scale);
           }
           ctx.globalAlpha = 1;
         }}

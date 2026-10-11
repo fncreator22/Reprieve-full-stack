@@ -13,3 +13,12 @@ coverage/
 .DS_Store
 .context/
 eval/report.md
+
+# Test output & reports
+playwright-report/
+test-results/
+frontend/playwright-report/
+frontend/test-results/
+
+# Temporary scrape dump
+prgyn_dump/

@@ -13,6 +13,7 @@ from app.detection.engine import alert_params, run_rules
 from app.graph.client import get_db, graph_names, platform_graph
 from app.graph.repo import Repo
 from app.ids import DAY, new_id, now
+from app.prediction.engine import run_prediction_simulation
 from app.services import events
 
 log = structlog.get_logger()
@@ -164,6 +165,30 @@ async def _detect_and_persist(ws_id: str, org: Repo, platform: Repo, as_of: int,
         await org.write_batched("notifications_create", notes, now=t)
         for n in notes:
             events.publish(ws_id, "notification.created", {"id": n["id"], "recipient_user_id": n["recipient_user_id"]})
+
+    # Auto-cache 30-day prediction decorations on Service nodes so the graph
+    # canvas can show pulsing overlays without waiting for an on-demand call.
+    try:
+        forecast = await run_prediction_simulation(org, as_of=as_of, horizon_days=30)
+        deco_rows = [
+            {
+                "service_id": sid,
+                "simulated_score": d.simulated_score,
+                "risk_band": d.risk_band,
+                "is_spof": d.is_spof,
+                "has_collision": d.has_collision,
+                "pulse": d.pulse,
+                "color": d.color,
+            }
+            for sid, d in forecast.canvas_decorations.items()
+        ]
+        if deco_rows:
+            await org.write_batched("prediction_cache_set", deco_rows, as_of=as_of)
+        log.info("prediction_cached", ws_id=ws_id, services=len(deco_rows))
+    except Exception:
+        log.warning("prediction_cache_failed", ws_id=ws_id)
+        # Non-fatal: prediction still works on-demand via /prediction/simulation
+
     return {
         "created": len(created),
         "updated": len(upserted) - len(created),
@@ -183,6 +208,7 @@ WORKSPACE_FIELDS = (
     "dirty",
     "last_sentinel_at",
     "name",
+    "data_mode",
 )
 
 

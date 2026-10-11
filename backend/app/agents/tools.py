@@ -18,6 +18,7 @@ from app.errors import ApiError
 from app.ids import DAY, new_id, now
 from app.memory.store import precedent
 from app.models.api import Role
+from app.prediction.engine import run_prediction_simulation
 from app.services import reviews, views
 
 ID_RE = re.compile(r"\b(?:exc|svc|per|team|ctl|cc|cp|rbk|alt|rev|ev)_[a-z0-9_-]+\b")
@@ -248,6 +249,39 @@ def pop_action(ws_id: str, action_id: str) -> dict[str, Any]:
     return act
 
 
+class PredictAvalancheArgs(BaseModel):
+    service_id: str = Field(description="Target service id, e.g. svc_billing.")
+
+
+async def predict_avalanche(ctx: WorkspaceContext, a: PredictAvalancheArgs) -> ToolResult:
+    forecast = await run_prediction_simulation(ctx.org, as_of=ctx.as_of, target_service_id=a.service_id)
+    item = next((it for it in forecast.avalanche_centrality if it.service_id == a.service_id), None)
+    if not item:
+        return ToolResult({"error": f"Service {a.service_id} not found in prediction graph"}, f"Service {a.service_id} not found")
+    data = item.model_dump()
+    proof_path = [e.model_dump() for e in item.proof.edges]
+    return ToolResult(
+        data=data,
+        summary=f"Avalanche Centrality for {item.service_name}: score {item.score} ({item.band} risk, SPOF rank #{item.spof_rank})",
+        proof_paths=proof_path,
+    )
+
+
+class PredictCollisionsArgs(BaseModel):
+    horizon_days: int = Field(default=30, ge=1, le=365, description="Forecast horizon in days.")
+    window_days: int = Field(default=7, ge=1, le=30, description="Collision window in days.")
+
+
+async def predict_expiry_collisions(ctx: WorkspaceContext, a: PredictCollisionsArgs) -> ToolResult:
+    forecast = await run_prediction_simulation(ctx.org, as_of=ctx.as_of, horizon_days=a.horizon_days)
+    clusters = forecast.temporal_collisions
+    data = [c.model_dump() for c in clusters]
+    return ToolResult(
+        data=data,
+        summary=f"Found {len(clusters)} temporal expiry collision clusters within {a.horizon_days}d horizon.",
+    )
+
+
 Impl = Callable[[WorkspaceContext, Any], Awaitable[ToolResult]]
 TOOLS: dict[str, tuple[type[BaseModel], Impl, str]] = {
     "list_risk_services": (Limit, list_risk_services, "Rank services by deterministic risk score (highest first)."),
@@ -269,6 +303,16 @@ TOOLS: dict[str, tuple[type[BaseModel], Impl, str]] = {
     "search_entities": (SearchArgs, search_entities, "Find entities by name or id."),
     "recall_precedent": (PrecedentArgs, recall_precedent, "Past review decisions for a control (and service)."),
     "what_if_as_of": (WhatIfArgs, what_if_as_of, "Preview alerts and ranking at another date. Read-only."),
+    "predict_avalanche": (
+        PredictAvalancheArgs,
+        predict_avalanche,
+        "Predict cascading failure probability and Avalanche Centrality for a service.",
+    ),
+    "predict_expiry_collisions": (
+        PredictCollisionsArgs,
+        predict_expiry_collisions,
+        "Predict future temporal clusters of simultaneous exception expirations across dependencies.",
+    ),
     "propose_review": (ProposeArgs, propose_review, "Draft a review for an alert. A human must approve it."),
 }
 

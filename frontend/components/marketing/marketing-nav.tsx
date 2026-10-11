@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
+import { CLERK_ENABLED } from "@/lib/auth-config";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#features", label: "Features" },
+  { href: "/#developer-hub", label: "CLI & MCP" },
+  { href: "/#case-studies", label: "Post-Mortems" },
+  { href: "/rules", label: "Detection Rules" },
+  { href: "/architecture", label: "Architecture" },
   { href: "/#faq", label: "FAQ" },
 ];
 
@@ -28,8 +31,10 @@ export function MarketingNav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-(--z-topbar) transition-[background-color,border-color,backdrop-filter] duration-(--dur-base)",
-        scrolled ? "glass border-b border-border-subtle" : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-(--z-topbar) transition-all duration-300",
+        scrolled
+          ? "border-b border-white/[0.08] bg-[#08090a]/80 backdrop-blur-md"
+          : "border-b border-white/[0.04] bg-transparent",
       )}
     >
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-[1360px] items-center gap-6 px-4 sm:px-6">
@@ -45,12 +50,29 @@ export function MarketingNav() {
             </li>
           ))}
         </ul>
-        <div className="ml-auto hidden items-center gap-2 sm:flex">
+        <div className="ml-auto hidden items-center gap-3 sm:flex">
+          <button
+            type="button"
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent("open-command-menu"));
+              window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }));
+            }}
+            className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#121316] px-3 py-1.5 text-xs text-zinc-400 transition-colors hover:border-white/[0.2] hover:text-zinc-200"
+          >
+            <span>Ask Steward</span>
+            <kbd className="inline-flex h-4 items-center justify-center rounded border border-white/[0.1] bg-black/40 px-1 font-mono text-[10px] text-zinc-400">
+              ⌘K
+            </kbd>
+          </button>
           <Button asChild variant="ghost">
-            <Link href="/sign-in">Sign in</Link>
+            <Link href={CLERK_ENABLED ? "/sign-in" : "/w/northwind-pay/home"}>
+              {CLERK_ENABLED ? "Sign in" : "Enter Demo"}
+            </Link>
           </Button>
           <Button asChild>
-            <Link href="/sign-up">Get started</Link>
+            <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+              {CLERK_ENABLED ? "Get started" : "Open Dashboard"}
+            </Link>
           </Button>
         </div>
         <Sheet open={open} onOpenChange={setOpen}>
@@ -80,10 +102,14 @@ export function MarketingNav() {
             </ul>
             <div className="mt-auto flex flex-col gap-2 p-4">
               <Button asChild size="lg">
-                <Link href="/sign-up">Get started</Link>
+                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+                  {CLERK_ENABLED ? "Get started" : "Open Dashboard"}
+                </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/sign-in">Sign in</Link>
+                <Link href={CLERK_ENABLED ? "/sign-in" : "/w/northwind-pay/home"}>
+                  {CLERK_ENABLED ? "Sign in" : "Enter Demo"}
+                </Link>
               </Button>
             </div>
           </SheetContent>
