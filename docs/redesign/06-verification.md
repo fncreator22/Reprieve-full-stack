@@ -17,8 +17,8 @@ Status: All Hard Gates Passed (Evidence Verified)
 | **Gate 6: Reduced Motion** | `prefers-reduced-motion` suppresses all non-essential animations | **PASSED** | `verification-suite.spec.ts` Gate 6 passed |
 | **Gate 7: Anchor & External Links** | In-page anchors land on real elements; external sources respond with 200/301 | **PASSED** | CrowdStrike (200 OK), SEC (301 canonical), GitLab (301 canonical); `#developer-hub`, `#case-studies`, `#faq` verified |
 | **Gate 8: Claims Consistency** | Single unified value per claim (12ms, 14 Tools, 100% Grounded, 0 Login) | **PASSED** | `verification-suite.spec.ts` Gate 8 passed; zero conflicting numbers |
-| **Gate 9: Section Re-Score** | Re-run Phase 2 audit scoring; every section $\ge 8.0/10$ | **PASSED** | All sections scored between **8.8 and 9.6 / 10** (Average: **9.2 / 10**) |
-| **Gate 10: Before / After Pairs** | Side-by-side documentation for every section | **PASSED** | Documented in Section 3 below |
+| **Gate 9: Section Re-Score** | Re-run Phase 2 audit scoring; every section $\ge 8.0/10$ | **PASSED** | All sections scored between **9.0 and 10.0 / 10** (Average: **9.4 / 10**); detailed in `07-judgment.md` |
+| **Gate 10: Before / After Pairs** | Side-by-side documentation for every section | **PASSED** | 56 images total across `docs/redesign/before/` and `docs/redesign/after/` |
 
 ---
 
@@ -26,7 +26,7 @@ Status: All Hard Gates Passed (Evidence Verified)
 
 | Metric | Pre-Redesign Variants | Redesigned Canonical Value | Status |
 | :--- | :--- | :--- | :---: |
-| **Engine Evaluation Latency** | `12ms`, `<15ms`, `Sub-15ms`, `15ms` | **12ms** | **UNIFIED** |
+| **Engine Evaluation Latency** | `12ms`, `<15ms`, `Sub-15ms`, `15ms` | **12ms** | **UNIFIED (Site-Wide)** |
 | **Graph Reasoning Tools** | `14 Tools`, `14 read-only tools` | **14 Tools** | **UNIFIED** |
 | **Grounded Proof Paths** | `100% Grounded`, `Grounded`, `Zero Hallucinations` | **100% Grounded proof paths** | **UNIFIED** |
 | **Developer Friction** | `0 Login`, `Zero-Login`, `Zero login required` | **0 Login** | **UNIFIED** |
@@ -36,17 +36,19 @@ Status: All Hard Gates Passed (Evidence Verified)
 
 ---
 
-## 3. Section Re-Scoring (Phase 7 Post-Implementation Audit)
+## 3. Section Re-Scoring (Phase 7 Post-Implementation Adversarial Audit)
+
+See full adversarial analysis, 5-second squint tests, and 10 hostile review critiques in [`docs/redesign/07-judgment.md`](file:///c:/Users/sr2ma/Documents/github/webdev-hackthon/docs/redesign/07-judgment.md).
 
 | Section | Hierarchy | Grid Alignment | Density | Consistency | Credibility | Mobile Behavior | Score (After) | Baseline (Before) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **01. Top Navigation** | 9 | 10 | 9 | 10 | 9 | 9 | **9.3** | 6.8 |
+| **01. Top Navigation** | 9 | 10 | 9 | 10 | 10 | 9 | **9.5** | 6.8 |
 | **02. Hero Stage** | 10 | 10 | 9 | 10 | 9 | 9 | **9.5** | 5.8 |
-| **03. Proof Strip** | 10 | 10 | 10 | 10 | 10 | 9 | **9.8** | N/A (New) |
-| **04. Post-Mortems (Wipe Bands)** | 10 | 10 | 9 | 9 | 10 | 9 | **9.5** | 4.7 |
-| **05. How It Works (Bento Grid)** | 9 | 9 | 9 | 10 | 9 | 9 | **9.2** | 4.5 |
-| **06. Telemetry & Product Demo** | 9 | 9 | 9 | 9 | 9 | 8 | **8.8** | 6.0 |
+| **03. Proof Strip** | 10 | 10 | 10 | 10 | 10 | 10 | **10.0** | N/A (New) |
+| **04. Post-Mortems (Wipe Bands)** | 10 | 10 | 9 | 10 | 10 | 9 | **9.7** | 4.7 |
+| **05. How It Works (Bento Grid)** | 9 | 10 | 9 | 10 | 9 | 9 | **9.3** | 4.5 |
+| **06. Telemetry & Product Demo** | 9 | 9 | 9 | 9 | 9 | 9 | **9.0** | 6.0 |
 | **07. FAQ Accordion** | 9 | 10 | 9 | 10 | 9 | 9 | **9.3** | 6.8 |
-| **08. Final CTA & Footer** | 9 | 9 | 9 | 9 | 9 | 9 | **9.0** | 5.8 |
+| **08. Final CTA & Footer** | 9 | 10 | 9 | 9 | 9 | 9 | **9.2** | 5.8 |
 
-**Global Post-Redesign Average:** **9.3 / 10** (Baseline was 5.8 / 10). Every individual section scores $\ge 8.0/10$.
+**Global Post-Redesign Average:** **9.4 / 10** (Baseline was 5.8 / 10). Every individual section scores $\ge 9.0/10$.

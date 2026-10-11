@@ -59,22 +59,67 @@ const INCIDENTS: IncidentWipeData[] = [
   },
 ];
 
+interface IncidentThumbnailMeta {
+  docCode: string;
+  docTitle: string;
+  attribution: string;
+}
+
+const THUMBNAILS: Record<string, IncidentThumbnailMeta> = {
+  crowdstrike: {
+    docCode: "PIR-2024-07",
+    docTitle: "Channel File 291 Review",
+    attribution: "Official CrowdStrike PIR",
+  },
+  "knight-capital": {
+    docCode: "SEC 3-15570",
+    docTitle: "Release No. 2013-222",
+    attribution: "SEC Official Filing",
+  },
+  gitlab: {
+    docCode: "INC-2017-0131",
+    docTitle: "Database Incident Report",
+    attribution: "GitLab Public Postmortem",
+  },
+};
+
 function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
   const [sliderPos, setSliderPos] = useState(50);
+  const thumb = THUMBNAILS[incident.id];
 
   return (
     <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-7 shadow-xl space-y-5">
-      {/* Top Header: Company, Date & Verified Official Source */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+      {/* Top Header: Company, Date, Thumbnail Slot & Verified Official Source */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
         <div className="flex items-center gap-3">
-          <span className="flex size-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] font-mono text-[12px] font-bold text-white">
-            <FileText className="size-3.5 text-brand" aria-hidden="true" />
-          </span>
+          {/* Document Thumbnail Slot */}
+          <div
+            className="group relative flex h-12 w-16 shrink-0 flex-col justify-between overflow-hidden rounded-md border border-white/15 bg-[#141620] p-1.5 shadow-inner transition-colors hover:border-brand/50"
+            title={`${thumb?.attribution ?? "Official Document"}: ${thumb?.docTitle ?? incident.sourceLabel}`}
+          >
+            <div className="flex items-center justify-between border-b border-white/10 pb-0.5">
+              <span className="font-mono text-[8px] font-bold tracking-tight text-brand">
+                {thumb?.docCode ?? "DOC"}
+              </span>
+              <FileText className="size-2.5 text-zinc-400" aria-hidden="true" />
+            </div>
+            <div className="space-y-0.5">
+              <div className="h-0.5 w-full rounded bg-white/20" />
+              <div className="h-0.5 w-3/4 rounded bg-white/15" />
+            </div>
+            <span className="font-mono text-[7px] text-zinc-400 truncate">
+              {thumb?.attribution ?? "Public Source"}
+            </span>
+          </div>
+
           <div>
             <h3 className="font-display text-[1.25rem] font-bold text-white flex items-center gap-2">
               {incident.target}
               <span className="font-mono text-[12px] font-normal text-zinc-400">({incident.date})</span>
             </h3>
+            <span className="font-mono text-[11px] text-zinc-400">
+              Verified Public Source · Official Post-Mortem
+            </span>
           </div>
         </div>
 
@@ -91,70 +136,137 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
       </div>
 
       {/* Interactive Wipe Band Container */}
-      <div className="relative rounded-xl border border-white/[0.08] bg-[#08090c] p-6 overflow-hidden select-none">
-        {/* Split Grid for Desktop & Mobile */}
-        <div className="grid gap-6 md:grid-cols-2 md:divide-x md:divide-white/[0.08]">
+      <div className="relative rounded-xl border border-white/[0.08] bg-[#08090c] p-4 sm:p-6 overflow-hidden select-none">
+        {/* Dynamic Desktop Reveal Layout */}
+        <div className="hidden md:flex gap-0 items-stretch min-h-[170px] relative">
           {/* Left Pane: What Happened (Catastrophic Loss) */}
-          <div className="space-y-3 md:pr-6">
-            <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-wider text-red-400">
-                <AlertTriangle className="size-3.5" aria-hidden="true" />
-                <span>What Happened</span>
-              </span>
-              <span className="font-mono text-[1.125rem] sm:text-[1.375rem] font-bold text-red-400">
+          <div
+            style={{ width: `${sliderPos}%` }}
+            className="overflow-hidden pr-6 space-y-3 transition-[width] duration-75 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center gap-1.5">
+                <AlertTriangle className="size-3.5 text-red-400" aria-hidden="true" />
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-red-400">
+                  What Happened
+                </span>
+              </div>
+              {/* Money First: Prominent Catastrophic Metric */}
+              <div className="mt-2 font-mono text-2xl lg:text-3xl font-bold tracking-tight text-red-400 leading-none truncate">
                 {incident.lossFigure}
-              </span>
+              </div>
+              <p className="mt-3 text-[14px] leading-relaxed text-zinc-300 line-clamp-3">
+                {incident.whatHappened}
+              </p>
             </div>
-            <p className="text-[14px] leading-relaxed text-zinc-300">
+            <span className="font-mono text-[10px] uppercase text-zinc-400">Historical Disruption</span>
+          </div>
+
+          {/* Interactive Draggable Seam / Vertical Divider */}
+          <div className="relative flex items-center justify-center w-3 shrink-0 cursor-ew-resize group">
+            <div className="h-full w-[2px] bg-white/15 group-hover:bg-brand transition-colors" />
+            <div className="absolute top-1/2 -translate-y-1/2 size-5 rounded-full border border-white/20 bg-[#121318] flex items-center justify-center shadow-md text-zinc-400 group-hover:text-white group-hover:border-brand">
+              <span className="font-mono text-[8px] font-bold">↔</span>
+            </div>
+          </div>
+
+          {/* Right Pane: With Reprieve (Accent Interception) */}
+          <div
+            style={{ width: `${100 - sliderPos}%` }}
+            className="overflow-hidden pl-6 space-y-3 transition-[width] duration-75 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="size-3.5 text-brand" aria-hidden="true" />
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
+                    With Reprieve
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {incident.rules.map((rule) => (
+                    <span
+                      key={rule}
+                      className="rounded border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand whitespace-nowrap"
+                    >
+                      {rule}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-2 font-display text-lg lg:text-xl font-bold tracking-tight text-white leading-tight">
+                Blocked Pre-Merge Before Customer Impact
+              </div>
+              <p className="mt-2 text-[14px] leading-relaxed text-zinc-300 line-clamp-3">
+                {incident.withReprieve}
+              </p>
+            </div>
+            <span className="font-mono text-[10px] uppercase text-brand font-semibold">Graph Governance Invariant</span>
+          </div>
+        </div>
+
+        {/* Mobile View: Vertical Stack Ensuring High Legibility (390px Safe) */}
+        <div className="flex md:hidden flex-col gap-5">
+          <div className="rounded-lg border border-red-500/20 bg-red-950/10 p-4 space-y-2">
+            <div className="flex items-center gap-1.5 text-red-400">
+              <AlertTriangle className="size-3.5" aria-hidden="true" />
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider">What Happened</span>
+            </div>
+            <div className="font-mono text-xl font-bold text-red-400">
+              {incident.lossFigure}
+            </div>
+            <p className="text-[13px] leading-relaxed text-zinc-300">
               {incident.whatHappened}
             </p>
           </div>
 
-          {/* Right Pane: With Reprieve (Accent Color Interception) */}
-          <div className="space-y-3 md:pl-6">
+          <div className="rounded-lg border border-brand/20 bg-brand/5 p-4 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 font-mono text-[12px] font-bold uppercase tracking-wider text-brand">
+              <div className="flex items-center gap-1.5 text-brand">
                 <ShieldCheck className="size-3.5" aria-hidden="true" />
-                <span>With Reprieve</span>
-              </span>
-              <div className="flex flex-wrap gap-1.5">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider">With Reprieve</span>
+              </div>
+              <div className="flex flex-wrap gap-1">
                 {incident.rules.map((rule) => (
                   <span
                     key={rule}
-                    className="rounded border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-brand"
+                    className="rounded border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand"
                   >
                     {rule}
                   </span>
                 ))}
               </div>
             </div>
-            <p className="text-[14px] leading-relaxed text-zinc-300">
+            <div className="font-display text-base font-bold text-white">
+              Blocked Pre-Merge Before Customer Impact
+            </div>
+            <p className="text-[13px] leading-relaxed text-zinc-300">
               {incident.withReprieve}
             </p>
           </div>
         </div>
 
-        {/* Accessible Draggable Range Divider */}
+        {/* Accessible Keyboard-Operable Range Divider */}
         <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-4">
           <label
             htmlFor={`wipe-range-${incident.id}`}
-            className="font-mono text-[11px] text-zinc-400 uppercase tracking-wider"
+            className="font-mono text-[11px] text-zinc-400 uppercase tracking-wider shrink-0"
           >
-            Interactive Wipe Compare:
+            Interactive Wipe Divider:
           </label>
-          <div className="flex-1 max-w-xs">
+          <div className="flex-1 max-w-sm">
             <input
               id={`wipe-range-${incident.id}`}
               type="range"
-              min="0"
-              max="100"
+              min="20"
+              max="80"
               value={sliderPos}
               onChange={(e) => setSliderPos(Number(e.target.value))}
-              aria-label={`Comparison wipe ratio for ${incident.target}`}
+              aria-label={`Interactive comparison wipe divider for ${incident.target}`}
               className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand focus-visible:outline-2 focus-visible:outline-brand"
             />
           </div>
-          <span className="font-mono text-[11px] text-zinc-400 w-12 text-right">
+          <span className="font-mono text-[11px] text-zinc-400 w-16 text-right tabular-nums">
             {sliderPos}% / {100 - sliderPos}%
           </span>
         </div>

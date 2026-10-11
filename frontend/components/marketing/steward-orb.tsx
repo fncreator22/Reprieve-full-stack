@@ -96,7 +96,7 @@ export function StewardOrb() {
       {/* Floating Status Badges */}
       <div className="absolute bottom-2 sm:bottom-4 left-4 sm:left-6 flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-3 py-1 font-mono text-[10px] text-emerald-300 backdrop-blur-md shadow-lg transition-transform duration-300 group-hover:translate-x-1">
         <Activity className="size-3 text-emerald-400" />
-        <span>Sub-15ms Pre-Merge Gate</span>
+        <span>12ms Pre-Merge Gate</span>
       </div>
 
       <div className="absolute top-4 sm:top-6 right-2 sm:right-6 flex items-center gap-1.5 rounded-full border border-brand/30 bg-indigo-950/60 px-3 py-1 font-mono text-[10px] text-indigo-200 backdrop-blur-md shadow-lg transition-transform duration-300 group-hover:-translate-x-1">
