@@ -31,6 +31,7 @@ import { PrecedentCard } from "@/components/precedent-card";
 import { SeverityBadge } from "@/components/severity-badge";
 import { CLERK_ENABLED } from "@/lib/auth-config";
 import { cn } from "@/lib/utils";
+import { FeaturesCard } from "@/components/ui/features-card";
 
 const TRUST: { icon: LucideIcon; text: string }[] = [
   { icon: UserCheck, text: "A human approves every change" },
@@ -174,6 +175,9 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* SECTION: Operational Graph Intelligence Bento Grid */}
+      <FeaturesCard />
 
       {/* SECTION 2: Developer & Agent Hub (Interactive Dynamic Terminal CLI, MCP Protocol, CI/CD) */}
       <DeveloperHub />
