@@ -22,6 +22,8 @@ import { PROVISION_STEPS, ProvisioningStepper } from "@/components/system/provis
 import { ServerErrorView } from "@/components/system/status-views";
 import { isApiError, newRequestId, useApi, wsPath } from "@/lib/api";
 import { useAuthBridge } from "@/lib/auth";
+import { CLERK_ENABLED } from "@/lib/auth-config";
+import { UserButton } from "@clerk/nextjs";
 import { errorMessage, requestIdOf } from "@/lib/errors";
 import { slugify } from "@/lib/format";
 import { openStream } from "@/lib/sse";
@@ -667,13 +669,25 @@ export function OnboardingFlow() {
 }
 
 export function OnboardingShell({ children }: { children: React.ReactNode }) {
+  const { signOut } = useAuthBridge();
   return (
     <div className="relative flex min-h-dvh flex-col items-center px-4 py-10">
       <div aria-hidden className="aurora-mesh pointer-events-none absolute inset-0" />
-      <div className="relative mb-8 flex items-center gap-2">
-        <LogoMark />
-        <span className="font-display text-[1.2rem] font-bold">Reprieve</span>
-      </div>
+      <header className="relative mb-8 flex w-full max-w-[560px] items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <LogoMark />
+          <span className="font-display text-[1.2rem] font-bold">Reprieve</span>
+        </Link>
+        {CLERK_ENABLED ? (
+          <div className="flex items-center gap-2">
+            <UserButton />
+          </div>
+        ) : (
+          <Button variant="ghost" size="sm" onClick={() => void signOut()}>
+            Sign out
+          </Button>
+        )}
+      </header>
       <main id="main" className="relative flex w-full max-w-[560px] flex-1 flex-col items-center">
         {children}
       </main>

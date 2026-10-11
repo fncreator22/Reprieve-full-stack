@@ -147,7 +147,7 @@ export default function LandingPage() {
                   Book Architecture Audit
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-white/15 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08] hover:text-white px-6 py-6 text-body-base font-semibold">
-                  <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+                  <Link href="/w/northwind-pay/home">
                     Launch Live Sandbox (0 Login)
                   </Link>
                 </Button>
@@ -348,7 +348,7 @@ export default function LandingPage() {
                 Book Architecture Audit
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white/15 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08] hover:text-white px-7 py-6 text-body-base font-semibold">
-                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+                <Link href="/w/northwind-pay/home">
                   Launch Live Sandbox (0 Login)
                   <ArrowRight className="ml-2 size-4" aria-hidden="true" />
                 </Link>

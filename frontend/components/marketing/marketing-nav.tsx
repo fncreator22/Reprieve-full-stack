@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -64,16 +65,41 @@ export function MarketingNav() {
               ⌘K
             </kbd>
           </button>
-          <Button asChild variant="ghost">
-            <Link href={CLERK_ENABLED ? "/sign-in" : "/w/northwind-pay/home"}>
-              {CLERK_ENABLED ? "Sign in" : "Enter Demo"}
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
-              {CLERK_ENABLED ? "Get started" : "Open Dashboard"}
-            </Link>
-          </Button>
+          {CLERK_ENABLED ? (
+            <>
+              <SignedIn>
+                <Button asChild variant="ghost">
+                  <Link href="/workspaces">Dashboard</Link>
+                </Button>
+                <div className="flex items-center pl-1">
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "size-8 rounded-full ring-1 ring-white/20 hover:ring-brand",
+                      },
+                    }}
+                  />
+                </div>
+              </SignedIn>
+              <SignedOut>
+                <Button asChild variant="ghost">
+                  <Link href="/sign-in">Sign in</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/sign-up">Get started</Link>
+                </Button>
+              </SignedOut>
+            </>
+          ) : (
+            <>
+              <Button asChild variant="ghost">
+                <Link href="/w/northwind-pay/home">Enter Demo</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/w/northwind-pay/home">Open Dashboard</Link>
+              </Button>
+            </>
+          )}
         </div>
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
@@ -101,16 +127,46 @@ export function MarketingNav() {
               ))}
             </ul>
             <div className="mt-auto flex flex-col gap-2 p-4">
-              <Button asChild size="lg">
-                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
-                  {CLERK_ENABLED ? "Get started" : "Open Dashboard"}
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <Link href={CLERK_ENABLED ? "/sign-in" : "/w/northwind-pay/home"}>
-                  {CLERK_ENABLED ? "Sign in" : "Enter Demo"}
-                </Link>
-              </Button>
+              {CLERK_ENABLED ? (
+                <>
+                  <SignedIn>
+                    <div className="flex items-center justify-between pb-2">
+                      <span className="text-body-sm text-text-muted">Account</span>
+                      <UserButton />
+                    </div>
+                    <Button asChild size="lg">
+                      <Link href="/workspaces" onClick={() => setOpen(false)}>
+                        Open Dashboard
+                      </Link>
+                    </Button>
+                  </SignedIn>
+                  <SignedOut>
+                    <Button asChild size="lg">
+                      <Link href="/sign-up" onClick={() => setOpen(false)}>
+                        Get started
+                      </Link>
+                    </Button>
+                    <Button asChild size="lg" variant="secondary">
+                      <Link href="/sign-in" onClick={() => setOpen(false)}>
+                        Sign in
+                      </Link>
+                    </Button>
+                  </SignedOut>
+                </>
+              ) : (
+                <>
+                  <Button asChild size="lg">
+                    <Link href="/w/northwind-pay/home" onClick={() => setOpen(false)}>
+                      Open Dashboard
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="secondary">
+                    <Link href="/w/northwind-pay/home" onClick={() => setOpen(false)}>
+                      Enter Demo
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </SheetContent>
         </Sheet>
