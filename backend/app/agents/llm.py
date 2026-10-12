@@ -56,7 +56,15 @@ def _provider(kind: str) -> Provider | None:
     if kind == "compat" and s.compat_base_url and s.compat_model:
         return Provider(
             "compat",
-            openai.AsyncOpenAI(base_url=s.compat_base_url, api_key=s.compat_api_key, timeout=s.llm_timeout_s),
+            openai.AsyncOpenAI(
+                base_url=s.compat_base_url,
+                api_key=s.compat_api_key,
+                timeout=s.llm_timeout_s,
+                default_headers={
+                    "HTTP-Referer": s.web_origin,
+                    "X-Title": "Reprieve",
+                },
+            ),
             s.compat_model,
         )
     return None
