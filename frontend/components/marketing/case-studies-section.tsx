@@ -23,39 +23,39 @@ const INCIDENTS: IncidentWipeData[] = [
     target: "CrowdStrike Falcon Sensor",
     date: "July 2024",
     sourceUrl: "https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/",
-    sourceLabel: "Official CrowdStrike PIR & Hub",
+    sourceLabel: "Official CrowdStrike PIR",
     lossFigure: "8.5M Systems Crashed",
     whatHappened:
-      "A template update in Channel File 291 passed isolated syntax validation but bypassed phased rollout, triggering out-of-bounds reads and cascading kernel panics globally.",
+      "A content update in Channel File 291 passed syntax checks but skipped staged rollout, triggering out-of-bounds reads directly on the kernel path.",
     withReprieve:
-      "Pre-merge AST scanner detects bypass on root dependency paths with zero isolation before merge.",
+      "Blocks direct push to high-blast services. Pre-merge AST scanner forces phased rollout gates whenever changes touch root operating dependencies.",
     rules: ["Rule R4: Service Concentration", "Rule R8: Customer-Path Exposure"],
   },
   {
-    id: "knight-capital",
-    target: "Knight Capital Group",
-    date: "August 2012",
-    sourceUrl: "https://www.sec.gov/newsroom/press-releases/2013-222",
-    sourceLabel: "SEC Release No. 2013-222",
-    lossFigure: "$440M Lost in 45 Min",
+    id: "change-healthcare",
+    target: "Change Healthcare (UnitedHealth)",
+    date: "February 2024",
+    sourceUrl: "https://www.finance.senate.gov/hearings/hacking-healthcare-examining-the-change-healthcare-cyberattack-and-its-impact-on-the-nation",
+    sourceLabel: "Senate Hearing & SEC 8-K",
+    lossFigure: "$1.6B Claims Freeze",
     whatHappened:
-      "Repurposed retired 'Power Peg' flag deployed onto 7 of 8 servers; omitted node ran dormant unowned test code executing millions of unintended market orders.",
+      "An unmonitored legacy Citrix portal had no MFA enabled—a forgotten policy exception left behind after a corporate merger with zero active owner.",
     withReprieve:
-      "Sentinel halts deployment immediately upon detecting a retired flag bound to an inactive owner.",
-    rules: ["Rule R2: Ghost Owner", "Rule R5: Renewal Treadmill"],
+      "Flags unowned systems and expired policy exceptions. Sentinel alerts security teams before dormant, single-factor backdoors reach production.",
+    rules: ["Rule R2: Ghost Owner", "Rule R7: Broken Compensating Control"],
   },
   {
-    id: "gitlab",
-    target: "GitLab Database Outage",
-    date: "January 2017",
-    sourceUrl: "https://about.gitlab.com/blog/gitlab-dot-com-database-incident/",
-    sourceLabel: "GitLab Public Incident Report",
-    lossFigure: "300GB Primary Desync",
+    id: "square-block",
+    target: "Square (Block, Inc.)",
+    date: "September 2023",
+    sourceUrl: "https://status.square.com/",
+    sourceLabel: "Official Square PIR",
+    lossFigure: "24-Hour Checkout Outage",
     whatHappened:
-      "Automated backup verification routines were temporarily disabled during replication lag; engineer accidental deletion on primary had zero live compensating controls.",
+      "An internal firewall update coincided with a DNS server upgrade, exhausting DNS capacity and severing microservices from checkout payment gateways.",
     withReprieve:
-      "Graph model identifies that waiving backup verifiers during degraded primary load completely eliminates safety margin.",
-    rules: ["Rule R3: Shared Fallback Bottleneck", "Rule R7: Broken Compensating Control"],
+      "Detects compound change collisions. Halts deployments when concurrent infrastructure updates intersect on shared resolution paths.",
+    rules: ["Rule R4: Service Concentration", "Rule R6: High-Blast Wave"],
   },
 ];
 
@@ -69,17 +69,17 @@ const THUMBNAILS: Record<string, IncidentThumbnailMeta> = {
   crowdstrike: {
     docCode: "PIR-2024-07",
     docTitle: "Channel File 291 Review",
-    attribution: "Official CrowdStrike PIR",
+    attribution: "CrowdStrike PIR",
   },
-  "knight-capital": {
-    docCode: "SEC 3-15570",
-    docTitle: "Release No. 2013-222",
-    attribution: "SEC Official Filing",
+  "change-healthcare": {
+    docCode: "SENATE-UHG-2024",
+    docTitle: "Senate Finance Hearing",
+    attribution: "Senate Record & SEC 8-K",
   },
-  gitlab: {
-    docCode: "INC-2017-0131",
-    docTitle: "Database Incident Report",
-    attribution: "GitLab Public Postmortem",
+  "square-block": {
+    docCode: "BLOCK-PIR-2023",
+    docTitle: "DNS & Firewall PIR",
+    attribution: "Block Engineering PIR",
   },
 };
 
@@ -118,7 +118,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
               <span className="font-mono text-[12px] font-normal text-zinc-400">({incident.date})</span>
             </h3>
             <span className="font-mono text-[11px] text-zinc-400">
-              Verified Public Source · Official Post-Mortem
+              Verified Public Record · Official Incident Post-Mortem
             </span>
           </div>
         </div>
@@ -148,7 +148,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
               <div className="flex items-center gap-1.5">
                 <AlertTriangle className="size-3.5 text-red-400" aria-hidden="true" />
                 <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-red-400">
-                  What Happened
+                  The Root Failure
                 </span>
               </div>
               {/* Money First: Prominent Catastrophic Metric */}
@@ -159,7 +159,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
                 {incident.whatHappened}
               </p>
             </div>
-            <span className="font-mono text-[10px] uppercase text-zinc-400">Historical Disruption</span>
+            <span className="font-mono text-[10px] uppercase text-zinc-500">Documented Incident Breakdown</span>
           </div>
 
           {/* Interactive Draggable Seam / Vertical Divider */}
@@ -176,32 +176,30 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
             className="overflow-hidden pl-6 space-y-3 transition-[width] duration-75 flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="size-3.5 text-brand" aria-hidden="true" />
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
-                    With Reprieve
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {incident.rules.map((rule) => (
-                    <span
-                      key={rule}
-                      className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand whitespace-nowrap"
-                    >
-                      {rule}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="size-3.5 text-brand" aria-hidden="true" />
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
+                  How Reprieve Prevents This
+                </span>
               </div>
-              <div className="mt-2 font-display text-lg lg:text-xl font-bold tracking-tight text-white leading-tight">
-                Blocked Pre-Merge Before Customer Impact
+              <div className="flex flex-wrap gap-1 mt-1.5">
+                {incident.rules.map((rule) => (
+                  <span
+                    key={rule}
+                    className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand whitespace-nowrap"
+                  >
+                    {rule}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-2.5 font-display text-lg lg:text-xl font-bold tracking-tight text-white leading-tight">
+                Pre-Merge Gate Halts Deployment
               </div>
               <p className="mt-2 text-[14px] leading-relaxed text-zinc-300 line-clamp-3">
                 {incident.withReprieve}
               </p>
             </div>
-            <span className="font-mono text-[10px] uppercase text-brand font-semibold">Graph Governance Invariant</span>
+            <span className="font-mono text-[10px] uppercase text-brand font-semibold">Deterministic Graph Interception</span>
           </div>
         </div>
 
@@ -210,7 +208,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
           <div className="rounded-none border border-red-500/20 bg-red-950/10 p-4 space-y-2">
             <div className="flex items-center gap-1.5 text-red-400">
               <AlertTriangle className="size-3.5" aria-hidden="true" />
-              <span className="font-mono text-[11px] font-bold uppercase tracking-wider">What Happened</span>
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider">The Root Failure</span>
             </div>
             <div className="font-mono text-xl font-bold text-red-400">
               {incident.lossFigure}
@@ -221,24 +219,22 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
           </div>
 
           <div className="rounded-none border border-brand/20 bg-brand/5 p-4 space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-brand">
-                <ShieldCheck className="size-3.5" aria-hidden="true" />
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider">With Reprieve</span>
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {incident.rules.map((rule) => (
-                  <span
-                    key={rule}
-                    className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand"
-                  >
-                    {rule}
-                  </span>
-                ))}
-              </div>
+            <div className="flex items-center gap-1.5 text-brand">
+              <ShieldCheck className="size-3.5" aria-hidden="true" />
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider">How Reprieve Prevents This</span>
             </div>
-            <div className="font-display text-base font-bold text-white">
-              Blocked Pre-Merge Before Customer Impact
+            <div className="flex flex-wrap gap-1 pt-0.5">
+              {incident.rules.map((rule) => (
+                <span
+                  key={rule}
+                  className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand"
+                >
+                  {rule}
+                </span>
+              ))}
+            </div>
+            <div className="font-display text-base font-bold text-white pt-1">
+              Pre-Merge Gate Halts Deployment
             </div>
             <p className="text-[13px] leading-relaxed text-zinc-300">
               {incident.withReprieve}
@@ -246,13 +242,13 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
           </div>
         </div>
 
-        {/* Accessible Keyboard-Operable Range Divider */}
-        <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-4">
+        {/* Accessible Keyboard-Operable Range Divider (Desktop Only) */}
+        <div className="mt-5 pt-4 border-t border-white/[0.06] hidden md:flex items-center justify-between gap-4">
           <label
             htmlFor={`wipe-range-${incident.id}`}
             className="font-mono text-[11px] text-zinc-400 uppercase tracking-wider shrink-0"
           >
-            Interactive Wipe Divider:
+            Interactive Prevention Wipe:
           </label>
           <div className="flex-1 max-w-sm">
             <input
@@ -262,7 +258,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
               max="80"
               value={sliderPos}
               onChange={(e) => setSliderPos(Number(e.target.value))}
-              aria-label={`Interactive comparison wipe divider for ${incident.target}`}
+              aria-label={`Interactive prevention wipe divider for ${incident.target}`}
               className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand focus-visible:outline-2 focus-visible:outline-brand"
             />
           </div>
@@ -283,15 +279,15 @@ export function CaseStudiesSection() {
       className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 sm:py-32"
     >
       {/* Section Header */}
-      <div className="max-w-2xl space-y-2 mb-10 text-left">
+      <div className="max-w-3xl space-y-2 mb-10 text-left">
         <span className="text-[12px] font-mono uppercase tracking-[0.1em] text-zinc-400 font-semibold">
-          POST-MORTEMS
+          INCIDENT POST-MORTEMS · ROOT CAUSE ANALYSIS
         </span>
         <h2 id="case-studies-heading" className="text-[2.25rem] sm:text-[2.75rem] font-display font-bold text-white tracking-tight leading-[1.15]">
-          How graph governance intercepts systemic outages
+          How graph governance prevents systemic outages
         </h2>
         <p className="text-[1.05rem] text-zinc-300 leading-relaxed">
-          Outages collide across microservice boundaries. Here is how Reprieve&apos;s deterministic rules intercept documented public failures.
+          Real-world engineering disasters from top tech companies. Here is how Reprieve&apos;s deterministic graph rules intercept these failure modes before code merges.
         </p>
       </div>
 
