@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SettingsWorkspaceHub } from "@/components/ui/settings";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
 import type { AiMode, WorkspaceOut } from "@/lib/types";
@@ -55,7 +56,7 @@ export function SettingsScreen({ tab }: { tab: SettingsTab }) {
             </Link>
           ))}
         </nav>
-        <div className={cn("space-y-6", tab === "api-keys" || tab === "integrations" ? "max-w-4xl" : "max-w-2xl")}>
+        <div className={cn("space-y-6", tab === "workspace" || tab === "api-keys" || tab === "integrations" ? "max-w-5xl" : "max-w-2xl")}>
           {tab === "profile" ? (
             <Profile />
           ) : tab === "workspace" ? (
@@ -115,15 +116,34 @@ function Workspace() {
   const api = useApi();
   const qc = useQueryClient();
   const me = useMe();
-  const { wsId, workspace, role } = useWorkspace();
+  const { wsId, workspace, role, slug } = useWorkspace();
   const admin = ROLE_RANK[role] >= ROLE_RANK.admin;
-  const run = useMutation({
-    mutationFn: () => api<{ created: number; resolved: number }>(wsPath(wsId, "/sentinel/run"), { method: "POST" }),
-    onSuccess: (r) => toast.success(`Sentinel finished: ${r.created} new, ${r.resolved} resolved.`),
+
+  const renameMutation = useMutation({
+    mutationFn: (newName: string) =>
+      api<WorkspaceOut>(wsPath(wsId), { method: "PATCH", body: { name: newName } }),
+    onSuccess: (updated) => {
+      qc.setQueryData(workspaceQueryKey(wsId), updated);
+      void qc.invalidateQueries({ queryKey: workspaceQueryKey(wsId) });
+      void qc.invalidateQueries({ queryKey: meQueryKey });
+      toast.success("Workspace renamed successfully.");
+    },
     onError: (e) => toast.error(errorMessage(e)),
   });
+
+  const run = useMutation({
+    mutationFn: () =>
+      api<{ created: number; resolved: number }>(wsPath(wsId, "/sentinel/run"), {
+        method: "POST",
+      }),
+    onSuccess: (r) =>
+      toast.success(`Sentinel finished: ${r.created} new, ${r.resolved} resolved.`),
+    onError: (e) => toast.error(errorMessage(e)),
+  });
+
   const resetBlank = useMutation({
-    mutationFn: () => api<WorkspaceOut>(wsPath(wsId, "/reset-blank"), { method: "POST" }),
+    mutationFn: () =>
+      api<WorkspaceOut>(wsPath(wsId, "/reset-blank"), { method: "POST" }),
     onSuccess: (w) => {
       qc.setQueryData(workspaceQueryKey(wsId), w);
       void qc.invalidateQueries({ queryKey: ["risk-summary", wsId] });
@@ -131,12 +151,16 @@ function Workspace() {
       void qc.invalidateQueries({ queryKey: ["alerts", wsId] });
       void qc.invalidateQueries({ queryKey: ["graph", wsId] });
       void qc.invalidateQueries({ queryKey: meQueryKey });
-      toast.success("Workspace cleared! All demo data wiped, now running on a clean blank slate (0 alerts).");
+      toast.success(
+        "Workspace cleared! All demo data wiped, now running on a clean blank slate (0 alerts)."
+      );
     },
     onError: (e) => toast.error(errorMessage(e)),
   });
+
   const loadSample = useMutation({
-    mutationFn: () => api<WorkspaceOut>(wsPath(wsId, "/load-sample"), { method: "POST" }),
+    mutationFn: () =>
+      api<WorkspaceOut>(wsPath(wsId, "/load-sample"), { method: "POST" }),
     onSuccess: (w) => {
       qc.setQueryData(workspaceQueryKey(wsId), w);
       void qc.invalidateQueries({ queryKey: ["risk-summary", wsId] });
@@ -148,106 +172,36 @@ function Workspace() {
     },
     onError: (e) => toast.error(errorMessage(e)),
   });
+
   return (
-    <>
-      <Section title="Workspace">
-        <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-body-sm">
-          <dt className="text-text-muted">Name</dt>
-          <dd>{workspace?.name}</dd>
-          <dt className="text-text-muted">Address</dt>
-          <dd className="font-mono">/w/{workspace?.slug}</dd>
-          <dt className="text-text-muted">Data</dt>
-          <dd>{workspace?.data_mode === "sample" ? "Sample demo data (Northwind Pay)" : "Blank (Custom codebase)"}</dd>
-          <dt className="text-text-muted">Clock</dt>
-          <dd>{workspace?.clock_mode === "simulated" ? "Simulated (change it from the date chip in the top bar)" : "Live"}</dd>
-          <dt className="text-text-muted">Your role</dt>
-          <dd className="capitalize">{role}</dd>
-        </dl>
-      </Section>
-      {admin && (
-        <Section title="Maintenance & data management">
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2.5">
-              <Button variant="secondary" loading={run.isPending} onClick={() => run.mutate()}>
-                Run Sentinel now
-              </Button>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="destructive-outline" loading={resetBlank.isPending}>
-                    Clear all data (Reset to blank)
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Reset workspace to a clean blank slate?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This wipes all services, exceptions, reviews, and alerts from this workspace. The workspace will be completely empty with 0 alerts, ready for real CLI/MCP code scans.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      className="bg-danger text-text-on-brand hover:bg-danger/90"
-                      onClick={() => resetBlank.mutate()}
-                    >
-                      Clear all data &amp; start blank
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="outline" loading={loadSample.isPending}>
-                    {workspace?.data_mode === "sample" ? "Reload demo data (Northwind Pay)" : "Load demo data (Northwind Pay)"}
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Load Northwind Pay demo dataset?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Both graphs will be populated from Northwind Pay (12 services, 31 exceptions, and 8 risk rules). Any existing entities in this workspace will be replaced by the demo data.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => loadSample.mutate()}>
-                      Load demo data
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-            <p className="text-caption text-text-muted">
-              Use <strong>Clear all data</strong> to purge all sample alerts and start fresh, or <strong>Load demo data</strong> to explore the full graph algorithms.
-            </p>
-          </div>
-        </Section>
-      )}
-      <Section title="Danger zone">
-        <div className="rounded-lg border border-danger/30 bg-danger/5 p-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h3 className="font-semibold text-danger text-body-sm">Delete this workspace</h3>
-              <p className="mt-0.5 text-caption text-text-secondary">
-                Permanently purge all graph topology, exceptions, Sentinel alerts, and API keys. This action cannot be reversed.
-              </p>
-            </div>
-            {role === "owner" ? (
-              <DeleteWorkspaceDialog
-                wsId={wsId}
-                slug={workspace?.slug ?? ""}
-                name={workspace?.name ?? ""}
-                ownerEmail={me.data?.user.email}
-              />
-            ) : (
-              <span className="text-caption text-text-muted italic shrink-0">
-                Only the workspace owner can delete this workspace.
-              </span>
-            )}
-          </div>
-        </div>
-      </Section>
-    </>
+    <SettingsWorkspaceHub
+      slug={slug}
+      wsId={wsId}
+      workspaceName={workspace?.name}
+      region="United States (US-East-1)"
+      role={role}
+      dataMode={workspace?.data_mode}
+      clockMode={workspace?.clock_mode}
+      isAdmin={admin}
+      onRename={(newName) => renameMutation.mutate(newName)}
+      isRenaming={renameMutation.isPending}
+      onRunSentinel={() => run.mutate()}
+      isRunningSentinel={run.isPending}
+      onResetBlank={() => resetBlank.mutate()}
+      isResettingBlank={resetBlank.isPending}
+      onLoadSample={() => loadSample.mutate()}
+      isLoadingSample={loadSample.isPending}
+      deleteDialogNode={
+        role === "owner" ? (
+          <DeleteWorkspaceDialog
+            wsId={wsId}
+            slug={workspace?.slug ?? ""}
+            name={workspace?.name ?? ""}
+            ownerEmail={me.data?.user.email}
+          />
+        ) : undefined
+      }
+    />
   );
 }
 
