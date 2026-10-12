@@ -8,6 +8,7 @@ import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { PageContainer, PageHeader } from "@/components/page-header";
 import { ApiKeysSection } from "@/components/settings/api-keys-section";
+import { IntegrationsTab } from "@/components/settings/integrations-tab";
 import { TABS, type SettingsTab } from "@/components/settings/tabs";
 import {
   AlertDialog,
@@ -54,8 +55,18 @@ export function SettingsScreen({ tab }: { tab: SettingsTab }) {
             </Link>
           ))}
         </nav>
-        <div className={cn("space-y-6", tab === "api-keys" ? "max-w-4xl" : "max-w-2xl")}>
-          {tab === "profile" ? <Profile /> : tab === "workspace" ? <Workspace /> : tab === "ai" ? <Ai /> : <ApiKeysSection />}
+        <div className={cn("space-y-6", tab === "api-keys" || tab === "integrations" ? "max-w-4xl" : "max-w-2xl")}>
+          {tab === "profile" ? (
+            <Profile />
+          ) : tab === "workspace" ? (
+            <Workspace />
+          ) : tab === "ai" ? (
+            <Ai />
+          ) : tab === "integrations" ? (
+            <IntegrationsTab />
+          ) : (
+            <ApiKeysSection />
+          )}
         </div>
       </div>
     </PageContainer>

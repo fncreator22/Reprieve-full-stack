@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import errors
-from app.api import account, api_keys, chat, data, ingest, memory, mcp, prediction, risk_alerts, system
+from app.api import account, api_keys, chat, data, ingest, integrations, memory, mcp, prediction, risk_alerts, system
 from app.config import get_settings
 from app.graph.client import close_db
 from app.ids import new_id
@@ -58,3 +58,4 @@ app.include_router(ingest.router, prefix="/api/v1")
 app.include_router(prediction.router, prefix="/api/v1")
 app.include_router(mcp.router, prefix="/api/v1")
 app.include_router(data.router, prefix="/api/v1")
+app.include_router(integrations.router, prefix="/api/v1")

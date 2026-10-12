@@ -166,6 +166,18 @@ async def _detect_and_persist(ws_id: str, org: Repo, platform: Repo, as_of: int,
         for n in notes:
             events.publish(ws_id, "notification.created", {"id": n["id"], "recipient_user_id": n["recipient_user_id"]})
 
+        # Dispatch real-time notifications to connected developer plugins (Slack, Email, Webhooks)
+        try:
+            from app.services import plugins as plugin_service
+
+            ws_row = await platform.read("p_workspace_get", ws_id=ws_id)
+            if ws_row:
+                integrations = plugin_service.get_integrations(ws_row[0]["w"])
+                for u in critical:
+                    await plugin_service.dispatch_alert_to_plugins(ws_id, u, integrations)
+        except Exception as e:
+            log.warning("sentinel.plugins.dispatch_failed", ws_id=ws_id, error=str(e))
+
     # Auto-cache 30-day prediction decorations on Service nodes so the graph
     # canvas can show pulsing overlays without waiting for an on-demand call.
     try:
@@ -209,6 +221,7 @@ WORKSPACE_FIELDS = (
     "last_sentinel_at",
     "name",
     "data_mode",
+    "integrations_json",
 )
 
 
