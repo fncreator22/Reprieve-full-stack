@@ -906,39 +906,139 @@ export function SettingsWorkspaceHub({
 
          {/* 4. Incident Post-Mortems Modal */}
          <Dialog open={activeDialog === 'post-mortems'} onOpenChange={(open) => !open && setActiveDialog(null)}>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
                <DialogHeader>
                   <DialogTitle className="flex items-center gap-2">
                      <BookOpen className="size-5 text-brand" />
                      Incident Post-Mortems Archive
                   </DialogTitle>
                   <DialogDescription>
-                     Real-world catastrophe post-mortems modeled as Reprieve graph failure paths.
+                     Real-world engineering disasters modeled as Reprieve graph failure paths, with verified links to official post-incident reviews (PIRs).
                   </DialogDescription>
                </DialogHeader>
                <div className="space-y-3 pt-3">
-                  <div className="border border-border-subtle bg-surface p-3.5">
-                     <span className="font-medium text-body-sm text-text-primary block mb-1">
-                        CrowdStrike Channel File 291 (2024)
-                     </span>
+                  <div className="border border-border-subtle bg-surface p-3.5 flex flex-col justify-between gap-2">
+                     <div className="flex items-start justify-between gap-2">
+                        <div>
+                           <span className="font-medium text-body-sm text-text-primary block">
+                              CrowdStrike Channel File 291 (July 2024)
+                           </span>
+                           <span className="text-[11px] font-mono text-text-muted">
+                              8.5M Systems Crashed · Intercepted by Rule R4 &amp; R8
+                           </span>
+                        </div>
+                        <a
+                           href="https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1 text-xs text-brand hover:underline font-medium shrink-0 pt-0.5"
+                        >
+                           Official PIR Hub
+                           <ExternalLink className="size-3" />
+                        </a>
+                     </div>
                      <p className="text-caption text-text-secondary">
-                        Modeled as unvalidated content payload bypassed via heuristic test exception; avalanche centrality reached 100% of Windows kernel hosts.
+                        Content update bypassed canary rollout, triggering kernel panics; Reprieve pre-merge AST scanner forces phased rollout gates on root dependencies.
                      </p>
                   </div>
-                  <div className="border border-border-subtle bg-surface p-3.5">
-                     <span className="font-medium text-body-sm text-text-primary block mb-1">
-                        Knight Capital SMARS Deployment (2012)
-                     </span>
+
+                  <div className="border border-border-subtle bg-surface p-3.5 flex flex-col justify-between gap-2">
+                     <div className="flex items-start justify-between gap-2">
+                        <div>
+                           <span className="font-medium text-body-sm text-text-primary block">
+                              Square / Block DNS &amp; Firewall Outage (September 2023)
+                           </span>
+                           <span className="text-[11px] font-mono text-text-muted">
+                              24-Hour Checkout Outage · Intercepted by Rule R4 &amp; R6
+                           </span>
+                        </div>
+                        <a
+                           href="https://developer.squareup.com/blog/incident-summary-2023-09-07"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1 text-xs text-brand hover:underline font-medium shrink-0 pt-0.5"
+                        >
+                           Official Engineering PIR
+                           <ExternalLink className="size-3" />
+                        </a>
+                     </div>
                      <p className="text-caption text-text-secondary">
-                        Dead code exception re-enabled Power Peg flags across 8 servers; flagged by Reprieve R1 Ghost Owner & R2 Expired Waiver rules.
+                        Firewall update coincided with DNS upgrade, severing payment gateways; Reprieve detects compound infrastructure change collisions.
                      </p>
                   </div>
-                  <div className="border border-border-subtle bg-surface p-3.5">
-                     <span className="font-medium text-body-sm text-text-primary block mb-1">
-                        GitLab Production Database Deletion (2017)
-                     </span>
+
+                  <div className="border border-border-subtle bg-surface p-3.5 flex flex-col justify-between gap-2">
+                     <div className="flex items-start justify-between gap-2">
+                        <div>
+                           <span className="font-medium text-body-sm text-text-primary block">
+                              Change Healthcare / UnitedHealth (February 2024)
+                           </span>
+                           <span className="text-[11px] font-mono text-text-muted">
+                              $1.6B Claims Freeze · Intercepted by Rule R2 &amp; R7
+                           </span>
+                        </div>
+                        <a
+                           href="https://www.unitedhealthgroup.com/newsroom/2024/2024-02-22-change-healthcare-cybersecurity-incident.html"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1 text-xs text-brand hover:underline font-medium shrink-0 pt-0.5"
+                        >
+                           Official Incident Release
+                           <ExternalLink className="size-3" />
+                        </a>
+                     </div>
                      <p className="text-caption text-text-secondary">
-                        Multiple replication lag bypasses collided in an on-call handoff window; flagged by Reprieve R4 Temporal Collision Window.
+                        Legacy Citrix portal lacked MFA from an unmonitored merger exception; Reprieve Sentinel flags unowned assets and broken compensating controls.
+                     </p>
+                  </div>
+
+                  <div className="border border-border-subtle bg-surface p-3.5 flex flex-col justify-between gap-2">
+                     <div className="flex items-start justify-between gap-2">
+                        <div>
+                           <span className="font-medium text-body-sm text-text-primary block">
+                              Knight Capital SMARS Deployment (August 2012)
+                           </span>
+                           <span className="text-[11px] font-mono text-text-muted">
+                              $440M Lost in 45 Min · Intercepted by Rule R2 &amp; R5
+                           </span>
+                        </div>
+                        <a
+                           href="https://www.sec.gov/news/press-release/2013-222"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1 text-xs text-brand hover:underline font-medium shrink-0 pt-0.5"
+                        >
+                           SEC Release No. 2013-222
+                           <ExternalLink className="size-3" />
+                        </a>
+                     </div>
+                     <p className="text-caption text-text-secondary">
+                        Dead code flag re-enabled dormant test code executing millions of unintended market orders; Reprieve halts retired flags bound to inactive owners.
+                     </p>
+                  </div>
+
+                  <div className="border border-border-subtle bg-surface p-3.5 flex flex-col justify-between gap-2">
+                     <div className="flex items-start justify-between gap-2">
+                        <div>
+                           <span className="font-medium text-body-sm text-text-primary block">
+                              GitLab Database Outage (January 2017)
+                           </span>
+                           <span className="text-[11px] font-mono text-text-muted">
+                              300GB Primary Desync · Intercepted by Rule R3 &amp; R7
+                           </span>
+                        </div>
+                        <a
+                           href="https://about.gitlab.com/blog/2017/02/01/gitlab-dot-com-database-incident/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="inline-flex items-center gap-1 text-xs text-brand hover:underline font-medium shrink-0 pt-0.5"
+                        >
+                           GitLab Incident Report
+                           <ExternalLink className="size-3" />
+                        </a>
+                     </div>
+                     <p className="text-caption text-text-secondary">
+                        Backup verification temporarily disabled during replication lag; Reprieve flags zero compensating controls during degraded primary operations.
                      </p>
                   </div>
                </div>

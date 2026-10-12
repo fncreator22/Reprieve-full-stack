@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -135,6 +137,17 @@ const socials = [
 ];
 
 export default function Footer01() {
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    toast.success("Subscribed to Incident Post-Mortems", {
+      description: `Updates and Cypher detection rules will be dispatched to ${email.trim()}.`,
+    });
+    setEmail("");
+  };
+
   return (
     <footer className="relative overflow-hidden border-t border-white/[0.08] bg-black text-white">
       <Container className="pt-16 sm:pt-20">
@@ -151,10 +164,7 @@ export default function Footer01() {
             </p>
             <form
               className="flex flex-col sm:flex-row gap-2 mt-1"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Thank you. You have been subscribed to Reprieve Graph Bulletins.");
-              }}
+              onSubmit={handleSubscribe}
             >
               <label htmlFor="footer-01-email" className="sr-only">
                 Email address
@@ -164,6 +174,8 @@ export default function Footer01() {
                 type="email"
                 required
                 suppressHydrationWarning
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="developer@company.com"
                 autoComplete="email"
                 className="bg-zinc-950 border-zinc-800 text-white placeholder:text-zinc-500 focus-visible:ring-brand"

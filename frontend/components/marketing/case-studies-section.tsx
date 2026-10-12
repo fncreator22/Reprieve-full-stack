@@ -35,8 +35,8 @@ const INCIDENTS: IncidentWipeData[] = [
     id: "change-healthcare",
     target: "Change Healthcare (UnitedHealth)",
     date: "February 2024",
-    sourceUrl: "https://www.finance.senate.gov/hearings/hacking-healthcare-examining-the-change-healthcare-cyberattack-and-its-impact-on-the-nation",
-    sourceLabel: "Senate Hearing & SEC 8-K",
+    sourceUrl: "https://www.unitedhealthgroup.com/newsroom/2024/2024-02-22-change-healthcare-cybersecurity-incident.html",
+    sourceLabel: "Official UHG Incident Release",
     lossFigure: "$1.6B Claims Freeze",
     whatHappened:
       "An unmonitored legacy Citrix portal had no MFA enabled—a forgotten policy exception left behind after a corporate merger with zero active owner.",
@@ -48,8 +48,8 @@ const INCIDENTS: IncidentWipeData[] = [
     id: "square-block",
     target: "Square (Block, Inc.)",
     date: "September 2023",
-    sourceUrl: "https://status.square.com/",
-    sourceLabel: "Official Square PIR",
+    sourceUrl: "https://developer.squareup.com/blog/incident-summary-2023-09-07",
+    sourceLabel: "Official Square Engineering PIR",
     lossFigure: "24-Hour Checkout Outage",
     whatHappened:
       "An internal firewall update coincided with a DNS server upgrade, exhausting DNS capacity and severing microservices from checkout payment gateways.",
@@ -72,14 +72,14 @@ const THUMBNAILS: Record<string, IncidentThumbnailMeta> = {
     attribution: "CrowdStrike PIR",
   },
   "change-healthcare": {
-    docCode: "SENATE-UHG-2024",
-    docTitle: "Senate Finance Hearing",
-    attribution: "Senate Record & SEC 8-K",
+    docCode: "UHG-PIR-2024",
+    docTitle: "Cybersecurity Incident Review",
+    attribution: "UnitedHealth Record",
   },
   "square-block": {
     docCode: "BLOCK-PIR-2023",
     docTitle: "DNS & Firewall PIR",
-    attribution: "Block Engineering PIR",
+    attribution: "Square Engineering PIR",
   },
 };
 
