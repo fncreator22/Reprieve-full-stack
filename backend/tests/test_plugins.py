@@ -71,3 +71,48 @@ async def test_maileroo_dispatch_with_api_key(monkeypatch, respx_mock):
     assert results["email"]["count"] == 1
     assert mock_route.called
     assert mock_route.calls.last.request.headers["x-api-key"] == "test_maileroo_secret_key"
+
+
+def test_ssrf_protection_blocks_internal_addresses():
+    # Loopback
+    safe, reason = plugins.is_safe_webhook_url("http://127.0.0.1:8000/internal")
+    assert safe is False
+    assert "SSRF Protection" in reason
+
+    # Localhost
+    safe, reason = plugins.is_safe_webhook_url("http://localhost:6379")
+    assert safe is False
+    assert "SSRF Protection" in reason
+
+    # Cloud metadata service (AWS/GCP/Azure)
+    safe, reason = plugins.is_safe_webhook_url("http://169.254.169.254/latest/meta-data/")
+    assert safe is False
+    assert "SSRF Protection" in reason
+
+    # Non-http scheme
+    safe, reason = plugins.is_safe_webhook_url("file:///etc/passwd")
+    assert safe is False
+    assert "Unsupported URL scheme" in reason
+
+    # Valid external HTTPS URL
+    safe, reason = plugins.is_safe_webhook_url("https://hooks.slack.com/services/T00/B00/XXXX")
+    assert safe is True
+
+
+def test_secret_masking_for_roles():
+    raw_integrations = {
+        "webhooks": {"enabled": True, "secret": "whsec_super_secret_token_12345"},
+        "slack": {"enabled": True, "webhook_url": "https://hooks.slack.com/services/T00/B00/MY_SECRET_TOKEN"},
+    }
+
+    # Viewer sees masked secrets
+    viewer_view = plugins.mask_integrations_for_role(raw_integrations, is_admin=False)
+    assert "••••••••" in viewer_view["webhooks"]["secret"]
+    assert "MY_SECRET_TOKEN" not in viewer_view["slack"]["webhook_url"]
+    assert "••••••••" in viewer_view["slack"]["webhook_url"]
+
+    # Admin sees unmasked secrets
+    admin_view = plugins.mask_integrations_for_role(raw_integrations, is_admin=True)
+    assert admin_view["webhooks"]["secret"] == "whsec_super_secret_token_12345"
+    assert "MY_SECRET_TOKEN" in admin_view["slack"]["webhook_url"]
+
