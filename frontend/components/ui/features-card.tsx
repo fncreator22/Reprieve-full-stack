@@ -121,29 +121,29 @@ export function FeaturesCard() {
       {/* Unified Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Tile 1: CLI Scanner (4 cols) */}
-        <div className="md:col-span-4 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
+        <div className="md:col-span-4 rounded-none border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand">
+              <span className="flex size-9 items-center justify-center rounded-none border border-white/10 bg-white/[0.04] text-brand">
                 <Terminal className="size-4.5" aria-hidden="true" />
               </span>
-              <span className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] font-semibold text-zinc-300">
+              <span className="rounded-none border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] font-semibold text-zinc-300">
                 Zero-Login
               </span>
             </div>
             <h3 className="font-display text-[1.25rem] font-bold text-white">CLI Scanner</h3>
             <p className="text-[14px] text-zinc-300 leading-relaxed">
-              Local AST code parser mining <code className="text-zinc-200 bg-white/10 px-1 py-0.5 rounded font-mono text-[12px]">#nosec</code>, <code className="text-zinc-200 bg-white/10 px-1 py-0.5 rounded font-mono text-[12px]">@skip</code>, and temporary flags. Evaluates multi-hop cascades before push.
+              Local AST code parser mining <code className="text-zinc-200 bg-white/10 px-1 py-0.5 rounded-none font-mono text-[12px]">#nosec</code>, <code className="text-zinc-200 bg-white/10 px-1 py-0.5 rounded-none font-mono text-[12px]">@skip</code>, and temporary flags. Evaluates multi-hop cascades before push.
             </p>
           </div>
 
-          <div className="rounded-xl border border-white/[0.08] bg-[#07080a] p-3 font-mono text-[12px] flex items-center justify-between">
+          <div className="rounded-none border border-white/[0.08] bg-[#07080a] p-3 font-mono text-[12px] flex items-center justify-between">
             <span className="text-zinc-300 truncate">npx reprieve scan --strict</span>
             <button
               type="button"
               onClick={() => handleCopy("npx reprieve scan --strict")}
               aria-label="Copy CLI command"
-              className="ml-2 p-1.5 rounded hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
+              className="ml-2 p-1.5 rounded-none hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
             >
               <Copy className="size-3.5" aria-hidden="true" />
             </button>
@@ -151,13 +151,13 @@ export function FeaturesCard() {
         </div>
 
         {/* Tile 2: MCP Protocol (4 cols) */}
-        <div className="md:col-span-4 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
+        <div className="md:col-span-4 rounded-none border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand">
+              <span className="flex size-9 items-center justify-center rounded-none border border-white/10 bg-white/[0.04] text-brand">
                 <Cpu className="size-4.5" aria-hidden="true" />
               </span>
-              <span className="rounded border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-brand">
+              <span className="rounded-none border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-brand">
                 14 Tools
               </span>
             </div>
@@ -167,16 +167,16 @@ export function FeaturesCard() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-white/[0.08] bg-[#07080a] p-3 font-mono text-[11px] text-zinc-400">
+          <div className="rounded-none border border-white/[0.08] bg-[#07080a] p-3 font-mono text-[11px] text-zinc-400">
             <span className="text-brand font-semibold">Endpoint:</span> /api/v1/workspaces/&#123;id&#125;/mcp/tools
           </div>
         </div>
 
         {/* Tile 3: GitHub CI Gate + Truncated YAML (4 cols) */}
-        <div className="md:col-span-4 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-4">
+        <div className="md:col-span-4 rounded-none border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand">
+              <span className="flex size-9 items-center justify-center rounded-none border border-white/10 bg-white/[0.04] text-brand">
                 <GitPullRequest className="size-4.5" aria-hidden="true" />
               </span>
               <Button
@@ -184,7 +184,7 @@ export function FeaturesCard() {
                 variant="outline"
                 onClick={() => handleCopy(GITHUB_ACTION_YAML)}
                 aria-label="Copy GitHub Action YAML snippet"
-                className="h-7 border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white font-mono text-[11px] px-2.5"
+                className="h-7 rounded-none border-white/10 bg-white/[0.04] text-zinc-300 hover:text-white font-mono text-[11px] px-2.5"
               >
                 {copied ? <Check className="mr-1 size-3 text-emerald-400" /> : <Copy className="mr-1 size-3" />}
                 <span>{copied ? "Copied" : "Copy YAML"}</span>
@@ -195,16 +195,16 @@ export function FeaturesCard() {
 
           <pre
             tabIndex={0}
-            className="rounded-xl border border-white/[0.08] bg-[#07080a] p-3.5 font-mono text-[11px] leading-relaxed text-zinc-300 overflow-x-auto max-h-[140px] focus:outline-none focus:ring-1 focus:ring-brand"
+            className="rounded-none border border-white/[0.08] bg-[#07080a] p-3.5 font-mono text-[11px] leading-relaxed text-zinc-300 overflow-x-auto max-h-[140px] focus:outline-none focus:ring-1 focus:ring-brand"
           >
             <code>{GITHUB_ACTION_YAML}</code>
           </pre>
         </div>
 
         {/* Row 2: Telemetry Stats (2 Compact Tiles, 6 cols total) */}
-        <div className="md:col-span-3 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div className="md:col-span-3 rounded-none border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div className="space-y-1">
-            <span className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-300">
+            <span className="rounded-none border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-300">
               SIMULATED BENCHMARK
             </span>
             <div className="mt-2 font-mono text-[2rem] font-bold text-white leading-none">0.00%</div>
@@ -215,9 +215,9 @@ export function FeaturesCard() {
           </p>
         </div>
 
-        <div className="md:col-span-3 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div className="md:col-span-3 rounded-none border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div className="space-y-1">
-            <span className="rounded border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+            <span className="rounded-none border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-emerald-400">
               DETERMINISTIC LATENCY
             </span>
             <div className="mt-2 font-mono text-[2rem] font-bold text-white leading-none">12ms</div>
@@ -229,7 +229,7 @@ export function FeaturesCard() {
         </div>
 
         {/* Row 2 Right: Stack Integrations Plain Logo Row (6 cols) */}
-        <div className="md:col-span-6 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
+        <div className="md:col-span-6 rounded-none border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-6 shadow-xl flex flex-col justify-between">
           <div className="space-y-1">
             <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
               Ecosystem Connectors
@@ -250,7 +250,7 @@ export function FeaturesCard() {
               return (
                 <div
                   key={item.name}
-                  className="flex flex-col items-center justify-center p-2 rounded-lg bg-white/[0.02] border border-white/[0.04] text-center"
+                  className="flex flex-col items-center justify-center p-2 rounded-none bg-white/[0.02] border border-white/[0.04] text-center"
                 >
                   <Logo className="size-5" />
                   <span className="mt-1 font-mono text-[10px] font-semibold text-zinc-300">{item.name}</span>

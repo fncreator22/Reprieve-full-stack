@@ -21,7 +21,16 @@ async function capture() {
   console.log("Capturing hero screenshot...");
   await page.screenshot({ path: resolve(outputDir, "01_hero_with_living_graph.png"), fullPage: false });
 
-  // 2. Scrolled state to How It Works (Bento)
+  // 2. Post-Mortems Wipe Bands
+  console.log("Scrolling to Post-Mortems Case Studies...");
+  const caseStudiesEl = page.locator("#case-studies");
+  if (await caseStudiesEl.count() > 0) {
+    await caseStudiesEl.scrollIntoViewIfNeeded();
+  }
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: resolve(outputDir, "02_post_mortems_wipe_bands.png"), fullPage: false });
+
+  // 3. Scrolled state to How It Works (Bento)
   console.log("Scrolling to How It Works (Bento)...");
   const bentoEl = page.locator("#developer-hub");
   if (await bentoEl.count() > 0) {
@@ -30,9 +39,9 @@ async function capture() {
     await page.evaluate(() => window.scrollTo(0, 2600));
   }
   await page.waitForTimeout(1000);
-  await page.screenshot({ path: resolve(outputDir, "02_scrolled_nav_and_bento.png"), fullPage: false });
+  await page.screenshot({ path: resolve(outputDir, "03_scrolled_nav_and_bento.png"), fullPage: false });
 
-  // 3. Further scrolled to living compound risk
+  // 4. Further scrolled to living compound risk
   console.log("Scrolling to Living Compound Risk...");
   const telemetryEl = page.locator("#telemetry-heading");
   if (await telemetryEl.count() > 0) {
@@ -41,11 +50,11 @@ async function capture() {
     await page.evaluate(() => window.scrollTo(0, 3800));
   }
   await page.waitForTimeout(1000);
-  await page.screenshot({ path: resolve(outputDir, "03_living_risk_and_grid.png"), fullPage: false });
+  await page.screenshot({ path: resolve(outputDir, "04_living_risk_and_grid.png"), fullPage: false });
 
-  // 4. Full page capture
+  // 5. Full page capture
   console.log("Capturing full page screenshot...");
-  await page.screenshot({ path: resolve(outputDir, "04_full_landing_page.png"), fullPage: true });
+  await page.screenshot({ path: resolve(outputDir, "05_full_landing_page.png"), fullPage: true });
 
   await browser.close();
   console.log("Screenshots captured successfully to:", outputDir);

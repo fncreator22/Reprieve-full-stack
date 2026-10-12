@@ -1,0 +1,472 @@
+<svg width="660" height="660" viewBox="0 0 660 660" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bg_glow" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1e1338" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#0c0d14" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#06070a" stop-opacity="1"/>
+    </radialGradient>
+
+    <radialGradient id="aurora_beam" cx="60%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#5b4be0" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="window_border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(167, 139, 250, 0.45)"/>
+      <stop offset="35%" stop-color="rgba(255, 255, 255, 0.12)"/>
+      <stop offset="70%" stop-color="rgba(34, 211, 238, 0.3)"/>
+      <stop offset="100%" stop-color="rgba(255, 255, 255, 0.05)"/>
+    </linearGradient>
+
+    <linearGradient id="card_border_glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BE123C"/>
+      <stop offset="50%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+
+    <linearGradient id="btn_grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B4BE0"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+
+    <!-- Filters for Bloom and Shadows -->
+    <filter id="shadow_window" x="-10%" y="-10%" width="130%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000000" flood-opacity="0.85"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#5B4BE0" flood-opacity="0.2"/>
+    </filter>
+
+    <filter id="shadow_card" x="-20%" y="-20%" width="150%" height="150%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000000" flood-opacity="0.95"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="#BE123C" flood-opacity="0.25"/>
+    </filter>
+
+    <filter id="cursor_shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <filter id="neon_pulse" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <clipPath id="main_window_clip">
+      <rect x="30" y="30" width="600" height="600" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <style>
+    /* Typography */
+    .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, Consolas, monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+    /* Keyframes Orchestration (Cycle duration: 7s) */
+    
+    /* 1. Camera Zoom: Progressive push-in on trigger and payoff, then ease back */
+    @keyframes camera_rig {
+      0% { transform: scale(1.0) translate(0px, 0px); }
+      18% { transform: scale(1.0) translate(0px, 0px); }
+      32% { transform: scale(1.04) translate(-8px, -12px); }
+      48% { transform: scale(1.14) translate(-28px, -36px); }
+      82% { transform: scale(1.14) translate(-28px, -36px); }
+      94% { transform: scale(1.0) translate(0px, 0px); }
+      100% { transform: scale(1.0) translate(0px, 0px); }
+    }
+
+    /* 2. Cursor Flight Path & Realistic Physics */
+    @keyframes cursor_motion {
+      0% {
+        transform: translate(520px, 540px) scale(1);
+        opacity: 0;
+      }
+      8% {
+        transform: translate(460px, 470px) scale(1);
+        opacity: 1;
+      }
+      22% {
+        transform: translate(265px, 255px) scale(1);
+        opacity: 1;
+      }
+      26% {
+        /* Mouse Down / Click on 'Run Intercept Check' */
+        transform: translate(265px, 255px) scale(0.86);
+        opacity: 1;
+      }
+      30% {
+        /* Mouse Release */
+        transform: translate(270px, 258px) scale(1);
+        opacity: 1;
+      }
+      40% {
+        /* Move aside as result card blooms */
+        transform: translate(490px, 200px) scale(1);
+        opacity: 0.9;
+      }
+      78% {
+        transform: translate(490px, 200px) scale(1);
+        opacity: 0.9;
+      }
+      88% {
+        transform: translate(560px, 520px) scale(1);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(560px, 520px) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* 3. Button Click Feedback Pulse */
+    @keyframes btn_click {
+      0%, 23% { transform: scale(1); filter: brightness(1); }
+      26% { transform: scale(0.95); filter: brightness(1.35) drop-shadow(0 0 10px #22d3ee); }
+      30%, 100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    /* 4. Execution Spinner & Latency Counter */
+    @keyframes latency_flash {
+      0%, 25% { opacity: 0; transform: translateY(4px); }
+      28% { opacity: 1; transform: translateY(0px); }
+      36% { opacity: 1; transform: translateY(0px); }
+      40%, 100% { opacity: 0; transform: translateY(-4px); }
+    }
+
+    /* 5. Intercept Response Card Bloom */
+    @keyframes response_card_bloom {
+      0%, 30% {
+        opacity: 0;
+        transform: translate(32px, 320px) scale(0.92);
+        pointer-events: none;
+      }
+      38% {
+        opacity: 1;
+        transform: translate(32px, 275px) scale(1.02);
+      }
+      42% {
+        opacity: 1;
+        transform: translate(32px, 280px) scale(1.0);
+      }
+      82% {
+        opacity: 1;
+        transform: translate(32px, 280px) scale(1.0);
+      }
+      90% {
+        opacity: 0;
+        transform: translate(32px, 310px) scale(0.95);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(32px, 320px) scale(0.92);
+      }
+    }
+
+    /* 6. Alert Beacon & Proof Path Nodes */
+    @keyframes pulse_beacon {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.25); opacity: 0.4; }
+    }
+
+    @keyframes neon_border_run {
+      0% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -400; }
+    }
+
+    /* Apply classes */
+    #camera_rig_group {
+      transform-origin: 330px 330px;
+      animation: camera_rig 7s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    #cursor_actor {
+      animation: cursor_motion 7s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+
+    #btn_trigger {
+      transform-origin: 260px 250px;
+      animation: btn_click 7s cubic-bezier(0.3, 1.5, 0.5, 1) infinite;
+    }
+
+    #latency_hud {
+      animation: latency_flash 7s ease-out infinite;
+    }
+
+    #response_card {
+      animation: response_card_bloom 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    .pulse_ring {
+      transform-origin: 520px 322px;
+      animation: pulse_beacon 1.8s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Canvas Backdrop -->
+  <rect width="660" height="660" rx="28" fill="url(#bg_glow)"/>
+  <circle cx="420" cy="240" r="260" fill="url(#aurora_beam)"/>
+  <rect width="658" height="658" x="1" y="1" rx="27" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <!-- Master Camera Rig (Applies Zoom & Push-in) -->
+  <g id="camera_rig_group">
+    
+    <!-- Main Window Frame (Reprieve Governance Shell) -->
+    <g filter="url(#shadow_window)">
+      <!-- Frame Background -->
+      <rect x="42" y="42" width="576" height="576" rx="18" fill="#090a0f" fill-opacity="0.96"/>
+      <rect x="42" y="42" width="576" height="576" rx="18" stroke="url(#window_border)" stroke-width="1.5"/>
+
+      <!-- Title Bar -->
+      <path d="M 42 60 C 42 50.059 50.059 42 60 42 L 600 42 C 609.941 42 618 50.059 618 60 L 618 84 L 42 84 Z" fill="#0d0e17"/>
+      <line x1="42" y1="84" x2="618" y2="84" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+
+      <!-- Window Dots -->
+      <circle cx="64" cy="63" r="5" fill="#f43f5e" fill-opacity="0.85"/>
+      <circle cx="80" cy="63" r="5" fill="#fbbf24" fill-opacity="0.85"/>
+      <circle cx="96" cy="63" r="5" fill="#10b981" fill-opacity="0.85"/>
+
+      <!-- Tab Badge: Native Interface Selection -->
+      <rect x="122" y="52" width="168" height="23" rx="6" fill="#151726" stroke="rgba(91,75,224,0.4)" stroke-width="1"/>
+      <circle cx="134" cy="63.5" r="3" fill="#22d3ee"/>
+      <text x="144" y="67" fill="#c7d2fe" font-size="10" font-weight="600" class="mono">MCP: predict_avalanche</text>
+
+      <rect x="296" y="52" width="94" height="23" rx="6" fill="#0e101a" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <text x="308" y="67" fill="#64748b" font-size="10" font-weight="500" class="mono">CLI: verify</text>
+
+      <rect x="396" y="52" width="94" height="23" rx="6" fill="#0e101a" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <text x="408" y="67" fill="#64748b" font-size="10" font-weight="500" class="mono">Python SDK</text>
+
+      <!-- Right Window Info: Zero Friction Indicator -->
+      <text x="596" y="67" text-anchor="end" fill="#10b981" font-size="10" font-weight="600" class="mono">ZERO-LOGIN ACTIVE</text>
+    </g>
+
+    <!-- Window Interior: Code & Execution Pane -->
+    <g transform="translate(64, 104)">
+      <!-- Line Numbers -->
+      <text x="0" y="20" fill="#334155" font-size="11" class="mono">01</text>
+      <text x="0" y="40" fill="#334155" font-size="11" class="mono">02</text>
+      <text x="0" y="60" fill="#334155" font-size="11" class="mono">03</text>
+      <text x="0" y="80" fill="#334155" font-size="11" class="mono">04</text>
+      <text x="0" y="100" fill="#334155" font-size="11" class="mono">05</text>
+      <text x="0" y="120" fill="#334155" font-size="11" class="mono">06</text>
+
+      <!-- Code Snippet -->
+      <g transform="translate(28, 0)">
+        <!-- Line 1: Comment -->
+        <text x="0" y="20" fill="#64748b" font-size="11" class="mono">// Intercept expired waiver blast radius pre-merge</text>
+        
+        <!-- Line 2: Terminal / MCP command -->
+        <text x="0" y="40" font-size="11" class="mono">
+          <tspan fill="#ec4899">curl</tspan>
+          <tspan fill="#94a3b8"> -X POST </tspan>
+          <tspan fill="#38bdf8">https://api.reprieve.dev/mcp/tools/predict_avalanche</tspan>
+        </text>
+
+        <!-- Line 3: Headers -->
+        <text x="0" y="60" font-size="11" class="mono">
+          <tspan fill="#94a3b8">  -H </tspan>
+          <tspan fill="#a78bfa">"Authorization: Bearer dev_session"</tspan>
+          <tspan fill="#94a3b8"> -H </tspan>
+          <tspan fill="#a78bfa">"Content-Type: application/json"</tspan>
+        </text>
+
+        <!-- Line 4 & 5: Body -->
+        <text x="0" y="80" font-size="11" class="mono">
+          <tspan fill="#94a3b8">  -d </tspan>
+          <tspan fill="#cbd5e1">'{ </tspan>
+          <tspan fill="#818cf8">"service_id"</tspan>
+          <tspan fill="#cbd5e1">: </tspan>
+          <tspan fill="#34d399">"svc_checkout_gateway"</tspan>
+          <tspan fill="#cbd5e1">, </tspan>
+          <tspan fill="#818cf8">"horizon_days"</tspan>
+          <tspan fill="#cbd5e1">: </tspan>
+          <tspan fill="#f59e0b">30</tspan>
+          <tspan fill="#cbd5e1"> }'</tspan>
+        </text>
+      </g>
+    </g>
+
+    <!-- Trigger Action Button Group -->
+    <g id="btn_trigger" transform="translate(92, 222)">
+      <!-- Button Base -->
+      <rect x="0" y="0" width="194" height="36" rx="8" fill="url(#btn_grad)"/>
+      <rect x="0" y="0" width="194" height="36" rx="8" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      
+      <!-- Button Icon: Spark / Radar pulse -->
+      <circle cx="22" cy="18" r="6" fill="#ffffff" fill-opacity="0.2"/>
+      <path d="M 22 13 L 23.5 16.5 L 27 18 L 23.5 19.5 L 22 23 L 20.5 19.5 L 17 18 L 20.5 16.5 Z" fill="#ffffff"/>
+
+      <!-- Button Label -->
+      <text x="36" y="22" fill="#ffffff" font-size="11" font-weight="600" class="sans" letter-spacing="0.2">Run Avalanche Intercept</text>
+
+      <!-- Keycap Badge -->
+      <rect x="156" y="9" width="28" height="18" rx="4" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+      <text x="170" y="22" text-anchor="middle" fill="#e0e7ff" font-size="9" font-weight="700" class="mono">↵</text>
+    </g>
+
+    <!-- Real-time Latency HUD (Shows FalkorDB 12ms proof generation) -->
+    <g id="latency_hud" transform="translate(306, 230)">
+      <circle cx="8" cy="10" r="4" fill="#22d3ee" filter="url(#neon_pulse)"/>
+      <text x="20" y="14" fill="#22d3ee" font-size="11" font-weight="600" class="mono">Evaluating FalkorDB 3-Graph in 12ms...</text>
+    </g>
+
+    <!-- Decorative Circuit Mesh Line -->
+    <path d="M 92 280 L 570 280" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <!-- ============================================================= -->
+    <!-- RESULT CARD: The Intercept Payoff (Blooms in on click)        -->
+    <!-- ============================================================= -->
+    <g id="response_card" filter="url(#shadow_card)">
+      <!-- Main Glass Surface -->
+      <rect x="30" y="0" width="512" height="290" rx="14" fill="#0b0c16" fill-opacity="0.98"/>
+      
+      <!-- Border Gradient with Active Run Effect -->
+      <rect x="30" y="0" width="512" height="290" rx="14" stroke="url(#card_border_glow)" stroke-width="1.8"/>
+
+      <!-- Response Top Bar -->
+      <path d="M 30 14 C 30 6.268 36.268 0 44 0 L 528 0 C 535.732 0 542 6.268 542 14 L 542 42 L 30 42 Z" fill="#111322"/>
+      <line x1="30" y1="42" x2="542" y2="42" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- Intercept Status Pill -->
+      <g transform="translate(48, 12)">
+        <rect x="0" y="0" width="168" height="20" rx="10" fill="#881337" fill-opacity="0.6" stroke="#f43f5e" stroke-width="1"/>
+        <circle cx="10" cy="10" r="4" fill="#fb7185"/>
+        <circle cx="10" cy="10" r="7" fill="none" stroke="#fb7185" stroke-width="1" opacity="0.6"/>
+        <text x="22" y="14" fill="#ffe4e6" font-size="9.5" font-weight="700" class="mono" letter-spacing="0.5">PRE-MERGE BLOCKED</text>
+      </g>
+
+      <!-- HTTP Status & Latency Badge -->
+      <g transform="translate(230, 12)">
+        <rect x="0" y="0" width="76" height="20" rx="6" fill="#052e16" stroke="#10b981" stroke-width="1"/>
+        <text x="38" y="14" text-anchor="middle" fill="#86efac" font-size="10" font-weight="700" class="mono">200 OK</text>
+      </g>
+
+      <g transform="translate(318, 12)">
+        <text x="0" y="14" fill="#94a3b8" font-size="10" class="mono">lat: <tspan fill="#38bdf8" font-weight="600">11.8ms</tspan> | P=p₀ʰ</text>
+      </g>
+
+      <!-- Risk Metric HUD in Top Right -->
+      <g transform="translate(450, 10)">
+        <text x="80" y="14" text-anchor="end" fill="#f43f5e" font-size="11" font-weight="800" class="mono">RISK: 94.2%</text>
+        <text x="80" y="26" text-anchor="end" fill="#64748b" font-size="8.5" class="mono">CRITICAL SEV-1</text>
+      </g>
+
+      <!-- Card Content: Formatted Intercept JSON Body -->
+      <g transform="translate(50, 60)">
+        <text x="0" y="16" fill="#94a3b8" font-size="10.5" class="mono">{</text>
+
+        <!-- Line 1: intercept status -->
+        <text x="14" y="34" font-size="10.5" class="mono">
+          <tspan fill="#818cf8">"intercept_action"</tspan><tspan fill="#94a3b8">: </tspan>
+          <tspan fill="#fb7185">"BLOCK_SYSTEMIC_CASCADE"</tspan><tspan fill="#94a3b8">,</tspan>
+        </text>
+
+        <!-- Line 2: root cause -->
+        <text x="14" y="52" font-size="10.5" class="mono">
+          <tspan fill="#818cf8">"root_cause"</tspan><tspan fill="#94a3b8">: </tspan>
+          <tspan fill="#facc15">"EXPIRED_WAIVER_COLLISION"</tspan><tspan fill="#94a3b8">,</tspan>
+        </text>
+
+        <!-- Line 3: prevented outage value -->
+        <text x="14" y="70" font-size="10.5" class="mono">
+          <tspan fill="#818cf8">"outage_prevented"</tspan><tspan fill="#94a3b8">: </tspan>
+          <tspan fill="#34d399">"$2.4M Checkout Blackout"</tspan><tspan fill="#94a3b8">,</tspan>
+        </text>
+
+        <!-- Line 4: Proof Path Graph traversal -->
+        <text x="14" y="88" font-size="10.5" class="mono">
+          <tspan fill="#818cf8">"proof_path"</tspan><tspan fill="#94a3b8">: [</tspan>
+        </text>
+        <text x="28" y="106" font-size="10" class="mono">
+          <tspan fill="#38bdf8">"svc_checkout"</tspan><tspan fill="#94a3b8"> ➔ </tspan>
+          <tspan fill="#f43f5e">"waiver_pci_3.2 (EXPIRED)"</tspan><tspan fill="#94a3b8"> ➔ </tspan>
+          <tspan fill="#38bdf8">"payments_core"</tspan>
+        </text>
+        <text x="14" y="124" fill="#94a3b8" font-size="10.5" class="mono">],</text>
+
+        <!-- Line 5: Proposed Action via Steward -->
+        <text x="14" y="142" font-size="10.5" class="mono">
+          <tspan fill="#818cf8">"steward_action"</tspan><tspan fill="#94a3b8">: </tspan>
+          <tspan fill="#a78bfa">"ProposedAction(schedule_peer_review)"</tspan>
+        </text>
+
+        <text x="0" y="160" fill="#94a3b8" font-size="10.5" class="mono">}</text>
+      </g>
+
+      <!-- Mini Visual Graph Schematic (Right Pane) -->
+      <g transform="translate(366, 74)">
+        <rect x="0" y="0" width="156" height="136" rx="10" fill="#080910" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="12" y="18" fill="#64748b" font-size="8.5" font-weight="700" class="mono">PROOF PATH TOPOLOGY</text>
+
+        <!-- Node 1: Checkout -->
+        <g transform="translate(24, 48)">
+          <circle cx="0" cy="0" r="14" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5"/>
+          <text x="0" y="3" text-anchor="middle" fill="#c7d2fe" font-size="7.5" font-weight="700" class="mono">CHK</text>
+          <text x="0" y="22" text-anchor="middle" fill="#94a3b8" font-size="7" class="mono">checkout</text>
+        </g>
+
+        <!-- Connecting Edge 1 -->
+        <line x1="38" y1="48" x2="68" y2="76" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 2"/>
+
+        <!-- Node 2: Broken Waiver (Pulsing Red) -->
+        <g transform="translate(78, 82)">
+          <circle cx="0" cy="0" r="16" fill="#4c0519" stroke="#f43f5e" stroke-width="2"/>
+          <circle class="pulse_ring" cx="0" cy="0" r="22" fill="none" stroke="#f43f5e" stroke-width="1.5"/>
+          <text x="0" y="3" text-anchor="middle" fill="#fecdd3" font-size="8" font-weight="800" class="mono">W-4</text>
+          <text x="0" y="24" text-anchor="middle" fill="#fb7185" font-size="6.5" font-weight="600" class="mono">EXPIRED</text>
+        </g>
+
+        <!-- Blocked Shield Over Edge 2 -->
+        <line x1="94" y1="82" x2="124" y2="48" stroke="#f43f5e" stroke-width="2" stroke-opacity="0.4"/>
+        <g transform="translate(109, 65)">
+          <circle cx="0" cy="0" r="8" fill="#BE123C"/>
+          <path d="M -3 -3 L 3 3 M 3 -3 L -3 3" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+
+        <!-- Node 3: Payments Gateway -->
+        <g transform="translate(132, 48)">
+          <circle cx="0" cy="0" r="14" fill="#022c22" stroke="#10b981" stroke-width="1.5"/>
+          <text x="0" y="3" text-anchor="middle" fill="#a7f3d0" font-size="7.5" font-weight="700" class="mono">PAY</text>
+          <text x="0" y="22" text-anchor="middle" fill="#94a3b8" font-size="7" class="mono">payments</text>
+        </g>
+      </g>
+
+      <!-- Bottom Human Approval Pill -->
+      <g transform="translate(50, 240)">
+        <rect x="0" y="0" width="472" height="32" rx="8" fill="#131628" stroke="rgba(91,75,224,0.3)" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#a855f7"/>
+        <text x="28" y="20" fill="#c7d2fe" font-size="10" font-weight="500" class="sans">
+          Grounded by <tspan font-weight="700" fill="#ffffff">Steward Agent</tspan> — Human-in-the-loop approval required to modify waiver.
+        </text>
+        <!-- Action Pill -->
+        <rect x="376" y="6" width="84" height="20" rx="4" fill="#5B4BE0"/>
+        <text x="418" y="19" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="600" class="sans">Review Diff</text>
+      </g>
+    </g>
+
+    <!-- ============================================================= -->
+    <!-- REALISTIC HAND CURSOR (Animated Flight & Click)               -->
+    <!-- ============================================================= -->
+    <g id="cursor_actor" filter="url(#cursor_shadow)">
+      <!-- Precision Hand Cursor SVG Path (Resend / Linear grade) -->
+      <g transform="rotate(-15)">
+        <!-- Pointer Shadow & Body -->
+        <path d="M 0 0 L 0 17 L 4.5 13 L 8.5 21 L 11.5 19.5 L 7.5 11.5 L 13 11.5 Z" 
+              fill="#ffffff" 
+              stroke="#000000" 
+              stroke-width="1.5" 
+              stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="1.5" fill="#5B4BE0"/>
+      </g>
+      
+      <!-- Click Wave Ripple -->
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#22d3ee" stroke-width="1.5" opacity="0.3">
+        <animate attributeName="r" values="4;22" dur="7s" repeatCount="indefinite" keyTimes="0;1"/>
+        <animate attributeName="opacity" values="0.8;0" dur="7s" repeatCount="indefinite" keyTimes="0;1"/>
+      </circle>
+    </g>
+
+  </g>
+</svg>

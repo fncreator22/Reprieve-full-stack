@@ -188,11 +188,11 @@ export default function LandingPage() {
 
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Dominant 7-Column Canvas: Live Compound Service Concentration */}
-          <div className="lg:col-span-7 rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-8 shadow-xl flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-none border border-white/[0.08] bg-[#0c0d12] p-6 sm:p-8 shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
                 <div className="flex items-center gap-3">
-                  <span className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-brand">
+                  <span className="flex size-9 items-center justify-center rounded-none border border-white/10 bg-white/[0.04] text-brand">
                     <Layers className="size-4.5" aria-hidden="true" />
                   </span>
                   <div>
@@ -200,14 +200,14 @@ export default function LandingPage() {
                     <p className="text-[12px] text-zinc-400">{currentTelemetry.summary}</p>
                   </div>
                 </div>
-                <div className="flex rounded-lg border border-white/[0.08] bg-[#121316] p-1">
+                <div className="flex rounded-none border border-white/[0.08] bg-[#121316] p-1">
                   {(["checkout", "auth", "payments"] as const).map((tab) => (
                     <button
                       key={tab}
                       type="button"
                       onClick={() => setActiveTab(tab)}
                       className={cn(
-                        "rounded-md px-3 py-1 text-[12px] font-medium capitalize transition-colors",
+                        "rounded-none px-3 py-1 text-[12px] font-medium capitalize transition-colors",
                         activeTab === tab
                           ? "bg-white/[0.1] text-zinc-100 shadow-sm"
                           : "text-zinc-400 hover:text-zinc-200"
@@ -223,10 +223,10 @@ export default function LandingPage() {
                 {currentTelemetry.items.map((item, idx) => (
                   <div
                     key={item.name}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-[#08090c] p-3.5 transition-colors hover:border-white/[0.14]"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-none border border-white/[0.06] bg-[#08090c] p-3.5 transition-colors hover:border-white/[0.14]"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="flex size-6 items-center justify-center rounded-md bg-white/[0.05] font-mono text-[11px] text-zinc-400">
+                      <span className="flex size-6 items-center justify-center rounded-none bg-white/[0.05] font-mono text-[11px] text-zinc-400">
                         0{idx + 1}
                       </span>
                       <div>
@@ -259,9 +259,9 @@ export default function LandingPage() {
           <div className="lg:col-span-5 flex flex-col gap-6">
             <CollisionScrubber />
 
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-6 shadow-xl">
+            <div className="rounded-none border border-white/[0.08] bg-[#0c0d12] p-6 shadow-xl">
               <div className="flex items-center gap-3">
-                <span className="flex size-8 items-center justify-center rounded-lg border border-brand/20 bg-brand/10 text-brand">
+                <span className="flex size-8 items-center justify-center rounded-none border border-brand/20 bg-brand/10 text-brand">
                   <BrainCircuit className="size-4" aria-hidden="true" />
                 </span>
                 <div>
@@ -290,11 +290,11 @@ export default function LandingPage() {
         </div>
 
         {/* Unified Slim Row of Trust Chips */}
-        <div className="mt-8 rounded-xl border border-white/[0.08] bg-[#0c0d12] p-4">
+        <div className="mt-8 rounded-none border border-white/[0.08] bg-[#0c0d12] p-4">
           <ul className="grid gap-4 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08]">
             {TRUST_CHIPS.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-center gap-3 px-2 pt-2 sm:pt-0 sm:px-4">
-                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
+                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-none bg-brand/10 text-brand">
                   <Icon className="size-4" aria-hidden="true" />
                 </span>
                 <span className="text-[13px] font-medium text-zinc-300">{text}</span>
@@ -330,7 +330,7 @@ export default function LandingPage() {
 
       {/* 07. FINAL CONVERSION CTA */}
       <section aria-labelledby="cta-title" className="mx-auto max-w-[1280px] px-6 pb-24 sm:px-10">
-        <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-8 sm:p-14 text-left sm:text-center relative overflow-hidden shadow-2xl">
+        <div className="rounded-none border border-white/[0.08] bg-[#0c0d12] p-8 sm:p-14 text-left sm:text-center relative overflow-hidden shadow-2xl">
           <div className="max-w-2xl mx-auto space-y-4">
             <h2 id="cta-title" className="text-[2rem] sm:text-[2.5rem] font-display font-bold text-white tracking-tight leading-[1.15]">
               Map and intercept exception debt across your architecture
@@ -342,12 +342,12 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 onClick={() => setBookCallOpen(true)}
-                className="gap-2 font-semibold bg-brand-solid hover:bg-brand-solid/90 text-white shadow-xl shadow-brand-solid/25 px-7 py-6 text-body-base"
+                className="rounded-none gap-2 font-semibold bg-brand-solid hover:bg-brand-solid/90 text-white shadow-xl shadow-brand-solid/25 px-7 py-6 text-body-base"
               >
                 <Calendar className="size-4" aria-hidden="true" />
                 Book Architecture Audit
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/15 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08] hover:text-white px-7 py-6 text-body-base font-semibold">
+              <Button asChild variant="outline" size="lg" className="rounded-none border-white/15 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08] hover:text-white px-7 py-6 text-body-base font-semibold">
                 <Link href="/w/northwind-pay/home">
                   Launch Live Sandbox (0 Login)
                   <ArrowRight className="ml-2 size-4" aria-hidden="true" />

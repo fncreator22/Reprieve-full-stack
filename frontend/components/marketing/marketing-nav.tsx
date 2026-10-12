@@ -47,7 +47,7 @@ export function MarketingNav() {
         <ul className="hidden items-center gap-1 md:flex">
           {LINKS.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="rounded-md px-3 py-2 text-body-sm font-medium text-text-secondary hover:text-text-primary">
+              <Link href={l.href} className="rounded-none px-3 py-2 text-body-sm font-medium text-text-secondary hover:text-text-primary">
                 {l.label}
               </Link>
             </li>
@@ -60,10 +60,10 @@ export function MarketingNav() {
               window.dispatchEvent(new CustomEvent("open-command-menu"));
               window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }));
             }}
-            className="flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#121316] px-3 py-1.5 text-xs text-zinc-400 transition-colors hover:border-white/[0.2] hover:text-zinc-200"
+            className="flex items-center gap-2 rounded-none border border-white/[0.08] bg-[#121316] px-3 py-1.5 text-xs text-zinc-400 transition-colors hover:border-white/[0.2] hover:text-zinc-200"
           >
             <span>Ask Steward</span>
-            <kbd className="inline-flex h-4 items-center justify-center rounded border border-white/[0.1] bg-black/40 px-1 font-mono text-[10px] text-zinc-400">
+            <kbd className="inline-flex h-4 items-center justify-center rounded-none border border-white/[0.1] bg-black/40 px-1 font-mono text-[10px] text-zinc-400">
               ⌘K
             </kbd>
           </button>

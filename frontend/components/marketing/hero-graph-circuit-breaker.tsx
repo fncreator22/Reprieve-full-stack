@@ -45,7 +45,7 @@ export function HeroGraphCircuitBreaker() {
           <button
             type="button"
             onClick={() => setIsBlocked(!isBlocked)}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-zinc-300 hover:bg-white/[0.08] hover:text-white transition-colors"
+            className="flex items-center gap-1.5 rounded-none border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[11px] text-zinc-300 hover:bg-white/[0.08] hover:text-white transition-colors"
           >
             <span>State:</span>
             <span className={cn("font-bold", isBlocked ? "text-red-400" : "text-emerald-400")}>
@@ -99,24 +99,24 @@ export function HeroGraphCircuitBreaker() {
         </svg>
 
         {/* Level 1: Customer Checkout Path (Root Tier-1 Node) */}
-        <div className="z-10 flex items-center gap-2 rounded-lg border border-white/10 bg-[#14151b] px-3.5 py-1.5 shadow-md">
-          <span className="size-2 rounded-full bg-brand-solid" />
+        <div className="z-10 flex items-center gap-2 rounded-none border border-white/10 bg-[#14151b] px-3.5 py-1.5 shadow-md">
+          <span className="size-2 bg-brand-solid" />
           <span className="font-mono text-[12px] font-medium text-zinc-200">Customer Checkout Path</span>
-          <span className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">P0 Revenue</span>
+          <span className="rounded-none bg-white/[0.06] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">P0 Revenue</span>
         </div>
 
         {/* Level 2: checkout-api (Service Node) */}
-        <div className="z-10 mt-6 flex items-center justify-between gap-4 rounded-xl border border-white/[0.12] bg-[#161821] px-4 py-2.5 shadow-lg w-full max-w-[320px]">
+        <div className="z-10 mt-6 flex items-center justify-between gap-4 rounded-none border border-white/[0.12] bg-[#161821] px-4 py-2.5 shadow-lg w-full max-w-[320px]">
           <div>
             <div className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-brand-solid" />
+              <span className="size-2 bg-brand-solid" />
               <span className="font-mono text-[13px] font-bold text-white">checkout-api</span>
             </div>
             <span className="text-[11px] text-zinc-400 font-mono">2 Hops to Customer Loss</span>
           </div>
           <span
             className={cn(
-              "rounded px-2 py-0.5 font-mono text-[11px] font-semibold border",
+              "rounded-none px-2 py-0.5 font-mono text-[11px] font-semibold border",
               isBlocked
                 ? "bg-red-500/10 border-red-500/30 text-red-400"
                 : "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
@@ -131,7 +131,7 @@ export function HeroGraphCircuitBreaker() {
           {/* payments-core with compound waivers */}
           <div
             className={cn(
-              "flex-1 rounded-xl border p-3 transition-colors",
+              "flex-1 rounded-none border p-3 transition-colors",
               isBlocked
                 ? "border-red-500/40 bg-red-950/20 shadow-md shadow-red-950/20"
                 : "border-white/10 bg-[#12141a]"
@@ -143,7 +143,7 @@ export function HeroGraphCircuitBreaker() {
             </div>
             <p className="mt-1 text-[11px] text-zinc-400 leading-snug">Settlement Engine</p>
             {isBlocked && (
-              <div className="mt-2 rounded border border-red-500/30 bg-red-500/10 px-2 py-1">
+              <div className="mt-2 rounded-none border border-red-500/30 bg-red-500/10 px-2 py-1">
                 <span className="block font-mono text-[10px] font-bold text-red-300">
                   4 Active Waivers Colliding
                 </span>
@@ -155,13 +155,13 @@ export function HeroGraphCircuitBreaker() {
           </div>
 
           {/* auth-cache node */}
-          <div className="flex-1 rounded-xl border border-white/10 bg-[#12141a] p-3">
+          <div className="flex-1 rounded-none border border-white/10 bg-[#12141a] p-3">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[12px] font-medium text-zinc-300">auth-cache</span>
               <span className="size-1.5 rounded-full bg-emerald-400" />
             </div>
             <p className="mt-1 text-[11px] text-zinc-400 leading-snug">Token Boundary</p>
-            <span className="mt-2 inline-block rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">
+            <span className="mt-2 inline-block rounded-none border border-white/10 bg-white/[0.04] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400">
               0 Active Waivers
             </span>
           </div>
@@ -171,7 +171,7 @@ export function HeroGraphCircuitBreaker() {
       {/* Pre-Merge CI Circuit Breaker Result Banner */}
       <div
         className={cn(
-          "rounded-xl border p-3.5 transition-all",
+          "rounded-none border p-3.5 transition-all",
           isBlocked
             ? "border-red-500/40 bg-red-950/30 text-red-200"
             : "border-emerald-500/30 bg-emerald-950/20 text-emerald-200"
@@ -195,7 +195,7 @@ export function HeroGraphCircuitBreaker() {
               </span>
             </div>
           </div>
-          <span className="font-mono text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-black/40 border border-white/10">
+          <span className="font-mono text-[11px] font-semibold uppercase px-2 py-0.5 rounded-none bg-black/40 border border-white/10">
             {isBlocked ? "Pre-Merge" : "Verified"}
           </span>
         </div>

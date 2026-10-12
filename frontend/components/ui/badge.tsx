@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 /** 05 §7.3: 22 px tall, caption text, soft fill with matching text, 14 px icon. */
 const badgeVariants = cva(
-  "inline-flex h-[22px] w-fit shrink-0 items-center gap-1 overflow-hidden rounded-full border border-transparent px-2 text-caption font-medium whitespace-nowrap [&>svg]:pointer-events-none [&>svg]:size-3.5",
+  "inline-flex h-[22px] w-fit shrink-0 items-center gap-1 overflow-hidden rounded-none border border-transparent px-2 text-caption font-medium whitespace-nowrap [&>svg]:pointer-events-none [&>svg]:size-3.5",
   {
     variants: {
       variant: {

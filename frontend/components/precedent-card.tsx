@@ -28,7 +28,7 @@ export function PrecedentCard({
       ? `renewed ${depth === 2 ? "twice" : `${depth} times`}, then ${DECISION_PAST[precedent.decision]}`
       : DECISION_PAST[precedent.decision];
   return (
-    <article className={cn("flex gap-3 rounded-lg border border-border-subtle bg-surface p-4", className)}>
+    <article className={cn("flex gap-3 rounded-none border border-border-subtle bg-surface p-4", className)}>
       <RotateCcwClock aria-hidden className="mt-0.5 size-4 shrink-0 text-text-secondary" />
       <div className="min-w-0 text-body-sm">
         <p className="text-text-primary">

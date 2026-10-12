@@ -88,13 +88,13 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
   const thumb = THUMBNAILS[incident.id];
 
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-7 shadow-xl space-y-5">
+    <div className="rounded-none border border-white/[0.08] bg-[#0c0d12] p-5 sm:p-7 shadow-xl space-y-5">
       {/* Top Header: Company, Date, Thumbnail Slot & Verified Official Source */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/[0.08] pb-4">
         <div className="flex items-center gap-3">
           {/* Document Thumbnail Slot */}
           <div
-            className="group relative flex h-12 w-16 shrink-0 flex-col justify-between overflow-hidden rounded-md border border-white/15 bg-[#141620] p-1.5 shadow-inner transition-colors hover:border-brand/50"
+            className="group relative flex h-12 w-16 shrink-0 flex-col justify-between overflow-hidden rounded-none border border-white/15 bg-[#141620] p-1.5 shadow-inner transition-colors hover:border-brand/50"
             title={`${thumb?.attribution ?? "Official Document"}: ${thumb?.docTitle ?? incident.sourceLabel}`}
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-0.5">
@@ -104,8 +104,8 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
               <FileText className="size-2.5 text-zinc-400" aria-hidden="true" />
             </div>
             <div className="space-y-0.5">
-              <div className="h-0.5 w-full rounded bg-white/20" />
-              <div className="h-0.5 w-3/4 rounded bg-white/15" />
+              <div className="h-0.5 w-full bg-white/20" />
+              <div className="h-0.5 w-3/4 bg-white/15" />
             </div>
             <span className="font-mono text-[7px] text-zinc-400 truncate">
               {thumb?.attribution ?? "Public Source"}
@@ -128,7 +128,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
           href={incident.sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[12px] font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-brand"
+          className="inline-flex items-center gap-1.5 rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 font-mono text-[12px] font-medium text-zinc-300 hover:bg-white/[0.08] hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-brand"
         >
           <span>{incident.sourceLabel}</span>
           <ExternalLink className="size-3 text-zinc-400" aria-hidden="true" />
@@ -136,7 +136,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
       </div>
 
       {/* Interactive Wipe Band Container */}
-      <div className="relative rounded-xl border border-white/[0.08] bg-[#08090c] p-4 sm:p-6 overflow-hidden select-none">
+      <div className="relative rounded-none border border-white/[0.08] bg-[#08090c] p-4 sm:p-6 overflow-hidden select-none">
         {/* Dynamic Desktop Reveal Layout */}
         <div className="hidden md:flex gap-0 items-stretch min-h-[170px] relative">
           {/* Left Pane: What Happened (Catastrophic Loss) */}
@@ -165,7 +165,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
           {/* Interactive Draggable Seam / Vertical Divider */}
           <div className="relative flex items-center justify-center w-3 shrink-0 cursor-ew-resize group">
             <div className="h-full w-[2px] bg-white/15 group-hover:bg-brand transition-colors" />
-            <div className="absolute top-1/2 -translate-y-1/2 size-5 rounded-full border border-white/20 bg-[#121318] flex items-center justify-center shadow-md text-zinc-400 group-hover:text-white group-hover:border-brand">
+            <div className="absolute top-1/2 -translate-y-1/2 size-5 rounded-none border border-white/20 bg-[#121318] flex items-center justify-center shadow-md text-zinc-400 group-hover:text-white group-hover:border-brand">
               <span className="font-mono text-[8px] font-bold">↔</span>
             </div>
           </div>
@@ -187,7 +187,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
                   {incident.rules.map((rule) => (
                     <span
                       key={rule}
-                      className="rounded border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand whitespace-nowrap"
+                      className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand whitespace-nowrap"
                     >
                       {rule}
                     </span>
@@ -207,7 +207,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
 
         {/* Mobile View: Vertical Stack Ensuring High Legibility (390px Safe) */}
         <div className="flex md:hidden flex-col gap-5">
-          <div className="rounded-lg border border-red-500/20 bg-red-950/10 p-4 space-y-2">
+          <div className="rounded-none border border-red-500/20 bg-red-950/10 p-4 space-y-2">
             <div className="flex items-center gap-1.5 text-red-400">
               <AlertTriangle className="size-3.5" aria-hidden="true" />
               <span className="font-mono text-[11px] font-bold uppercase tracking-wider">What Happened</span>
@@ -220,7 +220,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
             </p>
           </div>
 
-          <div className="rounded-lg border border-brand/20 bg-brand/5 p-4 space-y-2">
+          <div className="rounded-none border border-brand/20 bg-brand/5 p-4 space-y-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-brand">
                 <ShieldCheck className="size-3.5" aria-hidden="true" />
@@ -230,7 +230,7 @@ function IncidentWipeBand({ incident }: { incident: IncidentWipeData }) {
                 {incident.rules.map((rule) => (
                   <span
                     key={rule}
-                    className="rounded border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand"
+                    className="rounded-none border border-brand/30 bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand"
                   >
                     {rule}
                   </span>
@@ -303,11 +303,11 @@ export function CaseStudiesSection() {
       </div>
 
       {/* Dedicated Standalone Simulation Strip (Separated from Documented Incidents) */}
-      <div className="mt-8 rounded-2xl border border-brand/30 bg-[#0f1019] p-6 sm:p-8 shadow-xl">
+      <div className="mt-8 rounded-none border border-brand/30 bg-[#0f1019] p-6 sm:p-8 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
-              <span className="rounded bg-brand/15 border border-brand/30 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
+              <span className="rounded-none bg-brand/15 border border-brand/30 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
                 SIMULATED BENCHMARK
               </span>
               <span className="font-mono text-[12px] text-zinc-400">185 Microservices · $40M Daily Volume</span>
@@ -321,7 +321,7 @@ export function CaseStudiesSection() {
           </div>
 
           <div className="shrink-0">
-            <Button asChild size="lg" className="bg-brand-solid text-white hover:bg-brand-solid/90 shadow-lg px-6 font-semibold">
+            <Button asChild size="lg" className="rounded-none bg-brand-solid text-white hover:bg-brand-solid/90 shadow-lg px-6 font-semibold">
               <Link href="/w/northwind-pay/home">
                 Launch Live Sandbox (0 Login)
                 <ArrowRight className="ml-2 size-4" aria-hidden="true" />

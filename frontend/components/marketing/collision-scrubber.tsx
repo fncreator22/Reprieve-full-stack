@@ -39,7 +39,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
   }, [activeCollisions]);
 
   return (
-    <div className={cn("rounded-xl border border-white/[0.08] bg-[#0c0d0e] p-5", className)}>
+    <div className={cn("rounded-none border border-white/[0.08] bg-[#0c0d0e] p-5", className)}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Calendar className="size-4 text-brand" />
@@ -47,7 +47,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
             Temporal Horizon Scrubber
           </span>
         </div>
-        <div className="flex items-center gap-1.5 rounded-full border border-white/[0.1] bg-[#161719] px-2.5 py-0.5 text-xs font-mono text-zinc-200">
+        <div className="flex items-center gap-1.5 rounded-none border border-white/[0.1] bg-[#161719] px-2.5 py-0.5 text-xs font-mono text-zinc-200">
           <span>{horizonDays} Days</span>
         </div>
       </div>
@@ -81,7 +81,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
             <div
               key={item.id}
               className={cn(
-                "flex items-center justify-between rounded-lg border px-3 py-2 text-xs transition-all duration-300",
+                "flex items-center justify-between rounded-none border px-3 py-2 text-xs transition-all duration-300",
                 isExpiring
                   ? isCoreCollision
                     ? "border-red-500/40 bg-red-950/20 text-red-200"
@@ -92,7 +92,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
               <div className="flex items-center gap-2">
                 <span
                   className={cn(
-                    "size-1.5 rounded-full",
+                    "size-1.5 rounded-none",
                     item.severity === "critical"
                       ? "bg-red-500"
                       : item.severity === "high"
@@ -114,7 +114,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
       {/* Dynamic Feedback Banner */}
       <div className="mt-4">
         {hasAvalanche ? (
-          <div className="flex items-center gap-2.5 rounded-lg border border-red-500/30 bg-red-950/30 p-2.5 text-xs text-red-300">
+          <div className="flex items-center gap-2.5 rounded-none border border-red-500/30 bg-red-950/30 p-2.5 text-xs text-red-300">
             <ShieldAlert className="size-4 shrink-0 text-red-400" />
             <div>
               <p className="font-semibold">Avalanche Collision Detected</p>
@@ -124,7 +124,7 @@ export function CollisionScrubber({ className }: { className?: string }) {
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-[#121315] p-2.5 text-xs text-zinc-400">
+          <div className="flex items-center gap-2 rounded-none border border-white/[0.06] bg-[#121315] p-2.5 text-xs text-zinc-400">
             <Layers className="size-4 shrink-0 text-brand" />
             <span>
               {activeCollisions.length} active waiver{activeCollisions.length === 1 ? "" : "s"} expiring within {horizonDays} days.
