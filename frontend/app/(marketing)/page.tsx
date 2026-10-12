@@ -128,12 +128,12 @@ export default function LandingPage() {
               </span>
 
               <h1 id="hero-title" className="text-[2.75rem] sm:text-[3.5rem] lg:text-[4rem] font-display font-bold tracking-[-0.04em] text-white leading-[1.05]">
-                An expired code waiver caused a $2.4M checkout blackout.{" "}
-                <span className="text-zinc-400 font-normal block sm:inline">Reprieve intercepts compound risk before merge.</span>
+                Individually reasonable exceptions add up to one{" "}
+                <span className="text-zinc-400 font-normal block sm:inline">unreasonable risk.</span>
               </h1>
 
               <p className="text-[1.125rem] text-zinc-300 leading-relaxed max-w-2xl">
-                Jira treats shortcuts as closed tickets. Reprieve maps temporary waivers across your living microservice dependency graph to stop multi-hop cascading outages.
+                Reprieve is the agent that sees the sum. It maps temporary security waivers, skipped gates, and unmanaged flags across your microservice graph to intercept cascading risk before merge.
               </p>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
