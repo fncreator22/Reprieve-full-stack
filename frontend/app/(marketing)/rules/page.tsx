@@ -190,7 +190,7 @@ export default function RulesPage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button asChild size="lg">
-                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/alerts"}>
+                <Link href="/w/northwind-pay/alerts">
                   Explore Live Alerts in Sandbox
                   <ArrowRight className="ml-2 size-4" />
                 </Link>
@@ -273,7 +273,7 @@ export default function RulesPage() {
             </p>
             <div className="mt-6 flex justify-center gap-3">
               <Button asChild size="lg">
-                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+                <Link href="/w/northwind-pay/home">
                   Launch Northwind Pay Sandbox
                   <ArrowRight className="ml-2 size-4" />
                 </Link>

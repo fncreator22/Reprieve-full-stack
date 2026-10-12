@@ -289,7 +289,7 @@ export function VslSection({ onBookCall }: VslSectionProps) {
               size="lg"
               className="gap-2 px-6 py-6 text-body-base border-border-strong hover:bg-surface-elevated"
             >
-              <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/home"}>
+              <Link href="/w/northwind-pay/home">
                 Launch Live Northwind Pay Demo
                 <ArrowRight className="size-4" />
               </Link>

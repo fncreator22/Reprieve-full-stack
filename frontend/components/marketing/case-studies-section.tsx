@@ -283,15 +283,15 @@ export function CaseStudiesSection() {
       className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 sm:py-32"
     >
       {/* Section Header */}
-      <div className="max-w-3xl space-y-4 mb-14 text-left">
+      <div className="max-w-2xl space-y-2 mb-10 text-left">
         <span className="text-[12px] font-mono uppercase tracking-[0.1em] text-zinc-400 font-semibold">
-          DOCUMENTED OUTAGE POST-MORTEMS
+          POST-MORTEMS
         </span>
         <h2 id="case-studies-heading" className="text-[2.25rem] sm:text-[2.75rem] font-display font-bold text-white tracking-tight leading-[1.15]">
-          How Graph Governance Intercepts Real Disasters
+          How graph governance intercepts systemic outages
         </h2>
-        <p className="text-[1.125rem] text-zinc-300 leading-relaxed">
-          Major outages rarely stem from a single broken function. They collide across microservice boundaries. Here is how Reprieve&apos;s deterministic rules model and intercept documented public incidents.
+        <p className="text-[1.05rem] text-zinc-300 leading-relaxed">
+          Outages collide across microservice boundaries. Here is how Reprieve&apos;s deterministic rules intercept documented public failures.
         </p>
       </div>
 

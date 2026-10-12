@@ -136,8 +136,8 @@ export function InteractiveDesktopStage() {
         {/* Bottom Status Bar */}
         <div className="flex flex-wrap items-center justify-between border-t border-white/[0.06] bg-[#0c0d10] px-4 py-2.5 text-[11px] font-mono text-zinc-400 sm:px-6">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-emerald-400">
-              <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="flex items-center gap-1.5 text-zinc-300">
+              <span className="size-1.5 rounded-full bg-zinc-400" />
               Graph Engine Synced
             </span>
             <span className="hidden sm:inline text-zinc-600">|</span>

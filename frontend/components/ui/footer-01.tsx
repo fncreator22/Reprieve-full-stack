@@ -77,7 +77,7 @@ function SteadyStatusDot({ className }: { className?: string }) {
   return (
     <span
       aria-hidden
-      className={cn("relative inline-flex size-2 shrink-0 rounded-full bg-emerald-500", className)}
+      className={cn("relative inline-flex size-1.5 shrink-0 rounded-full bg-zinc-500", className)}
     />
   );
 }

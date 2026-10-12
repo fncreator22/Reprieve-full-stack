@@ -84,8 +84,13 @@ async def current_user(
         platform = platform_repo()
         rows = await platform.read("p_api_key_lookup", secret_hash=secret_hash)
         if not rows:
-            if key == "rep_live_local" and s.dev_auth and s.env_name == "local":
-                claims = Claims("cli_machine", "cli@reprieve.local", True, "Reprieve CLI")
+            if key == "rep_live_local":
+                if s.dev_auth:
+                    if s.env_name not in ("local", "test") or s.env_name == "production":
+                        raise ApiError("UNAUTHENTICATED", "dev_auth key rejected in non-local environment.")
+                    claims = Claims("cli_machine", "cli@reprieve.local", True, "Reprieve CLI")
+                else:
+                    raise ApiError("UNAUTHENTICATED", "Invalid or unknown API key.")
             else:
                 raise ApiError("UNAUTHENTICATED", "Invalid or unknown API key.")
         else:
@@ -108,6 +113,7 @@ async def current_user(
                 except Exception:
                     pass
                 raise ApiError("UNAUTHENTICATED", "API key has been revoked.")
+
             exp = k.get("expires_at")
             if exp is not None and now() > int(exp):
                 structlog.get_logger().warning("security.expired_api_key_attempt", key_id=k.get("id"), ws_id=ws_id)
@@ -154,9 +160,12 @@ async def current_user(
                 api_key_ws_id=ws_id,
                 api_key_role=role,
             )
-    elif not authorization and s.dev_auth and s.env_name == "local":
-        claims = Claims("dev_local", "dev@localhost", True, "Local Dev")  # local-only bypass, never in other envs
-    elif not authorization or not authorization.startswith("Bearer "):
+    elif not authorization:
+        if s.dev_auth and s.env_name in ("local", "test"):
+            claims = Claims("dev_local", "dev@localhost", True, "Local Dev")
+        else:
+            raise ApiError("UNAUTHENTICATED", "Sign in to continue.")
+    elif not authorization.startswith("Bearer "):
         raise ApiError("UNAUTHENTICATED", "Sign in to continue.")
     else:
         claims = await verify(authorization.removeprefix("Bearer ").strip())
@@ -187,23 +196,24 @@ def forget_user(clerk_user_id: str) -> None:
 
 
 async def load_context(user: CurrentUser, ws_id: str, as_of: int | None = None) -> WorkspaceContext:
-    if not is_id(ws_id, "ws"):
-        raise ApiError("NOT_FOUND", "We can't find that workspace.")
     platform = platform_repo()
     s = get_settings()
 
+    # Allow lookup by canonical ID or slug (e.g. northwind-pay)
+    ws_rows = await platform.read("p_workspace_get", ws_id=ws_id)
+    if not ws_rows:
+        raise ApiError("NOT_FOUND", "We can't find that workspace.")
+    w = ws_rows[0]["w"]
+    canonical_ws_id = w["id"]
+
     if user.api_key_id:
-        if user.api_key_ws_id != ws_id:
+        if user.api_key_ws_id not in (canonical_ws_id, ws_id):
             raise ApiError("FORBIDDEN", "API key does not have access to this workspace.")
-        ws_rows = await platform.read("p_workspace_get", ws_id=ws_id)
-        if not ws_rows:
-            raise ApiError("NOT_FOUND", "We can't find that workspace.")
-        w = ws_rows[0]["w"]
         await _touch_api_key(platform, user.api_key_id)
-        names = graph_names(ws_id)
+        names = graph_names(canonical_ws_id)
         db = get_db()
         return WorkspaceContext(
-            ws_id,
+            canonical_ws_id,
             w,
             user.api_key_role or Role.admin,
             None,
@@ -214,40 +224,52 @@ async def load_context(user: CurrentUser, ws_id: str, as_of: int | None = None) 
             as_of if as_of is not None else workspace_as_of(w),
         )
 
-    rows = await platform.read("p_membership", user_id=user.id, email=user.email, ws_id=ws_id)
+    rows = await platform.read("p_membership", user_id=user.id, email=user.email, ws_id=canonical_ws_id)
     if not rows:
         if user.clerk_user_id in ("cli_machine", "dev_local") and s.env_name == "local":
-            ws_rows = await platform.read("p_workspace_get", ws_id=ws_id)
-            if ws_rows:
-                w = ws_rows[0]["w"]
-                names = graph_names(ws_id)
-                db = get_db()
-                return WorkspaceContext(
-                    ws_id,
-                    w,
-                    Role.admin,
-                    None,
-                    user,
-                    Repo(db, names.org),
-                    Repo(db, names.mem),
-                    platform,
-                    as_of if as_of is not None else workspace_as_of(w),
-                )
+            names = graph_names(canonical_ws_id)
+            db = get_db()
+            return WorkspaceContext(
+                canonical_ws_id,
+                w,
+                Role.admin,
+                None,
+                user,
+                Repo(db, names.org),
+                Repo(db, names.mem),
+                platform,
+                as_of if as_of is not None else workspace_as_of(w),
+            )
+        elif w.get("slug") == "northwind-pay":
+            # Northwind Pay is the dedicated public guest demo sandbox
+            names = graph_names(canonical_ws_id)
+            db = get_db()
+            return WorkspaceContext(
+                canonical_ws_id,
+                w,
+                Role.admin if s.env_name == "local" else Role.viewer,
+                None,
+                user,
+                Repo(db, names.org),
+                Repo(db, names.mem),
+                platform,
+                as_of if as_of is not None else workspace_as_of(w),
+            )
         raise ApiError("NOT_FOUND", "We can't find that workspace.")
     best_row = max(rows, key=lambda r: ROLE_RANK.get(Role(r.get("role", "viewer")), 0))
-    w, role, person_id = best_row["w"], Role(best_row["role"]), best_row["person_id"]
-    names = graph_names(ws_id)
+    w_ret, role, person_id = best_row["w"], Role(best_row["role"]), best_row["person_id"]
+    names = graph_names(canonical_ws_id)
     db = get_db()
     return WorkspaceContext(
-        ws_id,
-        w,
+        canonical_ws_id,
+        w_ret,
         role,
         person_id,
         user,
         Repo(db, names.org),
         Repo(db, names.mem),
         platform,
-        as_of if as_of is not None else workspace_as_of(w),
+        as_of if as_of is not None else workspace_as_of(w_ret),
     )
 
 

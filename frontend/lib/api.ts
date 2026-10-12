@@ -202,7 +202,7 @@ export async function apiFetch<T>(path: string, opts: RequestOptions = {}, getTo
       const err = await toApiError(res, requestId);
       if (err.code === "UNAUTHENTICATED") {
         const path = typeof window !== "undefined" ? window.location.pathname : "";
-        if (!path.startsWith("/onboarding") && !path.startsWith("/sign-in") && !path.startsWith("/sign-up")) {
+        if (!path.startsWith("/onboarding") && !path.startsWith("/sign-in") && !path.startsWith("/sign-up") && !path.startsWith("/w/northwind-pay")) {
           markSessionExpired();
         }
       }

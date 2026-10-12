@@ -14,9 +14,29 @@ export function HeroGraphCircuitBreaker() {
   const [isBlocked, setIsBlocked] = useState(true);
 
   return (
-    <div className="relative w-full max-w-[540px] rounded-2xl border border-white/[0.08] bg-[#0c0d11] p-5 sm:p-6 shadow-2xl overflow-hidden">
-      {/* Top Status Bar */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+    <div className="relative w-full max-w-[540px] p-5 sm:p-6 overflow-hidden">
+      {/* Ambient Radial Shading - blends smoothly into background blueprint mesh */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_center,_rgba(12,14,22,0.8)_0%,_rgba(8,9,14,0.4)_55%,_transparent_85%)]"
+      />
+
+      {/* Shaded Border (Dark to Light falloff, dissolves seamlessly into background) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-2xl p-[1px] [mask-image:radial-gradient(ellipse_at_top,_black_35%,_transparent_75%)]"
+      >
+        <div className="size-full rounded-2xl bg-gradient-to-b from-white/[0.14] via-brand/[0.08] to-transparent" />
+      </div>
+
+      {/* Soft Radial Ambient Spotlight Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-4 -z-20 rounded-3xl bg-[radial-gradient(ellipse_at_center,_rgba(99,83,232,0.12)_0%,_transparent_70%)] blur-2xl"
+      />
+
+      {/* Top Status Bar with Feathered Shaded Divider */}
+      <div className="relative flex items-center justify-between pb-4">
         <div className="flex items-center gap-2">
           <GitPullRequest className="size-4 text-brand-solid" aria-hidden="true" />
           <span className="font-mono text-[12px] font-semibold text-zinc-200">PR #482: checkout-api</span>
@@ -33,6 +53,11 @@ export function HeroGraphCircuitBreaker() {
             </span>
           </button>
         </div>
+        {/* Soft Divider Line that fades out on both ends */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/[0.09] to-transparent"
+        />
       </div>
 
       {/* Living SVG Microservice Topology */}

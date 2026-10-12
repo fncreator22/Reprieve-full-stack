@@ -33,7 +33,7 @@ export default function ArchitecturePage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button asChild size="lg">
-                <Link href={CLERK_ENABLED ? "/sign-up" : "/w/northwind-pay/graph"}>
+                <Link href="/w/northwind-pay/graph">
                   Explore the Live Graph in Sandbox
                   <ArrowRight className="ml-2 size-4" />
                 </Link>

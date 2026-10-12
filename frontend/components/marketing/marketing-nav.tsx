@@ -34,10 +34,10 @@ export function MarketingNav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-(--z-topbar) transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-white/[0.08] bg-[#08090a]/80 backdrop-blur-md"
-          : "border-b border-white/[0.04] bg-transparent",
+          ? "border-b border-white/[0.08] bg-[#07080a]/95 backdrop-blur-xl shadow-lg shadow-black/50"
+          : "border-b border-white/[0.04] bg-[#07080a]/40 backdrop-blur-sm",
       )}
     >
       <nav aria-label="Main" className="mx-auto flex h-16 max-w-[1360px] items-center gap-6 px-4 sm:px-6">
@@ -84,10 +84,13 @@ export function MarketingNav() {
             </>
           ) : authEnabled ? (
             <>
-              <Button asChild variant="ghost">
+              <Button asChild variant="ghost" size="sm" className="hidden lg:inline-flex text-zinc-300 hover:text-white">
+                <Link href="/w/northwind-pay/home">Live Sandbox (0 Login)</Link>
+              </Button>
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/sign-in">Sign in</Link>
               </Button>
-              <Button asChild>
+              <Button asChild size="sm">
                 <Link href="/sign-up">Get started</Link>
               </Button>
             </>

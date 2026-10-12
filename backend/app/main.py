@@ -16,6 +16,12 @@ structlog.configure(processors=[structlog.processors.TimeStamper(fmt="iso"), str
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    s = get_settings()
+    if not s.internal_tick_secret:
+        structlog.get_logger().warning(
+            "security.unconfigured_tick_secret",
+            detail="INTERNAL_TICK_SECRET is unset; system tick endpoint will fail-closed.",
+        )
     await system.bootstrap()
     yield
     await close_db()

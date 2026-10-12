@@ -9,6 +9,11 @@ const isProtected = createRouteMatcher(["/w(.*)", "/onboarding(.*)", "/workspace
 export default CLERK_ENABLED
   ? clerkMiddleware(
       async (auth, req) => {
+        const path = req.nextUrl.pathname;
+        // Allow unauthenticated guest exploration of the Northwind Pay live sandbox and proxied API routes
+        if (path.startsWith("/w/northwind-pay") || path.startsWith("/api/")) {
+          return;
+        }
         if (isProtected(req)) await auth.protect();
       },
       { signInUrl: "/sign-in", signUpUrl: "/sign-up" },
