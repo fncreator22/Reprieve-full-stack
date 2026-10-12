@@ -1,25 +1,16 @@
 'use client';
 
-import React, { useRef, useState, forwardRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import { ReactLenis } from 'lenis/react';
 import { useTransform, motion, useScroll, type MotionValue } from 'motion/react';
 import { cn } from '@/lib/utils';
-import { ExternalLink, ShieldCheck, AlertTriangle, CheckCircle2, Lock, ZoomIn } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { ExternalLink, ShieldCheck, AlertTriangle } from 'lucide-react';
 
 export interface ProjectData {
   title: string;
   description: string;
   link: string;
   color: string;
-  // Rich incident extensions
   id?: string;
   target?: string;
   date?: string;
@@ -46,7 +37,6 @@ export interface CardProps {
   range: [number, number];
   targetScale: number;
   project?: ProjectData;
-  onInspect?: (project: ProjectData) => void;
   children?: React.ReactNode;
 }
 
@@ -60,7 +50,6 @@ export const Card = ({
   range,
   targetScale,
   project,
-  onInspect,
   children,
 }: CardProps) => {
   const container = useRef<HTMLDivElement>(null);
@@ -69,19 +58,12 @@ export const Card = ({
     offset: ['start end', 'start start'],
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
   const hasRichData = Boolean(project?.lossFigure || project?.rules || project?.whatHappened);
   const activeUrl = project?.sourceUrl || url || '#';
   const displayImage = project?.articleImage || url;
-  const projectItem = project || {
-    title,
-    description,
-    link: url,
-    color,
-    sourceUrl: activeUrl,
-  };
 
   return (
     <div
@@ -95,7 +77,7 @@ export const Card = ({
           top: `${i * 22}px`,
         }}
         className={cn(
-          "flex flex-col relative w-full max-w-[1140px] rounded-2xl p-4 sm:p-6 lg:p-8 origin-top",
+          "flex flex-col relative w-full max-w-[1140px] rounded-none p-4 sm:p-6 lg:p-8 origin-top",
           "border shadow-2xl backdrop-blur-2xl transition-colors duration-300",
           project?.borderClass || "border-white/10"
         )}
@@ -104,7 +86,7 @@ export const Card = ({
         <div
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br opacity-50",
+            "pointer-events-none absolute inset-0 -z-10 rounded-none bg-gradient-to-br opacity-40",
             project?.glowGradient || "from-white/5 via-transparent to-transparent"
           )}
         />
@@ -116,7 +98,7 @@ export const Card = ({
             {/* Top Header of Card */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-3 sm:pb-4">
               <div className="flex items-center gap-3">
-                <span className="flex size-7 items-center justify-center rounded-md bg-white/10 font-mono text-xs font-bold text-zinc-300">
+                <span className="flex size-7 items-center justify-center rounded-none border border-white/15 bg-white/[0.04] font-mono text-xs font-bold text-zinc-300">
                   0{i + 1}
                 </span>
                 <div>
@@ -129,22 +111,10 @@ export const Card = ({
                     )}
                   </h3>
                   <span className="font-mono text-[10.5px] sm:text-[11px] text-zinc-400">
-                    Verified Incident Post-Mortem · Root Cause Analysis
+                    Incident Post-Mortem · Root Cause Analysis
                   </span>
                 </div>
               </div>
-
-              {project?.lossFigure && (
-                <div
-                  className={cn(
-                    "flex items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-xs sm:text-sm font-bold tracking-tight",
-                    project?.lossColor || "text-red-400 bg-red-500/10 border-red-500/25"
-                  )}
-                >
-                  <AlertTriangle className="size-3.5 sm:size-4 shrink-0" aria-hidden="true" />
-                  <span>{project.lossFigure}</span>
-                </div>
-              )}
             </div>
 
             {/* Card Body: Split Grid */}
@@ -190,7 +160,7 @@ export const Card = ({
                             {project.rules.map((rule) => (
                               <span
                                 key={rule}
-                                className="rounded-md border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[10px] sm:text-[10.5px] font-medium text-brand"
+                                className="rounded-none border border-brand/30 bg-brand/10 px-2 py-0.5 font-mono text-[10px] sm:text-[10.5px] font-medium text-brand"
                               >
                                 {rule}
                               </span>
@@ -205,25 +175,27 @@ export const Card = ({
                 </div>
 
                 {/* Source Link Bar */}
-                <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between">
+                <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between">
                   <a
                     href={activeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs font-semibold text-zinc-300 hover:text-white transition-colors group/link"
+                    className="inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs text-zinc-400 hover:text-white transition-colors group/link"
                   >
-                    <span>{project?.sourceLabel || 'See official record'}</span>
-                    <ExternalLink className="size-3 sm:size-3.5 text-zinc-400 group-hover/link:text-white transition-colors" />
+                    <span>{project?.sourceLabel || 'View official post-mortem'}</span>
+                    <ExternalLink className="size-3 text-zinc-400 group-hover/link:text-white transition-colors" />
                   </a>
-                  <span className="font-mono text-[9.5px] sm:text-[10px] text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="size-3" />
-                    100% Grounded
-                  </span>
                 </div>
               </div>
 
-              {/* Right Image Column: Interactive Article Screenshot */}
-              <div className="w-full lg:w-[54%] h-40 sm:h-52 lg:h-auto lg:min-h-[260px] relative rounded-xl overflow-hidden border border-white/10 bg-[#07080c] group/img shrink-0">
+              {/* Right Image Column: Clickable Authentic Article Screenshot */}
+              <a
+                href={activeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`Open official article: ${project?.target || title}`}
+                className="group relative block w-full lg:w-[54%] h-44 sm:h-56 lg:h-auto lg:min-h-[260px] rounded-none overflow-hidden border border-white/10 bg-[#07080c] cursor-pointer shrink-0"
+              >
                 <motion.div
                   className="w-full h-full relative"
                   style={{ scale: imageScale }}
@@ -231,62 +203,18 @@ export const Card = ({
                   <img
                     src={displayImage}
                     alt={project?.target || title}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/img:scale-[1.03]"
+                    className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                 </motion.div>
 
-                {/* Default Indicator (fades out slightly on hover) */}
-                <div className="absolute top-2.5 right-2.5 transition-opacity duration-300 pointer-events-none">
-                  <div className="flex items-center gap-1.5 rounded-md border border-white/15 bg-black/75 px-2 py-0.5 backdrop-blur-md font-mono text-[10px] text-zinc-300 shadow-md">
-                    <Lock className="size-2.5 text-emerald-400" />
-                    <span>{project?.sourceDomain || 'Verified Record'}</span>
-                  </div>
+                {/* Transparent Subtle "View Article" Button Centered on Hover */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <span className="inline-flex items-center gap-2 rounded-none border border-white/50 bg-black/40 backdrop-blur-xs px-4 py-1.5 font-mono text-xs uppercase tracking-wider text-white shadow-lg">
+                    <span>View Article</span>
+                    <ExternalLink className="size-3.5 text-zinc-200" />
+                  </span>
                 </div>
-
-                {/* Hover Lens: Non-destructive overlay revealing verified action links */}
-                <div
-                  className={cn(
-                    "absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent",
-                    "opacity-0 group-hover/img:opacity-100 transition-opacity duration-300",
-                    "p-3.5 sm:p-4 flex flex-col justify-end"
-                  )}
-                >
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] font-bold text-emerald-400 flex items-center gap-1.5 uppercase tracking-wider">
-                        <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        Verified Public Record
-                      </span>
-                      <span className="font-mono text-[10px] text-zinc-400">
-                        {project?.sourceDomain}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 pt-1">
-                      <a
-                        href={activeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-md bg-brand-solid px-3 py-1.5 font-mono text-xs font-semibold text-white hover:bg-brand-solid/90 transition-colors shadow-md"
-                      >
-                        <span>Open Live Document</span>
-                        <ExternalLink className="size-3.5" />
-                      </a>
-
-                      {onInspect && (
-                        <button
-                          type="button"
-                          onClick={() => onInspect(projectItem)}
-                          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-white/20 bg-zinc-900/90 hover:bg-zinc-800 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-200 hover:text-white transition-colors"
-                        >
-                          <ZoomIn className="size-3.5" />
-                          <span>Expand</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </a>
             </div>
           </>
         )}
@@ -304,7 +232,6 @@ export interface StackingCardProps {
 export const StackingCard = forwardRef<HTMLDivElement, StackingCardProps>(
   ({ projects, className, useLenis = false }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [inspectProject, setInspectProject] = useState<ProjectData | null>(null);
 
     const { scrollYProgress } = useScroll({
       target: containerRef,
@@ -327,68 +254,9 @@ export const StackingCard = forwardRef<HTMLDivElement, StackingCardProps>(
               range={[i * 0.25, 1]}
               targetScale={targetScale}
               project={project}
-              onInspect={(p) => setInspectProject(p)}
             />
           );
         })}
-
-        {/* Full Article Lightbox Dialog */}
-        <Dialog open={Boolean(inspectProject)} onOpenChange={(open) => !open && setInspectProject(null)}>
-          <DialogContent className="max-w-4xl p-0 overflow-hidden border border-white/15 bg-zinc-950 text-white shadow-2xl">
-            <DialogHeader className="p-5 border-b border-white/10 bg-zinc-900/60">
-              <div className="flex items-center justify-between gap-4 pr-6">
-                <div>
-                  <DialogTitle className="text-xl font-bold font-display text-white flex items-center gap-2">
-                    {inspectProject?.target || inspectProject?.title}
-                    {inspectProject?.date && (
-                      <span className="font-mono text-xs font-normal text-zinc-400">
-                        ({inspectProject.date})
-                      </span>
-                    )}
-                  </DialogTitle>
-                  <DialogDescription className="font-mono text-xs text-zinc-400 mt-1">
-                    Authentic Public Post-Incident Review · Source: {inspectProject?.sourceDomain}
-                  </DialogDescription>
-                </div>
-                {inspectProject?.lossFigure && (
-                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-red-500/15 border border-red-500/25 text-red-400">
-                    {inspectProject.lossFigure}
-                  </span>
-                )}
-              </div>
-            </DialogHeader>
-
-            <div className="p-4 bg-zinc-950 max-h-[70vh] overflow-y-auto">
-              <div className="rounded-lg overflow-hidden border border-white/10 bg-black">
-                <img
-                  src={inspectProject?.articleImage || inspectProject?.link}
-                  alt={inspectProject?.target || inspectProject?.title || 'Article Screenshot'}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </div>
-
-            <div className="p-4 border-t border-white/10 bg-zinc-900/60 flex items-center justify-between">
-              <span className="font-mono text-xs text-zinc-400">
-                100% Non-Fictional Event · Verified Public Record
-              </span>
-              <Button
-                asChild
-                size="sm"
-                className="bg-brand-solid hover:bg-brand-solid/90 text-white font-mono text-xs"
-              >
-                <a
-                  href={inspectProject?.sourceUrl || inspectProject?.link || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open External Source Document
-                  <ExternalLink className="ml-1.5 size-3.5" />
-                </a>
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     );
 

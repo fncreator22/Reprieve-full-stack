@@ -43,7 +43,7 @@ async function testStackingCards() {
   console.log('Saved case-studies-desktop-card1.png');
 
   // 3. Hover over Card 1 article screenshot
-  const firstImageContainer = page.locator('#case-studies .group\\/img').first();
+  const firstImageContainer = page.locator('#case-studies a[title*="Open official article"]').first();
   await firstImageContainer.hover();
   await page.waitForTimeout(600);
   await page.screenshot({

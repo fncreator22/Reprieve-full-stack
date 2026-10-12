@@ -15,9 +15,9 @@ export const INCIDENTS: ProjectData[] = [
     lossFigure: "8.5M Systems Crashed",
     link: "https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/",
     sourceUrl: "https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/",
-    sourceLabel: "Official CrowdStrike PIR",
+    sourceLabel: "Official CrowdStrike PIR Hub",
     sourceDomain: "crowdstrike.com",
-    articleImage: "/articles/crowdstrike-pir.png",
+    articleImage: "/articles/crowdstrike-official.png",
     description:
       "A rapid-response content update in Channel File 291 passed syntax gates but skipped staged rollout, triggering an out-of-bounds memory read directly on the kernel path.",
     whatHappened:
@@ -26,21 +26,20 @@ export const INCIDENTS: ProjectData[] = [
       "Blocks direct pushes to high-blast services. Pre-merge AST scanner forces phased rollout gates whenever changes touch root operating dependencies.",
     rules: ["Rule R4: Service Concentration", "Rule R8: Customer-Path Exposure"],
     color: "#0b0c13",
-    borderClass: "border-red-500/20 hover:border-red-500/35",
-    glowGradient: "from-red-500/10 via-transparent to-transparent",
-    lossColor: "text-red-400 bg-red-500/10 border-red-500/25",
+    borderClass: "border-white/10 hover:border-white/20",
+    glowGradient: "from-red-500/5 via-transparent to-transparent",
   },
   {
     id: "change-healthcare",
-    title: "Change Healthcare (UnitedHealth)",
-    target: "Change Healthcare (UnitedHealth)",
-    date: "February 2024",
+    title: "Change Healthcare (UnitedHealth Group)",
+    target: "Change Healthcare (UnitedHealth Group)",
+    date: "March 2024",
     lossFigure: "$1.6B Claims Freeze",
-    link: "https://www.unitedhealthgroup.com/content/dam/UHG/PDF/2024/UHG-Change-Healthcare-Incident-Overview.pdf",
-    sourceUrl: "https://www.unitedhealthgroup.com/content/dam/UHG/PDF/2024/UHG-Change-Healthcare-Incident-Overview.pdf",
-    sourceLabel: "Official UHG Incident Release",
+    link: "https://www.unitedhealthgroup.com/newsroom/2024/2024-03-07-uhg-update-change-healthcare-cyberattack.html",
+    sourceUrl: "https://www.unitedhealthgroup.com/newsroom/2024/2024-03-07-uhg-update-change-healthcare-cyberattack.html",
+    sourceLabel: "Official UnitedHealth Group Release",
     sourceDomain: "unitedhealthgroup.com",
-    articleImage: "/articles/change-healthcare-pir.png",
+    articleImage: "/articles/change-healthcare-official.png",
     description:
       "An unmonitored legacy Citrix portal had no MFA enabled—a forgotten policy exception left behind after a corporate merger with zero active owner.",
     whatHappened:
@@ -49,9 +48,8 @@ export const INCIDENTS: ProjectData[] = [
       "Flags unowned systems and expired policy exceptions. Sentinel alerts security teams before dormant, single-factor backdoors reach production.",
     rules: ["Rule R2: Ghost Owner", "Rule R7: Broken Compensating Control"],
     color: "#0c0d16",
-    borderClass: "border-amber-500/20 hover:border-amber-500/35",
-    glowGradient: "from-amber-500/10 via-transparent to-transparent",
-    lossColor: "text-amber-400 bg-amber-500/10 border-amber-500/25",
+    borderClass: "border-white/10 hover:border-white/20",
+    glowGradient: "from-amber-500/5 via-transparent to-transparent",
   },
   {
     id: "square-block",
@@ -63,7 +61,7 @@ export const INCIDENTS: ProjectData[] = [
     sourceUrl: "https://developer.squareup.com/blog/incident-summary-2023-09-07",
     sourceLabel: "Official Square Engineering PIR",
     sourceDomain: "developer.squareup.com",
-    articleImage: "/articles/square-pir.png",
+    articleImage: "/articles/square-official.png",
     description:
       "An internal firewall update coincided with a DNS server upgrade, exhausting DNS capacity and severing microservices from checkout payment gateways.",
     whatHappened:
@@ -72,9 +70,8 @@ export const INCIDENTS: ProjectData[] = [
       "Detects compound change collisions. Halts deployments when concurrent infrastructure updates intersect on shared resolution paths.",
     rules: ["Rule R4: Service Concentration", "Rule R6: High-Blast Wave"],
     color: "#0d0e1a",
-    borderClass: "border-brand/30 hover:border-brand/45",
-    glowGradient: "from-brand/15 via-transparent to-transparent",
-    lossColor: "text-brand bg-brand/10 border-brand/30",
+    borderClass: "border-brand/30 hover:border-brand/40",
+    glowGradient: "from-brand/10 via-transparent to-transparent",
   },
 ];
 
@@ -107,11 +104,11 @@ export function CaseStudiesSection() {
       <StackingCard projects={INCIDENTS} />
 
       {/* Dedicated Standalone Simulation Strip */}
-      <div className="mt-8 rounded-2xl border border-brand/30 bg-[#0f1019] p-6 sm:p-8 shadow-2xl">
+      <div className="mt-8 rounded-none border border-brand/30 bg-[#0f1019] p-6 sm:p-8 shadow-2xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
-              <span className="rounded-md bg-brand/15 border border-brand/30 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
+              <span className="rounded-none bg-brand/15 border border-brand/30 px-2.5 py-0.5 font-mono text-[11px] font-bold uppercase tracking-wider text-brand">
                 SIMULATED BENCHMARK
               </span>
               <span className="font-mono text-[12px] text-zinc-400">
@@ -132,7 +129,7 @@ export function CaseStudiesSection() {
             <Button
               asChild
               size="lg"
-              className="rounded-lg bg-brand-solid text-white hover:bg-brand-solid/90 shadow-lg px-6 font-semibold"
+              className="rounded-none bg-brand-solid text-white hover:bg-brand-solid/90 shadow-lg px-6 font-semibold"
             >
               <Link href="/w/northwind-pay/home">
                 Launch Live Sandbox (0 Login)
