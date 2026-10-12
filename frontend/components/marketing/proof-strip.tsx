@@ -11,12 +11,12 @@ const STATS: ProofStat[] = [
   {
     value: "14 Tools",
     label: "Read-Only Reasoning",
-    sublabel: "8 Cypher rules (R1 to R8)",
+    sublabel: "8 pre-compiled Cypher rules (0% LLM)",
   },
   {
-    value: "12ms",
+    value: "<20ms",
     label: "Pre-Merge Gate Latency",
-    sublabel: "Evaluates in GitHub Actions CI",
+    sublabel: "p95 traversal on service graph",
   },
   {
     value: "100%",
@@ -25,8 +25,8 @@ const STATS: ProofStat[] = [
   },
   {
     value: "0 Login",
-    label: "Developer Ergonomics",
-    sublabel: "PR comments, CLI, and live sandbox",
+    label: "Developer Sandbox",
+    sublabel: "Interactive Northwind Pay telemetry",
     highlight: true,
   },
 ];

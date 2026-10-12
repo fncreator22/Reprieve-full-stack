@@ -23,7 +23,7 @@ export const INCIDENTS: ProjectData[] = [
     whatHappened:
       "A rapid-response content update in Channel File 291 passed syntax gates but skipped staged rollout, triggering an out-of-bounds memory read directly on the kernel path.",
     withReprieve:
-      "Blocks direct pushes to high-blast services. Pre-merge AST scanner forces phased rollout gates whenever changes touch root operating dependencies.",
+      "Evaluates blast radius on core paths. Sentinel flags uncanaried bypasses on root operating dependencies before release.",
     rules: ["Rule R4: Service Concentration", "Rule R8: Customer-Path Exposure"],
     color: "#0b0c13",
     borderClass: "border-white/10 hover:border-white/20",
