@@ -48,10 +48,10 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl overflow-hidden p-0 gap-0 border-border-strong sm:max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-3xl overflow-hidden p-0 gap-0 border-border-strong sm:max-h-[88vh] flex flex-col">
         {/* Header */}
-        <div className="bg-surface-elevated border-b border-border-subtle p-5 sm:p-6">
-          <div className="inline-flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-zinc-300 mb-2">
+        <div className="bg-surface-elevated border-b border-border-subtle p-4 sm:p-5">
+          <div className="inline-flex items-center gap-2 rounded-md border border-border-subtle bg-surface-subtle px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-text-secondary mb-2">
             <span>Architecture Walkthrough · Fundamentals</span>
           </div>
           <DialogTitle className="text-h3 font-display font-bold text-text-primary">
@@ -68,7 +68,7 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
               onClick={() => setActiveTab("concept")}
               className={`px-3 py-1.5 rounded-md text-caption font-medium transition-colors ${
                 activeTab === "concept"
-                  ? "bg-brand text-white shadow-xs"
+                  ? "bg-brand text-text-on-brand shadow-xs"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle"
               }`}
             >
@@ -79,7 +79,7 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
               onClick={() => setActiveTab("risks")}
               className={`px-3 py-1.5 rounded-md text-caption font-medium transition-colors ${
                 activeTab === "risks"
-                  ? "bg-brand text-white shadow-xs"
+                  ? "bg-brand text-text-on-brand shadow-xs"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle"
               }`}
             >
@@ -90,7 +90,7 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
               onClick={() => setActiveTab("cli")}
               className={`px-3 py-1.5 rounded-md text-caption font-medium transition-colors ${
                 activeTab === "cli"
-                  ? "bg-brand text-white shadow-xs"
+                  ? "bg-brand text-text-on-brand shadow-xs"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle"
               }`}
             >
@@ -101,7 +101,7 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
               onClick={() => setActiveTab("pr")}
               className={`px-3 py-1.5 rounded-md text-caption font-medium transition-colors ${
                 activeTab === "pr"
-                  ? "bg-brand text-white shadow-xs"
+                  ? "bg-brand text-text-on-brand shadow-xs"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-subtle"
               }`}
             >
@@ -111,12 +111,12 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
         </div>
 
         {/* Content Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1">
+        <div className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1">
           {activeTab === "concept" && (
-            <div className="space-y-5">
-              <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-4">
+              <div className="grid gap-3.5 sm:grid-cols-2">
                 {/* Traditional Ticketing */}
-                <div className="rounded-xl border border-border-subtle bg-surface-subtle p-4 space-y-3">
+                <div className="rounded-xl border border-border-subtle bg-surface-subtle p-3.5 space-y-2.5">
                   <div className="flex items-center gap-2 text-text-muted font-semibold text-caption">
                     <span className="size-2 rounded-full bg-text-muted" />
                     TRADITIONAL ITSM (Jira / ServiceNow)
@@ -124,22 +124,22 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
                   <h4 className="font-semibold text-body-base text-text-primary">Isolated Flat Records</h4>
                   <ul className="space-y-2 text-caption text-text-secondary">
                     <li className="flex items-start gap-2">
-                      <span className="text-danger">✕</span>
+                      <span className="text-danger font-bold">✕</span>
                       <span>Waivers stored as closed tickets or buried Confluence tables.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-danger">✕</span>
+                      <span className="text-danger font-bold">✕</span>
                       <span>No awareness of microservice call graphs or dependencies.</span>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-danger">✕</span>
+                      <span className="text-danger font-bold">✕</span>
                       <span>Cannot detect when an owner leaves the company.</span>
                     </li>
                   </ul>
                 </div>
 
                 {/* Reprieve Graph Engine */}
-                <div className="rounded-xl border border-brand/40 bg-brand-soft/20 p-4 space-y-3">
+                <div className="rounded-xl border border-brand/40 bg-brand-soft/20 p-3.5 space-y-2.5 dark:bg-brand-soft/10">
                   <div className="flex items-center gap-2 text-brand font-semibold text-caption">
                     <Zap className="size-3.5 fill-current" />
                     REPRIEVE KNOWLEDGE GRAPH
@@ -156,19 +156,19 @@ export function QuickGuideModal({ open, onOpenChange }: QuickGuideModalProps) {
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="size-3.5 text-brand shrink-0 mt-0.5" />
-                      <span>Calculates mathematical avalanche reachability ($P = p_0^h$).</span>
+                      <span>Calculates mathematical avalanche reachability (P = p₀ʰ).</span>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <div className="rounded-lg bg-surface border border-border-subtle p-4">
+              <div className="rounded-xl bg-surface border border-border-subtle p-3.5 shadow-xs">
                 <h5 className="font-semibold text-body-sm text-text-primary mb-1">
                   The Definition of Exception Debt:
                 </h5>
-                <p className="text-body-sm text-text-secondary">
+                <p className="text-body-sm text-text-secondary leading-relaxed">
                   A software exception is a temporary promise to accept risk in exchange for delivery speed. 
-                  When that promise expires without compensating controls or architectural review, it transforms into an invisible structural bomb.
+                  When that promise expires without compensating controls or architectural review, it transforms into an invisible structural vulnerability across dependencies.
                 </p>
               </div>
             </div>

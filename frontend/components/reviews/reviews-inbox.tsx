@@ -41,8 +41,8 @@ export function ReviewsInbox() {
   const needsIdentity = q.data?.pages[0]?.needs_identity;
 
   return (
-    <PageContainer>
-      <PageHeader title="Reviews" subtitle="Decisions routed to the person currently accountable." />
+    <PageContainer className="space-y-4 py-4">
+      <PageHeader title="Reviews" />
       <nav className="flex gap-1 border-b border-border-subtle" aria-label="Review tabs">
         {(Object.keys(TABS) as Tab[]).map((t) => (
           <Link

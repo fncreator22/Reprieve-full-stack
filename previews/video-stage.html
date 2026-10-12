@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reprieve Intercept Video Stage</title>
+  <title>Reprieve Compound Risk Bento Stage</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
       background: #06070a;
       width: 1920px;
       height: 1080px;
@@ -20,160 +20,556 @@
       position: relative;
       width: 1920px;
       height: 1080px;
-      background: radial-gradient(circle at 50% 40%, #151128 0%, #08090f 50%, #030406 100%);
+      background: radial-gradient(circle at 50% 50%, #110d22 0%, #07080d 60%, #040507 100%);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Ambient cyber dust & aurora glow */
+    /* Ambient deep aurora glow */
     .aurora-glow {
       position: absolute;
-      width: 1100px;
-      height: 700px;
-      top: 150px;
+      width: 1200px;
+      height: 750px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(91, 75, 224, 0.28) 0%, rgba(34, 211, 238, 0.12) 45%, transparent 75%);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(91, 75, 224, 0.22) 0%, rgba(190, 18, 60, 0.1) 45%, transparent 75%);
       filter: blur(80px);
       pointer-events: none;
     }
 
-    /* Grid overlay */
-    .grid-overlay {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-    }
-
-    /* Cinematic Camera Rig */
+    /* Perfectly centered Bento Rig */
     #camera-rig {
       position: relative;
-      width: 960px;
-      height: 840px;
-      transform-origin: 520px 480px;
+      width: 1200px;
+      height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
       will-change: transform;
+      filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.95));
     }
 
-    #camera-rig iframe, #camera-rig object {
-      width: 100%;
-      height: 100%;
-      border: none;
-      filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.95));
-    }
-
-    /* HUD Watermark & Pacing Telemetry */
-    .hud-telemetry {
-      position: absolute;
-      bottom: 36px;
-      left: 48px;
-      right: 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'SF Mono', 'JetBrains Mono', Consolas, monospace;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      z-index: 10;
-    }
-
-    .telemetry-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .telemetry-badge {
-      background: rgba(91, 75, 224, 0.15);
-      border: 1px solid rgba(91, 75, 224, 0.4);
-      color: #c7d2fe;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-weight: 600;
-    }
-
-    .telemetry-pulse {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #22d3ee;
-      box-shadow: 0 0 10px #22d3ee;
-      margin-right: 6px;
+    #camera-rig svg {
+      width: 1200px;
+      height: 680px;
+      display: block;
     }
   </style>
 </head>
 <body>
   <div id="stage">
-    <div class="grid-overlay"></div>
     <div class="aurora-glow"></div>
-
-    <!-- Camera Rig -->
     <div id="camera-rig">
-      <object id="svgDoc" data="reprieve-intercept.svg" type="image/svg+xml" style="width: 100%; height: 100%;"></object>
-    </div>
+      <svg width="1200" height="680" viewBox="0 0 1200 680" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bg_ambient" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#141126" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#090A0F" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#050608" stop-opacity="1"/>
+    </radialGradient>
 
-    <!-- Telemetry Bar -->
-    <div class="hud-telemetry">
-      <div class="telemetry-left">
-        <span class="telemetry-badge"><span class="telemetry-pulse"></span>REPRIEVE MCP INTERCEPT ENGINE</span>
-        <span>LATENCY: 11.8MS</span>
-        <span>GRAPHS: PLATFORM // ORG // MEM</span>
-      </div>
-      <div>
-        <span>FPS: 60 // PUSH-IN ZOOM: DYNAMIC // CIP-04</span>
-      </div>
+    <radialGradient id="aurora_left" cx="25%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#5B4BE0" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#22D3EE" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="aurora_right" cx="75%" cy="40%" r="45%">
+      <stop offset="0%" stop-color="#BE123C" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#5B4BE0" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Card Borders -->
+    <linearGradient id="card_border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.18)"/>
+      <stop offset="50%" stop-color="rgba(255, 255, 255, 0.05)"/>
+      <stop offset="100%" stop-color="rgba(91, 75, 224, 0.28)"/>
+    </linearGradient>
+
+    <linearGradient id="alert_border_glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="50%" stop-color="#BE123C"/>
+      <stop offset="100%" stop-color="#FB7185"/>
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="card_shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.85"/>
+    </filter>
+
+    <filter id="cursor_shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <style>
+  <![CDATA[
+    .mono { font-family: 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+    /* =========================================================================
+       5.0s SEAMLESS LOOP ORCHESTRATION (300 Frames @ 60 FPS)
+       Phase 1 (0.0s - 0.4s | 0-8%): Snappy Staggered Spring Reveal
+       Phase 2 (0.4s - 1.8s | 8-36%): Scrubber Drag & Collision Detonation
+       Phase 3 (1.8s - 2.8s | 36-56%): Cross-Graph Cascade & Risk Score Surges
+       Phase 4 (2.8s - 3.8s | 56-76%): Steward Precedent Recall & Button Depress
+       Phase 5 (3.8s - 4.6s | 76-92%): Showcase Hold
+       Phase 6 (4.6s - 5.0s | 92-100%): Snappy Dissolve & Seamless Loop Reset
+       ========================================================================= */
+
+    /* Cards Spring Reveal (Phase 1) and Vanish (Phase 6) */
+    @keyframes cards_lifecycle_A {
+      0% { opacity: 0; transform: translateY(12px) scale(0.98); }
+      7% { opacity: 1; transform: translateY(0px) scale(1); }
+      92% { opacity: 1; transform: translateY(0px) scale(1); }
+      98% { opacity: 0; transform: translateY(-8px) scale(0.99); }
+      100% { opacity: 0; transform: translateY(12px) scale(0.98); }
+    }
+
+    @keyframes cards_lifecycle_B {
+      0%, 2% { opacity: 0; transform: translateY(12px) scale(0.98); }
+      9% { opacity: 1; transform: translateY(0px) scale(1); }
+      92% { opacity: 1; transform: translateY(0px) scale(1); }
+      98% { opacity: 0; transform: translateY(-8px) scale(0.99); }
+      100% { opacity: 0; transform: translateY(12px) scale(0.98); }
+    }
+
+    @keyframes cards_lifecycle_C {
+      0%, 4% { opacity: 0; transform: translateY(12px) scale(0.98); }
+      11% { opacity: 1; transform: translateY(0px) scale(1); }
+      92% { opacity: 1; transform: translateY(0px) scale(1); }
+      98% { opacity: 0; transform: translateY(-8px) scale(0.99); }
+      100% { opacity: 0; transform: translateY(12px) scale(0.98); }
+    }
+
+    /* Slider Thumb Movement (0.7s to 1.5s = 14% to 30%) */
+    @keyframes slider_thumb_motion {
+      0%, 14% { transform: translateX(0px); }
+      28%, 76% { transform: translateX(151px); }
+      90%, 100% { transform: translateX(0px); }
+    }
+
+    @keyframes slider_bar_fill {
+      0%, 14% { width: 30px; }
+      28%, 76% { width: 181px; }
+      90%, 100% { width: 30px; }
+    }
+
+    /* Collision Detonation Banner in Card B (Detonates at t=1.2s / 24%) */
+    @keyframes collision_banner_detonate {
+      0%, 23% { opacity: 0; transform: translateY(6px); }
+      28%, 78% { opacity: 1; transform: translateY(0px); }
+      88%, 100% { opacity: 0; transform: translateY(6px); }
+    }
+
+    /* Row 01 Cascade Pulse in Card A */
+    @keyframes row1_cascade_pulse {
+      0%, 35% { background: #121319; stroke: rgba(255,255,255,0.05); }
+      38%, 76% { stroke: #F43F5E; filter: drop-shadow(0 0 8px rgba(244,63,94,0.4)); }
+      88%, 100% { stroke: rgba(255,255,255,0.05); filter: none; }
+    }
+
+    /* Risk Score Value Surges from 42.0 to 82.4 */
+    @keyframes risk_score_surge {
+      0%, 35% { fill: #E2E8F0; filter: none; }
+      42%, 78% { fill: #F43F5E; filter: drop-shadow(0 0 10px #f43f5e); }
+      88%, 100% { fill: #E2E8F0; filter: none; }
+    }
+
+    /* Card C Action Button Depress (Click at t=3.2s / 64%) */
+    @keyframes btn_depress_click {
+      0%, 62% { transform: scale(1); filter: brightness(1); }
+      65% { transform: scale(0.94); filter: brightness(1.25) drop-shadow(0 0 8px rgba(34,211,238,0.5)); }
+      70%, 100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    /* Cursor Flight Director */
+    @keyframes cursor_choreography {
+      0% {
+        transform: translate(1100px, 640px);
+        opacity: 0;
+      }
+      8% {
+        /* Enters and approaches slider thumb */
+        transform: translate(820px, 135px);
+        opacity: 1;
+      }
+      14% {
+        /* Grabs slider thumb at Today */
+        transform: translate(796px, 117px) scale(0.9);
+        opacity: 1;
+      }
+      28% {
+        /* Drags thumb to 30 Days */
+        transform: translate(947px, 117px) scale(0.9);
+        opacity: 1;
+      }
+      34% {
+        /* Releases thumb */
+        transform: translate(955px, 122px) scale(1);
+        opacity: 1;
+      }
+      54% {
+        /* Moves down to Card C button */
+        transform: translate(947px, 577px) scale(1);
+        opacity: 1;
+      }
+      65% {
+        /* Depresses button */
+        transform: translate(947px, 577px) scale(0.85);
+        opacity: 1;
+      }
+      72% {
+        transform: translate(947px, 577px) scale(1);
+        opacity: 1;
+      }
+      84% {
+        /* Drifts aside for showcase */
+        transform: translate(1120px, 630px);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(1100px, 640px);
+        opacity: 0;
+      }
+    }
+
+    #card_A_group {
+      animation: cards_lifecycle_A 5.0s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    #card_B_group {
+      animation: cards_lifecycle_B 5.0s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    #card_C_group {
+      animation: cards_lifecycle_C 5.0s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    #slider_thumb {
+      animation: slider_thumb_motion 5.0s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    }
+
+    #slider_bar_active {
+      animation: slider_bar_fill 5.0s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+    }
+
+    #collision_alert_box {
+      animation: collision_banner_detonate 5.0s ease-out infinite;
+    }
+
+    #row1_surface {
+      animation: row1_cascade_pulse 5.0s ease-in-out infinite;
+    }
+
+    #risk_score_value {
+      animation: risk_score_surge 5.0s ease-out infinite;
+    }
+
+    #btn_review_action {
+      transform-origin: 181px 17px;
+      animation: btn_depress_click 5.0s cubic-bezier(0.3, 1.5, 0.5, 1) infinite;
+    }
+
+    #cursor_director {
+      animation: cursor_choreography 5.0s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+  ]]>
+  </style>
+
+  <!-- Ambient Canvas Backdrop -->
+  <rect width="1200" height="680" fill="url(#bg_ambient)"/>
+  <circle cx="350" cy="280" r="320" fill="url(#aurora_left)"/>
+  <circle cx="950" cy="340" r="300" fill="url(#aurora_right)"/>
+
+  <!-- ================================================================= -->
+  <!-- LEFT COLUMN (CARD A): Dominant Live Compound Service Concentration -->
+  <!-- ================================================================= -->
+  <g transform="translate(48, 48)" filter="url(#card_shadow)">
+    <g id="card_A_group">
+      <!-- Base Surface -->
+      <rect x="0" y="0" width="670" height="584" rx="16" fill="#0C0D12" fill-opacity="0.98"/>
+      <rect x="0" y="0" width="670" height="584" rx="16" stroke="url(#card_border)" stroke-width="1.2"/>
+
+      <!-- Header Section -->
+      <g transform="translate(28, 28)">
+        <rect x="0" y="0" width="38" height="38" rx="8" fill="#181924" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <path d="M 19 12 L 29 17 L 19 22 L 9 17 Z M 9 21 L 19 26 L 29 21 M 9 25 L 19 30 L 29 25" stroke="#818CF8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <text x="50" y="16" fill="#FFFFFF" font-size="16" font-weight="700" class="sans">Concentration on payments-core</text>
+        <text x="50" y="32" fill="#94A3B8" font-size="12" class="sans">4 squad waivers concentrated on high-throughput settlement engine</text>
+
+        <!-- Pill Tabs -->
+        <g transform="translate(450, 4)">
+          <rect x="0" y="0" width="164" height="28" rx="6" fill="#13141C" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <text x="24" y="18" fill="#64748B" font-size="11" font-weight="500" class="sans">checkout</text>
+          <text x="80" y="18" fill="#64748B" font-size="11" font-weight="500" class="sans">auth</text>
+          <rect x="110" y="3" width="50" height="22" rx="4" fill="rgba(255,255,255,0.1)"/>
+          <text x="135" y="17" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="600" class="sans">payments</text>
+        </g>
+      </g>
+
+      <line x1="28" y1="84" x2="642" y2="84" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- Exception Rows (Authentic to TELEMETRY_DATA.payments) -->
+      <g transform="translate(28, 104)">
+        
+        <!-- Row 01 (Critical Gateway Timeout) -->
+        <g transform="translate(0, 0)">
+          <rect id="row1_surface" x="0" y="0" width="614" height="74" rx="10" fill="#15121B" stroke="rgba(244,63,94,0.3)" stroke-width="1"/>
+          <rect x="14" y="24" width="26" height="26" rx="6" fill="rgba(244,63,94,0.1)"/>
+          <text x="27" y="41" text-anchor="middle" fill="#FB7185" font-size="11" font-weight="600" class="mono">01</text>
+          <text x="52" y="34" fill="#FFFFFF" font-size="13" font-weight="600" class="sans">Payment gateway timeout override</text>
+          <text x="52" y="52" fill="#64748B" font-size="11" class="sans">Squad Settlement · <tspan fill="#F43F5E">3x renewed</tspan></text>
+          <text x="516" y="42" text-anchor="end" fill="#FB7185" font-size="10.5" class="mono">Cascading to checkout</text>
+          <rect x="532" y="26" width="68" height="22" rx="4" fill="#4C0519" stroke="#F43F5E" stroke-width="1"/>
+          <text x="566" y="41" text-anchor="middle" fill="#FECDD3" font-size="10" font-weight="700" class="mono">CRITICAL</text>
+        </g>
+
+        <!-- Row 02 (Human Bottleneck) -->
+        <g transform="translate(0, 86)">
+          <rect x="0" y="0" width="614" height="74" rx="10" fill="#121319" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <rect x="14" y="24" width="26" height="26" rx="6" fill="rgba(255,255,255,0.04)"/>
+          <text x="27" y="41" text-anchor="middle" fill="#64748B" font-size="11" font-weight="600" class="mono">02</text>
+          <text x="52" y="34" fill="#F1F5F9" font-size="13" font-weight="600" class="sans">Shared fallback bottleneck: Sam Okafor</text>
+          <text x="52" y="52" fill="#64748B" font-size="11" class="sans">Squad Compliance · <tspan fill="#F59E0B">3 controls dependent</tspan></text>
+          <text x="516" y="42" text-anchor="end" fill="#94A3B8" font-size="10.5" class="mono">Single human failure</text>
+          <rect x="546" y="26" width="54" height="22" rx="4" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+          <text x="573" y="41" text-anchor="middle" fill="#FDE68A" font-size="10" font-weight="700" class="mono">HIGH</text>
+        </g>
+
+        <!-- Row 03 (Idempotency Key) -->
+        <g transform="translate(0, 172)">
+          <rect x="0" y="0" width="614" height="74" rx="10" fill="#121319" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <rect x="14" y="24" width="26" height="26" rx="6" fill="rgba(255,255,255,0.04)"/>
+          <text x="27" y="41" text-anchor="middle" fill="#64748B" font-size="11" font-weight="600" class="mono">03</text>
+          <text x="52" y="34" fill="#F1F5F9" font-size="13" font-weight="600" class="sans">Refund idempotency key waiver</text>
+          <text x="52" y="52" fill="#64748B" font-size="11" class="sans">Squad Disputes · <tspan fill="#38BDF8">Expires in 6 days</tspan></text>
+          <text x="516" y="42" text-anchor="end" fill="#94A3B8" font-size="10.5" class="mono">Downstream ledger risk</text>
+          <rect x="526" y="26" width="74" height="22" rx="4" fill="#1E1B4B" stroke="#6366F1" stroke-width="1"/>
+          <text x="563" y="41" text-anchor="middle" fill="#C7D2FE" font-size="10" font-weight="700" class="mono">MODERATE</text>
+        </g>
+
+        <!-- Row 04 (Batch Settlement Backoff) -->
+        <g transform="translate(0, 258)">
+          <rect x="0" y="0" width="614" height="74" rx="10" fill="#121319" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <rect x="14" y="24" width="26" height="26" rx="6" fill="rgba(255,255,255,0.04)"/>
+          <text x="27" y="41" text-anchor="middle" fill="#64748B" font-size="11" font-weight="600" class="mono">04</text>
+          <text x="52" y="34" fill="#F1F5F9" font-size="13" font-weight="600" class="sans">Batch settlement retry backoff skip</text>
+          <text x="52" y="52" fill="#64748B" font-size="11" class="sans">Squad Core · <tspan fill="#94A3B8">18 days overdue</tspan></text>
+          <text x="516" y="42" text-anchor="end" fill="#94A3B8" font-size="10.5" class="mono">Upstream queue backlog</text>
+          <rect x="526" y="26" width="74" height="22" rx="4" fill="#1E1B4B" stroke="#6366F1" stroke-width="1"/>
+          <text x="563" y="41" text-anchor="middle" fill="#C7D2FE" font-size="10" font-weight="700" class="mono">MODERATE</text>
+        </g>
+      </g>
+
+      <!-- Mathematical Grounding Footer -->
+      <g transform="translate(28, 470)">
+        <line x1="0" y1="0" x2="614" y2="0" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <g transform="translate(0, 16)">
+          <path d="M 12 4 C 12 4 16 9 16 13 C 16 16.5 13.5 19 10 19 C 6.5 19 4 16.5 4 13 C 4 10 6 7.5 7 6 C 7 8 8 9 9 9 C 10 6 12 4 12 4 Z" fill="#F43F5E"/>
+          <text x="24" y="15" fill="#94A3B8" font-size="12" font-weight="500" class="sans">Avalanche Risk Score:</text>
+          <text id="risk_score_value" x="165" y="15" font-size="13" font-weight="800" class="mono">82.4 / 100</text>
+          <text x="245" y="15" fill="#64748B" font-size="11" class="sans">(Tier-1 Alert)</text>
+        </g>
+        <text x="614" y="52" text-anchor="end" fill="#64748B" font-size="10" class="mono">
+          score = Σ base × age × overdue × centrality × multipliers | P = p0^h
+        </text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- RIGHT COLUMN: Stack of 2 Dedicated Cards                          -->
+  <!-- ================================================================= -->
+  
+  <!-- CARD B (Top Right): Temporal Horizon Scrubber -->
+  <g transform="translate(742, 48)" filter="url(#card_shadow)">
+    <g id="card_B_group">
+      <rect x="0" y="0" width="410" height="276" rx="16" fill="#0C0D12" fill-opacity="0.98"/>
+      <rect x="0" y="0" width="410" height="276" rx="16" stroke="url(#card_border)" stroke-width="1.2"/>
+
+      <g transform="translate(24, 24)">
+        <!-- Card Header -->
+        <path d="M 4 8 L 16 8 M 4 14 L 16 14 M 7 4 L 7 18 M 13 4 L 13 18" stroke="#818CF8" stroke-width="1.8" stroke-linecap="round"/>
+        <text x="24" y="14" fill="#94A3B8" font-size="11" font-weight="700" letter-spacing="0.5" class="mono">TEMPORAL HORIZON SCRUBBER</text>
+        
+        <!-- Horizon Badge -->
+        <rect x="294" y="0" width="68" height="20" rx="4" fill="#181924" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="328" y="14" text-anchor="middle" fill="#38BDF8" font-size="10.5" font-weight="700" class="mono">30 Days</text>
+
+        <!-- Slider Track -->
+        <g transform="translate(0, 36)">
+          <rect x="0" y="6" width="362" height="6" rx="3" fill="#1E202B"/>
+          <!-- Active Fill -->
+          <rect id="slider_bar_active" x="0" y="6" width="30" height="6" rx="3" fill="url(#alert_border_glow)"/>
+          <!-- Slider Thumb -->
+          <circle id="slider_thumb" cx="30" cy="9" r="8" fill="#FFFFFF" stroke="#BE123C" stroke-width="2"/>
+          
+          <!-- Markers -->
+          <text x="0" y="26" fill="#64748B" font-size="10" class="mono">Today</text>
+          <text x="181" y="26" text-anchor="middle" fill="#CBD5E1" font-size="10" font-weight="600" class="mono">30 Days</text>
+          <text x="362" y="26" text-anchor="end" fill="#64748B" font-size="10" class="mono">60 Days</text>
+        </g>
+
+        <!-- Collision Items List -->
+        <g transform="translate(0, 84)">
+          <!-- Collision item 1 -->
+          <g transform="translate(0, 0)">
+            <rect x="0" y="0" width="362" height="32" rx="6" fill="#13141C" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="12" cy="16" r="3.5" fill="#F59E0B"/>
+            <text x="24" y="20" fill="#E2E8F0" font-size="11" class="sans">TLS 1.1 Waiver</text>
+            <text x="290" y="20" text-anchor="end" fill="#64748B" font-size="10" class="mono">checkout · 14d</text>
+            <rect x="302" y="6" width="50" height="20" rx="4" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+            <text x="327" y="20" text-anchor="middle" fill="#FDE68A" font-size="9" font-weight="700" class="mono">HIGH</text>
+          </g>
+
+          <!-- Collision item 2 (Active Detonation) -->
+          <g transform="translate(0, 38)">
+            <rect x="0" y="0" width="362" height="32" rx="6" fill="#2A0B14" stroke="#F43F5E" stroke-width="1"/>
+            <circle cx="12" cy="16" r="3.5" fill="#F43F5E"/>
+            <text x="24" y="20" fill="#FECDD3" font-size="11" font-weight="600" class="sans">End-to-end Test Skip</text>
+            <text x="286" y="20" text-anchor="end" fill="#FB7185" font-size="10" class="mono">payments · 21d</text>
+            <rect x="298" y="6" width="54" height="20" rx="4" fill="#4C0519" stroke="#F43F5E" stroke-width="1"/>
+            <text x="325" y="20" text-anchor="middle" fill="#FECDD3" font-size="9" font-weight="700" class="mono">CRITICAL</text>
+          </g>
+        </g>
+
+        <!-- Collision Alert Banner -->
+        <g transform="translate(0, 166)">
+          <g id="collision_alert_box">
+            <rect x="0" y="0" width="362" height="38" rx="6" fill="#4C0519" stroke="#F43F5E" stroke-width="1.2"/>
+            <path d="M 16 26 L 24 12 L 32 26 Z M 24 18 L 24 21 M 24 23 L 24 24" stroke="#FECDD3" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="40" y="24" fill="#FFE4E6" font-size="11" font-weight="700" class="sans">
+              AVALANCHE COLLISION: 2 waivers expire in 48h
+            </text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- CARD C (Bottom Right): Precedent Memory Recall & Steward Decision -->
+  <g transform="translate(742, 356)" filter="url(#card_shadow)">
+    <g id="card_C_group">
+      <rect x="0" y="0" width="410" height="276" rx="16" fill="#0C0D12" fill-opacity="0.98"/>
+      <rect x="0" y="0" width="410" height="276" rx="16" stroke="url(#card_border)" stroke-width="1.2"/>
+
+      <g transform="translate(24, 24)">
+        <!-- Header -->
+        <circle cx="10" cy="10" r="8" fill="rgba(91,75,224,0.15)" stroke="#818CF8" stroke-width="1.5"/>
+        <path d="M 7 10 L 13 10 M 10 7 L 10 13" stroke="#818CF8" stroke-width="1.5"/>
+        <text x="26" y="14" fill="#FFFFFF" font-size="13" font-weight="700" class="sans">Precedent Memory Recall</text>
+        <text x="362" y="14" text-anchor="end" fill="#A78BFA" font-size="10.5" font-weight="600" class="mono">mem_graph</text>
+        
+        <text x="0" y="36" fill="#94A3B8" font-size="11.5" class="sans">
+          Past review decisions resurface when evaluating the same service.
+        </text>
+
+        <!-- Precedent Decision Box -->
+        <g transform="translate(0, 52)">
+          <rect x="0" y="0" width="362" height="114" rx="10" fill="#12131C" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          
+          <!-- Status Pill -->
+          <g transform="translate(14, 14)">
+            <rect x="0" y="0" width="94" height="20" rx="4" fill="#3B0713" stroke="#F43F5E" stroke-width="1"/>
+            <text x="47" y="14" text-anchor="middle" fill="#FECDD3" font-size="10" font-weight="800" class="mono">REVOKED</text>
+            
+            <text x="106" y="14" fill="#64748B" font-size="10.5" class="mono">Control: PCI-DSS-3.2</text>
+          </g>
+
+          <!-- Quote -->
+          <text x="14" y="54" fill="#E2E8F0" font-size="11" class="sans">"Third renewal with no rotation plan. Revoked; owner</text>
+          <text x="14" y="70" fill="#E2E8F0" font-size="11" class="sans">to desynchronize waiver before Cyber Week traffic."</text>
+          
+          <text x="14" y="96" fill="#94A3B8" font-size="10" class="sans">Recorded by <tspan font-weight="600" fill="#FFFFFF">Steward Agent</tspan> · 18 days ago</text>
+        </g>
+
+        <!-- Propose Human Review Button -->
+        <g transform="translate(0, 180)">
+          <g id="btn_review_action" style="transform-origin: 181px 17px;">
+            <rect x="0" y="0" width="362" height="34" rx="8" fill="#5B4BE0"/>
+            <text x="181" y="21" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="600" class="sans">
+              Propose Desynchronization Review ↵
+            </text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================================================================= -->
+  <!-- REALISTIC PRECISION CURSOR (Director Actor)                       -->
+  <!-- ================================================================= -->
+  <g id="cursor_director" filter="url(#cursor_shadow)">
+    <g transform="rotate(-15)">
+      <path d="M 0 0 L 0 17 L 4.5 13 L 8.5 21 L 11.5 19.5 L 7.5 11.5 L 13 11.5 Z" 
+            fill="#FFFFFF" 
+            stroke="#000000" 
+            stroke-width="1.5" 
+            stroke-linejoin="round"/>
+      <circle cx="0" cy="0" r="1.5" fill="#5B4BE0"/>
+    </g>
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#22D3EE" stroke-width="1.5" opacity="0.4"/>
+  </g>
+
+</svg>
+
     </div>
   </div>
 
   <script>
     const rig = document.getElementById('camera-rig');
 
-    // Deterministic seek function for frame-by-frame rendering
-    window.seekTime = function(t, duration = 7.0) {
+    // Smooth subtle camera drift tied to the 5.0s cycle
+    window.seekTime = function(t, duration = 5.0) {
       const progress = (t % duration) / duration;
       
-      // Calculate dynamic camera push-in:
-      // 0.0 -> 0.2: 1.0x
-      // 0.2 -> 0.35: push in from 1.0x to 1.12x
-      // 0.35 -> 0.8: hold at 1.16x with micro Lissajous drift
-      // 0.8 -> 0.95: smooth pull back to 1.0x
       let scale = 1.0;
       let tx = 0;
       let ty = 0;
 
-      if (progress < 0.2) {
+      if (progress < 0.08) {
         scale = 1.0;
-      } else if (progress < 0.35) {
-        const ease = (progress - 0.2) / 0.15;
-        // smooth cubic ease
+      } else if (progress < 0.36) {
+        const ease = (progress - 0.08) / 0.28;
         const f = ease * ease * (3 - 2 * ease);
-        scale = 1.0 + f * 0.14;
-        tx = -f * 30;
-        ty = -f * 40;
-      } else if (progress < 0.8) {
-        const f = (progress - 0.35) / 0.45;
-        scale = 1.14 + Math.sin(f * Math.PI) * 0.02;
-        tx = -30 - Math.sin(f * 2) * 5;
-        ty = -40;
-      } else if (progress < 0.95) {
-        const ease = (progress - 0.8) / 0.15;
+        scale = 1.0 + f * 0.03;
+        tx = -f * 12;
+        ty = -f * 8;
+      } else if (progress < 0.76) {
+        scale = 1.03;
+        tx = -12;
+        ty = -8;
+      } else if (progress < 0.92) {
+        const ease = (progress - 0.76) / 0.16;
         const f = 1 - (ease * ease * (3 - 2 * ease));
-        scale = 1.0 + f * 0.14;
-        tx = -f * 30;
-        ty = -f * 40;
+        scale = 1.0 + f * 0.03;
+        tx = -f * 12;
+        ty = -f * 8;
       } else {
         scale = 1.0;
+        tx = 0;
+        ty = 0;
       }
 
       rig.style.transform = `scale(${scale}) translate(${tx}px, ${ty}px)`;
     };
+
+    // Synchronize Camera Rig in lockstep with CSS animation clock
+    let startTimestamp = null;
+    function loop(timestamp) {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = (timestamp - startTimestamp) / 1000;
+      window.seekTime(elapsed, 5.0);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
   </script>
 </body>
 </html>

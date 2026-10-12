@@ -143,9 +143,7 @@ export function HomeScreen() {
   const openTotal = s ? Object.values(s.open_alerts).reduce((a, b) => a + b, 0) : 0;
 
   return (
-    <PageContainer width="home">
-      <PageHeader title="Home" subtitle="Where hidden risk is concentrating right now, and what to do first." />
-
+    <PageContainer width="home" className="space-y-6 pt-2">
       <ExecutiveHookBanner
         onOpenGuide={() => setQuickGuideOpen(true)}
         onOpenCiGate={() => setCiGateOpen(true)}

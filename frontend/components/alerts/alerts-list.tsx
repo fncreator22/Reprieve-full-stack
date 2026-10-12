@@ -60,8 +60,8 @@ export function AlertsList() {
   };
 
   return (
-    <PageContainer>
-      <PageHeader title="Alerts" subtitle="Compound risk Sentinel found in the graph, ranked by severity." />
+    <PageContainer className="space-y-4 py-4">
+      <PageHeader title="Alerts" />
       <div className="sticky top-0 z-10 -mx-1 flex flex-wrap gap-2 bg-canvas/90 px-1 py-2 backdrop-blur">
         {(Object.keys(FILTERS) as FilterKey[]).map((k) => (
           <label key={k} className="text-body-sm">

@@ -117,6 +117,10 @@ class WorkspaceCreate(Base):
     data_mode: Literal["sample", "blank"]
 
 
+class WorkspacePatch(Base):
+    name: Annotated[str, Field(min_length=2, max_length=80)] | None = None
+
+
 class WorkspaceOut(Base):
     id: str
     slug: str

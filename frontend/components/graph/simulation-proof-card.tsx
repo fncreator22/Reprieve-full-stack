@@ -63,29 +63,39 @@ export function SimulationProofCard({
   };
 
   return (
-    <div className="absolute bottom-16 right-4 z-20 w-96 rounded-xl border bg-card p-4 shadow-xl backdrop-blur">
-      <div className="flex items-start justify-between gap-2 border-b pb-3">
-        <div className="flex items-center gap-2">
+    <div className="absolute top-3 right-3 z-30 flex max-h-[calc(100%-1.5rem)] w-80 flex-col rounded-xl border border-border-subtle bg-bg-surface/95 p-3.5 shadow-2xl backdrop-blur sm:w-96 animate-in fade-in slide-in-from-top-2">
+      <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border-subtle pb-2.5">
+        <div className="flex items-center gap-2 min-w-0">
           {avalancheItem ? (
-            <ShieldAlert className="size-5 text-amber-500" />
+            <ShieldAlert className="size-5 shrink-0 text-amber-500" />
           ) : (
-            <AlertTriangle className="size-5 text-rose-500" />
+            <AlertTriangle className="size-5 shrink-0 text-rose-500" />
           )}
-          <div>
-            <h4 className="text-sm font-semibold">
+          <div className="min-w-0">
+            <h4 className="truncate text-sm font-semibold text-text-primary">
               {avalancheItem ? avalancheItem.service_name : "Temporal Expiry Collision"}
             </h4>
-            <span className="font-mono text-xs text-muted-foreground">
+            <span className="truncate block font-mono text-[11px] text-muted-foreground">
               {avalancheItem ? avalancheItem.service_id : collisionItem?.cluster_id}
             </span>
           </div>
         </div>
-        <Button variant="ghost" size="icon" className="size-6" onClick={onClose}>
+        <Button variant="ghost" size="icon" className="size-6 shrink-0 text-muted-foreground hover:text-foreground" onClick={onClose} title="Close proof card">
           <X className="size-3.5" />
         </Button>
       </div>
 
-      <div className="my-3 space-y-3 text-xs">
+      {avalancheItem && (
+        <div className="mt-2 rounded-md border border-danger/20 bg-danger/10 px-2.5 py-1.5 text-[11px] text-danger flex items-center justify-between shrink-0">
+          <span className="font-semibold flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-danger animate-ping" />
+            30-Day Cascade Outage Active
+          </span>
+          <span className="font-mono text-[10px] uppercase font-bold opacity-80">Simulation</span>
+        </div>
+      )}
+
+      <div className="my-2 flex-1 space-y-2.5 overflow-y-auto pr-1 text-xs">
         {avalancheItem && (
           <>
             <div className="flex items-center justify-between">
@@ -186,7 +196,7 @@ export function SimulationProofCard({
         )}
       </div>
 
-      <div className="border-t pt-2.5 space-y-1.5">
+      <div className="shrink-0 border-t border-border-subtle pt-2.5 space-y-1.5">
         <Button
           size="sm"
           variant="outline"

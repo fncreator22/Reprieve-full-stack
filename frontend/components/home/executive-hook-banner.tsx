@@ -62,27 +62,27 @@ export function ExecutiveHookBanner({
   }
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#0c0d10] p-4 shadow-sm transition-all sm:p-5">
+    <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-surface-elevated p-4 shadow-sm transition-all sm:p-5 dark:border-white/[0.08] dark:bg-[#0c0d10]">
       <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         {/* Left column: Plain English Elevator Pitch & Problem Translation */}
         <div className="max-w-2xl space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-zinc-300">
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-border-subtle bg-surface-subtle px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-text-secondary">
               Pre-Merge Risk Engine
             </span>
-            <span className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-zinc-400">
+            <span className="inline-flex items-center gap-1 rounded-md border border-border-subtle bg-surface-subtle px-2.5 py-0.5 text-[11px] font-mono uppercase tracking-[0.12em] text-text-muted">
               Continuous Governance
             </span>
           </div>
 
           <h2 className="text-h3 font-display font-semibold tracking-tight text-text-primary">
             Jira tracks what you plan to build.{" "}
-            <span className="text-brand">Reprieve tracks the shortcuts</span> your team took to ship on time.
+            <span className="text-brand font-bold">Reprieve tracks the shortcuts</span> your team took to ship on time.
           </h2>
 
           <p className="text-body-sm text-text-secondary leading-relaxed">
-            Temporary waivers (<code className="rounded bg-sunken px-1 font-mono text-caption text-text-primary">#nosec</code>,{" "}
-            <code className="rounded bg-sunken px-1 font-mono text-caption text-text-primary">@skip</code>, unmanaged feature flags) 
+            Temporary waivers (<code className="rounded border border-border-subtle bg-sunken px-1 font-mono text-caption text-text-primary">#nosec</code>,{" "}
+            <code className="rounded border border-border-subtle bg-sunken px-1 font-mono text-caption text-text-primary">@skip</code>, unmanaged feature flags) 
             expire invisibly and cascade through microservices. Reprieve catches them across the dependency graph before they become an emergency.
           </p>
         </div>
@@ -90,7 +90,7 @@ export function ExecutiveHookBanner({
         {/* Right column: Business Impact Metrics & 1-Click Simulation CTA */}
         <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-3 shrink-0">
           {/* Dollar Risk & Downstream Tier */}
-          <div className="rounded-lg border border-border-subtle bg-surface/80 p-3 backdrop-blur sm:w-64 space-y-1.5">
+          <div className="rounded-lg border border-border-subtle bg-surface-subtle p-3 backdrop-blur sm:w-64 space-y-1.5 dark:bg-white/[0.04]">
             <div className="flex items-center justify-between text-caption font-medium text-text-muted">
               <span className="flex items-center gap-1">
                 <DollarSign className="size-3.5 text-danger" />

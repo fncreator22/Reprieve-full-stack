@@ -29,6 +29,7 @@ from app.models.api import (
     Role,
     WorkspaceCreate,
     WorkspaceOut,
+    WorkspacePatch,
 )
 from app.services import events, sentinel, workspaces
 from app.services.audit import audit
@@ -158,6 +159,16 @@ async def list_workspaces(user: CurrentUser = Depends(current_user)) -> list[dic
 
 @router.get("/workspaces/{ws_id}", response_model=WorkspaceOut)
 async def get_workspace(ctx: WorkspaceContext = Depends(any_status)) -> dict[str, Any]:
+    return workspace_out(ctx.workspace, ctx.role.value, ctx.person_id)
+
+
+@router.patch("/workspaces/{ws_id}", response_model=WorkspaceOut)
+async def patch_workspace(
+    body: WorkspacePatch, ctx: WorkspaceContext = Depends(admin)
+) -> dict[str, Any]:
+    if body.name is not None:
+        await workspaces.set_fields(ctx.platform, ctx.ws_id, name=body.name)
+        ctx.workspace["name"] = body.name
     return workspace_out(ctx.workspace, ctx.role.value, ctx.person_id)
 
 

@@ -135,20 +135,47 @@ export function GraphExplorer() {
 
   const handleSimulateOutage = () => {
     setHorizonDays(30);
-    setParam("focus", "svc_payments_gateway");
-    toast.error("🚨 30-Day Cascade Outage: payments-gateway bypass triggers failure across 4 downstream services!", {
-      duration: 6000,
+    const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
+    const cascadePath = avItem?.proof?.nodes?.length
+      ? avItem.proof.nodes
+      : ["svc_payments_gateway", "svc_checkout_api", "svc_mobile_api"];
+
+    const next = new URLSearchParams(params.toString());
+    next.set("focus", "svc_payments_gateway");
+    next.set("path", cascadePath.join(","));
+    next.set("horizon", "30");
+    router.replace(`${pathname}?${next}`, { scroll: false });
+
+    if (avItem) {
+      setSelectedProofNode({ avalancheItem: avItem, collisionItem: null });
+    }
+
+    toast.error("🚨 30-Day Cascade Outage Active", {
+      description: "payments-gateway exception expires at +30d, triggering cascading failures across 4 downstream services. Failure path highlighted on canvas.",
+      duration: 7000,
     });
   };
 
   useEffect(() => {
     if (params.get("sim") === "1" || params.get("horizon") === "30") {
       setHorizonDays(30);
-      if (!focus && data.nodes.some((n) => n.id === "svc_payments_gateway")) {
-        setParam("focus", "svc_payments_gateway");
+      const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
+      const cascadePath = avItem?.proof?.nodes?.length
+        ? avItem.proof.nodes
+        : ["svc_payments_gateway", "svc_checkout_api", "svc_mobile_api"];
+
+      if (!params.get("path")) {
+        const next = new URLSearchParams(params.toString());
+        next.set("focus", "svc_payments_gateway");
+        next.set("path", cascadePath.join(","));
+        router.replace(`${pathname}?${next}`, { scroll: false });
+      }
+
+      if (avItem && !selectedProofNode) {
+        setSelectedProofNode({ avalancheItem: avItem, collisionItem: null });
       }
     }
-  }, [params, data.nodes, focus]);
+  }, [params, forecast.data, selectedProofNode, pathname, router]);
 
   useEffect(() => {
     if (horizonDays === 30 && focus === "svc_payments_gateway" && forecast.data && !selectedProofNode) {
@@ -161,7 +188,7 @@ export function GraphExplorer() {
   }, [horizonDays, focus, forecast.data, selectedProofNode]);
 
   return (
-    <div className="flex h-[calc(100dvh-8.5rem)] flex-col">
+    <div className="flex h-[calc(100dvh-7.5rem)] min-h-[520px] flex-col">
       <div className="flex flex-wrap items-center gap-2 border-b border-border-subtle px-4 py-2">
         <h1 className="mr-2 font-display text-h2 font-semibold">Graph</h1>
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="Node types">
@@ -295,7 +322,7 @@ export function GraphExplorer() {
         <GraphList graph={graph.data} onOpen={open} pathSet={pathSet} />
       ) : (
         <div ref={box} className="relative flex-1 overflow-hidden" aria-label={`Graph of ${data.nodes.length} nodes. Use the List view for a text version.`} role="img">
-          <div className="absolute top-3 left-3 z-10 w-[calc(100%-1.5rem)] max-w-sm sm:max-w-md pointer-events-auto">
+          <div className="absolute top-3 left-3 z-10 w-[calc(100%-1.5rem)] max-w-md sm:max-w-lg lg:max-w-xl pointer-events-auto">
             <TemporalSlider
               horizonDays={horizonDays}
               onHorizonChange={setHorizonDays}
