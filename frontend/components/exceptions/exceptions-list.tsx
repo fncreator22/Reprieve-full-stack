@@ -48,9 +48,13 @@ export function ExceptionsList() {
     router.replace(`${pathname}?${next}`, { scroll: false });
   };
   const select = (k: string, options: Record<string, string>, label: string) => (
-    <label className="text-body-sm">
+    <label className="relative text-body-sm">
       <span className="sr-only">{label}</span>
-      <select value={filters[k as keyof typeof filters]} onChange={(e) => set(k, e.target.value)} className="h-9 rounded-md border border-border-strong bg-surface px-2.5">
+      <select
+        value={filters[k as keyof typeof filters]}
+        onChange={(e) => set(k, e.target.value)}
+        className="h-9 rounded-md border border-border-subtle bg-surface px-3 py-1.5 text-body-sm text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 cursor-pointer"
+      >
         {Object.entries(options).map(([v, l]) => (
           <option key={v} value={v}>
             {l}
@@ -60,6 +64,10 @@ export function ExceptionsList() {
     </label>
   );
 
+  const hasActiveFilters = Boolean(
+    filters.q || filters.effective_status || filters.kind || filters.severity || filters.expiring_within_days
+  );
+
   return (
     <PageContainer>
       <PageHeader
@@ -67,14 +75,14 @@ export function ExceptionsList() {
         subtitle="Every temporary promise: who owns it, what it waives, where it applies, when it ends."
         actions={
           <div className="flex gap-2">
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" size="sm">
               <Link href={`/w/${slug}/exceptions/drafts`}>
-                <ClipboardPaste aria-hidden /> Paste text
+                <ClipboardPaste aria-hidden className="size-4" /> Paste text
               </Link>
             </Button>
-            <Button asChild>
+            <Button asChild size="sm">
               <Link href={`/w/${slug}/exceptions/new`}>
-                <Plus aria-hidden /> New exception
+                <Plus aria-hidden className="size-4" /> New exception
               </Link>
             </Button>
           </div>
@@ -89,7 +97,7 @@ export function ExceptionsList() {
             onKeyDown={(e) => e.key === "Enter" && set("q", e.currentTarget.value.trim())}
             onBlur={(e) => set("q", e.currentTarget.value.trim())}
             placeholder="Search title or ID"
-            className="h-9 w-56 rounded-md border border-border-strong bg-surface pl-8 pr-2"
+            className="h-9 w-56 rounded-md border border-border-subtle bg-surface pl-8 pr-3 text-body-sm text-text-primary placeholder:text-text-muted transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50"
           />
         </label>
         {select("effective_status", STATUS, "Status")}
@@ -98,6 +106,19 @@ export function ExceptionsList() {
         {filters.expiring_within_days && (
           <Button variant="ghost" size="sm" onClick={() => set("expiring_within_days", "")}>
             Expiring within {filters.expiring_within_days} days ✕
+          </Button>
+        )}
+        {hasActiveFilters && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              const next = new URLSearchParams();
+              router.replace(`${pathname}?${next}`, { scroll: false });
+            }}
+            className="h-9 text-text-muted hover:text-text-primary text-caption"
+          >
+            Clear filters
           </Button>
         )}
       </div>

@@ -59,7 +59,7 @@ export function SimulationProofCard({
     a.download = `reprieve-proof-packet-${targetId}-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    toast.success("Audit Proof Packet exported! Ready for SOC2 & Risk Review.");
+    toast.success("Audit proof packet exported.");
   };
 
   return (
@@ -87,11 +87,11 @@ export function SimulationProofCard({
 
       {avalancheItem && (
         <div className="mt-2 rounded-md border border-danger/20 bg-danger/10 px-2.5 py-1.5 text-[11px] text-danger flex items-center justify-between shrink-0">
-          <span className="font-semibold flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-danger animate-ping" />
-            30-Day Cascade Outage Active
+          <span className="font-medium flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-danger" />
+            30-Day Cascade Forecast Active
           </span>
-          <span className="font-mono text-[10px] uppercase font-bold opacity-80">Simulation</span>
+          <span className="font-mono text-[10px] uppercase font-semibold opacity-80">Simulation</span>
         </div>
       )}
 

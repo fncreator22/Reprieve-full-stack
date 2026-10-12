@@ -59,9 +59,9 @@ export function TemporalSlider({
             +{horizonDays}d
           </Badge>
           {isLoading && (
-            <span className="inline-flex items-center gap-1 text-[11px] text-brand font-medium animate-pulse shrink-0">
-              <span className="size-1.5 rounded-full bg-brand animate-ping" />
-              Simulating...
+            <span className="inline-flex items-center gap-1.5 text-[11px] text-brand font-medium shrink-0">
+              <span className="size-1.5 rounded-full bg-brand" />
+              Simulating…
             </span>
           )}
         </div>
@@ -87,7 +87,7 @@ export function TemporalSlider({
             ))}
           </div>
           <Button
-            variant={isPlaying ? "destructive" : "outline"}
+            variant={isPlaying ? "default" : "outline"}
             size="icon"
             className="size-6 text-foreground shadow-xs shrink-0"
             onClick={() => setIsPlaying((p) => !p)}

@@ -81,11 +81,11 @@ export function ReviewsInbox() {
       ) : items.length === 0 ? (
         <EmptyState
           icon={ClipboardCheck}
-          title={tab === "mine" ? "Nothing waiting for you" : "No reviews here"}
-          description="Open an alert and choose Propose review to route a decision to its owner."
+          title={tab === "mine" ? "No reviews pending your approval" : "No reviews found"}
+          description="Open an alert and select Propose Review to route an architectural exception decision."
           action={
-            <Button asChild variant="secondary">
-              <Link href={`/w/${slug}/alerts`}>Go to alerts</Link>
+            <Button asChild variant="secondary" size="sm">
+              <Link href={`/w/${slug}/alerts`}>View active alerts</Link>
             </Button>
           }
         />

@@ -150,9 +150,9 @@ export function GraphExplorer() {
       setSelectedProofNode({ avalancheItem: avItem, collisionItem: null });
     }
 
-    toast.error("🚨 30-Day Cascade Outage Active", {
-      description: "payments-gateway exception expires at +30d, triggering cascading failures across 4 downstream services. Failure path highlighted on canvas.",
-      duration: 7000,
+    toast.info("30-Day Cascade Horizon Active", {
+      description: "payments-gateway exception expires at +30d. Cascading dependency path highlighted on canvas.",
+      duration: 5000,
     });
   };
 
@@ -214,13 +214,13 @@ export function GraphExplorer() {
           {data.nodes.some((n) => n.id === "svc_payments_gateway") && (
             <Button
               type="button"
-              variant="destructive"
+              variant="default"
               size="sm"
               onClick={handleSimulateOutage}
-              className="gap-1.5 shadow-xs font-semibold text-caption h-8"
+              className="gap-1.5 font-medium text-caption h-8"
             >
               <Play className="size-3 fill-current" />
-              <span>🚨 Simulate Outage (+30d)</span>
+              <span>Simulate 30d horizon</span>
             </Button>
           )}
           {(focus || pathActive) && (

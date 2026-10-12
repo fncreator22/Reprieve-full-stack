@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Check, Copy, ExternalLink, Mail, Send, ShieldCheck, Terminal, Webhook } from "lucide-react";
+import { Check, Copy, ExternalLink, Mail, Send, Terminal, Webhook } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -108,12 +108,12 @@ export function IntegrationsTab() {
   const copyToClipboard = (text: string, id: string) => {
     void navigator.clipboard.writeText(text);
     setCopiedKey(id);
-    toast.success("Copied to clipboard!");
+    toast.success("Copied to clipboard.");
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
   if (isLoading || !data) {
-    return <div className="p-8 text-center text-text-muted font-mono text-body-sm">Loading integrations...</div>;
+    return <div className="p-8 text-center text-text-muted font-mono text-body-sm">Loading integrations…</div>;
   }
 
   const curSlackEnabled = slackEnabled ?? data.slack.enabled;
@@ -130,18 +130,18 @@ export function IntegrationsTab() {
   return (
     <div className="space-y-6">
       {/* 1. Slack / Discord Webhook Plugin */}
-      <section className="card-e1 p-5 rounded-none border border-border-subtle bg-surface space-y-4">
+      <section className="card-e1 p-5 rounded-xl border border-border-subtle bg-surface space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-none border border-white/10 bg-[#4A154B]/20 text-[#ECB22E]">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-[#4A154B]/20 text-[#ECB22E]">
               <SlackIcon className="size-5" />
             </div>
             <div>
               <h3 className="font-sans text-body font-semibold flex items-center gap-2">
                 Slack / Discord Operational Alerts
                 {curSlackEnabled && (
-                  <span className="rounded-none bg-emerald-500/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
-                    ACTIVE
+                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] font-medium text-emerald-400 border border-emerald-500/20">
+                    Active
                   </span>
                 )}
               </h3>
@@ -165,7 +165,7 @@ export function IntegrationsTab() {
               value={curSlackUrl}
               onChange={(e) => setSlackUrl(e.target.value)}
               placeholder="https://hooks.slack.com/services/T00/B00/XXXX"
-              className="font-mono text-body-sm rounded-none"
+              className="font-mono text-body-sm rounded-md"
               disabled={!isAdmin}
             />
           </label>
@@ -175,7 +175,7 @@ export function IntegrationsTab() {
               value={curSlackChannel}
               onChange={(e) => setSlackChannel(e.target.value)}
               placeholder="#sre-alerts"
-              className="font-mono text-body-sm rounded-none"
+              className="font-mono text-body-sm rounded-md"
               disabled={!isAdmin}
             />
           </label>
@@ -189,7 +189,6 @@ export function IntegrationsTab() {
             <Button
               variant="secondary"
               size="sm"
-              className="rounded-none font-mono text-body-sm"
               disabled={!curSlackUrl || testMutation.isPending}
               onClick={() =>
                 testMutation.mutate({
@@ -199,11 +198,10 @@ export function IntegrationsTab() {
               }
             >
               <Send className="mr-1.5 size-3.5" />
-              Send Test Alert
+              Send test alert
             </Button>
             <Button
               size="sm"
-              className="rounded-none font-mono text-body-sm bg-brand text-text-on-brand hover:bg-brand/90"
               disabled={!isAdmin || saveMutation.isPending}
               onClick={() =>
                 saveMutation.mutate({
@@ -216,33 +214,33 @@ export function IntegrationsTab() {
                 })
               }
             >
-              Save Slack Config
+              Save Slack config
             </Button>
           </div>
         </div>
       </section>
 
       {/* 2. Maileroo Transactional Email Plugin */}
-      <section className="card-e1 p-5 rounded-none border border-border-subtle bg-surface space-y-4">
+      <section className="card-e1 p-5 rounded-xl border border-border-subtle bg-surface space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-none border border-white/10 bg-brand/10 text-brand">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-brand/10 text-brand">
               <Mail className="size-5" />
             </div>
             <div>
               <h3 className="font-sans text-body font-semibold flex items-center gap-2">
                 Transactional Email Bulletins (Maileroo)
                 {curEmailEnabled && (
-                  <span className="rounded-none bg-emerald-500/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
-                    ACTIVE
+                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] font-medium text-emerald-400 border border-emerald-500/20">
+                    Active
                   </span>
                 )}
-                <span className="rounded-none bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand border border-brand/20">
-                  3,000 FREE / MO
+                <span className="rounded-md bg-brand/10 px-2 py-0.5 font-mono text-[11px] font-medium text-brand border border-brand/20">
+                  3,000 / mo
                 </span>
               </h3>
               <p className="text-body-sm text-text-secondary">
-                Dispatch urgent risk bulletins to security teams and exception owners upon policy expiry via Maileroo.
+                Dispatch urgent risk bulletins to security teams and exception owners upon policy expiry.
               </p>
             </div>
           </div>
@@ -256,13 +254,13 @@ export function IntegrationsTab() {
 
         {/* Maileroo tier specs */}
         <div className="grid gap-2 sm:grid-cols-2 text-caption">
-          <div className="p-2 border border-border-subtle bg-surface-raised font-mono text-[11px] text-text-secondary flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-emerald-400" />
-            <span><strong>Free Tier:</strong> 3,000 emails/mo &middot; 2 custom domains &middot; Webhook tracking</span>
+          <div className="p-2.5 rounded-lg border border-border-subtle bg-surface-raised font-mono text-[11px] text-text-secondary flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-emerald-400 shrink-0" />
+            <span><strong>Free Tier:</strong> 3,000 emails/mo · 2 custom domains · Webhooks</span>
           </div>
-          <div className="p-2 border border-border-subtle bg-surface-raised font-mono text-[11px] text-text-secondary flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-brand" />
-            <span><strong>Production:</strong> $10/mo for 25k emails &middot; 0 surprise overages &middot; HTTP REST &amp; SMTP</span>
+          <div className="p-2.5 rounded-lg border border-border-subtle bg-surface-raised font-mono text-[11px] text-text-secondary flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-brand shrink-0" />
+            <span><strong>Production:</strong> $10/mo for 25k emails · HTTP REST &amp; SMTP</span>
           </div>
         </div>
 
@@ -273,7 +271,7 @@ export function IntegrationsTab() {
               value={curEmailRecipients}
               onChange={(e) => setEmailRecipients(e.target.value)}
               placeholder="sre-leads@company.com, ciso-office@company.com"
-              className="font-mono text-body-sm rounded-none"
+              className="font-mono text-body-sm rounded-md"
               disabled={!isAdmin}
             />
           </label>
@@ -284,9 +282,9 @@ export function IntegrationsTab() {
               checked={curEmailDigest}
               disabled={!isAdmin}
               onChange={(e) => setEmailDigest(e.target.checked)}
-              className="rounded-none border-border-subtle accent-brand size-4"
+              className="rounded border-border-subtle accent-brand size-4 cursor-pointer"
             />
-            <label htmlFor="weekly_digest" className="text-body-sm text-text-secondary select-none">
+            <label htmlFor="weekly_digest" className="text-body-sm text-text-secondary select-none cursor-pointer">
               Send weekly Monday morning exception debt digest &amp; expiring waiver bulletin.
             </label>
           </div>
@@ -294,13 +292,12 @@ export function IntegrationsTab() {
 
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
           <p className="text-caption text-text-muted">
-            Powered by <a href="https://maileroo.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-text-primary">Maileroo</a> HTTP REST &amp; SMTP engine. Sandbox testing ready.
+            Powered by <a href="https://maileroo.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-text-primary inline-flex items-center gap-0.5">Maileroo <ExternalLink className="size-3 inline" /></a> HTTP REST &amp; SMTP engine.
           </p>
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
-              className="rounded-none font-mono text-body-sm"
               disabled={testMutation.isPending}
               onClick={() =>
                 testMutation.mutate({
@@ -312,11 +309,10 @@ export function IntegrationsTab() {
               }
             >
               <Send className="mr-1.5 size-3.5" />
-              Send Test Email
+              Send test email
             </Button>
             <Button
               size="sm"
-              className="rounded-none font-mono text-body-sm bg-brand text-text-on-brand hover:bg-brand/90"
               disabled={!isAdmin || saveMutation.isPending}
               onClick={() =>
                 saveMutation.mutate({
@@ -329,17 +325,17 @@ export function IntegrationsTab() {
                 })
               }
             >
-              Save Maileroo Config
+              Save email config
             </Button>
           </div>
         </div>
       </section>
 
       {/* 3. GitHub CI PR Gate Plugin */}
-      <section className="card-e1 p-5 rounded-none border border-border-subtle bg-surface space-y-4">
+      <section className="card-e1 p-5 rounded-xl border border-border-subtle bg-surface space-y-4">
         <div className="flex items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-none border border-white/10 bg-white/5 text-white">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white">
               <GithubIcon className="size-5" />
             </div>
             <div>
@@ -351,14 +347,14 @@ export function IntegrationsTab() {
               </p>
             </div>
           </div>
-          <span className="rounded-none bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[10px] font-bold text-brand">
-            ZERO-LOGIN READY
+          <span className="rounded-md bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[11px] font-medium text-brand">
+            Pre-Merge CI
           </span>
         </div>
 
         <div className="space-y-2">
           <span className="text-body-sm font-medium text-text-primary">Workflow Configuration: <code className="text-brand font-mono">.github/workflows/reprieve.yml</code></span>
-          <div className="relative rounded-none border border-white/10 bg-[#090a0f] p-3">
+          <div className="relative rounded-lg border border-border-subtle bg-[#090a0f] p-3.5">
             <pre className="font-mono text-caption text-zinc-300 overflow-x-auto leading-relaxed">
 {`name: Reprieve Pre-Merge Security Gate
 on: [pull_request]
@@ -375,7 +371,7 @@ jobs:
             <Button
               variant="ghost"
               size="sm"
-              className="absolute top-2 right-2 rounded-none h-7 px-2 font-mono text-[11px] text-zinc-300 hover:text-white"
+              className="absolute top-2.5 right-2.5 h-7 px-2 font-mono text-[11px] text-zinc-300 hover:text-white"
               onClick={() =>
                 copyToClipboard(
                   `name: Reprieve Pre-Merge Security Gate\non: [pull_request]\njobs:\n  graph-governance:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Scan Code Waivers & Dependencies\n        run: npx reprieve scan --strict --workspace ${wsId}\n        env:\n          REPRIEVE_TOKEN: \${{ secrets.REPRIEVE_API_KEY }}`,
@@ -391,18 +387,18 @@ jobs:
       </section>
 
       {/* 4. Enterprise Signed Webhooks (Svix) */}
-      <section className="card-e1 p-5 rounded-none border border-border-subtle bg-surface space-y-4">
+      <section className="card-e1 p-5 rounded-xl border border-border-subtle bg-surface space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-none border border-white/10 bg-amber-500/10 text-amber-400">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-amber-500/10 text-amber-400">
               <Webhook className="size-5" />
             </div>
             <div>
               <h3 className="font-sans text-body font-semibold flex items-center gap-2">
                 Enterprise Outgoing Webhooks (Svix HMAC)
                 {curWebhookEnabled && (
-                  <span className="rounded-none bg-emerald-500/10 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
-                    ACTIVE
+                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] font-medium text-emerald-400 border border-emerald-500/20">
+                    Active
                   </span>
                 )}
               </h3>
@@ -426,11 +422,11 @@ jobs:
               value={curWebhookUrl}
               onChange={(e) => setWebhookUrl(e.target.value)}
               placeholder="https://siem.corp.internal/api/v1/reprieve-webhooks"
-              className="font-mono text-body-sm rounded-none"
+              className="font-mono text-body-sm rounded-md"
               disabled={!isAdmin}
             />
           </label>
-          <div className="flex flex-wrap items-center justify-between gap-2 rounded-none border border-white/10 bg-[#090a0f] p-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border-subtle bg-[#090a0f] p-3">
             <div className="space-y-0.5">
               <span className="font-mono text-[11px] uppercase text-text-muted">Webhook Signing Secret</span>
               <p className="font-mono text-[12px] text-zinc-300 font-semibold">{data.webhooks.secret}</p>
@@ -438,11 +434,11 @@ jobs:
             <Button
               variant="outline"
               size="sm"
-              className="rounded-none h-7 font-mono text-[11px]"
+              className="h-7 font-mono text-[11px]"
               onClick={() => copyToClipboard(data.webhooks.secret, "wh-secret")}
             >
               {copiedKey === "wh-secret" ? <Check className="size-3 text-emerald-400 mr-1" /> : <Copy className="size-3 mr-1" />}
-              {copiedKey === "wh-secret" ? "Copied" : "Copy Secret"}
+              {copiedKey === "wh-secret" ? "Copied" : "Copy secret"}
             </Button>
           </div>
         </div>
@@ -455,7 +451,6 @@ jobs:
             <Button
               variant="secondary"
               size="sm"
-              className="rounded-none font-mono text-body-sm"
               disabled={!curWebhookUrl || testMutation.isPending}
               onClick={() =>
                 testMutation.mutate({
@@ -465,11 +460,10 @@ jobs:
               }
             >
               <Send className="mr-1.5 size-3.5" />
-              Test Handshake
+              Test handshake
             </Button>
             <Button
               size="sm"
-              className="rounded-none font-mono text-body-sm bg-brand text-text-on-brand hover:bg-brand/90"
               disabled={!isAdmin || saveMutation.isPending}
               onClick={() =>
                 saveMutation.mutate({
@@ -481,17 +475,17 @@ jobs:
                 })
               }
             >
-              Save Webhook Config
+              Save webhook config
             </Button>
           </div>
         </div>
       </section>
 
       {/* 5. Model Context Protocol (MCP) IDE Plugin */}
-      <section className="card-e1 p-5 rounded-none border border-border-subtle bg-surface space-y-4">
+      <section className="card-e1 p-5 rounded-xl border border-border-subtle bg-surface space-y-4">
         <div className="flex items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-none border border-brand/30 bg-brand/10 text-brand">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-brand/30 bg-brand/10 text-brand">
               <Terminal className="size-5" />
             </div>
             <div>
@@ -503,8 +497,8 @@ jobs:
               </p>
             </div>
           </div>
-          <span className="rounded-none bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[10px] font-bold text-brand">
-            14 TOOLS READY
+          <span className="rounded-md bg-brand/10 border border-brand/30 px-2 py-0.5 font-mono text-[11px] font-medium text-brand">
+            14 Tools Ready
           </span>
         </div>
 
@@ -512,7 +506,7 @@ jobs:
           <span className="text-body-sm font-medium text-text-primary">
             Add to <code className="text-brand font-mono">claude_desktop_config.json</code>:
           </span>
-          <div className="relative rounded-none border border-white/10 bg-[#090a0f] p-3">
+          <div className="relative rounded-lg border border-border-subtle bg-[#090a0f] p-3.5">
             <pre className="font-mono text-caption text-zinc-300 overflow-x-auto leading-relaxed">
 {`{
   "mcpServers": {
@@ -526,7 +520,7 @@ jobs:
             <Button
               variant="ghost"
               size="sm"
-              className="absolute top-2 right-2 rounded-none h-7 px-2 font-mono text-[11px] text-zinc-300 hover:text-white"
+              className="absolute top-2.5 right-2.5 h-7 px-2 font-mono text-[11px] text-zinc-300 hover:text-white"
               onClick={() =>
                 copyToClipboard(
                   `{\n  "mcpServers": {\n    "reprieve": {\n      "command": "npx",\n      "args": ["-y", "reprieve-mcp@latest", "--workspace", "${wsId}"]\n    }\n  }\n}`,
@@ -535,7 +529,7 @@ jobs:
               }
             >
               {copiedKey === "mcp-config" ? <Check className="size-3 text-emerald-400 mr-1" /> : <Copy className="size-3 mr-1" />}
-              {copiedKey === "mcp-config" ? "Copied" : "Copy Config"}
+              {copiedKey === "mcp-config" ? "Copied" : "Copy config"}
             </Button>
           </div>
         </div>

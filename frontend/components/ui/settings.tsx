@@ -340,10 +340,10 @@ export function SettingsWorkspaceHub({
    return (
       <div className="w-full text-text-primary transition-colors duration-300">
          {/* Top Banner with Reprieve Logo */}
-         <div className="border border-border-subtle bg-surface/60 p-6 mb-8">
+         <div className="rounded-xl border border-border-subtle bg-surface/60 p-6 mb-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                <div className="flex items-start gap-3.5">
-                  <div className="p-2 border border-border-subtle bg-raised shrink-0">
+                  <div className="p-2 rounded-lg border border-border-subtle bg-raised shrink-0">
                      <LogoMark variant="aurora" className="size-8" />
                   </div>
                   <div>
@@ -565,15 +565,15 @@ export function SettingsWorkspaceHub({
                {REPRIEVE_FEATURES.map((feature) => (
                   <div
                      key={feature.id}
-                     className="border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors"
+                     className="rounded-lg border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors"
                   >
                      <div>
                         <div className="flex items-start justify-between gap-3 mb-2.5">
-                           <div className="p-2 border border-border-subtle bg-raised">
+                           <div className="p-2 rounded-md border border-border-subtle bg-raised">
                               {feature.icon}
                            </div>
                            {feature.badge && (
-                              <span className="font-mono text-[10px] uppercase text-text-secondary border border-border-subtle px-1.5 py-0.5 bg-surface-sunken">
+                              <span className="font-mono text-[10px] uppercase text-text-secondary border border-border-subtle px-1.5 py-0.5 rounded bg-surface-sunken">
                                  {feature.badge}
                               </span>
                            )}
@@ -633,12 +633,12 @@ export function SettingsWorkspaceHub({
                {REPRIEVE_INTEGRATIONS.map((integration) => (
                   <div
                      key={integration.id}
-                     className="border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors"
+                     className="rounded-lg border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors"
                   >
                      <div>
                         <div className="flex items-center justify-between gap-2 mb-2">
                            <div className="flex items-center gap-2">
-                              <div className="p-1.5 border border-border-subtle bg-raised">
+                              <div className="p-1.5 rounded-md border border-border-subtle bg-raised">
                                  {integration.icon}
                               </div>
                               <span className="font-medium text-body-sm text-text-primary">
@@ -647,7 +647,7 @@ export function SettingsWorkspaceHub({
                            </div>
                            <span
                               className={cn(
-                                 'font-mono text-[10px] uppercase px-1.5 py-0.5 border',
+                                 'font-mono text-[10px] uppercase px-1.5 py-0.5 border rounded',
                                  integration.status === 'active'
                                     ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/10'
                                     : 'border-brand/30 text-brand bg-brand-soft'
@@ -701,14 +701,14 @@ export function SettingsWorkspaceHub({
                   <div
                      key={guide.id}
                      onClick={() => setActiveDialog(guide.dialogKey)}
-                     className="group border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors cursor-pointer"
+                     className="group rounded-lg border border-border-subtle bg-surface p-4 flex flex-col justify-between hover:border-brand/40 transition-colors cursor-pointer"
                   >
                      <div>
                         <div className="flex items-center justify-between gap-2 mb-2.5">
-                           <div className="p-1.5 border border-border-subtle bg-raised">
+                           <div className="p-1.5 rounded-md border border-border-subtle bg-raised">
                               {guide.icon}
                            </div>
-                           <span className="font-mono text-[10px] uppercase text-text-muted border border-border-subtle px-1.5 py-0.5">
+                           <span className="font-mono text-[10px] uppercase text-text-muted border border-border-subtle px-1.5 py-0.5 rounded">
                               {guide.tag}
                            </span>
                         </div>

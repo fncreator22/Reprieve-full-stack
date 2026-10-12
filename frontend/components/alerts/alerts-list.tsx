@@ -64,12 +64,12 @@ export function AlertsList() {
       <PageHeader title="Alerts" />
       <div className="sticky top-0 z-10 -mx-1 flex flex-wrap gap-2 bg-canvas/90 px-1 py-2 backdrop-blur">
         {(Object.keys(FILTERS) as FilterKey[]).map((k) => (
-          <label key={k} className="text-body-sm">
+          <label key={k} className="relative text-body-sm">
             <span className="sr-only">{FILTERS[k].label}</span>
             <select
               value={filters[k]}
               onChange={(e) => setFilter(k, e.target.value)}
-              className="h-9 rounded-md border border-border-strong bg-surface px-2.5 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              className="h-9 rounded-md border border-border-subtle bg-surface px-3 py-1.5 text-body-sm text-text-primary transition-colors hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 cursor-pointer"
             >
               {Object.entries(FILTERS[k].options).map(([v, l]) => (
                 <option key={v} value={v}>
@@ -79,6 +79,19 @@ export function AlertsList() {
             </select>
           </label>
         ))}
+        {(filters.severity || filters.rule || filters.status !== "open,acknowledged,snoozed") && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              const next = new URLSearchParams();
+              router.replace(`${pathname}?${next}`, { scroll: false });
+            }}
+            className="h-9 text-text-muted hover:text-text-primary text-caption"
+          >
+            Clear filters
+          </Button>
+        )}
       </div>
 
       {q.isPending ? (
@@ -99,6 +112,20 @@ export function AlertsList() {
           icon={BellRing}
           title={asOf ? `All clear as of ${new Date(asOf * 1000).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" })}` : "All clear"}
           description="Sentinel checks every exception against eight relationship rules after each change. Nothing matches these filters."
+          action={
+            (filters.severity || filters.rule || filters.status !== "open,acknowledged,snoozed") ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const next = new URLSearchParams();
+                  router.replace(`${pathname}?${next}`, { scroll: false });
+                }}
+              >
+                Reset all filters
+              </Button>
+            ) : undefined
+          }
         />
       ) : (
         <ul className="card-e1 divide-y divide-border-subtle overflow-hidden" aria-label="Alerts">

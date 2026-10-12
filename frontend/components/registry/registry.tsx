@@ -49,8 +49,8 @@ function RegistryFrame({ kind, children }: { kind: Kind; children: ReactNode }) 
         subtitle="The org graph Sentinel reasons over: services, people, teams and controls."
         actions={
           ROLE_RANK[role] >= ROLE_RANK.admin && (
-            <Button onClick={() => setAdding(true)}>
-              <Plus aria-hidden /> Add {kind === "people" ? "person" : kind.slice(0, -1)}
+            <Button size="sm" onClick={() => setAdding(true)}>
+              <Plus aria-hidden className="size-4" /> Add {kind === "people" ? "person" : kind.slice(0, -1)}
             </Button>
           )
         }

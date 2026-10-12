@@ -202,11 +202,15 @@ export function HomeScreen() {
                     <span className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <span className="block truncate font-medium">{r.service.label}</span>
-                        {r.score >= 0.7 && (
-                          <span className="shrink-0 rounded bg-danger/10 px-1.5 py-0.2 text-[10px] font-bold text-danger border border-danger/20">
-                            ~$340k/hr risk
+                        {r.service.id === "svc_payments_gateway" ? (
+                          <span className="shrink-0 rounded bg-danger/10 px-1.5 py-0.2 text-[10px] font-semibold text-danger border border-danger/20">
+                            ~$340k/hr exposure
                           </span>
-                        )}
+                        ) : r.score >= 0.7 ? (
+                          <span className="shrink-0 rounded bg-warning/10 px-1.5 py-0.2 text-[10px] font-semibold text-warning border border-warning/20">
+                            High blast
+                          </span>
+                        ) : null}
                       </div>
                       <span className="block truncate text-caption text-text-muted">
                         {r.team?.label ?? "No team"} · {r.active_exceptions} active
