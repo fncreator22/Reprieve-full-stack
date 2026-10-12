@@ -80,7 +80,7 @@ export function CaseStudiesSection() {
     <section
       id="case-studies"
       aria-labelledby="case-studies-heading"
-      className="mx-auto max-w-[1280px] px-4 sm:px-8 py-16 sm:py-24"
+      className="mx-auto max-w-[1280px] px-6 sm:px-10 pt-14 pb-12 sm:pt-20 sm:pb-16"
     >
       {/* Section Header */}
       <div className="max-w-3xl space-y-2 mb-8 text-left">

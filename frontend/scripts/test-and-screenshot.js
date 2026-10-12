@@ -56,7 +56,7 @@ async function testStackingCards() {
   await page.waitForTimeout(300);
 
   // 4. Scroll down to Card 2 (Change Healthcare)
-  await page.evaluate(() => window.scrollBy({ top: 920, behavior: 'instant' }));
+  await page.evaluate(() => window.scrollBy({ top: 380, behavior: 'instant' }));
   await page.waitForTimeout(800);
   console.log('Scroll at Card 2:', await page.evaluate(() => window.scrollY));
   await page.screenshot({
@@ -65,7 +65,7 @@ async function testStackingCards() {
   console.log('Saved case-studies-desktop-card2.png');
 
   // 5. Scroll down to Card 3 (Square / Block)
-  await page.evaluate(() => window.scrollBy({ top: 920, behavior: 'instant' }));
+  await page.evaluate(() => window.scrollBy({ top: 400, behavior: 'instant' }));
   await page.waitForTimeout(800);
   console.log('Scroll at Card 3:', await page.evaluate(() => window.scrollY));
   await page.screenshot({

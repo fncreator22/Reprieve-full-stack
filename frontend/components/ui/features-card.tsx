@@ -103,7 +103,7 @@ export function FeaturesCard() {
     <section
       id="developer-hub"
       aria-labelledby="features-heading"
-      className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10 sm:py-32"
+      className="mx-auto max-w-[1280px] px-6 pt-12 pb-20 sm:px-10 sm:pt-16 sm:pb-32"
     >
       {/* Section Header */}
       <div className="max-w-3xl space-y-4 mb-14 text-left">

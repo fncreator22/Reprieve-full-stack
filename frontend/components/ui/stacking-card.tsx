@@ -68,16 +68,16 @@ export const Card = ({
   return (
     <div
       ref={container}
-      className="h-screen flex items-start justify-center sticky top-16 sm:top-20 lg:top-24 px-3 sm:px-6 pb-12"
+      className="sticky top-20 sm:top-24 lg:top-28 flex items-start justify-center pb-8 sm:pb-12"
     >
       <motion.div
         style={{
           backgroundColor: color,
           scale,
-          top: `${i * 22}px`,
+          top: `${i * 20}px`,
         }}
         className={cn(
-          "flex flex-col relative w-full max-w-[1140px] rounded-none p-4 sm:p-6 lg:p-8 origin-top",
+          "flex flex-col relative w-full rounded-none p-4 sm:p-6 lg:p-8 origin-top",
           "border shadow-2xl backdrop-blur-2xl transition-colors duration-300",
           project?.borderClass || "border-white/10"
         )}
@@ -115,6 +115,23 @@ export const Card = ({
                   </span>
                 </div>
               </div>
+
+              {/* Alarmed Loss / Catastrophe Impact Badge */}
+              {project?.lossFigure && (
+                <div className="flex items-center gap-2">
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1.5 rounded-none px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider shadow-sm",
+                      project.id === "change-healthcare"
+                        ? "border border-amber-500/40 bg-amber-500/10 text-amber-400"
+                        : "border border-red-500/40 bg-red-500/10 text-red-400"
+                    )}
+                  >
+                    <AlertTriangle className="size-3.5 shrink-0" aria-hidden="true" />
+                    <span>{project.lossFigure}</span>
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Card Body: Split Grid */}
