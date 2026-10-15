@@ -25,11 +25,15 @@ prgyn_dump/
 
 # Temporary video renders and frame captures
 *.mp4
+*.aac
 frame_*.png
 pristine_*.png
 sample_*.png
 test_*.png
 verify_*.png
 current_test_*.png
+previews/
+film/
 .hackathon_staging/
 security_audit_sandbox/
+
