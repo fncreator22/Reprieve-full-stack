@@ -1,6 +1,17 @@
-"""Post-deploy smoke (06 T-082). Env: API_URL, INTERNAL_TICK_SECRET, optional SMOKE_TOKEN (a Clerk session JWT).
+"""Post-deploy smoke test suite.
 
-With SMOKE_TOKEN it provisions a sample workspace and walks the critical path: top risk → alert → owner candidates.
+Validates the running Reprieve API health probes and critical traversal paths:
+- Shallow health check (`GET /health`).
+- Deep graph database connectivity check (`GET /internal/health/deep`).
+- Sample workspace automated provisioning & state convergence under 60 seconds.
+- Risk service ranking and top critical failure verification.
+- Rule R2 (Ghost Owner) detection and shortest proof path graph structure.
+- Precedent and candidate owner resolution.
+
+Environment variables:
+- `API_URL`: Base URL of the API server (default: `http://localhost:8000`).
+- `INTERNAL_TICK_SECRET`: Secret header for internal deep health checks.
+- `SMOKE_TOKEN`: Optional Clerk session JWT for full end-to-end workspace walk.
 """
 
 import os

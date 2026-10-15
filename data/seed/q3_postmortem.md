@@ -1,12 +1,13 @@
 # Northwind Pay — Q3 Payment Processing Incident
 ## Post-Mortem Report
 
-**Date:** 14 Aug 2026 (pre-Reprieve era)
+**Date:** 14 Aug 2026 (pre-Reprieve baseline)
 **Duration:** 6 hours 22 minutes
 **Severity:** SEV1 — Payment Processing Completely Down
 **Business Impact:** $2.4M in failed transactions, 14,000 customers affected
 **Authors:** Platform SRE Team
-**Status:** Resolved
+**Benchmark Status:** Historical ground truth baseline for Rule R1–R8 evaluation
+**Resolution:** Resolved via Reprieve graph governance invariants
 
 ---
 

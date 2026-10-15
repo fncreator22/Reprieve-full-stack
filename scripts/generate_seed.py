@@ -1,6 +1,16 @@
-"""Deterministic Northwind Pay sample bundle + ground truth (docs/07-seed-spec.md).
+"""Deterministic Northwind Pay sample bundle and ground truth generator.
 
-Usage: python scripts/generate_seed.py   (writes data/seed/northwind.json and data/ground_truth.json)
+Architecture:
+- Generates 25 microservices, 8 engineering teams, 40 engineers, and 60 policy exceptions.
+- Plants 5 deterministic scenarios:
+  * S1: Checkout Path Multi-Hop Collision (critical cluster of expiring TLS/WAF waivers).
+  * S2: Ghost Owner (orphaned exceptions after engineer departed or changed team).
+  * S3: Shared Single Fallback (multiple critical services depending on 1 fallback engineer).
+  * S4: Renewal Treadmill (exceptions extended >= 3 consecutive cycles).
+  * S5: Quiet Expiry Horizon (sliding window baseline verification).
+
+Usage:
+    python scripts/generate_seed.py  (writes data/seed/northwind.json and data/ground_truth.json)
 """
 
 import json

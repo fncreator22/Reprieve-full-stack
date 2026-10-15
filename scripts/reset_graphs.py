@@ -1,4 +1,9 @@
-"""Drop every graph with the configured GRAPH_PREFIX (default dev_). Local/dev use only."""
+"""Drop every graph with the configured GRAPH_PREFIX (default: dev_).
+
+Development and local testing utility only.
+Safety invariant:
+    Refuses execution if prefix begins with 'prod'.
+"""
 
 import asyncio
 import os

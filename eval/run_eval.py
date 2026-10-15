@@ -1,7 +1,15 @@
-"""Eval harness (06 T-071 & Predictive Company Brain R1-R4):
-Recall on planted scenarios, false positives on control services, score calibration,
-owner-resolution accuracy, rule latency, predictive engine accuracy, and <100ms predictive p95 latency.
-Writes eval/report.md. Run from backend/: `uv run python ../eval/run_eval.py`.
+"""Reprieve Evaluation & Benchmark Harness.
+
+Verifies:
+- 100% Recall on planted risk scenarios (S1-S5).
+- 0% False positives on control microservices.
+- Accurate risk score calibration across critical, high, and low severity bands.
+- Candidate owner resolution accuracy.
+- p95 execution latency across all 8 architectural detection rules (<200ms target).
+- p95 predictive query latency across cascade reachability and temporal collisions (<100ms target).
+
+Outputs:
+    Writes comprehensive markdown results to `eval/report.md`.
 """
 
 import asyncio
@@ -15,14 +23,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "backend"))
 
-from falkordb.asyncio import FalkorDB  # noqa: E402
-
-from app.detection.config import preset  # noqa: E402
-from app.detection.engine import run_rules  # noqa: E402
-from app.graph.repo import Repo  # noqa: E402
-from app.graph.schema import ORG, ensure_schema  # noqa: E402
-from app.ingest.loaders import load_bundle, read_bundle  # noqa: E402
-from app.prediction.engine import run_prediction_simulation  # noqa: E402
+from app.detection.config import preset
+from app.detection.engine import run_rules
+from app.graph.repo import Repo
+from app.graph.schema import ORG, ensure_schema
+from app.ingest.loaders import load_bundle, read_bundle
+from app.prediction.engine import run_prediction_simulation
+from falkordb.asyncio import FalkorDB
 
 GT = json.loads((ROOT / "data" / "ground_truth.json").read_text())
 RULE_QUERIES = [
@@ -179,8 +186,10 @@ async def main() -> int:
         *[f"- `{q}`: {v:.1f} ms" for q, v in pred_lat.items()],
         f"- `run_prediction_simulation (30d)`: {sim_p95:.1f} ms",
         "",
-        "Groundedness is enforced per answer by `agents/guard.py` and covered by "
-        "`backend/tests/test_conversational_grounding.py`.",
+        (
+            "Groundedness is enforced per answer by `agents/guard.py` and covered by "
+            "`backend/tests/test_conversational_grounding.py`."
+        ),
     ]
     (ROOT / "eval" / "report.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines[:19]))

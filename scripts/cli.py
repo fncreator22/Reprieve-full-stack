@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-"""
-Reprieve CLI — The Autonomous Pre-Merge Risk Engine for Connected Architectures.
-Provides zero-login terminal commands for CI/CD pipelines, pre-commit hooks, and developer terminals.
+"""Reprieve CLI — The Autonomous Pre-Merge Risk Engine for Connected Architectures.
+
+Provides zero-login terminal commands for CI/CD pipelines, pre-commit hooks, and developer terminals:
+- `scan`: Local AST scan for unmanaged waivers, `#nosec`, and skipped tests.
+- `check`: Pre-merge circuit breaker evaluating multi-hop cascading risk and temporal collisions.
+- `avalanche`: Computes cascade reachability and single-point-of-failure (SPOF) scores.
+- `collisions`: Detects overlapping expiration clusters across a sliding temporal horizon.
+- `status`: Health status and risk summary for a workspace.
+- `mcp`: Standard stdio JSON-RPC 2.0 server for Cursor, Claude Desktop, and VS Code.
 """
 
 import argparse
@@ -52,9 +58,9 @@ def _api_call(url: str, method: str = "GET", data: dict | None = None, api_key: 
                 parsed["status"] = e.code
                 return parsed
             return {"error": str(parsed), "status": e.code}
-        except Exception:
+        except (json.JSONDecodeError, UnicodeDecodeError):
             return {"error": err_body, "status": e.code}
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         return {"error": str(e), "status": 500}
 
 
@@ -121,7 +127,7 @@ def cmd_check(args: argparse.Namespace) -> int:
                 print(f"    • Cluster {BOLD}{c.get('cluster_id')}{RESET}: {density} exceptions across {', '.join(aff)}")
 
         print(f"\n{YELLOW}Recommended Mitigation Action:{RESET}")
-        print(f"  Run Steward in terminal or reassign expired TLS/auth waivers before merging PR.")
+        print("  Run Steward in terminal or reassign expired TLS/auth waivers before merging PR.")
         print(f"{DIM}To review proof graph:{RESET} http://localhost:3000/w/{ws_id}/graph?focus={critical_failures[0].get('service_id')}\n")
         return 1
     else:
@@ -162,7 +168,7 @@ def cmd_scan(args: argparse.Namespace) -> int:
                             detail = m.group(1).strip() or line.strip()
                             rel_path = filepath.relative_to(target_dir)
                             found_waivers.append((str(rel_path), line_no, detail))
-            except Exception:
+            except (OSError, UnicodeDecodeError):
                 continue
 
     if not found_waivers:
@@ -170,8 +176,8 @@ def cmd_scan(args: argparse.Namespace) -> int:
         return 0
 
     print(f"\n{YELLOW}Found {len(found_waivers)} implicit waivers in source code:{RESET}")
-    for path, line, detail in found_waivers[:8]:
-        print(f"  {CYAN}{path}:{line}{RESET} → {DIM}{detail}{RESET}")
+    for path, line_idx, detail in found_waivers[:8]:
+        print(f"  {CYAN}{path}:{line_idx}{RESET} → {DIM}{detail}{RESET}")
 
     if args.submit:
         api_url = args.api_url.rstrip("/")
@@ -221,7 +227,7 @@ def cmd_mcp_bridge(args: argparse.Namespace) -> int:
             continue
         try:
             req = json.loads(line)
-        except Exception:
+        except json.JSONDecodeError:
             continue
 
         method = req.get("method")
