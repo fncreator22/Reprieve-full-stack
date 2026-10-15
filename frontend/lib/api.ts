@@ -22,8 +22,8 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
   const cleanPath = path.startsWith("http")
     ? new URL(path).pathname
     : path.startsWith("/api/v1")
-      ? path
-      : `/api/v1${path.startsWith("/") ? "" : "/"}${path}`;
+      ? path.split("?")[0]
+      : `/api/v1${path.startsWith("/") ? "" : "/"}${path.split("?")[0]}`;
 
   // 1. Try with search query if any
   if (query && Object.keys(query).length > 0) {
@@ -37,29 +37,219 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
     }
   }
 
-  // 2. Exact match in demo fixture
+  // 2. Multi-kind Graph explorer fallback
+  if (cleanPath.endsWith("/graph")) {
+    const fullGraph = (demoFixture["/api/v1/workspaces/northwind-pay/graph"] ?? {
+      nodes: [],
+      edges: [],
+      truncated: false,
+      total: 0,
+    }) as {
+      nodes: Array<{ id: string; label: string; name: string; severity: number | null; status: string | null; score: number | null }>;
+      edges: Array<{ from: string; to: string; type: string }>;
+      truncated: boolean;
+      total: number;
+    };
+    const kindsParam = query?.kinds ? String(query.kinds) : undefined;
+    if (kindsParam === "Service") {
+      return (demoFixture["/api/v1/workspaces/northwind-pay/graph?kinds=Service"] ?? fullGraph) as T;
+    }
+    if (kindsParam && kindsParam !== "Service") {
+      const allowed = new Set(kindsParam.split(",").map((k) => k.trim()));
+      if (allowed.size < 8) {
+        const filteredNodes = fullGraph.nodes.filter((n) => allowed.has(n.label));
+        const nodeIds = new Set(filteredNodes.map((n) => n.id));
+        const filteredEdges = fullGraph.edges.filter((e) => nodeIds.has(e.from) && nodeIds.has(e.to));
+        return {
+          nodes: filteredNodes,
+          edges: filteredEdges,
+          truncated: false,
+          total: filteredNodes.length,
+        } as T;
+      }
+    }
+    return fullGraph as T;
+  }
+
+  // 3. Settings / Integrations fallback
+  if (cleanPath.endsWith("/integrations/test")) {
+    return { ok: true, message: "Ping sent successfully (demo mode)." } as T;
+  }
+  if (cleanPath.endsWith("/integrations")) {
+    return {
+      slack: {
+        enabled: true,
+        webhook_url: "https://hooks.slack.com/services/T0123/B0456/••••••••",
+        channel: "#sre-alerts",
+        notify_on: ["critical"],
+      },
+      email: {
+        enabled: true,
+        recipients: ["sre-team@northwind-pay.io", "secops@northwind-pay.io"],
+        digest_weekly: true,
+        notify_on_critical: true,
+      },
+      github: {
+        enabled: true,
+        repo: "northwind-pay/core-platform",
+        block_on_fail: true,
+      },
+      webhooks: {
+        enabled: true,
+        endpoint_url: "https://siem.internal.northwind-pay.io/events/reprieve",
+        secret: "whsec_••••••••",
+      },
+    } as T;
+  }
+
+  // 4. Node Detail & Drawer Fallbacks (svc_checkout_api, svc_payments_gateway, etc.)
+  if (cleanPath.endsWith("/services/svc_checkout_api") || cleanPath.endsWith("/risk/services/svc_checkout_api")) {
+    const risk = (demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_checkout_api"] ?? {}) as Record<string, unknown>;
+    return {
+      id: "svc_checkout_api",
+      name: "checkout-api",
+      label: "checkout-api",
+      tier: 1,
+      customer_facing: true,
+      description: "Primary customer payment processing and 3DS verification gateway.",
+      team: { kind: "Team", id: "team_payments", label: "Payments Platform" },
+      score: 99.8,
+      band: "critical",
+      rule_hits: ["R3", "R6", "R8"],
+      active_exceptions: 4,
+      depends_on: [
+        { kind: "Service", id: "svc_payments_gateway", label: "payments-gateway" },
+        { kind: "Service", id: "svc_card_vault", label: "card-vault" },
+        { kind: "Service", id: "svc_fraud_detector", label: "fraud-detector" },
+      ],
+      depended_on_by: [
+        { kind: "Service", id: "svc_mobile_api", label: "mobile-api" },
+        { kind: "Service", id: "svc_web_frontend", label: "web-frontend" },
+      ],
+      customer_paths: [
+        { kind: "CustomerPath", id: "cp_checkout", label: "Checkout" },
+        { kind: "CustomerPath", id: "cp_subscription_billing", label: "Subscription billing" },
+      ],
+      ...risk,
+    } as T;
+  }
+
+  if (cleanPath.endsWith("/services/svc_payments_gateway") || cleanPath.endsWith("/risk/services/svc_payments_gateway")) {
+    const risk = (demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_payments_gateway"] ?? {}) as Record<string, unknown>;
+    return {
+      id: "svc_payments_gateway",
+      name: "payments-gateway",
+      label: "payments-gateway",
+      tier: 1,
+      customer_facing: true,
+      description: "Core transaction clearance and card network interface.",
+      team: { kind: "Team", id: "team_payments", label: "Payments Platform" },
+      score: 100,
+      band: "critical",
+      rule_hits: ["R1", "R2", "R3", "R8"],
+      active_exceptions: 5,
+      depends_on: [
+        { kind: "Service", id: "svc_card_vault", label: "card-vault" },
+      ],
+      depended_on_by: [
+        { kind: "Service", id: "svc_checkout_api", label: "checkout-api" },
+      ],
+      customer_paths: [
+        { kind: "CustomerPath", id: "cp_checkout", label: "Checkout" },
+      ],
+      ...risk,
+    } as T;
+  }
+
+  if (cleanPath.includes("/services/svc_") || cleanPath.includes("/risk/services/svc_")) {
+    const svcId = cleanPath.split("/").pop() ?? "";
+    const svcList = (demoFixture["/api/v1/workspaces/northwind-pay/services"] ?? []) as Array<Record<string, any>>;
+    const found = svcList.find((s) => s.service?.id === svcId);
+    if (found) {
+      return {
+        id: found.service.id,
+        name: found.service.label,
+        label: found.service.label,
+        tier: found.tier,
+        customer_facing: found.customer_facing,
+        team: found.team,
+        score: found.score,
+        band: found.band,
+        rule_hits: found.rule_hits,
+        active_exceptions: found.active_exceptions,
+        depends_on: [],
+        depended_on_by: [],
+        customer_paths: [],
+        ...found,
+      } as T;
+    }
+  }
+
+  if (cleanPath.includes("/exceptions/exc_")) {
+    const excId = cleanPath.split("/").pop() ?? "";
+    const excData = demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] as { items?: Array<Record<string, any>> } | undefined;
+    const found = excData?.items?.find((e) => e.id === excId);
+    if (found) return found as T;
+  }
+
+  if (cleanPath.includes("/alerts/alt_")) {
+    const altId = cleanPath.split("/").pop() ?? "";
+    const altData = demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as { items?: Array<Record<string, any>> } | undefined;
+    const found = altData?.items?.find((a) => a.id === altId);
+    if (found) return found as T;
+  }
+
+  // Universal Entity quick-inspect fallback for any node across all kinds
+  const entityMatch = cleanPath.match(
+    /\/(services|people|teams|controls|compensating-controls|customer-paths|runbooks|evidence|exceptions|alerts|reviews)\/([^/?#]+)$/
+  );
+  if (entityMatch) {
+    const entityId = decodeURIComponent(entityMatch[2]);
+    const graphData = demoFixture["/api/v1/workspaces/northwind-pay/graph"] as {
+      nodes?: Array<{ id: string; label: string; name: string; severity: number | null; status: string | null; score: number | null }>;
+      edges?: Array<{ from: string; to: string; type: string }>;
+    } | undefined;
+    const node = graphData?.nodes?.find((n) => n.id === entityId);
+    if (node) {
+      const outEdges = (graphData?.edges ?? []).filter((e) => e.from === entityId);
+      const inEdges = (graphData?.edges ?? []).filter((e) => e.to === entityId);
+      return {
+        id: node.id,
+        name: node.name,
+        title: node.name,
+        label: node.label,
+        kind: node.label,
+        severity: node.severity ?? (node.score && node.score > 70 ? "critical" : "normal"),
+        status: node.status ?? "active",
+        score: node.score,
+        tier: node.score ? (node.score > 80 ? 1 : 2) : 2,
+        team: { kind: "Team", id: "team_payments", label: "Payments Platform" },
+        teams: [{ kind: "Team", id: "team_payments", label: "Payments Platform" }],
+        memberships: [{ team_id: "team_payments", team: "Payments Platform", since: 1700000000, until: null }],
+        leads: [],
+        owned: [],
+        relied_on_by: [],
+        depends_on: outEdges.filter((e) => e.type === "DEPENDS_ON").map((e) => ({ id: e.to, label: e.to, kind: "Service" })),
+        depended_on_by: inEdges.filter((e) => e.type === "DEPENDS_ON").map((e) => ({ id: e.from, label: e.from, kind: "Service" })),
+        customer_paths: inEdges.filter((e) => e.type === "REQUIRES").map((e) => ({ id: e.from, label: e.from, kind: "CustomerPath" })),
+      } as T;
+    }
+  }
+
+  // 5. Exact match in demo fixture
   if (demoFixture[cleanPath] !== undefined) {
     return demoFixture[cleanPath] as T;
   }
 
-  // 3. Deterministic route fallbacks
+  // 6. Deterministic collection fallbacks
   if (cleanPath.endsWith("/risk/summary")) {
     return demoFixture["/api/v1/workspaces/northwind-pay/risk/summary"] as T;
-  }
-  if (cleanPath.includes("/risk/services/svc_payments_gateway")) {
-    return demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_payments_gateway"] as T;
-  }
-  if (cleanPath.includes("/risk/services/svc_")) {
-    return demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_checkout_api"] as T;
   }
   if (cleanPath.endsWith("/risk/services")) {
     return demoFixture["/api/v1/workspaces/northwind-pay/risk/services?limit=8"] as T;
   }
   if (cleanPath.endsWith("/risk/runway")) {
     return demoFixture["/api/v1/workspaces/northwind-pay/risk/runway?days=30"] as T;
-  }
-  if (cleanPath.endsWith("/graph")) {
-    return (demoFixture["/api/v1/workspaces/northwind-pay/graph?kinds=Service"] ?? demoFixture["/api/v1/workspaces/northwind-pay/graph"]) as T;
   }
   if (cleanPath.endsWith("/alerts")) {
     if (query?.severity === "critical") {
