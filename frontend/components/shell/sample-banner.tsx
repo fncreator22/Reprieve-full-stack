@@ -29,9 +29,13 @@ export function SampleBanner() {
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem(`reprieve_dismiss_sample_${wsId}`) === "1") {
-      setIsDismissed(true);
-    }
+    const key = `reprieve_dismiss_sample_${wsId}`;
+    const handle = requestAnimationFrame(() => {
+      if (typeof window !== "undefined" && sessionStorage.getItem(key) === "1") {
+        setIsDismissed(true);
+      }
+    });
+    return () => cancelAnimationFrame(handle);
   }, [wsId]);
 
   const handleDismiss = () => {

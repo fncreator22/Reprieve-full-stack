@@ -158,32 +158,38 @@ export function GraphExplorer() {
 
   useEffect(() => {
     if (params.get("sim") === "1" || params.get("horizon") === "30") {
-      setHorizonDays(30);
-      const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
-      const cascadePath = avItem?.proof?.nodes?.length
-        ? avItem.proof.nodes
-        : ["svc_payments_gateway", "svc_checkout_api", "svc_mobile_api"];
+      const handle = requestAnimationFrame(() => {
+        setHorizonDays(30);
+        const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
+        const cascadePath = avItem?.proof?.nodes?.length
+          ? avItem.proof.nodes
+          : ["svc_payments_gateway", "svc_checkout_api", "svc_mobile_api"];
 
-      if (!params.get("path")) {
-        const next = new URLSearchParams(params.toString());
-        next.set("focus", "svc_payments_gateway");
-        next.set("path", cascadePath.join(","));
-        router.replace(`${pathname}?${next}`, { scroll: false });
-      }
+        if (!params.get("path")) {
+          const next = new URLSearchParams(params.toString());
+          next.set("focus", "svc_payments_gateway");
+          next.set("path", cascadePath.join(","));
+          router.replace(`${pathname}?${next}`, { scroll: false });
+        }
 
-      if (avItem && !selectedProofNode) {
-        setSelectedProofNode({ avalancheItem: avItem, collisionItem: null });
-      }
+        if (avItem && !selectedProofNode) {
+          setSelectedProofNode({ avalancheItem: avItem, collisionItem: null });
+        }
+      });
+      return () => cancelAnimationFrame(handle);
     }
   }, [params, forecast.data, selectedProofNode, pathname, router]);
 
   useEffect(() => {
     if (horizonDays === 30 && focus === "svc_payments_gateway" && forecast.data && !selectedProofNode) {
-      const avItem = forecast.data.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
-      const colItem = forecast.data.temporal_collisions?.[0] ?? null;
-      if (avItem || colItem) {
-        setSelectedProofNode({ avalancheItem: avItem, collisionItem: colItem });
-      }
+      const handle = requestAnimationFrame(() => {
+        const avItem = forecast.data?.avalanche_centrality?.find((a) => a.service_id === "svc_payments_gateway") ?? null;
+        const colItem = forecast.data?.temporal_collisions?.[0] ?? null;
+        if (avItem || colItem) {
+          setSelectedProofNode({ avalancheItem: avItem, collisionItem: colItem });
+        }
+      });
+      return () => cancelAnimationFrame(handle);
     }
   }, [horizonDays, focus, forecast.data, selectedProofNode]);
 
