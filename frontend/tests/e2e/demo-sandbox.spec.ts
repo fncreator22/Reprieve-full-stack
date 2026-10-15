@@ -119,4 +119,34 @@ test.describe("Northwind Pay Zero-Login Demo Sandbox", () => {
     await expect(page.getByText("Enterprise Outgoing Webhooks (Svix HMAC)")).toBeVisible();
     await expect(page.getByText("Model Context Protocol (MCP)")).toBeVisible();
   });
+
+  test("People registry renders roster with teams and active exceptions", async ({ page }) => {
+    await page.goto("/w/northwind-pay/people", { waitUntil: "domcontentloaded" });
+    await expect(page.locator("body")).toBeVisible();
+    await expect(page.getByText("Northwind Pay")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("table")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("columnheader", { name: "Person" })).toBeVisible();
+    await expect(page.getByRole("columnheader", { name: "Teams" })).toBeVisible();
+    await expect(page.getByRole("columnheader", { name: "Owns (active)" })).toBeVisible();
+    await expect(page.getByRole("row").nth(1)).toBeVisible();
+  });
+
+  test("Teams registry renders teams with leads and services", async ({ page }) => {
+    await page.goto("/w/northwind-pay/teams", { waitUntil: "domcontentloaded" });
+    await expect(page.locator("body")).toBeVisible();
+    await expect(page.getByText("Northwind Pay")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("table")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("columnheader", { name: "Team" })).toBeVisible();
+    await expect(page.getByRole("columnheader", { name: "Services" })).toBeVisible();
+    await expect(page.getByText("Payments Platform").first()).toBeVisible({ timeout: 15_000 });
+  });
+
+  test("Controls registry renders controls with active waivers", async ({ page }) => {
+    await page.goto("/w/northwind-pay/controls", { waitUntil: "domcontentloaded" });
+    await expect(page.locator("body")).toBeVisible();
+    await expect(page.getByText("Northwind Pay")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("table")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole("columnheader", { name: "Control" })).toBeVisible();
+    await expect(page.getByRole("columnheader", { name: "Active waivers" })).toBeVisible();
+  });
 });

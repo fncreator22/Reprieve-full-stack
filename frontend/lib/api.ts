@@ -213,6 +213,34 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
     if (node) {
       const outEdges = (graphData?.edges ?? []).filter((e) => e.from === entityId);
       const inEdges = (graphData?.edges ?? []).filter((e) => e.to === entityId);
+
+      // Person specific details
+      if (entityMatch[1] === "people") {
+        const teamMap = new Map((graphData?.nodes ?? []).filter((n) => n.label === "Team").map((t) => [t.id, t.name]));
+        const excMap = new Map((graphData?.nodes ?? []).filter((n) => n.label === "Exception").map((x) => [x.id, x.name]));
+        const memberTeams = (graphData?.edges ?? [])
+          .filter((e) => e.from === entityId && e.type === "MEMBER_OF")
+          .map((e) => ({ team_id: e.to, team: teamMap.get(e.to) ?? e.to, since: 1700000000, until: null }));
+        const leads = (graphData?.edges ?? [])
+          .filter((e) => e.from === entityId && e.type === "LEADS")
+          .map((e) => ({ team_id: e.to, team: teamMap.get(e.to) ?? e.to, since: 1700000000, until: null }));
+        const owned = (graphData?.edges ?? [])
+          .filter((e) => e.to === entityId && e.type === "OWNED_BY")
+          .map((e) => ({ id: e.from, name: excMap.get(e.from) ?? e.from, status: "active" }));
+        return {
+          id: node.id,
+          name: node.name,
+          email: `${node.id.replace("per_", "")}@northwind-pay.io`,
+          title: node.status === "left" ? "Former Platform Engineer" : "Staff Infrastructure Engineer",
+          status: node.status ?? "active",
+          teams: memberTeams.map((m) => ({ kind: "Team", id: m.team_id, label: m.team })),
+          memberships: memberTeams,
+          leads,
+          owned,
+          relied_on_by: [],
+        } as T;
+      }
+
       return {
         id: node.id,
         name: node.name,
@@ -267,10 +295,197 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
     return demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as T;
   }
   if (cleanPath.endsWith("/exceptions")) {
-    return (demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] ?? demoFixture["/api/v1/workspaces/northwind-pay/exceptions?limit=25"]) as T;
+    const raw = (demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] ?? demoFixture["/api/v1/workspaces/northwind-pay/exceptions?limit=25"]) as { items?: Array<Record<string, any>>; total?: number } | undefined;
+    if (query?.service_id && raw?.items) {
+      const filtered = raw.items.filter((item) => item.services?.some((s: any) => s.id === query.service_id));
+      return { ...raw, items: filtered, total: filtered.length } as T;
+    }
+    return raw as T;
   }
   if (cleanPath.endsWith("/services")) {
     return demoFixture["/api/v1/workspaces/northwind-pay/services"] as T;
+  }
+  if (cleanPath.endsWith("/people")) {
+    const graphData = demoFixture["/api/v1/workspaces/northwind-pay/graph"] as {
+      nodes?: Array<{ id: string; label: string; name: string; status: string | null }>;
+      edges?: Array<{ from: string; to: string; type: string }>;
+    } | undefined;
+    const teamMap = new Map((graphData?.nodes ?? []).filter((n) => n.label === "Team").map((t) => [t.id, t.name]));
+    const people = (graphData?.nodes ?? [])
+      .filter((n) => n.label === "Person")
+      .map((p) => {
+        const teams = (graphData?.edges ?? [])
+          .filter((e) => e.from === p.id && e.type === "MEMBER_OF")
+          .map((e) => ({ kind: "Team", id: e.to, label: teamMap.get(e.to) ?? e.to }));
+        const ownedActive = (graphData?.edges ?? []).filter((e) => e.to === p.id && e.type === "OWNED_BY").length;
+        return {
+          id: p.id,
+          name: p.name,
+          email: `${p.id.replace("per_", "")}@northwind-pay.io`,
+          title: p.status === "left" ? "Former Platform Engineer" : "Staff Infrastructure Engineer",
+          status: p.status ?? "active",
+          teams,
+          owned_active: ownedActive,
+        };
+      });
+    return people as T;
+  }
+  if (cleanPath.endsWith("/teams")) {
+    const graphData = demoFixture["/api/v1/workspaces/northwind-pay/graph"] as {
+      nodes?: Array<{ id: string; label: string; name: string }>;
+      edges?: Array<{ from: string; to: string; type: string }>;
+    } | undefined;
+    const svcMap = new Map((graphData?.nodes ?? []).filter((n) => n.label === "Service").map((s) => [s.id, s.name]));
+    const personMap = new Map((graphData?.nodes ?? []).filter((n) => n.label === "Person").map((p) => [p.id, p.name]));
+    const teams = (graphData?.nodes ?? [])
+      .filter((n) => n.label === "Team")
+      .map((t) => {
+        const services = (graphData?.edges ?? [])
+          .filter((e) => e.from === t.id && e.type === "OWNS")
+          .map((e) => ({ kind: "Service", id: e.to, label: svcMap.get(e.to) ?? e.to }));
+        const leads = (graphData?.edges ?? [])
+          .filter((e) => e.to === t.id && e.type === "LEADS")
+          .map((e) => ({ kind: "Person", id: e.from, label: personMap.get(e.from) ?? e.from }));
+        const members = (graphData?.edges ?? []).filter((e) => e.to === t.id && e.type === "MEMBER_OF").length;
+        return {
+          id: t.id,
+          name: t.name,
+          services,
+          leads,
+          members,
+        };
+      });
+    return teams as T;
+  }
+  if (cleanPath.endsWith("/controls")) {
+    const graphData = demoFixture["/api/v1/workspaces/northwind-pay/graph"] as {
+      nodes?: Array<{ id: string; label: string; name: string }>;
+      edges?: Array<{ from: string; to: string; type: string }>;
+    } | undefined;
+    const controls = (graphData?.nodes ?? [])
+      .filter((n) => n.label === "Control")
+      .map((c) => {
+        const activeWaivers = (graphData?.edges ?? []).filter((e) => e.to === c.id && e.type === "WAIVES").length;
+        return {
+          id: c.id,
+          name: c.name,
+          framework: "PCI-DSS 4.0 / SOC2 CC6.1",
+          active_waivers: activeWaivers,
+        };
+      });
+    return controls as T;
+  }
+  if (cleanPath.endsWith("/prediction/simulation")) {
+    const horizon = Number(query?.horizon_days ?? 30);
+    const now = Math.floor(Date.now() / 1000);
+    return {
+      as_of: now,
+      projected_date: now + horizon * 86400,
+      horizon_days: horizon,
+      target_service_id: query?.target_service_id ? String(query.target_service_id) : null,
+      avalanche_centrality: [
+        {
+          service_id: "svc_payments_gateway",
+          service_name: "payments-gateway",
+          score: 94.2,
+          band: "critical",
+          spof_rank: 1,
+          cascade_probability: 0.88,
+          reachable_services: ["svc_checkout_api", "svc_mobile_api", "svc_web_frontend"],
+          customer_paths: ["cp_checkout"],
+          proof: {
+            nodes: ["svc_payments_gateway", "svc_checkout_api"],
+            edges: [{ from: "svc_checkout_api", to: "svc_payments_gateway", type: "DEPENDS_ON" }],
+          },
+        },
+        {
+          service_id: "svc_checkout_api",
+          service_name: "checkout-api",
+          score: 87.5,
+          band: "critical",
+          spof_rank: 2,
+          cascade_probability: 0.76,
+          reachable_services: ["svc_mobile_api", "svc_web_frontend"],
+          customer_paths: ["cp_checkout"],
+          proof: {
+            nodes: ["svc_checkout_api", "svc_mobile_api"],
+            edges: [{ from: "svc_mobile_api", to: "svc_checkout_api", type: "DEPENDS_ON" }],
+          },
+        },
+      ],
+      temporal_collisions: [
+        {
+          cluster_id: "cluster_checkout_tls",
+          window_start: now + 3 * 86400,
+          window_end: now + 10 * 86400,
+          exception_ids: ["exc_gw_tls_legacy", "exc_chk_3ds_bypass"],
+          affected_services: ["svc_payments_gateway", "svc_checkout_api"],
+          collision_severity: 85.0,
+          severity_score: 85.0,
+          severity_band: "critical",
+          proof: {
+            nodes: ["svc_payments_gateway", "svc_checkout_api"],
+            edges: [{ from: "svc_checkout_api", to: "svc_payments_gateway", type: "DEPENDS_ON" }],
+          },
+        },
+      ],
+      canvas_decorations: {
+        svc_payments_gateway: {
+          node_id: "svc_payments_gateway",
+          simulated_score: 94.2,
+          risk_band: "critical",
+          color: "#EF4444",
+          pulse: true,
+          pulse_color: "rgba(239, 68, 68, 0.4)",
+          spof_rank: 1,
+          cascade_probability: 0.88,
+          collision_count: 2,
+          is_target: query?.target_service_id === "svc_payments_gateway",
+        },
+        svc_checkout_api: {
+          node_id: "svc_checkout_api",
+          simulated_score: 87.5,
+          risk_band: "critical",
+          color: "#EF4444",
+          pulse: true,
+          pulse_color: "rgba(239, 68, 68, 0.3)",
+          spof_rank: 2,
+          cascade_probability: 0.76,
+          collision_count: 1,
+          is_target: query?.target_service_id === "svc_checkout_api",
+        },
+      },
+      execution_time_ms: 12,
+    } as T;
+  }
+  if (cleanPath.endsWith("/memory/precedent")) {
+    return [
+      {
+        turn_id: "turn_precedent_01",
+        timestamp: 1782000000,
+        verdict: "approved",
+        rule_id: "R8",
+        summary: "Compensating controls (mTLS and strict token scopes) verified for cross-service boundary.",
+        control_id: query?.control_id ?? "ctl_pii_export",
+        service_id: query?.service_id ?? "svc_card_vault",
+      },
+    ] as T;
+  }
+  if (cleanPath.endsWith("/explain")) {
+    return {
+      text: "This alert was raised because multiple dependent services carry unmitigated active exceptions that aggregate risk along critical execution paths.",
+      source: "deterministic",
+    } as T;
+  }
+  if (cleanPath.endsWith("/chat/sessions")) {
+    return { id: "sess_demo_steward" } as T;
+  }
+  if (cleanPath.endsWith("/chat/quick")) {
+    return {
+      text: "Steward evaluated the exception path: risk score is within acceptable parameters with 2 active compensating controls.",
+      citations: [],
+      proposed_actions: [],
+    } as T;
   }
   if (cleanPath.endsWith("/reviews")) {
     return demoFixture["/api/v1/workspaces/northwind-pay/reviews"] as T;
