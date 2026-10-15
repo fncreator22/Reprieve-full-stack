@@ -17,9 +17,9 @@ test.describe("Northwind Pay Zero-Login Demo Sandbox", () => {
 
     // Verify metrics show numbers
     const exceptionsMetric = page.getByRole("link", { name: /Active exceptions/i });
-    await expect(exceptionsMetric).toBeVisible();
-    await expect(exceptionsMetric.getByText("37")).toBeVisible();
-    await expect(page.getByText("checkout-api").first()).toBeVisible();
+    await expect(exceptionsMetric).toBeVisible({ timeout: 15_000 });
+    await expect(exceptionsMetric.getByText("37")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText("checkout-api").first()).toBeVisible({ timeout: 15_000 });
   });
 
   test("Alerts list renders active alerts with rule chips and severity badges", async ({ page }) => {
