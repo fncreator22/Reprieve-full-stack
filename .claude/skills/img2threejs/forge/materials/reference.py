@@ -238,3 +238,4 @@ def build_assignment(
             "visualCues": list(profile.get("visualCues", [])),
         })
     return assignment
+# Reprieve Skill Harness · October 15, 2026

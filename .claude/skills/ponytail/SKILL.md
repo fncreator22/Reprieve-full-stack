@@ -118,3 +118,5 @@ terse prose). "stop ponytail" / "normal mode": revert. Level persists until
 changed or session end.
 
 The shortest path to done is the right path.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

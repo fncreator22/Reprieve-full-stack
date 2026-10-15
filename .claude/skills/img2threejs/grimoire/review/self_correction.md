@@ -119,3 +119,5 @@ Eye no longer hard-rejects a faithful reconstruction on framing alone — but st
 - Material has correct color but wrong surface response (plastic when should be metal, etc.)
 - Reference depth cues (grind transitions, material thickness, edge bevels) are missing or flat
 - The gate score is high but the object reads as "toy-like" or "cardboard" in angled views
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

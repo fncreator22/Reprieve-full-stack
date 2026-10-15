@@ -147,3 +147,5 @@ an interior joint's pivot. Fixed by adding `heightSegments`, derived from the
 smallest envelope radius in play (`RING_RESOLUTION_DIVISOR = 3.0` rings per
 radius) rather than a hardcoded ring count, so resolution scales if the
 capsule or the bone spacing changes.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

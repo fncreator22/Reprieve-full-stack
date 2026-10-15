@@ -292,3 +292,4 @@ def measure_geometry_integrity(payload: dict[str, Any]) -> dict[str, Any]:
             "triangleCount": total_triangles, "lodPlanPresent": isinstance(lod_plan, list) and bool(lod_plan),
             "lodPlanValid": lod_plan_valid,
             "meshes": reports, "seams": seams, "failures": failures, "issues": issues}
+# Reprieve Skill Harness · October 15, 2026

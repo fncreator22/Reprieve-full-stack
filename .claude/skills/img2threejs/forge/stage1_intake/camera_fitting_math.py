@@ -131,3 +131,4 @@ def has_degenerate_world_geometry(correspondences: Sequence[NormalizedCorrespond
             sum(component * component for component in perpendicular),
         )
     return maximum_perpendicular_square <= span_square * 1e-12
+# Reprieve Skill Harness · October 15, 2026

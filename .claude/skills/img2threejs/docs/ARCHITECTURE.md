@@ -194,3 +194,5 @@ material and lighting realism, attachment correctness, action-ready models, self
 - A TypeScript `createObjectNameModel(spec, options)` factory returning a `THREE.Group`, with `root.userData.sculptRuntime` exposing nodes, sockets, colliders, and destruction groups.
 - For character builds, `root.userData.rig`: the bones, one shared `Skeleton`, bone order and index map, and a `bound` flag that is computed rather than asserted — it is true only when every skinned mesh actually bound.
 - A render plus comparison sheets documenting the fidelity at each pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

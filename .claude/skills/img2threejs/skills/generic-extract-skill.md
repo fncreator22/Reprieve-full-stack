@@ -12,3 +12,5 @@ Follow these generic rules for your analysis:
 5. Identify areas requiring specific Boolean operations (holes, cutouts) or Hard-Edge normals (sharp corners).
 
 Return ONLY the JSON.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

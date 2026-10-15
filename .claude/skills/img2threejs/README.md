@@ -502,3 +502,5 @@ Contributions are welcome — procedural material recipes, new gates, host cover
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE).
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

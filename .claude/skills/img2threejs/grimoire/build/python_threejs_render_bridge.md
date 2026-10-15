@@ -185,3 +185,5 @@ garment or anatomy labels.
 - Do not compare orbit images to a reference angle that was never supplied.
 - Do not infer visual success from TypeScript compilation, `__READY__`, or an inline preview.
 - Do not add Playwright/Chromium dependencies to the zero-install core without explicit scope.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

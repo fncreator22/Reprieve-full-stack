@@ -1463,3 +1463,5 @@ It should actively avoid:
 - oversized device framing that distracts from the design
 
 The final result should look like a high-end mobile app concept with clean hierarchy, good flow logic, strong visual taste, richer image direction, a clean controlled color palette, non-generic art direction, strong multi-screen consistency, readable typography, premium phone mockup framing, and clear platform-aware structure.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

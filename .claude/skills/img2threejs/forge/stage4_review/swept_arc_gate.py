@@ -334,3 +334,4 @@ if __name__ == "__main__":
             print(exit_error.code, file=sys.stderr)
             raise SystemExit(2)
         raise
+# Reprieve Skill Harness · October 15, 2026

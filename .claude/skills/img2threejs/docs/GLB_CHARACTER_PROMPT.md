@@ -352,3 +352,5 @@ rather than producing a confident wrong surface.
 If this run completes and the result still does not match the reference, do **not** re-run this
 prompt — it rebuilds everything and localises nothing. Use
 [`GLB_CHARACTER_POLISH_PROMPT.md`](GLB_CHARACTER_POLISH_PROMPT.md) instead.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

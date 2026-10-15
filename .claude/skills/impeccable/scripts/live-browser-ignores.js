@@ -240,3 +240,4 @@
     resolveDetectIgnores,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
+// Reprieve Skill Harness · October 15, 2026

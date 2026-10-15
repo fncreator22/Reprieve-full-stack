@@ -755,3 +755,4 @@ if __name__ == "__main__":
         f"using the {'real' if USING_REAL_CLIP_FEATURES else 'local fallback'} §1/§2 implementation"
     )
     unittest.main(verbosity=2)
+# Reprieve Skill Harness · October 15, 2026

@@ -51,3 +51,5 @@ An action-ready model passes when:
 - Collider proxies exist for physics-relevant parts.
 - Destruction groups and fracture seams are explicit.
 - `root.userData.sculptRuntime` exposes maps that later code can target.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

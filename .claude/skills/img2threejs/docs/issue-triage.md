@@ -28,3 +28,5 @@ action, and a revisit trigger if the issue becomes low priority. Low-priority is
 
 Implementation PRs use `Refs #<number>`. After merge, a maintainer records the merged PR,
 verification, and closure rationale in the issue, then closes manually when appropriate.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

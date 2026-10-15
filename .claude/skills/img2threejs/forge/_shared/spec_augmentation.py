@@ -149,3 +149,4 @@ def merge_spec_augmentation(spec: dict[str, Any], artifact: Any, *, domain_id: s
     }
     spec["specAugmentation"] = record
     return record
+# Reprieve Skill Harness · October 15, 2026

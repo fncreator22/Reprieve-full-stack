@@ -33,3 +33,4 @@ def load_optional_spec(path: str | Path | None) -> dict[str, Any] | None:
     except (OSError, json.JSONDecodeError):
         return None
     return payload if isinstance(payload, dict) else None
+# Reprieve Skill Harness · October 15, 2026

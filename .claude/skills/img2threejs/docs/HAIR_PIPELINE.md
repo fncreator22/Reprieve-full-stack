@@ -207,3 +207,5 @@ written in the file it broke in:
 > the head renders bald there.
 
 Every gate in this subsystem exists to make that sentence arithmetic.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

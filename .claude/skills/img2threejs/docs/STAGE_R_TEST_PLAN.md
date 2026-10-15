@@ -335,3 +335,5 @@ duration while driving nothing — is a CLI on `emit_animation_runtime.py`. It a
 - `docs/pipelines/character-rigging-animation-1.5.2.md` — the derivation and the failure log.
 - `grimoire/readiness/animation_contract.md` — the routing file read at Stage R.
 - `forge/stage5_rig/CONTRACT_1.5.2.md` — module map and payload shapes.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

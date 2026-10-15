@@ -796,3 +796,5 @@ The final result should be:
 - art-directed
 - implementation-friendly
 - stronger than normal AI-generated brand visuals
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

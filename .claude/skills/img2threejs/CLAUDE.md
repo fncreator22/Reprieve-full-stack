@@ -54,3 +54,5 @@ emission target (`--target <kind>`) is a different thing: it is verified to the 
 limit — container/structure check where a prober exists, existence/size/location/determinism
 otherwise — and is never reported under this gate's completion vocabulary. The visual fidelity of an
 export, if any is claimed, is that target plugin's own gate's responsibility, not this one's.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

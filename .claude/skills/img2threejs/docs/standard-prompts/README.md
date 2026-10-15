@@ -36,3 +36,5 @@ than stylistic:
 
 > A gate is a question. Answer it with evidence, or say you could not — never by lowering the bar,
 > and never by stopping before you have tried to produce the evidence it asked for.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

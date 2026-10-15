@@ -99,3 +99,5 @@ Stopping removes the injected script and reloads the page once: the user sees th
 - **Interrupted or unsure of the state**: `.agents/skills/impeccable/scripts/impeccable live-status`, then `live-resume`; the journal under `.impeccable/live/sessions/` is canonical.
 
 Done when the helper is stopped and the dev site still answers with the accepted design.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

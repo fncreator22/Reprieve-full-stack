@@ -39,3 +39,5 @@ Scope: over-engineering and complexity only. Correctness bugs, security holes,
 and performance are explicitly out of scope. Route them to a normal review
 pass. Lists findings, applies nothing. One-shot.
 "stop ponytail-audit" or "normal mode" to revert.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

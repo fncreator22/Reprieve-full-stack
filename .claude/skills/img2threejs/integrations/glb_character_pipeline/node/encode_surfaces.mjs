@@ -262,3 +262,4 @@ for (const level of LEVELS) {
     + `   base64 ${(base64.length / 1e6).toFixed(2)} MB   was ${binMb.toFixed(1)} MB  `
     + `(${(100 * base64.length / (binMb * 1e6)).toFixed(1)}% of the .bin)`);
 }
+// Reprieve Skill Harness · October 15, 2026

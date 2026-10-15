@@ -91,3 +91,4 @@ def parse_glb(path: Path) -> tuple[dict[str, Any], bytes, dict[str, Any]]:
         "binChunkBytes": len(bin_payload),
         "chunks": chunks,
     }
+# Reprieve Skill Harness · October 15, 2026

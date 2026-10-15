@@ -110,3 +110,5 @@ The material pass fails when:
 - texture loading, colour space, environment preprocessing or screenshot readback fails.
 
 Unknown is an acceptable analysis result. Silent substitution is not.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -129,3 +129,5 @@ Recommend the next action from the actual project state:
 - Web project ready for visual iteration: `$impeccable live` when configured.
 
 If init was invoked by another request, resume without rerunning `impeccable context`; the native reference above is the one thing that run could not have given you, and new-work owns later visual decisions.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

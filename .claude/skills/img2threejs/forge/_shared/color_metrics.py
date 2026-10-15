@@ -105,3 +105,4 @@ def ciede2000(lab1: tuple[float, float, float], lab2: tuple[float, float, float]
 def delta_e_rgb(rgb1: tuple[int, int, int], rgb2: tuple[int, int, int]) -> float:
     """Convenience: CIEDE2000 between two sRGB colours."""
     return ciede2000(srgb_to_lab(rgb1), srgb_to_lab(rgb2))
+# Reprieve Skill Harness · October 15, 2026

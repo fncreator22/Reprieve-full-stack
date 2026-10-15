@@ -62,3 +62,4 @@ def normalize_history(
         if approved and (accepted_fidelity is None or score > accepted_fidelity):
             accepted_fidelity = score
     return history
+# Reprieve Skill Harness · October 15, 2026

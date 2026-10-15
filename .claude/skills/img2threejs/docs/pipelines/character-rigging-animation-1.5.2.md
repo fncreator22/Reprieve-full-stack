@@ -486,3 +486,5 @@ Kept because each cost real time and none was visible in review.
   a joint correspondence and its own gates.
 - **Intent.** No measurement distinguishes a strike from a stumble. `inferred: true` is the honest
   answer, not a placeholder for a better classifier.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

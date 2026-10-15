@@ -48,3 +48,5 @@ this card points there instead of inventing one.
 
 One-shot display. Edits nothing, changes no mode.
 "stop ponytail" or "normal mode": revert.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

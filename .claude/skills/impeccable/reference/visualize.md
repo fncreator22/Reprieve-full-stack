@@ -44,3 +44,5 @@ Every raster region's plate is produced in the plates phase, before any page cod
 Convert images with a converter `impeccable context` reported at boot (the IMAGE_TOOLS line); probe only when it reported none, at most once per session, never per image.
 
 Return to [new-work.md](new-work.md) for the direction contract, the phased build, and the finishing pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

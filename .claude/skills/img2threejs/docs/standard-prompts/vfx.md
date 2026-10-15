@@ -94,3 +94,5 @@ argument does not apply. Anchor on the same sockets and destruction groups, driv
 `userData.tick`, and break along the `seamRefs` and `detachableFragments` the spec already declares —
 `debrisMaterial` is authored there, so use it rather than inventing a second material that will
 drift from it.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

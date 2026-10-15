@@ -78,3 +78,5 @@ Every variant declares a coarse `scale` parameter and authors its type ramp agai
 ```
 
 Add at most one pairing or weight parameter when it represents a real system choice. Follow [live.md](live.md)'s parameter contract.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

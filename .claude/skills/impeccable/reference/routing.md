@@ -22,3 +22,5 @@ Reason over the signals; there is no score to obey:
 **If `scan.targets` is non-empty and `setup.platform` is not `ios`/`android`/`adaptive`, run `.agents/skills/impeccable/scripts/impeccable detect --json <scan.targets joined by spaces>` once** (the bundled detector over local files: no network, no npx; it reads HTML/CSS, so skip it for native projects). `scan.via` tells you what they are: `git-changes` (the markup/style files in your dirty tree, the most relevant set), `source-dir` (e.g. `src`, `app`), `html`, or `root`. Fold the hits into your picks: many quality / contrast hits → `audit` or `polish`; a specific slop family → the matching command (gradient text or eyebrows → `quieter` / `typeset`, flat or gray palette → `colorize`, and so on). It's a real, current signal that beats guessing. If detect errors or the tree is large and slow, skip it and recommend the user run `audit` themselves; never block the suggestion on it.
 
 Keep it to 2-3 pointed picks with the exact command to type. The menu stays the fallback; the recommendation is the lede.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

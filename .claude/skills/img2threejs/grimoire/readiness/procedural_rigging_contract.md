@@ -44,3 +44,5 @@ The first browser smoke set is intentionally mechanical:
 These probes are deformation and attachment evidence, not reference likeness scores. A
 rig must pass the deterministic payload gate and produce readable screenshots before
 `diagnose_render.py`, comparison sheets, semantic scoring, or confidence claims.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

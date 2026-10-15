@@ -380,3 +380,5 @@ Two rules it took a wrong pass to learn, both about not punishing correct work:
 captured. The Glock-18 fire selector — never observed, never inventoried, never specified — passes
 every check here. Closing *that* gap is the detail inventory's job and the family adapter's job. A
 coverage gate proves you built what you said; it cannot prove you said enough.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

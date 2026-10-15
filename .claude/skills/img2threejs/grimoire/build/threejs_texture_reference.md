@@ -46,3 +46,5 @@ the emitted `makeProceduralTextureSet` / material presets in `generate_threejs_f
 - directional (horizontal) high-freq streaks → `brushed-steel`.
 - specular-highlight fraction (very bright pixels) → metalness proxy.
 Output: `{finishClass, palette:[stops], mottle, gradientAxis, metalnessHint}` → material recipe.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

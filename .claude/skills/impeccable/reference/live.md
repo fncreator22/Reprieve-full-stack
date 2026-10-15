@@ -325,3 +325,5 @@ Stops the helper and runs `impeccable live-inject --remove` to strip the injecte
 ## First-time setup
 
 Only when `impeccable live` reports `config_missing` / `config_invalid`, or `configDrift` needs explaining, or the config lacks `cspChecked`: read [live-setup.md](live-setup.md). It owns the config schema, the per-framework `files` table, injection adapters, drift healing, and the CSP detection and consent flow.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

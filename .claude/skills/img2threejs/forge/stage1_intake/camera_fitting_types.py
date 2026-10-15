@@ -289,3 +289,4 @@ def _point3(values: Sequence[NumericScalar], field: str) -> Point3:
 
 def _is_numeric_sequence(values: Sequence[NumericScalar], length: int) -> bool:
     return isinstance(values, Sequence) and not isinstance(values, str | bytes) and len(values) == length
+# Reprieve Skill Harness · October 15, 2026

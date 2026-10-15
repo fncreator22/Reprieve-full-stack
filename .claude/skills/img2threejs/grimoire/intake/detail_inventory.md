@@ -129,3 +129,5 @@ Score 0-1 per detail. Lower confidence for: partially occluded regions, marks in
 symmetry rather than seen, or ambiguous kind classification (e.g. scratch vs. panel-line).
 Do not inflate confidence to pad `targetMinDetails` - an unlinked or low-confidence detail
 that fails the `mapsTo` check still blocks the gate.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -300,3 +300,4 @@ def field_from_component(component: dict) -> ScalpField:
             merged.append([values[0], values[1], values[2], offset])
         return ScalpField(merged)
     return ScalpField(rings)
+# Reprieve Skill Harness · October 15, 2026

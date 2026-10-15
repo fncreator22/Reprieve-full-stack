@@ -123,3 +123,5 @@ extra rules on top **without** skipping any generic layer:
 
 The generic protocol decides *what is there*; the domain doc decides *how that class is
 conventionally parameterized*.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

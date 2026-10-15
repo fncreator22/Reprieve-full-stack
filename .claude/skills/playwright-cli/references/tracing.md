@@ -137,3 +137,5 @@ find .playwright-cli/traces -mtime +7 -delete
 - Traces add overhead to automation
 - Large traces can consume significant disk space
 - Some dynamic content may not replay perfectly
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

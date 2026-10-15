@@ -296,3 +296,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+# Reprieve Skill Harness · October 15, 2026

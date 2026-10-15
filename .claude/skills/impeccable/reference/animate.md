@@ -87,3 +87,5 @@ Every web animation needs a `prefers-reduced-motion` path with an intentional al
 - Removing an animation would lose meaning or authored character, not merely decoration.
 
 When motion earns its place, hand off to `$impeccable polish` for the final pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

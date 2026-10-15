@@ -445,3 +445,5 @@ must operate on the real showcase/browser route and leave readable PNGs in the w
 - **Implementation**: the above briefly, then edit code; verify with typecheck/build + a screenshot.
 - **Not feasible**: name the blocker, ask for more views / cleaner image / accepted stylization /
   a narrower target. "This cannot reach the requested fidelity from this image" is a valid result.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

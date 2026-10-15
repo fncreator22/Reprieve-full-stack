@@ -31,3 +31,5 @@ Strip the copy out of your planned section and study the bare structure. Does th
 - The section is unmistakably the same brand, only more sure of itself.
 
 When the target holds its own without pulling the page apart, hand off to `$impeccable polish` for the final pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

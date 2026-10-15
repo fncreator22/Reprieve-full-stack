@@ -1226,3 +1226,5 @@ The result should be:
 - and strong as implemented frontend
 
 The final outcome should look like a top-tier website concept translated faithfully into real code, not a tiny unreadable design board and not a generic coded reinterpretation.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

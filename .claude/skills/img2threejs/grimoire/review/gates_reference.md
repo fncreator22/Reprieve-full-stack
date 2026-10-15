@@ -106,3 +106,5 @@ only the executable order and one-line summary; this file defines the mandatory 
   strict-quality requires a filled `anatomy` block (head-units, proportions, face landmarks) and
   character feature targets. Suitability routing for humans: `grimoire/intake/validation_rubric.md`
   (stylized vs maximum-likeness). Stylized bust, not a face-copy; refine positions per reference.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

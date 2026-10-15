@@ -487,3 +487,5 @@ See [references/pr-attachments.md](references/pr-attachments.md) for alt text, i
 * **Video recording** [references/video-recording.md](references/video-recording.md)
 * **Attaching screenshots and videos to pull requests** [references/pr-attachments.md](references/pr-attachments.md)
 * **Inspecting element attributes** [references/element-attributes.md](references/element-attributes.md)
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

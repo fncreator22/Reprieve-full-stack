@@ -68,3 +68,5 @@ For authored motion, load [animate.md](animate.md). Respect screen readers, keyb
 - The result feels like the selected world, not a generic “delight” treatment.
 
 When the personality feels earned, hand off to `$impeccable polish` for the final pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

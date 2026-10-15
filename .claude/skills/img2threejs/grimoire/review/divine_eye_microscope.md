@@ -203,3 +203,5 @@ One missing critical tear fails the whole iteration.
 the source image, Divine Eye must return `insufficient-reference-resolution`. Super-resolution output
 is never ground truth — it is a plausible invention, and gating a model against an invention is worse
 than not gating it at all.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

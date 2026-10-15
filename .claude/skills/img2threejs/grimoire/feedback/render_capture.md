@@ -136,3 +136,5 @@ Record screenshot evidence with:
 - `featureReviews`: feature ID, score, visibility in the shared pair, and focused notes.
 
 Never use screenshots as decoration only. They are the ground truth for the self-correction loop.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

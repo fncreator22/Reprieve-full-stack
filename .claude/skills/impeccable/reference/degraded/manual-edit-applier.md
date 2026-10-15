@@ -90,3 +90,5 @@ No entries applied:
 ```
 
 `appliedEntryIds` must contain only entries whose every op landed. `files` must list every source file you changed. `failed` and `notes` must always be arrays. `failed` must list entries you did not fully apply.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

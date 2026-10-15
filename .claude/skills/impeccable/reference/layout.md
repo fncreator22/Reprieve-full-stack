@@ -82,3 +82,5 @@ Every variant declares a coarse `density` parameter and authors spacing against 
 ```
 
 Add one structural parameter only when the topology genuinely branches. Follow [live.md](live.md)'s parameter contract.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

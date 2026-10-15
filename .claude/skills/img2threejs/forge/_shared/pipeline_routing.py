@@ -175,3 +175,4 @@ def validate_pipeline_routing(routing: Any) -> list[str]:
     elif routing.get("status") == "resolved" and conflicts:
         errors.append("resolved pipelineRouting cannot contain conflicts")
     return errors
+# Reprieve Skill Harness · October 15, 2026

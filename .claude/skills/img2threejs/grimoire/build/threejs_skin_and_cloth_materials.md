@@ -220,3 +220,5 @@ Before a skin or cloth number reaches a spec:
 - [ ] Is it a derived view of a different property? (`reflectivity` of `ior`.)
 - [ ] Does it require a map this pipeline cannot emit? If yes, the value is decoration.
 - [ ] Does turning it on change the base layer? (`sheenEnergyComp` darkens by `0.157 × strength`.)
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

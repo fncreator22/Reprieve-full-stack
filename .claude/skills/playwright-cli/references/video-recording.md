@@ -214,3 +214,5 @@ gh issue comment 456 --body "Recording of the repro steps." --attach ./repro.web
 
 - Recording adds slight overhead to automation
 - Large recordings can consume significant disk space
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

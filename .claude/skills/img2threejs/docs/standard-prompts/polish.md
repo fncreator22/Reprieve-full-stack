@@ -56,3 +56,5 @@ Per cycle: defect · measured before · field changed · measured after · kept 
 Then: which defects remain, ranked, and which of them the reference cannot resolve.
 Say "improved", never "done", unless every ranked defect is closed.
 ````
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

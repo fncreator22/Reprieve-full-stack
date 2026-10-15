@@ -117,3 +117,4 @@ def assess_semantic_decomposition(
             "multipart topology reconstructed from metadata alone",
         ],
     }
+# Reprieve Skill Harness · October 15, 2026

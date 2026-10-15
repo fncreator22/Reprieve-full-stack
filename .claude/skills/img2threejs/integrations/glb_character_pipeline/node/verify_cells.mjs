@@ -189,3 +189,4 @@ for (const node of loadNodes(SRC)) {
     + `unreduced ${String(unreduced).padStart(5)}  mismatched ${String(mismatched).padStart(6)}  ${verdict ? 'OK' : 'FAIL'}`);
 }
 console.log(`\n${ok} of ${ok + bad} nodes reproduce their index buffer from cell adjacency alone`);
+// Reprieve Skill Harness · October 15, 2026

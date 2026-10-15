@@ -111,3 +111,5 @@ Example whole-file exception, for a file that is out of scope entirely:
 
 - If `.impeccable/config.json` or `.impeccable/config.local.json` is unreadable or malformed, the hook ignores that file and uses the remaining valid config/defaults. `impeccable hooks status` will show malformed files as ignored.
 - If the user asks to "disable the hook" globally, lead with `$impeccable hooks off` (persistent for this project; writes `hook.enabled: false` to config). The legacy `IMPECCABLE_HOOK_DISABLED=1` env var also works as a one-shot override that follows the shell.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

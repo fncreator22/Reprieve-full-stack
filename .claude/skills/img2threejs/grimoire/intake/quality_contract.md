@@ -74,3 +74,5 @@ If strict validation fails:
 - only lower the quality bar if the user explicitly accepts a simpler approximation
 
 The gate should block code generation when the spec could describe many different objects instead of the provided reference.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

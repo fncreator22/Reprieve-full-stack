@@ -58,3 +58,5 @@ steps:
 ```
 
 For a polished walkthrough of a new feature, record a hero script as described in [video-recording.md](video-recording.md) and attach the resulting WebM the same way.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

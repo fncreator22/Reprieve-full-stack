@@ -192,3 +192,5 @@ the changes you reverted.
 Once the shape holds still, motion is a separate pass with its own failure modes — a rig bound to
 an ungated surface hides surface defects as art problems. Use
 [`GLB_CHARACTER_ANIMATION_PROMPT.md`](GLB_CHARACTER_ANIMATION_PROMPT.md).
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

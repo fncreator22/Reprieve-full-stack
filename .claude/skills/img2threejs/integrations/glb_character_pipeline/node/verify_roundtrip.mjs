@@ -146,3 +146,4 @@ for (const surface of decoded) {
 console.log(`\n${decoded.length - failures} of ${decoded.length} nodes decode to the source within the quantisation step`);
 writeFileSync(`work/roundtrip${WORK_TAG}${tag}.txt`, `failures ${failures}\n`);
 if (failures) process.exitCode = 1;
+// Reprieve Skill Harness · October 15, 2026

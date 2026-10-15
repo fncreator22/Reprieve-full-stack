@@ -111,3 +111,4 @@ def hamming(a: int, b: int) -> int:
 def normalized_similarity(a: int, b: int, bits: int = 64) -> float:
     """1.0 = identical hash, 0.0 = maximally different. Used as a [0,1] agreement score."""
     return 1.0 - hamming(a, b) / bits
+# Reprieve Skill Harness · October 15, 2026

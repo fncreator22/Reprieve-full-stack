@@ -113,3 +113,5 @@ If the mismatch is mostly color/texture/lighting, choose `refine-code` only when
   reconstruction-*from-the-image*: when a colour brief disagrees with the reference photo, **sample
   the reference and match the photo**, then surface the discrepancy to the user — do not chase the
   prose (it cost 4 wasted render iterations pushing purple into a region the photo shows as blue).
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

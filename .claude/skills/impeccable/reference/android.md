@@ -44,3 +44,5 @@ Would a fluent Android user trust this app, or trip on off-spec components? The 
 - **Screenshots come from the emulator or a connected device, never a browser.** Build and install, then capture with `adb exec-out screencap -p > <path>` (pick a device with `adb -s <serial>` when several are attached). Capture every device class the app ships to, at least one phone and, when tablets are a target, one tablet, and write the files where the review flow expects them.
 - **Dark theme and font scale belong in the pass.** `adb shell cmd uimode night yes` flips the theme; `adb shell settings put system font_scale 1.3` (restore `1.0` after) catches the clipped labels a fixed layout hides; with several targets attached, the capture's `-s <serial>` goes on these commands too.
 - **Emulators give breadth; gestures, refresh rates, and performance need hardware.** Say which one produced the evidence.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

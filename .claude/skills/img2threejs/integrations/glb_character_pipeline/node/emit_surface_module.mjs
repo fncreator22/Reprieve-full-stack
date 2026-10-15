@@ -64,3 +64,4 @@ export const SURFACE_STREAM =
 writeFileSync(DEST, header);
 console.log(`wrote ${DEST}  ${(statSync(DEST).size / 1e6).toFixed(2)} MB`
   + `  (${nodes.length} nodes, ${vertices.toLocaleString()} vertices, ${exceptions} exception quads)`);
+// Reprieve Skill Harness · October 15, 2026

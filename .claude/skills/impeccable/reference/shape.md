@@ -57,3 +57,5 @@ Use three to five bullets when the task is settled; use the full structure only 
 Present the brief for explicit confirmation or one correction round, then stop: shape never writes code or a direction contract.
 
 When no human or structured answer mechanism exists, mark assumptions plainly, return the brief, and stop.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

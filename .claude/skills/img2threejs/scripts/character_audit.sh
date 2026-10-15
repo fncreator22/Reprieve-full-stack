@@ -78,3 +78,4 @@ echo "baseline written to $OUT/ -- diff these JSON files after your next change"
 echo "read sampledVertexCount and skippedMeshes before trusting any clean verdict:"
 echo "a zero because the defect is gone and a zero because the check never ran look identical."
 exit $FAILED
+# Reprieve Skill Harness · October 15, 2026

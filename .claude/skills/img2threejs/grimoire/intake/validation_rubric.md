@@ -74,3 +74,5 @@ image is not the identity. Ask the user for the exact catalogue name up front, a
 and vanilla references BEFORE authoring geometry: they show base-model features the name never
 reveals. Never infer stock features from a name alone. A domain plugin that serves such a catalogue
 ships the lookup tooling and states the rule in its own contract.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

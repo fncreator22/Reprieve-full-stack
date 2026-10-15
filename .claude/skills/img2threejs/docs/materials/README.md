@@ -109,3 +109,5 @@ This directory defines that hand-off. The current wiring is implemented by
 material review/gate scripts. Specs without `materialPipeline` remain backward-compatible; a spec
 that opts into the contract is blocked until its regions, crops, controlled comparisons and
 geometry/UV/rig/LOD compatibility evidence pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

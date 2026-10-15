@@ -38,3 +38,5 @@ During `structural-pass` and `form-refinement`, inspect:
 5. Are parent sockets and child roots still aligned after rotation, scale, and animation?
 
 If floating joints are visible, choose `refine-spec` when attachment data is missing, or `refine-code` when the spec has correct attachment data but the generated mesh does not use it.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

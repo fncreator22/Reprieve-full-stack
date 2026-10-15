@@ -582,3 +582,5 @@ and harness improvements to the underlying code generator.
 [1.1.0]: https://github.com/hoainho/img2threejs/releases/tag/v1.1.0
 [1.0.0]: https://github.com/hoainho/img2threejs/releases/tag/v1.0.0
 [1.4.3]: https://github.com/img2threejs/img2threejs/releases/tag/v1.4.3
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

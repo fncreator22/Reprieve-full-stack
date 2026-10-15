@@ -39,3 +39,5 @@ The environment and models are local-only:
 - MediaPipe task models and manifest: `runtime/vision/models/`
 
 See `docs/integrations/reference_fidelity_tooling.md` for pipeline routing and MCP usage.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

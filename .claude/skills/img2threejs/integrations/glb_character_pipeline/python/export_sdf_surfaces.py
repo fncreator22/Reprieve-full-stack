@@ -258,3 +258,4 @@ try:
 except ValueError:
     _shown = resolved_dest
 print(f"\nwrote {_shown}  {len(out)/1e6:.2f} MB  ({len(entries)} node(s))")
+# Reprieve Skill Harness · October 15, 2026

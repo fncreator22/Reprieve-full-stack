@@ -149,3 +149,5 @@ generated code, GLB export or a runtime-ready flag.
 | rendering | browser/runtime smoke infrastructure | Python manifest, camera batch, hash and diagnosis bridge | browser is renderer; Python is evidence controller |
 | external generation | optional asset handoffs | CharacterGen/UniRig research boundary | explicit adapter only, with provenance and no code-only claim |
 | visual acceptance | comparison/review gates | screenshot readback and multi-angle manifest | all screenshot and diagnostic gates are mandatory |
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

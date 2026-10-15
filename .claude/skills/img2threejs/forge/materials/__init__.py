@@ -15,3 +15,4 @@ __all__ = [
     "resolve_material",
     "validate_reference",
 ]
+# Reprieve Skill Harness · October 15, 2026

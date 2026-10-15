@@ -109,3 +109,5 @@ Sequence this points to:
 
 Whether the pipeline still produces good geometry. These are structural checks only. No reconstruction
 was run, no render captured, no baseline recorded — that debt is unchanged.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

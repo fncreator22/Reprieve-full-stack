@@ -466,3 +466,5 @@ pins `ssim` at 0. OBJ is the scoring format, because `forge/` gates are pure-std
 OBJ is ASCII a short parser reads. Unlike everything else in this cheatsheet it needs network access
 and a third-party endpoint, so it is never on a required path: its output is an input to review, not
 evidence that a gate passed.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

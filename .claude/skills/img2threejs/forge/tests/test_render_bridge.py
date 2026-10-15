@@ -73,3 +73,4 @@ class RenderBridgeTest(unittest.TestCase):
             result = validate_manifest(manifest_path)
             self.assertFalse(result["passed"])
             self.assertTrue(any("hash changed" in error for error in result["errors"]))
+# Reprieve Skill Harness · October 15, 2026

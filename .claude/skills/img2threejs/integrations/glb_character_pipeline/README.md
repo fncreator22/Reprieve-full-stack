@@ -103,3 +103,5 @@ for the full stage → script → output file map.
 See `docs/integrations/reference_fidelity_tooling.md` for how this fits alongside the other
 diagnostic/reference tooling, and `grimoire/build/python_threejs_render_bridge.md` for the GLB-mediated
 capture bridge contract this integration's capture step relies on.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

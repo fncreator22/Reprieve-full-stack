@@ -102,3 +102,5 @@ Per-framework: Next.js inline `headers()` in `next.config.*`; Nuxt `routeRules['
 If the user said "no" to the CSP patch and later reports live not working: their dev CSP blocks `http://localhost:8400`. Delete `cspChecked` from `.impeccable/live/config.json` and re-run `impeccable live`; setup asks again.
 
 After setup, re-run `impeccable live`.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

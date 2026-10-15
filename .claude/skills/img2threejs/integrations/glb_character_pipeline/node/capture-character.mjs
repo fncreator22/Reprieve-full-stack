@@ -279,3 +279,4 @@ async function main() {
 }
 
 main().catch((error) => { console.error('FAILED:', error); process.exit(1); });
+// Reprieve Skill Harness · October 15, 2026

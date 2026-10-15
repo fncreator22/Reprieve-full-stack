@@ -446,3 +446,4 @@ def decode_jpeg(data: bytes) -> tuple[int, int, list[tuple[int, int, int, int]]]
                 255,
             ))
     return width, height, out
+# Reprieve Skill Harness · October 15, 2026

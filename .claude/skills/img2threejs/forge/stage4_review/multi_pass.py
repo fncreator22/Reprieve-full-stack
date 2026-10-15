@@ -100,3 +100,4 @@ def validate_pass_records(
         if expected_hash and expected_hash != _sha256(path):
             errors.append(f"{label} pass hash changed: {path}")
     return errors
+# Reprieve Skill Harness · October 15, 2026

@@ -24,3 +24,4 @@ DOMAIN: Final[dict[str, Any]] = {
     ),
     "setupAnchorBefore": "local-spec-search",
 }
+# Reprieve Skill Harness · October 15, 2026

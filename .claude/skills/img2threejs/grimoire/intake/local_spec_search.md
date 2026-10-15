@@ -28,3 +28,5 @@ component names, material/finish terms, behavior terms, and known aliases; retry
 alternatives when the first result is incomplete. Build the spec from returned evidence and do
 not invent domain specs when local evidence exists. Search caches are local/generated only;
 preserve JSONL records and source provenance rather than replacing them with cache output.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

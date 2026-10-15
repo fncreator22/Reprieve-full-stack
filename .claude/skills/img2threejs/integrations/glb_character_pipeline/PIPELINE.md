@@ -383,3 +383,5 @@ assumption (single primitive, single material, single connected component; trian
 identical to skin). Closing it requires going back to Stage 2 and either rebuilding node 9 at a finer cell
 or excluding the GLB's lash/eye card primitives before splatting. Budget that as its own pass, not a
 touch-up on top of Stage 6.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

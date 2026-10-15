@@ -70,3 +70,5 @@ Nothing imports from `rig_gates`. No other file in `forge/` is edited by these m
   `sourceName` verbatim.
 - Any gate that cannot be evaluated because its input is absent reports
   `status: "unevaluated"` with a reason. It is never silently a pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

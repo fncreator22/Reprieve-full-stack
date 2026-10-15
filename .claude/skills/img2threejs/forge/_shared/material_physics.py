@@ -251,3 +251,4 @@ def _number(value: Any) -> float | None:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         return None
     return float(value)
+# Reprieve Skill Harness · October 15, 2026

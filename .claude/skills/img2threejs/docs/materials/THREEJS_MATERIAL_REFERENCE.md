@@ -220,3 +220,5 @@ scores.
 
 If controlled views disagree, retain the disagreement in evidence and refine the classification or
 request input. Do not let a high beauty similarity score override a failed material hard gate.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

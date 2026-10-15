@@ -170,3 +170,4 @@ def validate_sdf_descriptor(component_id: str, descriptor: Any, errors: list[str
                     if _is_number(minimum_value) and _is_number(maximum_value) and minimum_value >= maximum_value:
                         errors.append(f"{label}.bounds.min[{index}] must be less than bounds.max[{index}]")
     _validate_finite(descriptor, label, errors)
+# Reprieve Skill Harness · October 15, 2026

@@ -17,3 +17,4 @@ def showcase_root() -> Path:
     if os.environ.get("IMG2THREEJS_REQUIRE_SHOWCASE") == "1":
         raise RuntimeError(message)
     raise unittest.SkipTest(message)
+# Reprieve Skill Harness · October 15, 2026

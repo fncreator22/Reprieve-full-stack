@@ -172,3 +172,4 @@ def derive_envelope_radius(
     if overlap_factor <= 0:
         raise ValueError(f"overlap_factor must be positive, got {overlap_factor}")
     return 0.5 * max(width, depth) * overlap_factor
+# Reprieve Skill Harness · October 15, 2026

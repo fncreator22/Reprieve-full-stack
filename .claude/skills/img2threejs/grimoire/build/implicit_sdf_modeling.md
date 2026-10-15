@@ -57,3 +57,5 @@ present. Subdivision is not available on the emitted `implicit sdf` path.
 - A torso plus limb fixture emits one welded geometry with continuous normals.
 - Default object-only specs stay byte-identical.
 - Forge unit tests pass and the showcase TypeScript smoke stays clean.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

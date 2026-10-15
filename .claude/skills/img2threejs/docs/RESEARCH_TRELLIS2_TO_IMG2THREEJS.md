@@ -594,3 +594,5 @@ from this image" before it is given sharper instruments to say it more confident
 - [microsoft/TRELLIS.2-4B on Hugging Face](https://huggingface.co/microsoft/TRELLIS.2-4B)
 - [img2threejs](https://github.com/img2threejs/img2threejs) — plus this local checkout, which is the
   authority for the file paths and schema line numbers cited above.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

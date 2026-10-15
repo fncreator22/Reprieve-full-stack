@@ -450,3 +450,4 @@ def status_payload(state: dict[str, Any]) -> dict[str, Any]:
             if entry["scope"] in visible_scopes and entry["status"] == "pending"
         ],
     }
+# Reprieve Skill Harness · October 15, 2026

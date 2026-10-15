@@ -256,3 +256,5 @@ Test that optimizations worked:
 - **User perception**: Does it *feel* faster?
 
 When the user-facing numbers move, hand off to `$impeccable polish` for the final pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

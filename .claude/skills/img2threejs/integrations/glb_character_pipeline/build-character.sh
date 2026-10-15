@@ -191,3 +191,4 @@ echo
 echo "Done. Compare against a prior capture with:"
 echo "  node $NODE_SCRIPTS/compare_views.mjs work/cmp/pipeline-check${CHARACTER_WORK_TAG} work/cmp/<previous>"
 echo "Then record the run in \$IMG2THREEJS_SHOWCASE_ROOT/work/progress.txt, per PIPELINE.md Stage 9."
+# Reprieve Skill Harness · October 15, 2026

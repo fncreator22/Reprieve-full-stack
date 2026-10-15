@@ -195,3 +195,4 @@ def _solve_linear_system(matrix: list[list[float]], right_hand_side: list[float]
 def _scaled_step_is_small(delta: ParameterVector) -> bool:
     scale = (30.0, 10.0, 10.0, 10.0, 1.0, 1.0, 1.0)
     return max(abs(value) / scale[index] for index, value in enumerate(delta)) <= 1e-8
+# Reprieve Skill Harness · October 15, 2026

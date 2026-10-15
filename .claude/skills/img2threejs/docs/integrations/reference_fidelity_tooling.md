@@ -141,3 +141,5 @@ reference admission
 The reference view and meaningful orbit views remain separate gates. Projection can make the
 reference camera match closely, but it cannot substitute for thickness, attachment, component
 coverage or multi-angle 3D truth.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -316,3 +316,5 @@ DevTools device emulation is useful for layout but misses:
 ---
 
 **Avoid**: Desktop-first design. Device detection instead of feature detection. Separate mobile/desktop codebases. Ignoring tablet and landscape. Assuming all mobile devices are powerful.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

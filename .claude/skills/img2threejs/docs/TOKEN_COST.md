@@ -35,3 +35,5 @@ Characters cost more (more review cycles plus landmark and projection checks): r
 - Model tokens are spent only on vision (reading one sheet per pass), authoring the spec, and writing code.
 - The gates are the savings mechanism: strict-quality blocks codegen on an underspecified spec, and the detail-inventory gate blocks it on missing detail — each avoided bad render saves roughly one full cycle (~10k-20k tokens).
 - The single biggest lever on cost is the review-cycle count. A well-formed spec up front is worth more tokens than any micro-optimization downstream.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

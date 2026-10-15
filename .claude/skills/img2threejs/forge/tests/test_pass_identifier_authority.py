@@ -146,3 +146,4 @@ class TheBaseCharacterTemplateIsLegal(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+# Reprieve Skill Harness · October 15, 2026

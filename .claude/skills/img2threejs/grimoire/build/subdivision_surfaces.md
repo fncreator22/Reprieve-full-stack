@@ -44,3 +44,5 @@ The helper is deterministic. The same input spec produces the same output source
 - A valid cage gains the expected quad growth per iteration.
 - UV2 data stays in step with the subdivided surface.
 - The showcase TypeScript smoke stays clean after generation.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

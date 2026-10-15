@@ -111,3 +111,4 @@ def feature_gate_failures(
                 f"{float(important_threshold):.3f}"
             )
     return failures
+# Reprieve Skill Harness · October 15, 2026

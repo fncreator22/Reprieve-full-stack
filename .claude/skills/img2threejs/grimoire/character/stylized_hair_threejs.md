@@ -223,3 +223,5 @@ Brown studio gradients can be classified as foreground by simple segmentation. I
 - Kajiya and Kay, *Rendering Fur with Three Dimensional Textures*: https://doi.org/10.1145/74333.74361
 - Marschner et al., *Light Scattering from Human Hair Fibers*: https://www.cs.cornell.edu/~srm/publications/SG03-hair-abstract.html
 - CHARM, *Control-point-based 3D Anime Hairstyle Auto-Generation*: https://arxiv.org/abs/2509.21111
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

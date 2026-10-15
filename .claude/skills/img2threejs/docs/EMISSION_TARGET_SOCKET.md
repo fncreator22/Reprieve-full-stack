@@ -125,3 +125,5 @@ envelope is an error, never a pass, and a verdict's declared status must agree w
 
 Full review trail (5 adversarial reviews, 43+ recorded decisions):
 `openspec/changes/establish-the-emission-target-contract/review/` in the org workspace.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

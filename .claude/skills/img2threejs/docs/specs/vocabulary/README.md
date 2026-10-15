@@ -84,3 +84,5 @@ external identifiers, or review artifacts, but do not replace `source_refs`.
 `unverified` means useful terminology or a candidate claim that still needs
 confirmation. Do not encode unsupported certainty: lower `confidence`, select
 the appropriate status, and record the qualifying assumption instead.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

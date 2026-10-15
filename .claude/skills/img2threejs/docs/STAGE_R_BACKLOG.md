@@ -416,3 +416,5 @@ H-7  fastlane rebase               ← last: do not merge branches before one is
 4. **State the frame and the units.** Local or world; absolute or a fraction of figure height H.
 5. **Mark every threshold that came from one subject** `single-subject`, including borrowed ones.
 6. **Never claim "done" when it is "improved."** Name what still does not match.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

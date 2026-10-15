@@ -304,3 +304,4 @@ def hair_profile_report(profile: Any) -> dict[str, Any]:
             "required before those bounds mean anything."
         ),
     }
+# Reprieve Skill Harness · October 15, 2026

@@ -164,3 +164,4 @@ np.save(OUT_DIR / 'V.npy', V.astype(np.float32))
 np.save(OUT_DIR / 'T.npy', T.astype(np.int32))
 np.save(OUT_DIR / 'cloud.npy', P.astype(np.float32))
 print(f'  wrote {OUT_DIR}/{{V,T,cloud}}.npy')
+# Reprieve Skill Harness · October 15, 2026

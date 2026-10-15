@@ -97,3 +97,5 @@ Ensure refinement maintains quality:
 - **Restrained, not absent**: Does the POV survive the cuts?
 
 When the result feels right, hand off to `$impeccable polish` for the final pass.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

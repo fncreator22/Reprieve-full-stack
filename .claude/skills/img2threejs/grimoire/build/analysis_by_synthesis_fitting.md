@@ -112,3 +112,5 @@ entries remain supported.
 
 `budget_exceeded(spent_tokens, budget)` accepts a finite non-negative numeric spend
 and a non-negative integer budget; malformed values raise `ValueError`.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

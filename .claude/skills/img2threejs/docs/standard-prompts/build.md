@@ -109,3 +109,5 @@ Components · strict-quality exit and cause count · passes cleared · details i
 per-region confidence · and one line naming what still does not match. Never say "done" when it is
 "improved".
 ````
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -72,3 +72,5 @@ build actually has a GLB reference to measure — skip it entirely otherwise. Se
 
 Include the reference image characteristics, the command you ran, the spec or generated output,
 and what you expected versus what you got. Screenshots of the render help a lot.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

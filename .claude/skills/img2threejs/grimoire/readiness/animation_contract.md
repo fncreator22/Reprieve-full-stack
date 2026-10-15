@@ -76,3 +76,5 @@ A gate whose input is absent reports `unevaluated` with a reason. It is never si
 Creases at part overlaps (needs one continuous mesh with a unified weight field — a different
 topology contract), retargeting between skeletons (needs joint correspondence and its own gates),
 and intent (no measurement distinguishes a strike from a stumble).
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

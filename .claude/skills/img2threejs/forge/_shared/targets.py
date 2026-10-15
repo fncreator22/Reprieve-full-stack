@@ -323,3 +323,4 @@ def resolve_target(kind: str, *, plugin: str | None = None, home: Path | None = 
             f"{', '.join(claimants)}; disambiguate with --plugin"
         )
     return candidates[0]
+# Reprieve Skill Harness · October 15, 2026

@@ -82,3 +82,5 @@ Better: `increase microRoughness to 0.45, add tangent-space fine-noise normal wi
 Bad: `make the edges realistic`.
 
 Better: `add 0.025 relative bevel radius with 3 segments on exposed hard-surface edges, add edge-wear local overrides on bevel crests, and keep internal seams sharper with 1-segment chamfers`.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

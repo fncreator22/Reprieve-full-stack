@@ -1857,3 +1857,4 @@ def load_or_build_index(request: IndexRequest) -> IndexLoadResult:
         reason=reason,
         cache_path=cache_path,
     )
+# Reprieve Skill Harness · October 15, 2026

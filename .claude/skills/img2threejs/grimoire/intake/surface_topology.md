@@ -61,3 +61,5 @@ attempted).
 Classifying by "how big is it" instead of "what kind of surface is it." A large smooth stone and
 a small smooth pebble are both `continuous-sculpt`; a large flat wall panel and a small flat plate
 are both `assembled-solid`. Size doesn't change the class — surface behavior does.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

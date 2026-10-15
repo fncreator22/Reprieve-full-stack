@@ -52,3 +52,4 @@ def put_cached(manifest_path: Path, key: str, value: dict[str, Any]) -> None:
     manifest = load_manifest(manifest_path)
     manifest[key] = value
     save_manifest(manifest_path, manifest)
+# Reprieve Skill Harness · October 15, 2026

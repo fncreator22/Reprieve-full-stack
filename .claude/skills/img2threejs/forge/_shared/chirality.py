@@ -270,3 +270,4 @@ def sagittal_symmetry_error(points: Sequence[Point]) -> float:
         )
         total += best
     return math.sqrt(total / len(points))
+# Reprieve Skill Harness · October 15, 2026

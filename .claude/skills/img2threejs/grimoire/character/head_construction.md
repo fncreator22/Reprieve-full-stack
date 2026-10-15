@@ -282,3 +282,5 @@ emitted `RigSpec` and geometry bounds without rendering anything. Criterion 4 is
 silhouette check and belongs with Divine Eye. Criterion 5 is a part-inventory check — the
 four maxillary canines must exist as L2 parts with the correct parent bone, per
 `structure_decomposition.md`.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

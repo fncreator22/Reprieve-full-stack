@@ -236,3 +236,5 @@ Layer assignment is spec data and must be validated in
 is a rejected spec. Items 6–13 of the checklist are exactly what the pose-sweep rig gate
 in `docs/PLAN_1.5_ANIMATION_READY_RIGS.md` §7 measures; item 15 is the existing
 detail-inventory evidence discipline applied to structure.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

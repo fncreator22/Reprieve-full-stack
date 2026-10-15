@@ -271,3 +271,5 @@ what is still **unverified**. Close with:
 result — `joint_loops.py` failing is exactly that finding. Say it rather than tuning weights against
 a joint with no geometry in it.
 ````
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

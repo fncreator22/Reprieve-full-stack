@@ -165,3 +165,4 @@ def domain_profile(profile: str) -> dict[str, Any] | None:
             "Install the domain plugin that provides it, or start the run as generic."
         )
     return domains[profile]
+# Reprieve Skill Harness · October 15, 2026

@@ -47,3 +47,5 @@ Before finalizing any response, verify:
 - Every item the user requested is present and finished
 - Code blocks contain actual runnable code, not descriptions of what code would do
 - Nothing was shortened to save space
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

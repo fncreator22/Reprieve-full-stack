@@ -103,3 +103,5 @@ When this pass clears every Priority Issue it took from a snapshot, close that s
 ```
 
 This closes only the snapshot this pass actually processed; if a newer critique landed meanwhile, its backlog stays live. Do not close when no snapshot was read, when `snapshot_file` was not retained, or when Priority Issues remain.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -52,3 +52,5 @@ The same restraint applies to `workspace-context-inherited`. Inheritance is a de
 ## Opting out of the boot check
 
 `impeccable context` reports the cheap subset of these findings at session start, throttled to once a week per project. Set `"stalenessCheck": false` in `.impeccable/config.json` to silence that, or `IMPECCABLE_NO_STALENESS_CHECK=1` for one session. This command still works with the check disabled, and that is the combination to suggest for a user who wants the report only when they ask for it.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

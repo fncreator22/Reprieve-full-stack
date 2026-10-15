@@ -56,3 +56,5 @@ This path does not combine with `sdf` or `subdivide` on the same component.
 - Two clean silhouettes produce a welded mesh whose silhouette matches each view.
 - Hidden regions stay marked low confidence.
 - The turnaround path improves the reference baseline instead of flattening into noise.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

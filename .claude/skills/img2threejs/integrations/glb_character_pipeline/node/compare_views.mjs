@@ -109,3 +109,4 @@ console.log(`\nmean over ${rows.length} views: IoU ${mean('iou').toFixed(4)}   c
   + `   noise ours ${mean('noiseA').toFixed(2)} / baseline ${mean('noiseB').toFixed(2)}`);
 writeFileSync('work/compare-views.json', JSON.stringify({ a: A, b: B, rows }, null, 1));
 await browser.close();
+// Reprieve Skill Harness · October 15, 2026

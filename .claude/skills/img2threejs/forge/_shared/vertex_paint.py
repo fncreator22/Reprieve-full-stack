@@ -234,3 +234,4 @@ def classify_points(
     paint: dict[str, Any], points: Iterable[Sequence[float]], threshold: float = 0.5
 ) -> list[str]:
     return [dominant_region(paint, point, threshold) for point in points]
+# Reprieve Skill Harness · October 15, 2026

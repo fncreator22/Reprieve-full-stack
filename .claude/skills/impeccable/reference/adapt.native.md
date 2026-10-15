@@ -56,3 +56,5 @@ When the adaptation feels native to each context, hand off to `$impeccable polis
 - Hide core functionality on smaller devices (if it matters, make it work)
 - Lock orientation to dodge a layout bug
 - Trust simulators alone (posture, gestures, and performance need hardware)
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

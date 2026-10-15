@@ -84,3 +84,5 @@ When invoked from live mode, every variant declares a `color-amount` parameter. 
 ```
 
 Add at most two variant-specific parameters, such as palette, temperature, or tint behavior. Follow [live.md](live.md)'s parameter contract.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

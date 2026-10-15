@@ -228,3 +228,5 @@ it rather than shipping a shredded figure.
 - [`forge/stage5_rig/CONTRACT_1.5.2.md`](../forge/stage5_rig/CONTRACT_1.5.2.md) — module map and payload shapes.
 - [`docs/standard-prompts/build.md`](standard-prompts/build.md) — the static reconstruction route this one continues.
 - [`docs/standard-prompts/glb-force-measured.md`](standard-prompts/glb-force-measured.md) — when every parameter the GLB measures should be forced rather than approximated.
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->

@@ -131,3 +131,4 @@ def build_camera(image: Path, args: argparse.Namespace) -> dict[str, JsonValue]:
         ] + warnings,
         "note": "Final camera match must be confirmed by overlay review: render the fitted mesh from this camera, place it beside or over the reference image, and adjust fovDegrees/orientation/position until silhouette and landmark alignment match before trusting projected texture bakes.",
     }
+# Reprieve Skill Harness · October 15, 2026

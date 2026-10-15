@@ -455,3 +455,4 @@ def emit_animation_runtime(clips: list[dict[str, Any]], options: Optional[dict[s
             raise AssertionError(f"template token {token} not found — template/replacement drift")
         source = source.replace(token, value)
     return source
+# Reprieve Skill Harness · October 15, 2026

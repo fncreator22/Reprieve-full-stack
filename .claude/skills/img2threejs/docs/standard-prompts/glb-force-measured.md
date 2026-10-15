@@ -159,3 +159,5 @@ Forced parameters and the value each took · vertex/triangle counts emitted vs m
 delta · bone count · clips with durations · maxSampledBindingDelta per clip · LOD count · and one
 line naming what the GLB could not hand over, from the list above.
 ````
+
+<!-- Reprieve Skill Harness · October 15, 2026 -->
