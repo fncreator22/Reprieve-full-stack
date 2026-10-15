@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // ReviewOutcome is append-only (I8). Idempotent per review via MERGE on id.
 MERGE (o:ReviewOutcome {id: $id})
 ON CREATE SET o.review_id = $review_id, o.decision = $decision, o.note = $note, o.decided_by = $decided_by,

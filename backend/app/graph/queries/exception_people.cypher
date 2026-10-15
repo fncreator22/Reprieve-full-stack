@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Recorded owner validity and approver for owner resolution (03 §9.2)  params: $exception_id, $as_of
 MATCH (e:Exception {id:$exception_id})-[:OWNED_BY]->(o:Person)
 OPTIONAL MATCH (e)-[:AFFECTS]->(:Service)<-[:OWNS]-(t:Team)

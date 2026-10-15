@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (u:User)-[m:MEMBER_OF]->(w:Workspace)
 WHERE (u.id = $user_id OR (u.email IS NOT NULL AND $email IS NOT NULL AND u.email = $email))
   AND (m.status IS NULL OR m.status = 'active' OR m.status = 'ready')

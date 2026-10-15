@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // map org Person ids to workspace users (for notifications)
 MATCH (u:User)-[m:MEMBER_OF]->(w:Workspace {id: $ws_id})
 WHERE (m.status IS NULL OR m.status = 'active')

@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $id, $status, $alert_id, $exception_id, $reason_code, $rationale, $assignees_json, $assignees [{person_id, rank, reason_code}], $now
 MATCH (a:Alert {id: $alert_id}), (e:Exception {id: $exception_id})
 MERGE (r:Review {id: $id})

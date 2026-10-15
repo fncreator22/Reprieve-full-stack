@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // renewal chain through $id: [id, hops] pairs in both directions (sorted in Python)
 MATCH (e:Exception {id: $id})
 OPTIONAL MATCH p1 = (e)-[:RENEWS*1..10]->(older:Exception)

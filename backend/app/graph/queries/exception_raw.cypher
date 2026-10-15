@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // everything needed to copy an exception into a renewal successor
 MATCH (e:Exception {id: $id})-[:WAIVES]->(c:Control), (e)-[:OWNED_BY]->(o:Person)
 OPTIONAL MATCH (e)-[:APPROVED_BY]->(a:Person)

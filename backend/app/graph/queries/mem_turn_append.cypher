@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $session_id, $user_id, $turns [{id, idx, role, content, tool_calls_json, citations_json, model, tokens_in, tokens_out, refs}], $now
 MATCH (s:Session {id: $session_id, user_id: $user_id})
 SET s.last_active_at = $now, s.title = coalesce(s.title, $title)

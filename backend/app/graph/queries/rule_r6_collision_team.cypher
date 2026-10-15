@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-R6T  params: $as_of, $horizon_s, $window_s, $k   (engine keeps the largest window per team)
 MATCH (t:Team)-[:OWNS]->(s:Service)<-[:AFFECTS]-(e:Exception {status:'active'})
 WHERE e.expires_at >= $as_of AND e.expires_at <= $as_of + $horizon_s

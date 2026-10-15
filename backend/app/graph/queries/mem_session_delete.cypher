@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (s:Session {id: $id, user_id: $user_id})
 OPTIONAL MATCH (s)-[:HAS_TURN]->(t:Turn)
 DELETE t, s

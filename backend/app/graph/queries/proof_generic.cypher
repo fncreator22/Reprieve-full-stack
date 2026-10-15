@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-SP  params: $from_id, $to_id
 MATCH (a {id: $from_id}), (b {id: $to_id})
 CALL algo.SPpaths({sourceNode: a, targetNode: b,

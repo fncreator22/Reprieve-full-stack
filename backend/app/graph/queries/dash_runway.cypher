@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-DASH-RUNWAY  params: $as_of, $horizon_s
 MATCH (t:Team)-[:OWNS]->(s:Service)<-[:AFFECTS]-(e:Exception {status: 'active'})
 WHERE e.expires_at <= $as_of + $horizon_s

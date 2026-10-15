@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // explorer: domain nodes only  params: $labels, $limit
 MATCH (n) WHERE labels(n)[0] IN $labels
 RETURN n.id AS id, labels(n)[0] AS label, coalesce(n.name, n.title, n.description, n.id) AS name,

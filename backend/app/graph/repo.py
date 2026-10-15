@@ -1,4 +1,6 @@
-"""The only module that executes Cypher (02 §6 rule 2). Queries live in queries/*.cypher, referenced by file stem."""
+"""The sole gateway for parameterized Cypher query execution against FalkorDB.
+Loads and caches pre-compiled queries from queries/*.cypher with strict label sanitization.
+"""
 
 from functools import lru_cache
 from pathlib import Path

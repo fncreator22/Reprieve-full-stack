@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-PRED-CACHE-SET  params: $rows (list of {service_id, simulated_score, risk_band, is_spof, has_collision, pulse, color}), $as_of
 UNWIND $rows AS row
 MATCH (s:Service {id: row.service_id})

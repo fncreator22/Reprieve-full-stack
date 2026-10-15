@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // platform  params: $id, $clerk_user_id, $email, $name, $now
 MERGE (u:User {clerk_user_id: $clerk_user_id})
 ON CREATE SET u.id = $id, u.created_at = $now, u.status = 'active', u.prefs_json = '{}'

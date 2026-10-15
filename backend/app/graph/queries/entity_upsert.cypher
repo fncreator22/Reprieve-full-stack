@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // generic registry write; label from a code constant, props whitelisted in services/registry.py
 MERGE (n:$$LABEL$$ {id: $id})
 ON CREATE SET n.created_at = $now, n.created_by = $actor, n.source = 'manual'

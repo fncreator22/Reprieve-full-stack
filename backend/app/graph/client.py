@@ -1,4 +1,6 @@
-"""FalkorDB connection and the single graph-name builder (02 §6 rule 6)."""
+"""FalkorDB asynchronous connection factory and tri-planar graph topology manager.
+Provides strict tenant isolation across platform_<prefix>, org_<ws_id>, and mem_<ws_id> graphs.
+"""
 
 import re
 from dataclasses import dataclass

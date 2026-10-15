@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $as_of, $person_id
 MATCH (a:Alert) WHERE a.status IN ['open', 'acknowledged', 'snoozed']
 RETURN 'alert' AS kind, a.severity AS key, count(a) AS n

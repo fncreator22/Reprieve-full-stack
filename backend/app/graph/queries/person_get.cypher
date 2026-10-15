@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (p:Person {id: $id})
 OPTIONAL MATCH (p)-[m:MEMBER_OF]->(t:Team)
 WITH p, collect(DISTINCT {team_id: t.id, team: t.name, since: m.since, until: m.until}) AS memberships

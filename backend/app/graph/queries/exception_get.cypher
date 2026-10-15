@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (e:Exception {id: $id})-[:WAIVES]->(c:Control)
 MATCH (e)-[:OWNED_BY]->(o:Person)
 OPTIONAL MATCH (e)-[:APPROVED_BY]->(ap:Person)

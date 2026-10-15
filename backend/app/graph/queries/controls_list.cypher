@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (c:Control)
 OPTIONAL MATCH (e:Exception {status: 'active'})-[:WAIVES]->(c)
 RETURN c AS c, count(e) AS active_waivers

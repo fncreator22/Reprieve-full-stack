@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (s:Service)-[:HAS_SNAPSHOT]->(n:RiskSnapshot)
 WITH s, n ORDER BY n.as_of DESC
 WITH s, collect(n)[0] AS last

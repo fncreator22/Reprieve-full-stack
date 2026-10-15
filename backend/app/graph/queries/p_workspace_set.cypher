@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Field names are fixed by the caller (services/workspaces.py); values are parameters.
 MATCH (w:Workspace {id: $ws_id})
 SET w.status = coalesce($status, w.status), w.clock_mode = coalesce($clock_mode, w.clock_mode),

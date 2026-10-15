@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-ALT-RES  params: $now, $active_ids, $evaluated_rule_ids
 MATCH (a:Alert)
 WHERE a.status IN ['open', 'acknowledged', 'snoozed'] AND a.rule_id IN $evaluated_rule_ids AND NOT a.id IN $active_ids

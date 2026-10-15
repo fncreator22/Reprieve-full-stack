@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-R1  params: $as_of, $window_s
 MATCH (e:Exception {status:'active'})-[:WAIVES]->(c:Control)
 WHERE e.expires_at <= $as_of + $window_s OR e.condition_met = true

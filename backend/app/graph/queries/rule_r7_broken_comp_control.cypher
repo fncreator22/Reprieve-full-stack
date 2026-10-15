@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-R7  params: $as_of, $max_age_s, $missing_min_severity
 MATCH (e:Exception {status:'active'})-[:WAIVES]->(ctl:Control)
 OPTIONAL MATCH (e)-[:COMPENSATED_BY]->(cc:CompensatingControl)

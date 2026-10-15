@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (u:User {id: $user_id})-[m:MEMBER_OF]->(w:Workspace {id: $ws_id})
 WHERE (m.status IS NULL OR m.status = 'active')
 SET m.person_id = $person_id

@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-PRED-COL  params: $as_of, $horizon_s
 MATCH (e:Exception {status: 'active'})-[:AFFECTS]->(s:Service)
 WHERE e.expires_at >= $as_of AND e.expires_at <= $as_of + $horizon_s

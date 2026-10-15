@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (t:Team)
 OPTIONAL MATCH (t)-[:OWNS]->(s:Service)
 OPTIONAL MATCH (lead:Person)-[l:LEADS]->(t) WHERE l.since <= $as_of AND (l.until IS NULL OR l.until > $as_of)

@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-R5  params: $k
 MATCH (latest:Exception {status:'active'})-[:WAIVES]->(c:Control)
 WHERE NOT ()-[:RENEWS]->(latest)

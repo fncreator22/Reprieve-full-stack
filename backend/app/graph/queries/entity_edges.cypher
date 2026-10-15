@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // one entity's direct relationships, both directions  params: $id, $limit
 MATCH (n {id: $id})-[r]-(m)
 RETURN type(r) AS type, startNode(r).id = $id AS outgoing, m.id AS id, labels(m)[0] AS label,

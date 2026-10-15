@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $q (lowercase), $labels, $limit
 MATCH (n) WHERE labels(n)[0] IN $labels
   AND (toLower(coalesce(n.name, n.title, '')) CONTAINS $q OR n.id CONTAINS $q)

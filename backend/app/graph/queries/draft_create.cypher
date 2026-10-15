@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // staged draft from text ingestion: edges only for resolved IDs (unresolved ones are completed on approve)
 CREATE (e:Exception {id: $id, title: $title, kind: $kind, status: 'draft', severity: $severity, granted_at: $granted_at,
                      expires_at: $expires_at, description: $description, requester_kind: 'person', version: 1,

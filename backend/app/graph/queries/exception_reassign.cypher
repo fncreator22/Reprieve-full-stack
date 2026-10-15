@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (e:Exception {id: $id}), (p:Person {id: $owner_id, status: 'active'})
 OPTIONAL MATCH (e)-[old:OWNED_BY]->(:Person)
 DELETE old

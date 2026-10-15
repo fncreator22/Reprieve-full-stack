@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (e:Exception {id: $id})
 WHERE ($from_status IS NULL OR e.status = $from_status) AND ($version IS NULL OR e.version = $version)
 SET e.status = $status, e.version = e.version + 1, e.updated_at = $now,

@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-R3  params: $k
 MATCH (e:Exception {status:'active'})-[:COMPENSATED_BY]->(cc:CompensatingControl)-[:RELIES_ON]->(x)
 WITH x, collect(DISTINCT e.id) AS exception_ids, collect(DISTINCT [e.id, cc.id]) AS pairs, max(e.severity) AS max_severity

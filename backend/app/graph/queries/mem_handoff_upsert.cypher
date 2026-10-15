@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Sentinel → Steward handoffs for new high/critical alerts (T-047). Idempotent per alert.
 UNWIND $rows AS r
 MERGE (h:HandoffTask {id: r.id})

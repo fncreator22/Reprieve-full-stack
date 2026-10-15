@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $rows [{id, exception_ids}]
 UNWIND $rows AS r
 MATCH (a:Alert {id: r.id})

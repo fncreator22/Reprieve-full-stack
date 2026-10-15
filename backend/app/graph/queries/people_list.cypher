@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $as_of, $q
 MATCH (p:Person) WHERE $q IS NULL OR toLower(p.name) CONTAINS $q OR toLower(coalesce(p.email, '')) CONTAINS $q
 OPTIONAL MATCH (p)-[m:MEMBER_OF]->(t:Team) WHERE m.since <= $as_of AND (m.until IS NULL OR m.until > $as_of)

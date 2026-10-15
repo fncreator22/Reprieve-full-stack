@@ -1,4 +1,6 @@
-"""Constraint and index specs per graph kind, and the idempotent bootstrap (03 §6.2–6.3)."""
+"""Idempotent graph schema initialization, node constraints, and secondary index definitions.
+Bootstraps unique IDs, compound indexes, and version checkpoints across all isolated graphs.
+"""
 
 import asyncio
 from dataclasses import dataclass

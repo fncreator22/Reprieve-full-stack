@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (e:Exception {id: $id, status: 'draft'})
 OPTIONAL MATCH (e)-[:EVIDENCED_BY]->(ev:Evidence)
 DETACH DELETE e, ev

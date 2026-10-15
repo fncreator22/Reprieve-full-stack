@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-ALT-UP (batched, F3/F15: merge on deterministic id)  params: $rows, $now, $as_of
 UNWIND $rows AS r
 MERGE (a:Alert {id: r.id})

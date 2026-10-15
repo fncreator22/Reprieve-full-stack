@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $as_of, $window_s, $statuses, $effective, $kinds, $severities, $service_id, $owner_id, $expiring_s, $q, $skip, $limit
 MATCH (e:Exception)-[:WAIVES]->(c:Control)
 MATCH (e)-[:OWNED_BY]->(o:Person)

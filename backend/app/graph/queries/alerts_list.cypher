@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // params: $statuses, $severities, $rules, $subject_id, $involves, $skip, $limit (filters nullable)
 MATCH (a:Alert)
 WHERE ($statuses IS NULL OR a.status IN $statuses) AND ($severities IS NULL OR a.severity IN $severities)

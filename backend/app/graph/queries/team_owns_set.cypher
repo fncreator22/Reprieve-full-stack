@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 MATCH (s:Service {id: $service_id})
 OPTIONAL MATCH (:Team)-[old:OWNS]->(s)
 DELETE old

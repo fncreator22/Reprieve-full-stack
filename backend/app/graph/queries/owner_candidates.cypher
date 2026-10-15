@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // Q-OWN  params: $exception_id, $as_of
 MATCH (e:Exception {id:$exception_id})-[:AFFECTS]->(s:Service)<-[:OWNS]-(t:Team)
 MATCH (lead:Person {status:'active'})-[l:LEADS]->(t)

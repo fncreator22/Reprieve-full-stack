@@ -1,3 +1,4 @@
+// Reprieve Graph Engine · Parameterized FalkorDB Cypher
 // approve: replace edges with the reviewer-confirmed IDs, then activate  params: $id, $control_id, $owner_id, $service_ids, $expires_at, $severity, $title, $now
 MATCH (e:Exception {id: $id, status: 'draft'}), (c:Control {id: $control_id}), (o:Person {id: $owner_id, status: 'active'})
 OPTIONAL MATCH (e)-[old]->(:Control) DELETE old
