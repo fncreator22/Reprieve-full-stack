@@ -1,4 +1,6 @@
-"""Sentinel run (03 §8.5): lock → detect → persist alerts → resolve cleared → snapshots → run record → events."""
+"""Sentinel autonomous risk scanner: orchestrates lock acquisition, graph detection,
+alert persistence, auto-clearing resolutions, and event broadcast hooks.
+"""
 
 import asyncio
 import json

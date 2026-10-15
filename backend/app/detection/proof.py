@@ -1,4 +1,6 @@
-"""Proof paths (03 §8.3): built from IDs returned by rule queries, then hydrated with names."""
+"""Shortest proof path construction, edge validation, and entity label hydration.
+Generates deterministic graph traversal paths linking exceptions to blast radius targets.
+"""
 
 from dataclasses import dataclass, field
 from typing import Any

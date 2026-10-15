@@ -1,4 +1,6 @@
-"""PageRank / betweenness / WCC with a degree-centrality fallback (FR-DET-10)."""
+"""Graph centrality algorithms: PageRank, Betweenness Centrality, and In/Out Degree fallbacks.
+Normalizes multi-metric graph importance scores into continuous [0, 1] service risk multipliers.
+"""
 
 import structlog
 

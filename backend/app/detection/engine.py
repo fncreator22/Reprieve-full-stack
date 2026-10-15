@@ -1,4 +1,6 @@
-"""Run rules R1–R8, score services, and turn results into alert specs. No LLM, no writes (02 §6 rule 1)."""
+"""Deterministic architectural invariant detection engine (rules R1–R8) and alert synthesizer.
+Evaluates graph topology, shortest proof paths, and exponential decay scoring with zero LLM guesswork.
+"""
 
 import hashlib
 import json
