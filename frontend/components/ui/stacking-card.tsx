@@ -1,6 +1,14 @@
 'use client';
 
-import React, { useRef, forwardRef } from 'react';
+/**
+ * Interactive Stacking Cards Component.
+ *
+ * Implements smooth hardware-accelerated scroll tracking using Motion for React.
+ * Each card sticky-stacks as the user scrolls, revealing official post-mortem
+ * incident documentation and pre-merge prevention proof paths.
+ */
+
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { ReactLenis } from 'lenis/react';
 import { useTransform, motion, useScroll, type MotionValue } from 'motion/react';
 import { cn } from '@/lib/utils';
@@ -249,6 +257,7 @@ export interface StackingCardProps {
 export const StackingCard = forwardRef<HTMLDivElement, StackingCardProps>(
   ({ projects, className, useLenis = false }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    useImperativeHandle(ref, () => containerRef.current as HTMLDivElement);
 
     const { scrollYProgress } = useScroll({
       target: containerRef,

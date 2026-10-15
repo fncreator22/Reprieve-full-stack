@@ -1,13 +1,19 @@
 "use client";
 
+/**
+ * Architectural Risk Assessment Booking Modal.
+ *
+ * Allows platform architects and engineering leaders to schedule a live
+ * compound failure audit and zero-login CI circuit breaker review session.
+ */
+
 import { useState } from "react";
-import { Calendar, CheckCircle2, Clock, Mail, ShieldCheck, Sparkles, User, Building } from "lucide-react";
+import { Calendar, CheckCircle2, Clock, Mail, ShieldCheck, User, Building } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";

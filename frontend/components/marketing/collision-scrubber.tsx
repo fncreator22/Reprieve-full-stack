@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Sliding Temporal Collision Scrubber.
+ *
+ * Demonstrates temporal risk clustering: allows users to slide an interactive
+ * time horizon (0 to 60 days) to visualize how isolated waivers collapse into
+ * multi-service cascading failures during overlapping expiry windows.
+ */
+
 import { useMemo, useState } from "react";
 import { Calendar, Layers, ShieldAlert } from "lucide-react";
 import { cn } from "@/lib/utils";

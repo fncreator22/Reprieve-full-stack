@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldAlert, ShieldCheck, GitPullRequest, AlertTriangle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ShieldAlert, GitPullRequest, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**

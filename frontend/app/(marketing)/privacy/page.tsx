@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
-      updated="11 October 2026"
+      updated="15 October 2026"
       intro={
         <>
           <strong>Commitment to Data Sovereignty:</strong> Reprieve is built on the principle of minimal data extraction.

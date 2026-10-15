@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Real-World Outage Post-Mortems Section.
+ *
+ * Showcases interactive stacking cards with verified post-mortem data
+ * (CrowdStrike Falcon, Square / Block Inc., Change Healthcare / UnitedHealth)
+ * demonstrating how compound exception graph rules would have intercepted each failure.
+ */
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";

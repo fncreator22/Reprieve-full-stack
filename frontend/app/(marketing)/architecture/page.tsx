@@ -1,9 +1,17 @@
+/**
+ * Technical Architecture & Three-Graph Topology Overview.
+ *
+ * Explains Reprieve's foundational multi-graph architecture:
+ * 1. Platform Graph (`platform_<prefix>`): Users, workspaces, memberships, notifications.
+ * 2. Domain Graph (`org_<ws_id>`): Living topology of microservices, exceptions, owners, controls.
+ * 3. Agent Memory Graph (`mem_<ws_id>`): Episodic turns, semantic facts, playbooks, handoffs.
+ */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Bot, Database, Lock, Network, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/marketing/reveal";
-import { CLERK_ENABLED } from "@/lib/auth-config";
 
 export const metadata: Metadata = {
   title: "Architecture & 3-Graph Topology · Reprieve",

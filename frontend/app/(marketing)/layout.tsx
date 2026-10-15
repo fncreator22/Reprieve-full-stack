@@ -1,3 +1,13 @@
+/**
+ * Root Marketing & Landing Page Layout.
+ *
+ * Integrates:
+ * - High-performance AmbientBackground blueprint mesh canvas.
+ * - Lenis-powered accessible smooth scrolling.
+ * - Global command palette listener (`Cmd+K`).
+ * - Responsive MarketingNav header and MarketingFooter.
+ */
+
 import type { ReactNode } from "react";
 import { MarketingFooter } from "@/components/marketing/marketing-footer";
 import { MarketingNav } from "@/components/marketing/marketing-nav";

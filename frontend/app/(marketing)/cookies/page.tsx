@@ -10,7 +10,7 @@ export default function CookiesPage() {
   return (
     <LegalPage
       title="Cookie Policy"
-      updated="11 October 2026"
+      updated="15 October 2026"
       intro={
         <>
           <strong>Zero Ad Tracking Guarantee:</strong> Reprieve does not use third-party advertising cookies,

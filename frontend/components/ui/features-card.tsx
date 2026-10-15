@@ -1,7 +1,17 @@
 "use client";
 
+/**
+ * Three Native Surfaces Bento & Stack Integrations Component.
+ *
+ * Showcases:
+ * 1. Zero-Login CLI Scanner (`npx reprieve scan --strict`)
+ * 2. Model Context Protocol (MCP) JSON Configuration for Cursor & Claude Desktop
+ * 3. Automated GitHub Actions Pre-Merge Gate Workflow
+ * 4. Microservice Telemetry & Native Technology Integrations
+ */
+
 import React, { useState } from "react";
-import { Terminal, Cpu, GitPullRequest, Copy, Check, BarChart3 } from "lucide-react";
+import { Terminal, Cpu, GitPullRequest, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const GITHUB_ACTION_YAML = `name: Reprieve Architecture Gate

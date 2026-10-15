@@ -1,11 +1,16 @@
 "use client";
 
+/**
+ * Compound Graph Telemetry Bento Grid.
+ *
+ * Visualizes multi-hop cascading failure reachability, temporal collision windows,
+ * and orphan exception detection across payments and auth dependency meshes.
+ */
+
 import { useState } from "react";
-import { Layers, CalendarClock, UserX, AlertTriangle, ArrowRight, ShieldCheck, Flame, GitCommit } from "lucide-react";
+import { Layers, CalendarClock, UserX, Flame } from "lucide-react";
 import { LinearSpotlightCard } from "@/components/marketing/linear-spotlight-card";
-import { StatusChip } from "@/components/status-chip";
 import { SeverityBadge } from "@/components/severity-badge";
-import { ScoreRing } from "@/components/score-ring";
 import { cn } from "@/lib/utils";
 
 export function AsymmetricBento() {

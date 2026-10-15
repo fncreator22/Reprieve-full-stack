@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Marketing Navigation Header.
+ *
+ * Glassmorphic sticky header with backdrop blur on scroll.
+ * Features links to CLI & MCP, Post-Mortems, Rules, Architecture, FAQ,
+ * and responsive mobile drawer navigation.
+ */
+
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";

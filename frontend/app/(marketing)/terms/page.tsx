@@ -10,7 +10,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms of Service"
-      updated="11 October 2026"
+      updated="15 October 2026"
       intro={
         <>
           <strong>Enterprise Agreement:</strong> These Terms of Service constitute a legally binding agreement between you

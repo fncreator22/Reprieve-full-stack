@@ -1,10 +1,23 @@
+/**
+ * Architectural Detection Rules Reference (R1–R8).
+ *
+ * Detailed technical specification of Reprieve's 8 pre-compiled Cypher rules:
+ * - R1: Expiring Exception (Temporal horizon reachability)
+ * - R2: Orphaned Exception / Ghost Owner (Owner departed or inactive)
+ * - R3: Shared Fallback Exhaustion (Single point of human failure)
+ * - R4: Exception Blast Radius (Downstream service dependency reachability)
+ * - R5: Renewal Chain / Treadmill (Repeated waiver extensions >= 3x)
+ * - R6: Temporal Expiry Collision (Multi-team waiver expiration cluster)
+ * - R7: Broken Compensating Control (Bypass control failure or unverified state)
+ * - R8: Customer-Facing Path Exposure (Direct ingress and cardholder data pathway risk)
+ */
+
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Code2, Network, ShieldAlert, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Code2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/marketing/reveal";
-import { CLERK_ENABLED } from "@/lib/auth-config";
 
 export const metadata: Metadata = {
   title: "Compound Risk Detection Rules · Reprieve",

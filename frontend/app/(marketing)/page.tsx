@@ -1,5 +1,18 @@
 "use client";
 
+/**
+ * Reprieve Landing Page & Marketing Showcase.
+ *
+ * Demonstrates:
+ * - Interactive Hero Graph Circuit Breaker with live waiver collision simulation.
+ * - Architectural Specification & Telemetry Proof Strip.
+ * - Interactive Stacking Post-Mortem Cards (CrowdStrike, Square, Change Healthcare).
+ * - Interactive Northwind Pay Sandbox Launcher (Zero Login).
+ * - Three Native Surfaces (CLI Scanner, MCP Protocol, CI Gate).
+ * - Interactive Sliding Temporal Collision Scrubber.
+ * - Frequently Asked Questions accordion.
+ */
+
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -21,7 +34,6 @@ import { HeroGraphCircuitBreaker } from "@/components/marketing/hero-graph-circu
 import { ProofStrip } from "@/components/marketing/proof-strip";
 import { PrecedentCard } from "@/components/precedent-card";
 import { SeverityBadge } from "@/components/severity-badge";
-import { CLERK_ENABLED } from "@/lib/auth-config";
 import { cn } from "@/lib/utils";
 import { FeaturesCard } from "@/components/ui/features-card";
 

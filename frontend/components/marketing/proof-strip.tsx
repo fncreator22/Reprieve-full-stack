@@ -1,3 +1,13 @@
+/**
+ * Architectural Proof & Telemetry Strip.
+ *
+ * Renders key architectural invariants verified against the ground-truth test suite:
+ * - 14 Read-Only MCP Tools & 8 pre-compiled Cypher rules (0% LLM).
+ * - <20ms p95 traversal latency on service graphs.
+ * - 100% Grounded proof paths citing living FalkorDB nodes.
+ * - Zero Login developer sandbox exploring Northwind Pay telemetry.
+ */
+
 import React from "react";
 
 interface ProofStat {

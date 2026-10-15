@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { GitPullRequest, ShieldAlert, CheckCircle2, Terminal, ArrowRight, Zap, AlertTriangle } from "lucide-react";
-import { cn } from "@/lib/utils";
+/**
+ * CI/CD Pre-Merge Circuit Breaker & Git Diff Visualizer.
+ *
+ * Demonstrates Reprieve's zero-login pre-merge analyzer catching an unmanaged
+ * bypass on a Go authentication service, illustrating the shortest proof path
+ * to the customer checkout path and the resulting avalanche failure score.
+ */
+
+import { GitPullRequest, ShieldAlert, ArrowRight, Zap, AlertTriangle } from "lucide-react";
 
 export function CircuitBreakerDiff() {
-  const [activeTab, setActiveTab] = useState<"diff" | "proof">("diff");
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0c0d0e] shadow-2xl">
