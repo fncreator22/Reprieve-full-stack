@@ -91,6 +91,27 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
   if (cleanPath.endsWith("/workspaces/northwind-pay")) {
     return demoFixture["/api/v1/workspaces/northwind-pay"] as T;
   }
+  if (cleanPath.endsWith("/me")) {
+    return {
+      user: {
+        id: "usr_guest",
+        email: "guest@reprieve.local",
+        name: "Guest Reviewer",
+        prefs: {},
+      },
+      memberships: [
+        {
+          workspace_id: "northwind-pay",
+          slug: "northwind-pay",
+          name: "Northwind Pay",
+          role: "viewer",
+          person_id: null,
+          status: "ready",
+          joined_at: 1791747790,
+        },
+      ],
+    } as unknown as T;
+  }
 
   return undefined;
 }
@@ -306,8 +327,8 @@ export async function apiFetch<T>(path: string, opts: RequestOptions = {}, getTo
       }
       const err = await toApiError(res, requestId);
       if (err.code === "UNAUTHENTICATED") {
-        const path = typeof window !== "undefined" ? window.location.pathname : "";
-        if (!path.startsWith("/onboarding") && !path.startsWith("/sign-in") && !path.startsWith("/sign-up") && !path.startsWith("/w/northwind-pay")) {
+        const currentPath = typeof window !== "undefined" ? window.location.pathname : "";
+        if (!currentPath.startsWith("/onboarding") && !currentPath.startsWith("/sign-in") && !currentPath.startsWith("/sign-up") && !currentPath.includes("northwind-pay")) {
           markSessionExpired();
         }
       }

@@ -68,7 +68,10 @@ export function openStream(opts: StreamOptions): Promise<void> {
         return;
       }
       const err = await toApiError(res, res.headers.get("x-request-id") ?? "");
-      if (err.code === "UNAUTHENTICATED") markSessionExpired();
+      if (err.code === "UNAUTHENTICATED") {
+        const curPath = typeof window !== "undefined" ? window.location.pathname : "";
+        if (!curPath.includes("northwind-pay")) markSessionExpired();
+      }
       if (res.status >= 400 && res.status < 500 && res.status !== 429) throw new FatalStreamError(err.message, { cause: err });
       throw err;
     },

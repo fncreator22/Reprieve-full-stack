@@ -2,10 +2,12 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Phase 6 Verification Gates", () => {
+  const baseUrl = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+
   test("Gate 2: No horizontal scroll or overflow across all viewports", async ({ page }) => {
     for (const width of [390, 768, 1280, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+      await page.goto(baseUrl, { waitUntil: "networkidle" });
       const overflow = await page.evaluate(() => {
         return document.documentElement.scrollWidth > window.innerWidth;
       });
@@ -14,7 +16,7 @@ test.describe("Phase 6 Verification Gates", () => {
   });
 
   test("Gate 5: Keyboard navigation and interaction", async ({ page }) => {
-    await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
 
     // Focus range input in wipe band and simulate arrow keys
     const rangeInput = page.locator("input[type='range']").first();
@@ -34,12 +36,12 @@ test.describe("Phase 6 Verification Gates", () => {
 
   test("Gate 6: prefers-reduced-motion compatibility", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     await expect(page.locator("body")).toBeVisible();
   });
 
   test("Gate 7: Nav in-page anchors land on valid targets", async ({ page }) => {
-    await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     for (const id of ["developer-hub", "case-studies", "faq"]) {
       const el = page.locator(`#${id}`);
       await expect(el).toBeAttached();
@@ -47,7 +49,7 @@ test.describe("Phase 6 Verification Gates", () => {
   });
 
   test("Gate 8: Claims consistency audit on rendered page", async ({ page }) => {
-    await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+    await page.goto(baseUrl, { waitUntil: "networkidle" });
     const text = await page.innerText("body");
 
     // Latency check: should only contain 12ms, no 15ms or <15ms

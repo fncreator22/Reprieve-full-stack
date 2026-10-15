@@ -1,7 +1,8 @@
 import { test } from "@playwright/test";
 
 test("run axe accessibility check on landing page", async ({ page }) => {
-  await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+  const baseUrl = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+  await page.goto(baseUrl, { waitUntil: "networkidle" });
   await page.addScriptTag({ url: "https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js" });
 
   const results = await page.evaluate(async () => {

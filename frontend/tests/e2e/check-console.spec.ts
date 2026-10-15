@@ -6,7 +6,8 @@ test("check console messages and Next dev overlay", async ({ page }) => {
   page.on("console", (msg) => messages.push({ type: msg.type(), text: msg.text() }));
   page.on("pageerror", (err) => messages.push({ type: "error", text: err.message }));
 
-  await page.goto("http://localhost:3000", { waitUntil: "networkidle" });
+  const baseUrl = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+  await page.goto(baseUrl, { waitUntil: "networkidle" });
   await page.waitForTimeout(2000);
 
   console.log("=== CONSOLE LOGS ===");
