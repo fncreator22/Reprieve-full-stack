@@ -10,6 +10,49 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { useAuthBridge } from "@/lib/auth";
 import type { ErrorCode, ProblemDetails } from "@/lib/types";
+import demoFixtureRaw from "./demo-fixture.json";
+
+const demoFixture = demoFixtureRaw as Record<string, unknown>;
+
+export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]): T | undefined {
+  if (!path.includes("northwind-pay")) return undefined;
+
+  const cleanPath = path.startsWith("http")
+    ? new URL(path).pathname
+    : path.startsWith("/api/v1")
+      ? path
+      : `/api/v1${path.startsWith("/") ? "" : "/"}${path}`;
+
+  if (query && Object.keys(query).length > 0) {
+    const qStr = new URLSearchParams(
+      Object.entries(query)
+        .filter(([, v]) => v !== undefined && v !== null && v !== "")
+        .map(([k, v]) => [k, String(v)])
+    ).toString();
+    if (qStr && demoFixture[`${cleanPath}?${qStr}`] !== undefined) {
+      return demoFixture[`${cleanPath}?${qStr}`] as T;
+    }
+  }
+
+  if (demoFixture[cleanPath] !== undefined) {
+    return demoFixture[cleanPath] as T;
+  }
+
+  const matchedKey = Object.keys(demoFixture).find((k) => k.startsWith(cleanPath));
+  if (matchedKey && demoFixture[matchedKey] !== undefined) {
+    return demoFixture[matchedKey] as T;
+  }
+
+  if (cleanPath.endsWith("/notifications")) return [] as unknown as T;
+  if (cleanPath.endsWith("/reviews")) return { items: [], next_cursor: null } as unknown as T;
+  if (cleanPath.endsWith("/alerts"))
+    return (demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] ?? {
+      items: [],
+      next_cursor: null,
+    }) as unknown as T;
+
+  return undefined;
+}
 
 export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 export const API_BASE = `${API_URL}/api/v1`;
@@ -201,11 +244,17 @@ export async function apiFetch<T>(path: string, opts: RequestOptions = {}, getTo
     }
     if (networkFailed || !res) {
       setStatus({ waking: false });
+      const fallback = getDemoFallback<T>(path, opts.query);
+      if (fallback !== undefined) return fallback;
       throw new NetworkError();
     }
     setStatus({ waking: false });
 
     if (!res.ok) {
+      const fallback = getDemoFallback<T>(path, opts.query);
+      if (fallback !== undefined) {
+        return fallback;
+      }
       const err = await toApiError(res, requestId);
       if (err.code === "UNAUTHENTICATED") {
         const path = typeof window !== "undefined" ? window.location.pathname : "";

@@ -56,13 +56,29 @@ export type WorkspaceResolution =
   | { state: "failed"; membership: Membership }
   | { state: "ready"; value: WorkspaceContextValue; workspaceError: unknown };
 
-const GUEST_DEMO_MEMBERSHIP: Membership = {
+export const GUEST_DEMO_MEMBERSHIP: Membership = {
   workspace_id: "northwind-pay",
   slug: "northwind-pay",
   name: "Northwind Pay",
   role: "viewer",
   person_id: null,
   status: "ready",
+};
+
+export const GUEST_NORTHWIND_WORKSPACE: WorkspaceOut = {
+  id: "northwind-pay",
+  slug: "northwind-pay",
+  name: "Northwind Pay",
+  status: "ready",
+  data_mode: "sample",
+  clock_mode: "simulated",
+  as_of: 1792195200,
+  ai_mode: "cloud",
+  onboarding_step: "done",
+  onboarding_done: true,
+  role: "viewer",
+  person_id: null,
+  last_sentinel_at: 1792195200,
 };
 
 /** Resolve a `/w/[ws]` slug to the workspace id via `GET /me` memberships (decision log: slug in URLs). */
@@ -86,20 +102,18 @@ export function useResolveWorkspace(slug: string): WorkspaceResolution {
 
   return useMemo<WorkspaceResolution>(() => {
     if (isNorthwindDemo) {
-      if (ws.isPending && !ws.data) return { state: "loading" };
-      if (ws.isError && !ws.data) return { state: "error", error: ws.error, retry: () => void ws.refetch() };
-      const w = ws.data;
+      const w = ws.data ?? GUEST_NORTHWIND_WORKSPACE;
       const mem = membership ?? GUEST_DEMO_MEMBERSHIP;
       return {
         state: "ready",
-        workspaceError: ws.error,
+        workspaceError: null,
         value: {
           wsId: w?.id ?? mem.workspace_id,
           slug: w?.slug ?? mem.slug,
           name: w?.name ?? mem.name,
           role: (w?.role as Role) ?? mem.role,
           personId: w?.person_id ?? mem.person_id,
-          asOf: w?.as_of ?? null,
+          asOf: w?.as_of ?? 1792195200,
           workspace: w,
           membership: mem,
         },

@@ -30,7 +30,14 @@ import { DataMissingView, NotFoundView, ServerErrorView } from "@/components/sys
 import { isApiError, useApi, wsPath } from "@/lib/api";
 import { errorBehavior, errorMessage, requestIdOf } from "@/lib/errors";
 import { hasRole, type WorkspaceOut } from "@/lib/types";
-import { meQueryKey, useResolveWorkspace, WorkspaceProvider, type WorkspaceContextValue } from "@/lib/workspace";
+import {
+  GUEST_DEMO_MEMBERSHIP,
+  GUEST_NORTHWIND_WORKSPACE,
+  meQueryKey,
+  useResolveWorkspace,
+  WorkspaceProvider,
+  type WorkspaceContextValue,
+} from "@/lib/workspace";
 
 function SkipLink() {
   return (
@@ -121,6 +128,9 @@ function ReadyShell({
 
 /** Data missing (SCR-X-04) is detected from the workspace record request. */
 function WorkspaceErrorGate({ value, error }: { value: WorkspaceContextValue; error: unknown }) {
+  if (value.slug === "northwind-pay") {
+    return null;
+  }
   const api = useApi();
   const qc = useQueryClient();
   const rehydrate = useMutation({
@@ -146,7 +156,23 @@ export function AppShell({ slug, children }: { slug: string; children: ReactNode
       {res.state === "loading" ? (
         <ShellSkeleton />
       ) : res.state === "error" ? (
-        isApiError(res.error) && res.error.code === "UNAUTHENTICATED" && slug !== "northwind-pay" ? (
+        slug === "northwind-pay" ? (
+          <ReadyShell
+            value={{
+              wsId: "northwind-pay",
+              slug: "northwind-pay",
+              name: "Northwind Pay",
+              role: "viewer",
+              personId: null,
+              asOf: 1792195200,
+              workspace: GUEST_NORTHWIND_WORKSPACE,
+              membership: GUEST_DEMO_MEMBERSHIP,
+            }}
+            workspaceError={null}
+          >
+            {children}
+          </ReadyShell>
+        ) : isApiError(res.error) && res.error.code === "UNAUTHENTICATED" ? (
           <ShellSkeleton />
         ) : (
           <main id="main">
