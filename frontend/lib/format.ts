@@ -1,3 +1,10 @@
+/**
+ * Formatting & Date Serialization Utilities.
+ *
+ * Provides epoch seconds conversions, workspace-relative time calculations,
+ * string middle-truncation for entity IDs (e.g. `exc_01...`), and slugification.
+ */
+
 import { format, formatDistanceStrict, isSameDay } from "date-fns";
 
 /** API timestamps are epoch seconds. */

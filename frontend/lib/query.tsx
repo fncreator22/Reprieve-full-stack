@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * TanStack React Query Client & Global Error Interceptor.
+ *
+ * Configures default caching strategies (30s stale time, transient retry limits),
+ * global mutation toast notifications via Sonner, and selective error delegation.
+ */
+
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";

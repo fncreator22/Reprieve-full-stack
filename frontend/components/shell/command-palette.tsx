@@ -1,5 +1,14 @@
 "use client";
 
+/**
+ * Universal Command Palette (Cmd+K / Ctrl+K).
+ *
+ * Provides instant fuzzy search across:
+ * - Active services, exceptions, controls, and alerts.
+ * - Primary navigation routes & quick settings actions.
+ * - Steward copilot triggers and dark/light theme switching.
+ */
+
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Moon, Plus, Sparkles, Sun } from "lucide-react";

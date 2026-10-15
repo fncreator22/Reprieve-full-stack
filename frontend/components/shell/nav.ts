@@ -1,3 +1,10 @@
+/**
+ * Shell Navigation Route Definitions & Registry.
+ *
+ * Defines primary routes (Home, Alerts, Exceptions, Services, Graph),
+ * registry entities (People, Teams, Controls), and footer navigation.
+ */
+
 import {
   BellRing,
   ClipboardCheck,

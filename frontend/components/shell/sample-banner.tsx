@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Sample Workspace Telemetry & Reset Banner.
+ *
+ * Appears when exploring the Northwind Pay sample dataset.
+ * Allows instant reset to golden seed baseline or clearing sample data.
+ */
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

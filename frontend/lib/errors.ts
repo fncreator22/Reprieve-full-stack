@@ -1,3 +1,10 @@
+/**
+ * Client-Side Error Translation & Behavioral Dispatch.
+ *
+ * Maps API ErrorCodes to specific UI behaviors (session modal, conflict banner,
+ * degraded AI indicator, invariant dialog) and provides calm, accessible user-facing copy.
+ */
+
 import { isApiError, NetworkError } from "@/lib/api";
 import type { ErrorCode } from "@/lib/types";
 

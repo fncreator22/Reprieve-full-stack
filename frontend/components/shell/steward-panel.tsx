@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Steward AI Conversational Copilot Side-Panel.
+ *
+ * Renders an expandable 400px column on desktop or full-screen drawer on mobile
+ * providing streaming SSE conversational queries grounded against graph tools.
+ */
+
 import { Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";

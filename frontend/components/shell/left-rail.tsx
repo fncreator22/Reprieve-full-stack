@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Collapsible Navigation Sidebar (LeftRail).
+ *
+ * Provides primary links to Exceptions, Alerts, Services, Graph Explorer, Registry,
+ * and Settings with active segment indicators and real-time counter badges.
+ */
+
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";

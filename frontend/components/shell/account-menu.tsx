@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Shell Account & Theme Menu.
+ *
+ * Renders the user avatar, workspace identity initials, system theme toggle
+ * (light/dark/system), workspace settings navigation, and sign-out action.
+ */
+
 import Link from "next/link";
 import { LogOut, Monitor, Moon, Settings, Sun } from "lucide-react";
 import { useTheme } from "next-themes";

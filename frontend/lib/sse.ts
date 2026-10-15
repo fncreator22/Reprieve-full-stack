@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Server-Sent Events (SSE) Streaming Transport Layer.
+ *
+ * Provides authenticated EventSource streaming over fetch using `@microsoft/fetch-event-source`.
+ * Supports backoff retry logic, JWT token refresh, and background tab state persistence
+ * for real-time Steward chat and workspace push notifications.
+ */
+
 import { EventStreamContentType, fetchEventSource } from "@microsoft/fetch-event-source";
 import { API_BASE, ApiError, markSessionExpired, newRequestId, toApiError, type TokenGetter } from "@/lib/api";
 

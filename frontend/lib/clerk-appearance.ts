@@ -1,4 +1,9 @@
-/** Clerk theming mapped to tokens (05 §14.3). CSS variables keep both themes in sync. */
+/**
+ * Clerk Authentication UI Theming Configuration.
+ *
+ * Maps Clerk modal and component styling directly to Reprieve's design tokens.
+ * CSS variables guarantee consistent typography, rounded borders, and violet brand accents.
+ */
 export const clerkAppearance = {
   variables: {
     colorPrimary: "var(--brand-solid)",

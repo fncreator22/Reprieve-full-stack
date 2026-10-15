@@ -1,3 +1,10 @@
+/**
+ * Design System CSS Token Bridge.
+ *
+ * Provides runtime resolution of CSS custom properties (colors, typography, radii)
+ * for HTML5 canvas rendering contexts and SVG charts that cannot consume Tailwind classes directly.
+ */
+
 import type { Severity } from "@/lib/types";
 
 /** Static values for places CSS variables cannot reach (viewport theme-color, emails). Mirrors globals.css. */

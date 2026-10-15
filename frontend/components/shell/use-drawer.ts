@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * URL-Synchronized Entity Drawer State Hook.
+ *
+ * Encodes entity drawer open state in query parameters (`?drawer=<id>`)
+ * with accessible focus restore on dismiss.
+ */
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 

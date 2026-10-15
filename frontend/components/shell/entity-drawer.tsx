@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Universal Entity Quick-Inspect Slide-Over Sheet.
+ *
+ * Renders an accessible side-panel displaying deep entity context
+ * (services, exceptions, owners, compensating controls) without leaving the current view.
+ */
+
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { ExternalLink, Network } from "lucide-react";

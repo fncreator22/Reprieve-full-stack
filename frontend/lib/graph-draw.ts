@@ -1,3 +1,12 @@
+/**
+ * Graph Canvas Rendering & Polygons.
+ *
+ * Provides high-performance 2D canvas drawing routines for force-directed graphs:
+ * - Geometric node shapes (circle, diamond, hexagon, star) for colorblind accessibility.
+ * - Severity fill mapping using design system theme tokens.
+ * - Anti-aliased stroke rendering for proof-path edge traversal.
+ */
+
 import type { ThemeTokens } from "@/lib/tokens";
 
 /** Node fill: exceptions by severity (1–5), everything else by type token (05 §3.1.6). */

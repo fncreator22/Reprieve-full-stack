@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Global Application Shell State Context.
+ *
+ * Manages responsive layout states including sidebar rail collapse (persisted in localStorage),
+ * Steward conversational copilot drawer visibility, and CommandPalette shortcut modal open state.
+ */
+
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 interface ShellState {

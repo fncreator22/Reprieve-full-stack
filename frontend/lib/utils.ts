@@ -1,3 +1,10 @@
+/**
+ * Tailwind CSS Class Merging & Collision Resolution Utility.
+ *
+ * Extends `tailwind-merge` with Reprieve custom typography scale tokens
+ * to prevent unintentional fontSize class collisions with color classes.
+ */
+
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 

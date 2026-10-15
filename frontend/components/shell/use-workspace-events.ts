@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Real-Time Workspace Event Stream Hook.
+ *
+ * Connects to `/api/v1/workspaces/{ws_id}/events` via Server-Sent Events (SSE).
+ * Automatically updates the Sentinel scanning status pill and triggers selective
+ * React Query cache invalidations when exceptions or alerts change.
+ */
+
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";

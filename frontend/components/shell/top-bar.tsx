@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * Global Top Navigation Bar.
+ *
+ * Houses:
+ * - Breadcrumb path & workspace selector dropdown.
+ * - Autonomous Sentinel scanning pill with animated pulse states.
+ * - ClockChip showing live or simulated workspace timestamp.
+ * - Quick search trigger, Steward copilot toggle, NotificationsBell, and AccountMenu.
+ */
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";

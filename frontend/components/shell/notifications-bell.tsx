@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * In-App Notification Center Bell & Popover.
+ *
+ * Displays live risk updates, collision alerts, and assigned review requests.
+ * Supports batch marking notifications as read and direct navigation to affected entities.
+ */
+
 import Link from "next/link";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";

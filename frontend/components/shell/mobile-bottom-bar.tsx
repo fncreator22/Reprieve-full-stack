@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Mobile Navigation Bar & Drawer.
+ *
+ * Fixed bottom navigation bar for mobile touch screens providing direct access
+ * to Home, Alerts, Reviews, Steward Copilot, and an expandable More Sheet.
+ */
+
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { Menu } from "lucide-react";

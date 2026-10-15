@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Common React State & Browser Synchronization Hooks.
+ *
+ * Implements hydration-safe media queries (`useMediaQuery`, `usePrefersReducedMotion`),
+ * network connectivity listeners (`useOnline`), clipboard management (`useCopy`),
+ * and dynamic theme token accessors (`useThemeTokens`).
+ */
+
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { readThemeTokens, type ThemeTokens } from "@/lib/tokens";

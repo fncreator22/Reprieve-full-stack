@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Workspace Scope & Context Provider.
+ *
+ * Supplies the active workspace ID, slug, role, simulated clock (`asOf`),
+ * and current user membership to all child views under `/w/[ws]`.
+ */
+
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useMemo, type ReactNode } from "react";
 import { useApi, wsPath } from "@/lib/api";

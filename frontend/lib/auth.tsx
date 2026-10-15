@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Authentication Bridge Provider.
+ *
+ * Provides a unified `useAuthBridge` hook that abstracts Clerk authentication.
+ * If Clerk keys are absent, falls back gracefully to `noAuth` mode without breaking
+ * application state or local development sandbox workflows.
+ */
+
 import { useAuth, useClerk } from "@clerk/nextjs";
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { CLERK_ENABLED } from "@/lib/auth-config";

@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Shell Telemetry & Notification Data Hooks.
+ *
+ * Fetches workspace risk summaries, active alert counts, pending review requests,
+ * and user notifications with TanStack Query caching.
+ */
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useApi, wsPath } from "@/lib/api";
 import type { NotificationOut, RiskSummary } from "@/lib/types";

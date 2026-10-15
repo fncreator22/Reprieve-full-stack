@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * Root Application Shell & Workspace Layout.
+ *
+ * Integrates:
+ * - LeftRail navigation sidebar & MobileBottomBar responsive views.
+ * - TopBar with global workspace switcher, search trigger, and notifications.
+ * - Global CommandPalette (Cmd+K / Ctrl+K), EntityDrawer, and Steward conversational copilot panel.
+ * - System error overlays (OfflineBanner, SessionExpiredModal, ColdStartCard).
+ */
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";

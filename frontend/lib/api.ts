@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Reprieve REST API Client & HTTP Transport Layer.
+ *
+ * Implements RFC 7807 Problem Details error decoding, automatic Clerk JWT token injection,
+ * and typed query/mutation dispatch across platform, domain, and agent memory endpoints.
+ */
+
 import { useMemo, useSyncExternalStore } from "react";
 import { useAuthBridge } from "@/lib/auth";
 import type { ErrorCode, ProblemDetails } from "@/lib/types";

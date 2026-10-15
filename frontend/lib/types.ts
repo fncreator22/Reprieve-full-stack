@@ -1,4 +1,13 @@
-// TypeScript mirror of backend/app/models/api.py. Timestamps are epoch seconds.
+/**
+ * Reprieve TypeScript Domain Schema & REST API Mirror.
+ *
+ * Direct mirror of `backend/app/models/api.py`.
+ * Includes type contracts for:
+ * - Exceptions, Policies, Compensating Controls, and Evidence nodes.
+ * - Architectural Rules R1–R8 and Avalanche centralities.
+ * - Temporal collision clusters and cascade prediction results.
+ * - Workspaces, Memberships, Role-Based Access Control (RBAC), and Plugins.
+ */
 
 export type Role = "owner" | "admin" | "reviewer" | "member" | "viewer";
 export const ROLE_RANK: Record<Role, number> = { viewer: 0, member: 1, reviewer: 2, admin: 3, owner: 4 };
