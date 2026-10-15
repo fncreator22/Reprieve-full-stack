@@ -22,3 +22,14 @@ frontend/test-results/
 
 # Temporary scrape dump
 prgyn_dump/
+
+# Temporary video renders and frame captures
+*.mp4
+frame_*.png
+pristine_*.png
+sample_*.png
+test_*.png
+verify_*.png
+current_test_*.png
+.hackathon_staging/
+security_audit_sandbox/
