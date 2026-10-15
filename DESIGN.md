@@ -1,4 +1,7 @@
 # Reprieve — Design System
+> **Version**: 1.0.0 (Graph Hacks Hackathon Edition)  
+> **Updated**: October 15, 2026  
+> **Standard**: Verified High-Contrast Monospace Blueprint Design System  
 
 > "Clear. Precise. Quietly confident." — like a good incident commander: calm under pressure, shows its work, never shouts.
 

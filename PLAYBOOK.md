@@ -1,4 +1,7 @@
 # Reprieve — Playbook
+> **Version**: 1.0.0 (Graph Hacks Hackathon Edition)  
+> **Updated**: October 15, 2026  
+> **Target Graph**: `mem_<ws_id>` Procedural Runbook Memory  
 
 Playbooks are procedural memory for the Steward agent. Each playbook is a short runbook triggered when a specific detection rule fires. They are stored in the `mem_<ws_id>` FalkorDB graph as `Playbook` nodes and are recalled automatically when the Steward identifies a matching risk pattern.
 

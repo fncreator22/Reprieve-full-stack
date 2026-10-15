@@ -1,4 +1,7 @@
-# Reprieve — Agent Guide
+# Reprieve — Agent Guide & Architecture Handbook
+> **Version**: 1.0.0 (Graph Hacks Hackathon Edition)  
+> **Updated**: October 15, 2026  
+> **Status**: Verified Production Standard  
 
 Reprieve exposes a set of read-only graph reasoning tools through two surfaces:
 1. The **Steward** conversational agent (internal, streaming SSE via `/api/v1/workspaces/{ws_id}/chat`)

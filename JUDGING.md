@@ -5,7 +5,8 @@
 > **Target Repository**: [fncreator22/wemakedevs-hackathon](https://github.com/fncreator22/wemakedevs-hackathon)  
 > **Production Live Webapp**: [https://frontend-six-neon-97.vercel.app](https://frontend-six-neon-97.vercel.app)  
 > **Production Live Backend**: [https://reprieve-backend.onrender.com](https://reprieve-backend.onrender.com) (`GET /health`)  
-> **License**: MIT (Open Source)
+> **License**: MIT (Open Source)  
+> **Official Submission Date**: October 15, 2026  
 
 ---
 

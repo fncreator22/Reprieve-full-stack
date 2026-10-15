@@ -14,6 +14,8 @@
 
 [🌐 Production Webapp](https://frontend-six-neon-97.vercel.app) • [⚡ Production API Health](https://reprieve-backend.onrender.com/health) • [📋 Hackathon Judging Guide](JUDGING.md) • [🤖 Agent MCP Spec](AGENTS.md)
 
+*Built for Graph Hacks: Context for AI Agents (Kickoff: October 15, 2026)*
+
 </div>
 
 ---
