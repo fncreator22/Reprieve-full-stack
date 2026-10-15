@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 
 test("run axe accessibility check on landing page", async ({ page }) => {
   await page.goto("http://localhost:3000", { waitUntil: "networkidle" });

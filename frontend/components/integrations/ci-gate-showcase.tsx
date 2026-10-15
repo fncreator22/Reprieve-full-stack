@@ -1,29 +1,34 @@
 "use client";
 
+/**
+ * CI/CD Pre-Merge Gate Showcase Modal.
+ *
+ * Demonstrates the interactive GitHub PR Bot experience:
+ * - Bot comment detailing unmanaged `#nosec` bypass on payments-gateway.
+ * - Avalanche risk reachability calculation (+0.72 delta).
+ * - Multi-hop failure path rendering to checkout-api.
+ * - Copyable `.github/workflows/reprieve-gate.yml` CI workflow snippet.
+ */
+
 import { useState } from "react";
 import { 
   AlertTriangle, 
   ArrowRight, 
   Check, 
   Copy, 
-  ExternalLink, 
   GitCommit, 
   GitPullRequest, 
   Layers, 
-  MessageSquare, 
-  ShieldAlert, 
-  Terminal 
+  ShieldAlert 
 } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useWorkspace } from "@/lib/workspace";
 
 interface CiGateShowcaseProps {
   open: boolean;
@@ -31,7 +36,6 @@ interface CiGateShowcaseProps {
 }
 
 export function CiGateShowcase({ open, onOpenChange }: CiGateShowcaseProps) {
-  const { slug } = useWorkspace();
   const [copied, setCopied] = useState(false);
 
   const copyYaml = () => {

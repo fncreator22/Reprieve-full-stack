@@ -1,33 +1,33 @@
 'use client';
 
+/**
+ * Workspace Hub & Feature Catalog.
+ *
+ * Showcases Reprieve's living feature catalog, verified third-party integrations,
+ * and quick-start documentation guides.
+ */
+
 import * as React from 'react';
 import Link from 'next/link';
 import {
-   Activity,
    ArrowRight,
    BookOpen,
    Bot,
    Check,
-   CheckCircle2,
    Copy,
    Cpu,
    Database,
    ExternalLink,
-   FileCode,
-   FileText,
    Layers,
    Mail,
    Network,
-   RefreshCw,
    ShieldAlert,
    ShieldCheck,
-   Sparkles,
    Terminal,
-   Trash2,
    Webhook,
    Zap,
 } from 'lucide-react';
-import { SiGithub, SiDiscord } from 'react-icons/si';
+import { SiGithub } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LogoMark } from '@/components/logo';

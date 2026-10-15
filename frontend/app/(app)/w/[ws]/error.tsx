@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Workspace Error Boundary.
+ *
+ * Catches runtime page-level errors within `/w/[ws]` while preserving the AppShell,
+ * rendering a structured RFC 7807 problem details view with Request ID for troubleshooting.
+ */
+
 import { ServerErrorView } from "@/components/system/status-views";
 import { errorMessage, requestIdOf } from "@/lib/errors";
 

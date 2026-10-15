@@ -1,19 +1,20 @@
 "use client";
 
+/**
+ * Interactive Platform Architecture & Setup Quick Guide.
+ *
+ * Provides developers with zero-login CLI setup instructions, 3-graph
+ * topology explanations, detection rule references, and integration guides.
+ */
+
 import { useState } from "react";
 import { 
-  AlertOctagon, 
-  ArrowRight, 
   Check, 
   CheckCircle2, 
   Copy, 
-  Database, 
-  ExternalLink, 
   GitPullRequest, 
   Layers, 
   Network, 
-  ShieldCheck, 
-  Sparkles, 
   Terminal, 
   Users, 
   Zap 
@@ -23,7 +24,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";

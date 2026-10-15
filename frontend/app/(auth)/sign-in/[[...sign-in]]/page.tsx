@@ -1,6 +1,12 @@
+/**
+ * Authentication Sign-In Screen.
+ *
+ * Renders Clerk hosted sign-in UI with fallback redirect to Northwind Pay
+ * sample sandbox if authentication keys are unconfigured.
+ */
+
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { AuthNotConfigured } from "@/components/auth-not-configured";
 import { CLERK_ENABLED } from "@/lib/auth-config";
 import { SignIn } from "@clerk/nextjs";
 

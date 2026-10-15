@@ -1,6 +1,13 @@
 "use client";
 
-import { AlertTriangle, ArrowRight, Bot, Download, FileCheck, ShieldAlert, X } from "lucide-react";
+/**
+ * Simulation Proof Card Component.
+ *
+ * Renders graph path proofs for avalanche centrality reachability
+ * ($P = p_0^h$) and temporal expiry collision windows with SOC2 export.
+ */
+
+import { AlertTriangle, ArrowRight, Bot, Download, ShieldAlert, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

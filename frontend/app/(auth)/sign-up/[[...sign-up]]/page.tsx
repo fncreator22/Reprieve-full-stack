@@ -1,7 +1,13 @@
+/**
+ * Authentication Sign-Up Screen.
+ *
+ * Renders Clerk hosted registration UI with links to Terms of Service
+ * and Privacy Policy.
+ */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { AuthNotConfigured } from "@/components/auth-not-configured";
 import { CLERK_ENABLED } from "@/lib/auth-config";
 import { SignUp } from "@clerk/nextjs";
 

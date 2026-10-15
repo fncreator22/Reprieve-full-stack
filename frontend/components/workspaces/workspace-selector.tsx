@@ -1,10 +1,16 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Building2, Check, ExternalLink, Plus, ShieldAlert } from "lucide-react";
+/**
+ * Workspace Directory & Selector Hub.
+ *
+ * Displays available workspaces for the authenticated user, shows membership roles,
+ * and handles smart auto-routing for single-tenant users.
+ */
+
+import { ArrowRight, Plus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useTransition } from "react";
+import { useEffect, useMemo, useTransition } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -18,7 +24,7 @@ export function WorkspaceSelector() {
   const me = useMe();
   const [, startTransition] = useTransition();
 
-  const memberships = me.data?.memberships ?? [];
+  const memberships = useMemo(() => me.data?.memberships ?? [], [me.data?.memberships]);
   const lastSlug = lastWorkspace();
   const searchParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const forceSelect = searchParams?.get("select") === "1";

@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * Workspace Integrations & Plugins Settings Tab.
+ *
+ * Configures outgoing notification channels and developer tooling:
+ * - Slack & Discord Webhooks with operational failure proof dispatch.
+ * - Maileroo REST Email Dispatch for daily summaries and critical alerts.
+ * - Signed Svix-style Enterprise HMAC Webhooks for SIEM / PagerDuty.
+ * - Read-only Model Context Protocol (MCP) tool catalog for Cursor & Claude.
+ */
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, Copy, ExternalLink, Mail, Send, Terminal, Webhook } from "lucide-react";
 import { useState } from "react";
@@ -9,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useApi, wsPath } from "@/lib/api";
 import { errorMessage } from "@/lib/errors";
-import { cn } from "@/lib/utils";
 import { useWorkspace } from "@/lib/workspace";
 
 function SlackIcon({ className = "size-5" }: { className?: string }) {

@@ -1,3 +1,9 @@
+/**
+ * Workspace Root Layout.
+ *
+ * Injects the AppShell scoped to the current workspace slug (`/w/[ws]`).
+ */
+
 import type { ReactNode } from "react";
 import { AppShell } from "@/components/shell/app-shell";
 

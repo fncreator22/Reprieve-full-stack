@@ -1,5 +1,15 @@
 "use client";
 
+/**
+ * Workspace Settings Master Screen.
+ *
+ * Provides tabbed administrative management:
+ * - General workspace configuration & deletion.
+ * - API Keys generation and revocation.
+ * - Notification channels and enterprise integrations.
+ * - Team membership and RBAC permissions.
+ */
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,7 +22,6 @@ import { IntegrationsTab } from "@/components/settings/integrations-tab";
 import { TABS, type SettingsTab } from "@/components/settings/tabs";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,

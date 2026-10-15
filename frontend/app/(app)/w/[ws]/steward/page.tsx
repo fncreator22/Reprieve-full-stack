@@ -1,3 +1,11 @@
+/**
+ * Steward AI Conversational Copilot Full-Page View.
+ *
+ * Grounded graph assistant responding via Server-Sent Events (SSE).
+ * Cites verifiable entity nodes, recalls precedent decisions, and proposes
+ * review actions requiring explicit human approval.
+ */
+
 import type { Metadata } from "next";
 import { PageContainer, PageHeader } from "@/components/page-header";
 import { StewardChat } from "@/components/steward/steward-chat";
