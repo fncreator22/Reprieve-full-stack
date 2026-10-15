@@ -26,3 +26,4 @@ Thanks for contributing to img2threejs. Keep the pull request focused and remove
 - [ ] Existing object specs remain valid, or this PR documents the intentional compatibility change.
 - [ ] I added or updated tests for new gates, schema fields, or templates where applicable.
 - [ ] I updated documentation and roadmap status where applicable.
+<!-- 2026-10-15 -->

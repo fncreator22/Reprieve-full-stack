@@ -10,3 +10,4 @@ permissions:
 jobs:
   reject-closing-keywords:
     uses: img2threejs/ci-workflows/.github/workflows/pr-close-policy.yml@dd3a7730cacb6ab00cc853be606ce72de389a54c
+# 2026-10-15

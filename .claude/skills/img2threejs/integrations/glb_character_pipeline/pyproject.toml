@@ -10,3 +10,4 @@ dependencies = [
 
 [tool.uv]
 package = false
+# 2026-10-15

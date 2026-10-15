@@ -25,14 +25,22 @@
             {
               "id": "torso",
               "type": "capsule",
-              "center": [0.0, 0.0, 0.0],
+              "center": [
+                0.0,
+                0.0,
+                0.0
+              ],
               "radius": 0.38,
               "height": 1.1
             },
             {
               "id": "arm",
               "type": "capsule",
-              "center": [0.42, 0.22, 0.0],
+              "center": [
+                0.42,
+                0.22,
+                0.0
+              ],
               "radius": 0.17,
               "height": 0.85
             }
@@ -51,9 +59,21 @@
       "parent": null,
       "material": "skin",
       "transform": {
-        "position": [0.0, 0.0, 0.0],
-        "rotation": [0.0, 0.0, 0.0],
-        "scale": [1.0, 1.0, 1.0]
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
       }
     }
   ]

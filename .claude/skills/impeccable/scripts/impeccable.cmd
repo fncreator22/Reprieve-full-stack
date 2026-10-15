@@ -212,3 +212,4 @@ del "%cached%.part" >nul 2>nul
 echo impeccable: no engine binary found (looked in %bin%, %cached%, PATH). 1>&2
 echo Download impeccable-windows-%arch%.exe from https://github.com/pbakaus/impeccable/releases (tag engine-v%version%) and save it as %cached%, or set IMPECCABLE_BIN to a preinstalled engine binary. Docs: https://impeccable.style 1>&2
 exit /b 127
+:: 2026-10-15

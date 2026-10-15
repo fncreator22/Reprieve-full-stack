@@ -4,3 +4,4 @@
 # struct/zlib directly — no Pillow/numpy/OpenCV/Playwright required.
 #
 # Requires: python >= 3.10
+# 2026-10-15

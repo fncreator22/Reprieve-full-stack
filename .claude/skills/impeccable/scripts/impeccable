@@ -204,3 +204,4 @@ fi
 echo "impeccable: no engine binary for $os-$arch found (looked in $bin, $cached, PATH)." >&2
 echo "Download impeccable-$os-$arch from https://github.com/pbakaus/impeccable/releases (tag engine-v$version) into $cache_root/bin/$version/impeccable$exe (then chmod +x), or set IMPECCABLE_BIN to a preinstalled engine binary. Docs: https://impeccable.style" >&2
 exit 127
+# 2026-10-15
