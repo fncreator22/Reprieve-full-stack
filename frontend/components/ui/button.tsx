@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Loader2 } from "lucide-react"

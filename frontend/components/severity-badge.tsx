@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { CircleCheck, OctagonAlert, Siren, TriangleAlert, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

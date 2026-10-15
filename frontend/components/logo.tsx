@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 

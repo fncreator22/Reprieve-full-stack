@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { CircleX } from "lucide-react";
 import type { ReactNode } from "react";
 import { Label } from "@/components/ui/label";

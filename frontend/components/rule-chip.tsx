@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { CalendarRange, Clock, Layers, Link2, Repeat, Route, ShieldOff, UserX, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";

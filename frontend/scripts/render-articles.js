@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 const { chromium } = require('@playwright/test');
 const fs = require('fs');
 const path = require('path');

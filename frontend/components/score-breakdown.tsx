@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { SeverityBadge } from "@/components/severity-badge";
 import type { ScoreBreakdown as Breakdown } from "@/lib/types";
 import { cn } from "@/lib/utils";

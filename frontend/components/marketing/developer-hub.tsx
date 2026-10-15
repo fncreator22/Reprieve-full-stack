@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 "use client";
 
 // Re-exporting unified FeaturesCard to preserve any legacy import references

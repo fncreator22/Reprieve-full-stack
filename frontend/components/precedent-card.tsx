@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import Link from "next/link";
 import { RotateCcwClock } from "lucide-react";
 import { formatShortDay } from "@/lib/format";

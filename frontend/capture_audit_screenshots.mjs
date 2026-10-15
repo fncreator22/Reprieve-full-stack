@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { chromium } from "@playwright/test";
 import { resolve } from "node:path";
 import { mkdirSync } from "node:fs";

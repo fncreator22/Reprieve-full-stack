@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 "use client";
 
 import { Check, Loader2, Send, Sparkles, Square, TriangleAlert, Zap } from "lucide-react";

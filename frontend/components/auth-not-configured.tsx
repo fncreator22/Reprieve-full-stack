@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { ArrowRight, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

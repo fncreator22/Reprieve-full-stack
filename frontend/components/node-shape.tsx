@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import type { NodeShape as Shape } from "@/components/entity-meta";
 
 function polygon(cx: number, cy: number, r: number, sides: number, rotate = -Math.PI / 2) {
