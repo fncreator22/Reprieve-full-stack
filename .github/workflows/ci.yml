@@ -1,3 +1,4 @@
+# Reprieve Continuous Integration Workflow (October 15, 2026)
 name: ci
 on:
   pull_request:

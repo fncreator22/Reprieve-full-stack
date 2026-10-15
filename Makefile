@@ -1,4 +1,7 @@
-.PHONY: up down seed test lint eval smoke reset web
+# Reprieve Architecture Safety Engine — Build & Test Targets
+# Updated: October 15, 2026 (Hackathon Launch Edition)
+
+.PHONY: up down seed test lint eval smoke reset web build
 
 up:            ## FalkorDB + API
 	docker compose up -d --build

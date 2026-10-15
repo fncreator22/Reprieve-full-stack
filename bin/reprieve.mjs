@@ -2,6 +2,7 @@
 /**
  * Reprieve CLI (Node.js distribution)
  * Zero-login autonomous circuit breaker for CI/CD and developer terminals.
+ * Edition: Hackathon Production Release · October 15, 2026
  */
 
 import { spawn } from "node:child_process";

@@ -1,4 +1,6 @@
-# Reprieve — instructions for Claude Code
+# Reprieve — Instructions for Claude Code & Agent Systems
+> **Edition:** Hackathon Production Launch (October 15, 2026)  
+> **Status:** Production Standard Verified  
 
 ## What this is
 Graph-first exception-risk product (a real product, not a demo). FalkorDB is central. Docs in /docs:

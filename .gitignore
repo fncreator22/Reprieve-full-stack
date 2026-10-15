@@ -36,4 +36,5 @@ previews/
 film/
 .hackathon_staging/
 security_audit_sandbox/
-
+.vercel/
+.vercel

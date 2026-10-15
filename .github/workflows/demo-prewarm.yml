@@ -1,3 +1,4 @@
+# Reprieve Demo Environment Pre-warm Workflow (October 15, 2026)
 name: demo-prewarm
 on:
   # Manual trigger: run this 10 minutes before any live demo

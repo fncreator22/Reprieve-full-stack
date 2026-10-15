@@ -1,3 +1,4 @@
+# Reprieve Sentinel Autonomous Tick Workflow (October 15, 2026)
 name: sentinel-tick
 on:
   schedule: [{ cron: "*/15 * * * *" }]
