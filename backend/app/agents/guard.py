@@ -1,4 +1,6 @@
-"""Groundedness validator (FR-STW-06, 03 §12.2): every ID in the answer must come from this turn's tool results."""
+"""Anti-hallucination groundedness validator: strips any sentence mentioning entity IDs
+that were not explicitly returned by graph reasoning tools during the current turn.
+"""
 
 import re
 

@@ -1,3 +1,7 @@
+"""Reprieve Graph-Native Risk Engine & Predictive Company Brain: FastAPI Application Factory.
+Configures CORS, global error handlers, correlation IDs, and REST/SSE route mounting.
+"""
+
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 

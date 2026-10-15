@@ -1,4 +1,6 @@
-"""Steward: plain tool-calling loop (ADR-0012) with tool-call cap, groundedness check, and SSE events (03 §10.4)."""
+"""Steward conversational agent loop: executes bounded tool-calling with parallel reads,
+enforces deterministic groundedness checks, and streams SSE events to the client.
+"""
 
 import json
 from collections.abc import AsyncIterator
