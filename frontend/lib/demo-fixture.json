@@ -1,6 +1,6 @@
 {
   "/api/v1/workspaces/northwind-pay": {
-    "id": "ws_01m50nvxajjgrntqcgj2fswtys",
+    "id": "ws_01m50qdy7225scs8aey9268723",
     "slug": "northwind-pay",
     "name": "Northwind Pay",
     "status": "ready",
@@ -12,7 +12,7 @@
     "onboarding_done": false,
     "role": "owner",
     "person_id": null,
-    "last_sentinel_at": 1792098039
+    "last_sentinel_at": 1792099678
   },
   "/api/v1/workspaces/northwind-pay/risk/summary": {
     "as_of": 1792195200,
@@ -40,7 +40,7 @@
         "id": "team_payments",
         "label": "Payments Platform"
       },
-      "score": 99.9,
+      "score": 99.8,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -62,7 +62,7 @@
         "id": "team_payments",
         "label": "Payments Platform"
       },
-      "score": 98.4,
+      "score": 98.3,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -83,7 +83,7 @@
         "id": "team_mobile",
         "label": "Mobile"
       },
-      "score": 98.3,
+      "score": 98.2,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -125,7 +125,7 @@
         "id": "team_merchant",
         "label": "Merchant Experience"
       },
-      "score": 73.6,
+      "score": 73.7,
       "band": "high",
       "rule_hits": [
         "R6",
@@ -166,7 +166,7 @@
         "id": "team_data",
         "label": "Data Platform"
       },
-      "score": 57.4,
+      "score": 57.8,
       "band": "high",
       "rule_hits": [
         "R6",
@@ -208,7 +208,7 @@
       "id": "team_payments",
       "label": "Payments Platform"
     },
-    "score": 99.9,
+    "score": 99.8,
     "band": "critical",
     "rule_hits": [
       "R3",
@@ -218,9 +218,9 @@
     "active_exceptions": 4,
     "breakdown": {
       "service_id": "svc_checkout_api",
-      "raw": 48.1796,
+      "raw": 47.4715,
       "multiplier": 3.375,
-      "score": 99.9,
+      "score": 99.8,
       "band": "critical",
       "contributions": [
         {
@@ -229,8 +229,8 @@
           "base": 8.3333,
           "age_factor": 1.5333,
           "overdue": 1.5,
-          "centrality": 0.3821,
-          "value": 15.8938
+          "centrality": 0.3487,
+          "value": 15.5105
         },
         {
           "exception_id": "exc_chk_3ds_bypass",
@@ -247,8 +247,8 @@
           "base": 6.6667,
           "age_factor": 1.6667,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 4.3611
+          "centrality": 0.1186,
+          "value": 4.3503
         },
         {
           "exception_id": "exc_n10",
@@ -274,8 +274,8 @@
           "base": 5.3333,
           "age_factor": 1.1111,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 2.3259
+          "centrality": 0.1186,
+          "value": 2.3201
         },
         {
           "exception_id": "exc_n12",
@@ -301,8 +301,8 @@
           "base": 2.0,
           "age_factor": 1.0889,
           "overdue": 1.0,
-          "centrality": 0.191,
-          "value": 1.5563
+          "centrality": 0.041,
+          "value": 1.3603
         },
         {
           "exception_id": "exc_n09",
@@ -319,8 +319,8 @@
           "base": 1.0,
           "age_factor": 1.1333,
           "overdue": 1.0,
-          "centrality": 0.3821,
-          "value": 0.9398
+          "centrality": 0.3487,
+          "value": 0.9171
         },
         {
           "exception_id": "exc_n03",
@@ -337,8 +337,8 @@
           "base": 1.3333,
           "age_factor": 1.5244,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 0.7978
+          "centrality": 0.1186,
+          "value": 0.7958
         },
         {
           "exception_id": "exc_features_tests",
@@ -346,8 +346,8 @@
           "base": 1.3333,
           "age_factor": 1.2667,
           "overdue": 1.0,
-          "centrality": 0.258,
-          "value": 0.7436
+          "centrality": 0.1802,
+          "value": 0.6976
         },
         {
           "exception_id": "exc_n19",
@@ -355,8 +355,8 @@
           "base": 1.0,
           "age_factor": 1.5244,
           "overdue": 1.0,
-          "centrality": 0.258,
-          "value": 0.6712
+          "centrality": 0.1802,
+          "value": 0.6297
         },
         {
           "exception_id": "exc_n07",
@@ -523,7 +523,7 @@
       "id": "team_payments",
       "label": "Payments Platform"
     },
-    "score": 98.4,
+    "score": 98.3,
     "band": "critical",
     "rule_hits": [
       "R3",
@@ -532,9 +532,9 @@
     "active_exceptions": 2,
     "breakdown": {
       "service_id": "svc_payments_gateway",
-      "raw": 45.8066,
+      "raw": 45.0982,
       "multiplier": 2.25,
-      "score": 98.4,
+      "score": 98.3,
       "band": "critical",
       "contributions": [
         {
@@ -543,8 +543,8 @@
           "base": 8.3333,
           "age_factor": 1.5333,
           "overdue": 1.5,
-          "centrality": 0.3821,
-          "value": 26.4897
+          "centrality": 0.3487,
+          "value": 25.8508
         },
         {
           "exception_id": "exc_ghost_vault_key",
@@ -552,8 +552,8 @@
           "base": 6.6667,
           "age_factor": 1.6667,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 7.4761
+          "centrality": 0.1186,
+          "value": 7.4576
         },
         {
           "exception_id": "exc_vault_hsm_pin",
@@ -561,8 +561,8 @@
           "base": 5.3333,
           "age_factor": 1.1111,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 3.9873
+          "centrality": 0.1186,
+          "value": 3.9774
         },
         {
           "exception_id": "exc_n16",
@@ -574,15 +574,6 @@
           "value": 2.5167
         },
         {
-          "exception_id": "exc_gw_rate_limit",
-          "hops": 0,
-          "base": 1.0,
-          "age_factor": 1.1333,
-          "overdue": 1.0,
-          "centrality": 0.3821,
-          "value": 1.5663
-        },
-        {
           "exception_id": "exc_n03",
           "hops": 1,
           "base": 1.3333,
@@ -592,13 +583,22 @@
           "value": 1.5532
         },
         {
+          "exception_id": "exc_gw_rate_limit",
+          "hops": 0,
+          "base": 1.0,
+          "age_factor": 1.1333,
+          "overdue": 1.0,
+          "centrality": 0.3487,
+          "value": 1.5286
+        },
+        {
           "exception_id": "exc_n18",
           "hops": 1,
           "base": 1.3333,
           "age_factor": 1.5244,
           "overdue": 1.0,
-          "centrality": 0.1214,
-          "value": 1.3676
+          "centrality": 0.1186,
+          "value": 1.3642
         },
         {
           "exception_id": "exc_n07",
@@ -665,9 +665,14 @@
           "name": "Admin console reachable without VPN"
         },
         {
-          "id": "exc_gw_rate_limit",
+          "id": "svc_ledger",
+          "label": "Service",
+          "name": "ledger"
+        },
+        {
+          "id": "exc_n03",
           "label": "Exception",
-          "name": "Raised authorization rate limit for holiday peak"
+          "name": "Container image runs as root"
         }
       ],
       "edges": [
@@ -702,8 +707,13 @@
           "type": "AFFECTS"
         },
         {
-          "from": "exc_gw_rate_limit",
-          "to": "svc_payments_gateway",
+          "from": "svc_payments_gateway",
+          "to": "svc_ledger",
+          "type": "DEPENDS_ON"
+        },
+        {
+          "from": "exc_n03",
+          "to": "svc_ledger",
           "type": "AFFECTS"
         }
       ]
@@ -1047,8 +1057,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -1236,8 +1246,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -1249,7 +1259,7 @@
         "status": "open",
         "title": "17 active exceptions within two hops of checkout-api",
         "summary": "checkout-api and the services it depends on carry 17 active exceptions.",
-        "score": 99.9,
+        "score": 99.8,
         "subject": {
           "kind": "Service",
           "id": "svc_checkout_api",
@@ -1446,9 +1456,9 @@
         },
         "breakdown": {
           "service_id": "svc_checkout_api",
-          "raw": 48.1796,
+          "raw": 47.4715,
           "multiplier": 3.375,
-          "score": 99.9,
+          "score": 99.8,
           "band": "critical",
           "contributions": [
             {
@@ -1457,8 +1467,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 15.8938
+              "centrality": 0.3487,
+              "value": 15.5105
             },
             {
               "exception_id": "exc_chk_3ds_bypass",
@@ -1475,8 +1485,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 4.3611
+              "centrality": 0.1186,
+              "value": 4.3503
             },
             {
               "exception_id": "exc_n10",
@@ -1502,8 +1512,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.3259
+              "centrality": 0.1186,
+              "value": 2.3201
             },
             {
               "exception_id": "exc_n12",
@@ -1529,8 +1539,8 @@
               "base": 2.0,
               "age_factor": 1.0889,
               "overdue": 1.0,
-              "centrality": 0.191,
-              "value": 1.5563
+              "centrality": 0.041,
+              "value": 1.3603
             },
             {
               "exception_id": "exc_n09",
@@ -1547,8 +1557,8 @@
               "base": 1.0,
               "age_factor": 1.1333,
               "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 0.9398
+              "centrality": 0.3487,
+              "value": 0.9171
             },
             {
               "exception_id": "exc_n03",
@@ -1565,8 +1575,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 0.7978
+              "centrality": 0.1186,
+              "value": 0.7958
             },
             {
               "exception_id": "exc_features_tests",
@@ -1574,8 +1584,8 @@
               "base": 1.3333,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.7436
+              "centrality": 0.1802,
+              "value": 0.6976
             },
             {
               "exception_id": "exc_n19",
@@ -1583,8 +1593,8 @@
               "base": 1.0,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.6712
+              "centrality": 0.1802,
+              "value": 0.6297
             },
             {
               "exception_id": "exc_n07",
@@ -1613,8 +1623,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -1626,7 +1636,7 @@
         "status": "open",
         "title": "9 active exceptions within two hops of payments-gateway",
         "summary": "payments-gateway and the services it depends on carry 9 active exceptions.",
-        "score": 98.4,
+        "score": 98.3,
         "subject": {
           "kind": "Service",
           "id": "svc_payments_gateway",
@@ -1718,9 +1728,14 @@
               "name": "Admin console reachable without VPN"
             },
             {
-              "id": "exc_gw_rate_limit",
+              "id": "svc_ledger",
+              "label": "Service",
+              "name": "ledger"
+            },
+            {
+              "id": "exc_n03",
               "label": "Exception",
-              "name": "Raised authorization rate limit for holiday peak"
+              "name": "Container image runs as root"
             }
           ],
           "edges": [
@@ -1755,17 +1770,22 @@
               "type": "AFFECTS"
             },
             {
-              "from": "exc_gw_rate_limit",
-              "to": "svc_payments_gateway",
+              "from": "svc_payments_gateway",
+              "to": "svc_ledger",
+              "type": "DEPENDS_ON"
+            },
+            {
+              "from": "exc_n03",
+              "to": "svc_ledger",
               "type": "AFFECTS"
             }
           ]
         },
         "breakdown": {
           "service_id": "svc_payments_gateway",
-          "raw": 45.8066,
+          "raw": 45.0982,
           "multiplier": 2.25,
-          "score": 98.4,
+          "score": 98.3,
           "band": "critical",
           "contributions": [
             {
@@ -1774,8 +1794,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 26.4897
+              "centrality": 0.3487,
+              "value": 25.8508
             },
             {
               "exception_id": "exc_ghost_vault_key",
@@ -1783,8 +1803,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 7.4761
+              "centrality": 0.1186,
+              "value": 7.4576
             },
             {
               "exception_id": "exc_vault_hsm_pin",
@@ -1792,8 +1812,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 3.9873
+              "centrality": 0.1186,
+              "value": 3.9774
             },
             {
               "exception_id": "exc_n16",
@@ -1805,15 +1825,6 @@
               "value": 2.5167
             },
             {
-              "exception_id": "exc_gw_rate_limit",
-              "hops": 0,
-              "base": 1.0,
-              "age_factor": 1.1333,
-              "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 1.5663
-            },
-            {
               "exception_id": "exc_n03",
               "hops": 1,
               "base": 1.3333,
@@ -1823,13 +1834,22 @@
               "value": 1.5532
             },
             {
+              "exception_id": "exc_gw_rate_limit",
+              "hops": 0,
+              "base": 1.0,
+              "age_factor": 1.1333,
+              "overdue": 1.0,
+              "centrality": 0.3487,
+              "value": 1.5286
+            },
+            {
               "exception_id": "exc_n18",
               "hops": 1,
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 1.3676
+              "centrality": 0.1186,
+              "value": 1.3642
             },
             {
               "exception_id": "exc_n07",
@@ -1857,8 +1877,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -2076,8 +2096,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -2265,8 +2285,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -2278,7 +2298,7 @@
         "status": "open",
         "title": "17 active exceptions within two hops of checkout-api",
         "summary": "checkout-api and the services it depends on carry 17 active exceptions.",
-        "score": 99.9,
+        "score": 99.8,
         "subject": {
           "kind": "Service",
           "id": "svc_checkout_api",
@@ -2475,9 +2495,9 @@
         },
         "breakdown": {
           "service_id": "svc_checkout_api",
-          "raw": 48.1796,
+          "raw": 47.4715,
           "multiplier": 3.375,
-          "score": 99.9,
+          "score": 99.8,
           "band": "critical",
           "contributions": [
             {
@@ -2486,8 +2506,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 15.8938
+              "centrality": 0.3487,
+              "value": 15.5105
             },
             {
               "exception_id": "exc_chk_3ds_bypass",
@@ -2504,8 +2524,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 4.3611
+              "centrality": 0.1186,
+              "value": 4.3503
             },
             {
               "exception_id": "exc_n10",
@@ -2531,8 +2551,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.3259
+              "centrality": 0.1186,
+              "value": 2.3201
             },
             {
               "exception_id": "exc_n12",
@@ -2558,8 +2578,8 @@
               "base": 2.0,
               "age_factor": 1.0889,
               "overdue": 1.0,
-              "centrality": 0.191,
-              "value": 1.5563
+              "centrality": 0.041,
+              "value": 1.3603
             },
             {
               "exception_id": "exc_n09",
@@ -2576,8 +2596,8 @@
               "base": 1.0,
               "age_factor": 1.1333,
               "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 0.9398
+              "centrality": 0.3487,
+              "value": 0.9171
             },
             {
               "exception_id": "exc_n03",
@@ -2594,8 +2614,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 0.7978
+              "centrality": 0.1186,
+              "value": 0.7958
             },
             {
               "exception_id": "exc_features_tests",
@@ -2603,8 +2623,8 @@
               "base": 1.3333,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.7436
+              "centrality": 0.1802,
+              "value": 0.6976
             },
             {
               "exception_id": "exc_n19",
@@ -2612,8 +2632,8 @@
               "base": 1.0,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.6712
+              "centrality": 0.1802,
+              "value": 0.6297
             },
             {
               "exception_id": "exc_n07",
@@ -2642,8 +2662,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -2655,7 +2675,7 @@
         "status": "open",
         "title": "9 active exceptions within two hops of payments-gateway",
         "summary": "payments-gateway and the services it depends on carry 9 active exceptions.",
-        "score": 98.4,
+        "score": 98.3,
         "subject": {
           "kind": "Service",
           "id": "svc_payments_gateway",
@@ -2747,9 +2767,14 @@
               "name": "Admin console reachable without VPN"
             },
             {
-              "id": "exc_gw_rate_limit",
+              "id": "svc_ledger",
+              "label": "Service",
+              "name": "ledger"
+            },
+            {
+              "id": "exc_n03",
               "label": "Exception",
-              "name": "Raised authorization rate limit for holiday peak"
+              "name": "Container image runs as root"
             }
           ],
           "edges": [
@@ -2784,17 +2809,22 @@
               "type": "AFFECTS"
             },
             {
-              "from": "exc_gw_rate_limit",
-              "to": "svc_payments_gateway",
+              "from": "svc_payments_gateway",
+              "to": "svc_ledger",
+              "type": "DEPENDS_ON"
+            },
+            {
+              "from": "exc_n03",
+              "to": "svc_ledger",
               "type": "AFFECTS"
             }
           ]
         },
         "breakdown": {
           "service_id": "svc_payments_gateway",
-          "raw": 45.8066,
+          "raw": 45.0982,
           "multiplier": 2.25,
-          "score": 98.4,
+          "score": 98.3,
           "band": "critical",
           "contributions": [
             {
@@ -2803,8 +2833,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 26.4897
+              "centrality": 0.3487,
+              "value": 25.8508
             },
             {
               "exception_id": "exc_ghost_vault_key",
@@ -2812,8 +2842,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 7.4761
+              "centrality": 0.1186,
+              "value": 7.4576
             },
             {
               "exception_id": "exc_vault_hsm_pin",
@@ -2821,8 +2851,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 3.9873
+              "centrality": 0.1186,
+              "value": 3.9774
             },
             {
               "exception_id": "exc_n16",
@@ -2834,15 +2864,6 @@
               "value": 2.5167
             },
             {
-              "exception_id": "exc_gw_rate_limit",
-              "hops": 0,
-              "base": 1.0,
-              "age_factor": 1.1333,
-              "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 1.5663
-            },
-            {
               "exception_id": "exc_n03",
               "hops": 1,
               "base": 1.3333,
@@ -2852,13 +2873,22 @@
               "value": 1.5532
             },
             {
+              "exception_id": "exc_gw_rate_limit",
+              "hops": 0,
+              "base": 1.0,
+              "age_factor": 1.1333,
+              "overdue": 1.0,
+              "centrality": 0.3487,
+              "value": 1.5286
+            },
+            {
               "exception_id": "exc_n18",
               "hops": 1,
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 1.3676
+              "centrality": 0.1186,
+              "value": 1.3642
             },
             {
               "exception_id": "exc_n07",
@@ -2886,8 +2916,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -2899,7 +2929,7 @@
         "status": "open",
         "title": "15 active exceptions within two hops of mobile-api",
         "summary": "mobile-api and the services it depends on carry 15 active exceptions.",
-        "score": 98.3,
+        "score": 98.2,
         "subject": {
           "kind": "Service",
           "id": "svc_mobile_api",
@@ -3076,9 +3106,9 @@
         },
         "breakdown": {
           "service_id": "svc_mobile_api",
-          "raw": 45.256,
+          "raw": 44.8314,
           "multiplier": 2.25,
-          "score": 98.3,
+          "score": 98.2,
           "band": "critical",
           "contributions": [
             {
@@ -3087,8 +3117,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 15.8938
+              "centrality": 0.3487,
+              "value": 15.5105
             },
             {
               "exception_id": "exc_tls_pin_4",
@@ -3114,8 +3144,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 4.3611
+              "centrality": 0.1186,
+              "value": 4.3503
             },
             {
               "exception_id": "exc_n10",
@@ -3141,8 +3171,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.3259
+              "centrality": 0.1186,
+              "value": 2.3201
             },
             {
               "exception_id": "exc_n04",
@@ -3168,8 +3198,8 @@
               "base": 1.0,
               "age_factor": 1.1333,
               "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 0.9398
+              "centrality": 0.3487,
+              "value": 0.9171
             },
             {
               "exception_id": "exc_n03",
@@ -3195,8 +3225,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 0.7978
+              "centrality": 0.1186,
+              "value": 0.7958
             },
             {
               "exception_id": "exc_n07",
@@ -3224,8 +3254,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3344,7 +3374,7 @@
         },
         "breakdown": {
           "service_id": "svc_card_vault",
-          "raw": 26.0628,
+          "raw": 26.0098,
           "multiplier": 2.25,
           "score": 90.4,
           "band": "critical",
@@ -3355,8 +3385,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 12.4602
+              "centrality": 0.1186,
+              "value": 12.4294
             },
             {
               "exception_id": "exc_vault_hsm_pin",
@@ -3364,8 +3394,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 6.6455
+              "centrality": 0.1186,
+              "value": 6.629
             },
             {
               "exception_id": "exc_n16",
@@ -3382,8 +3412,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.2794
+              "centrality": 0.1186,
+              "value": 2.2737
             },
             {
               "exception_id": "exc_n08",
@@ -3402,8 +3432,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3461,8 +3491,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3570,8 +3600,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3694,8 +3724,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3773,8 +3803,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3867,8 +3897,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -3946,8 +3976,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4130,8 +4160,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4179,8 +4209,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4238,8 +4268,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4287,8 +4317,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4300,7 +4330,7 @@
         "status": "open",
         "title": "8 active exceptions within two hops of merchant-dashboard",
         "summary": "merchant-dashboard and the services it depends on carry 8 active exceptions.",
-        "score": 73.6,
+        "score": 73.7,
         "subject": {
           "kind": "Service",
           "id": "svc_merchant_dashboard",
@@ -4452,9 +4482,9 @@
         },
         "breakdown": {
           "service_id": "svc_merchant_dashboard",
-          "raw": 14.7919,
+          "raw": 14.858,
           "multiplier": 2.25,
-          "score": 73.6,
+          "score": 73.7,
           "band": "high",
           "contributions": [
             {
@@ -4472,8 +4502,8 @@
               "base": 3.0,
               "age_factor": 1.6578,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 3.2556
+              "centrality": 0.1077,
+              "value": 3.3054
             },
             {
               "exception_id": "exc_n20",
@@ -4508,8 +4538,8 @@
               "base": 0.6667,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.5528
+              "centrality": 0.1077,
+              "value": 0.5612
             },
             {
               "exception_id": "exc_n05",
@@ -4517,8 +4547,8 @@
               "base": 0.6667,
               "age_factor": 1.1867,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.5179
+              "centrality": 0.1077,
+              "value": 0.5258
             },
             {
               "exception_id": "exc_n08",
@@ -4537,8 +4567,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4714,8 +4744,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4727,7 +4757,7 @@
         "status": "open",
         "title": "4 active exceptions within two hops of reporting",
         "summary": "reporting and the services it depends on carry 4 active exceptions.",
-        "score": 57.4,
+        "score": 57.8,
         "subject": {
           "kind": "Service",
           "id": "svc_reporting",
@@ -4819,9 +4849,9 @@
         },
         "breakdown": {
           "service_id": "svc_reporting",
-          "raw": 9.4889,
+          "raw": 9.5991,
           "multiplier": 2.25,
-          "score": 57.4,
+          "score": 57.8,
           "band": "high",
           "contributions": [
             {
@@ -4830,8 +4860,8 @@
               "base": 3.0,
               "age_factor": 1.6578,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 5.4261
+              "centrality": 0.1077,
+              "value": 5.509
             },
             {
               "exception_id": "exc_n15",
@@ -4848,8 +4878,8 @@
               "base": 0.6667,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.9213
+              "centrality": 0.1077,
+              "value": 0.9354
             },
             {
               "exception_id": "exc_n05",
@@ -4857,8 +4887,8 @@
               "base": 0.6667,
               "age_factor": 1.1867,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.8631
+              "centrality": 0.1077,
+              "value": 0.8763
             }
           ],
           "rule_hits": [
@@ -4868,8 +4898,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -4917,8 +4947,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5046,8 +5076,138 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
+        "snoozed_until": null,
+        "feedback": null,
+        "version": 1
+      },
+      {
+        "id": "alt_7600b0f5789671db1dee9b52",
+        "rule_id": "R4",
+        "severity": "moderate",
+        "status": "open",
+        "title": "3 active exceptions within two hops of ml-features",
+        "summary": "ml-features and the services it depends on carry 3 active exceptions.",
+        "score": 42.1,
+        "subject": {
+          "kind": "Service",
+          "id": "svc_ml_features",
+          "label": "ml-features"
+        },
+        "involved": [
+          {
+            "kind": "Exception",
+            "id": "exc_n19",
+            "label": "Database index created in production by hand"
+          },
+          {
+            "kind": "Exception",
+            "id": "exc_n15",
+            "label": "Kill switch disabled during migration"
+          },
+          {
+            "kind": "Exception",
+            "id": "exc_features_tests",
+            "label": "Feature store integration tests skipped"
+          }
+        ],
+        "proof": {
+          "summary": "ml-features and the services it depends on carry 3 active exceptions.",
+          "nodes": [
+            {
+              "id": "svc_ml_features",
+              "label": "Service",
+              "name": "ml-features"
+            },
+            {
+              "id": "svc_data_warehouse",
+              "label": "Service",
+              "name": "data-warehouse"
+            },
+            {
+              "id": "exc_n15",
+              "label": "Exception",
+              "name": "Kill switch disabled during migration"
+            },
+            {
+              "id": "exc_features_tests",
+              "label": "Exception",
+              "name": "Feature store integration tests skipped"
+            },
+            {
+              "id": "exc_n19",
+              "label": "Exception",
+              "name": "Database index created in production by hand"
+            }
+          ],
+          "edges": [
+            {
+              "from": "svc_ml_features",
+              "to": "svc_data_warehouse",
+              "type": "DEPENDS_ON"
+            },
+            {
+              "from": "exc_n15",
+              "to": "svc_data_warehouse",
+              "type": "AFFECTS"
+            },
+            {
+              "from": "exc_features_tests",
+              "to": "svc_ml_features",
+              "type": "AFFECTS"
+            },
+            {
+              "from": "exc_n19",
+              "to": "svc_ml_features",
+              "type": "AFFECTS"
+            }
+          ]
+        },
+        "breakdown": {
+          "service_id": "svc_ml_features",
+          "raw": 6.0707,
+          "multiplier": 2.25,
+          "score": 42.1,
+          "band": "moderate",
+          "contributions": [
+            {
+              "exception_id": "exc_n15",
+              "hops": 1,
+              "base": 2.0,
+              "age_factor": 1.1867,
+              "overdue": 1.0,
+              "centrality": 0.6,
+              "value": 2.2784
+            },
+            {
+              "exception_id": "exc_features_tests",
+              "hops": 0,
+              "base": 1.3333,
+              "age_factor": 1.2667,
+              "overdue": 1.0,
+              "centrality": 0.1802,
+              "value": 1.9932
+            },
+            {
+              "exception_id": "exc_n19",
+              "hops": 0,
+              "base": 1.0,
+              "age_factor": 1.5244,
+              "overdue": 1.0,
+              "centrality": 0.1802,
+              "value": 1.7991
+            }
+          ],
+          "rule_hits": [
+            "R6",
+            "R8"
+          ],
+          "config_version": 1,
+          "as_of": 1792195200
+        },
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5059,7 +5219,7 @@
         "status": "open",
         "title": "4 active exceptions within two hops of fraud-scoring",
         "summary": "fraud-scoring and the services it depends on carry 4 active exceptions.",
-        "score": 43.5,
+        "score": 41.0,
         "subject": {
           "kind": "Service",
           "id": "svc_fraud_scoring",
@@ -5161,9 +5321,9 @@
         },
         "breakdown": {
           "service_id": "svc_fraud_scoring",
-          "raw": 6.3482,
+          "raw": 5.8716,
           "multiplier": 2.25,
-          "score": 43.5,
+          "score": 41.0,
           "band": "moderate",
           "contributions": [
             {
@@ -5172,8 +5332,8 @@
               "base": 2.0,
               "age_factor": 1.0889,
               "overdue": 1.0,
-              "centrality": 0.191,
-              "value": 2.5938
+              "centrality": 0.041,
+              "value": 2.2671
             },
             {
               "exception_id": "exc_n15",
@@ -5190,8 +5350,8 @@
               "base": 1.3333,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.2747
+              "centrality": 0.1802,
+              "value": 1.1959
             },
             {
               "exception_id": "exc_n19",
@@ -5199,8 +5359,8 @@
               "base": 1.0,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.1506
+              "centrality": 0.1802,
+              "value": 1.0795
             }
           ],
           "rule_hits": [
@@ -5210,138 +5370,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
-        "snoozed_until": null,
-        "feedback": null,
-        "version": 1
-      },
-      {
-        "id": "alt_7600b0f5789671db1dee9b52",
-        "rule_id": "R4",
-        "severity": "moderate",
-        "status": "open",
-        "title": "3 active exceptions within two hops of ml-features",
-        "summary": "ml-features and the services it depends on carry 3 active exceptions.",
-        "score": 43.4,
-        "subject": {
-          "kind": "Service",
-          "id": "svc_ml_features",
-          "label": "ml-features"
-        },
-        "involved": [
-          {
-            "kind": "Exception",
-            "id": "exc_n19",
-            "label": "Database index created in production by hand"
-          },
-          {
-            "kind": "Exception",
-            "id": "exc_n15",
-            "label": "Kill switch disabled during migration"
-          },
-          {
-            "kind": "Exception",
-            "id": "exc_features_tests",
-            "label": "Feature store integration tests skipped"
-          }
-        ],
-        "proof": {
-          "summary": "ml-features and the services it depends on carry 3 active exceptions.",
-          "nodes": [
-            {
-              "id": "svc_ml_features",
-              "label": "Service",
-              "name": "ml-features"
-            },
-            {
-              "id": "svc_data_warehouse",
-              "label": "Service",
-              "name": "data-warehouse"
-            },
-            {
-              "id": "exc_n15",
-              "label": "Exception",
-              "name": "Kill switch disabled during migration"
-            },
-            {
-              "id": "exc_features_tests",
-              "label": "Exception",
-              "name": "Feature store integration tests skipped"
-            },
-            {
-              "id": "exc_n19",
-              "label": "Exception",
-              "name": "Database index created in production by hand"
-            }
-          ],
-          "edges": [
-            {
-              "from": "svc_ml_features",
-              "to": "svc_data_warehouse",
-              "type": "DEPENDS_ON"
-            },
-            {
-              "from": "exc_n15",
-              "to": "svc_data_warehouse",
-              "type": "AFFECTS"
-            },
-            {
-              "from": "exc_features_tests",
-              "to": "svc_ml_features",
-              "type": "AFFECTS"
-            },
-            {
-              "from": "exc_n19",
-              "to": "svc_ml_features",
-              "type": "AFFECTS"
-            }
-          ]
-        },
-        "breakdown": {
-          "service_id": "svc_ml_features",
-          "raw": 6.3207,
-          "multiplier": 2.25,
-          "score": 43.4,
-          "band": "moderate",
-          "contributions": [
-            {
-              "exception_id": "exc_n15",
-              "hops": 1,
-              "base": 2.0,
-              "age_factor": 1.1867,
-              "overdue": 1.0,
-              "centrality": 0.6,
-              "value": 2.2784
-            },
-            {
-              "exception_id": "exc_features_tests",
-              "hops": 0,
-              "base": 1.3333,
-              "age_factor": 1.2667,
-              "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 2.1246
-            },
-            {
-              "exception_id": "exc_n19",
-              "hops": 0,
-              "base": 1.0,
-              "age_factor": 1.5244,
-              "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.9177
-            }
-          ],
-          "rule_hits": [
-            "R6",
-            "R8"
-          ],
-          "config_version": 1,
-          "as_of": 1792195200
-        },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5501,8 +5531,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5585,8 +5615,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5664,8 +5694,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -5682,7 +5712,7 @@
         "status": "open",
         "title": "17 active exceptions within two hops of checkout-api",
         "summary": "checkout-api and the services it depends on carry 17 active exceptions.",
-        "score": 99.9,
+        "score": 99.8,
         "subject": {
           "kind": "Service",
           "id": "svc_checkout_api",
@@ -5879,9 +5909,9 @@
         },
         "breakdown": {
           "service_id": "svc_checkout_api",
-          "raw": 48.1796,
+          "raw": 47.4715,
           "multiplier": 3.375,
-          "score": 99.9,
+          "score": 99.8,
           "band": "critical",
           "contributions": [
             {
@@ -5890,8 +5920,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 15.8938
+              "centrality": 0.3487,
+              "value": 15.5105
             },
             {
               "exception_id": "exc_chk_3ds_bypass",
@@ -5908,8 +5938,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 4.3611
+              "centrality": 0.1186,
+              "value": 4.3503
             },
             {
               "exception_id": "exc_n10",
@@ -5935,8 +5965,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.3259
+              "centrality": 0.1186,
+              "value": 2.3201
             },
             {
               "exception_id": "exc_n12",
@@ -5962,8 +5992,8 @@
               "base": 2.0,
               "age_factor": 1.0889,
               "overdue": 1.0,
-              "centrality": 0.191,
-              "value": 1.5563
+              "centrality": 0.041,
+              "value": 1.3603
             },
             {
               "exception_id": "exc_n09",
@@ -5980,8 +6010,8 @@
               "base": 1.0,
               "age_factor": 1.1333,
               "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 0.9398
+              "centrality": 0.3487,
+              "value": 0.9171
             },
             {
               "exception_id": "exc_n03",
@@ -5998,8 +6028,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 0.7978
+              "centrality": 0.1186,
+              "value": 0.7958
             },
             {
               "exception_id": "exc_features_tests",
@@ -6007,8 +6037,8 @@
               "base": 1.3333,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.7436
+              "centrality": 0.1802,
+              "value": 0.6976
             },
             {
               "exception_id": "exc_n19",
@@ -6016,8 +6046,8 @@
               "base": 1.0,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 0.6712
+              "centrality": 0.1802,
+              "value": 0.6297
             },
             {
               "exception_id": "exc_n07",
@@ -6046,8 +6076,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -6059,7 +6089,7 @@
         "status": "open",
         "title": "9 active exceptions within two hops of payments-gateway",
         "summary": "payments-gateway and the services it depends on carry 9 active exceptions.",
-        "score": 98.4,
+        "score": 98.3,
         "subject": {
           "kind": "Service",
           "id": "svc_payments_gateway",
@@ -6151,9 +6181,14 @@
               "name": "Admin console reachable without VPN"
             },
             {
-              "id": "exc_gw_rate_limit",
+              "id": "svc_ledger",
+              "label": "Service",
+              "name": "ledger"
+            },
+            {
+              "id": "exc_n03",
               "label": "Exception",
-              "name": "Raised authorization rate limit for holiday peak"
+              "name": "Container image runs as root"
             }
           ],
           "edges": [
@@ -6188,17 +6223,22 @@
               "type": "AFFECTS"
             },
             {
-              "from": "exc_gw_rate_limit",
-              "to": "svc_payments_gateway",
+              "from": "svc_payments_gateway",
+              "to": "svc_ledger",
+              "type": "DEPENDS_ON"
+            },
+            {
+              "from": "exc_n03",
+              "to": "svc_ledger",
               "type": "AFFECTS"
             }
           ]
         },
         "breakdown": {
           "service_id": "svc_payments_gateway",
-          "raw": 45.8066,
+          "raw": 45.0982,
           "multiplier": 2.25,
-          "score": 98.4,
+          "score": 98.3,
           "band": "critical",
           "contributions": [
             {
@@ -6207,8 +6247,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 26.4897
+              "centrality": 0.3487,
+              "value": 25.8508
             },
             {
               "exception_id": "exc_ghost_vault_key",
@@ -6216,8 +6256,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 7.4761
+              "centrality": 0.1186,
+              "value": 7.4576
             },
             {
               "exception_id": "exc_vault_hsm_pin",
@@ -6225,8 +6265,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 3.9873
+              "centrality": 0.1186,
+              "value": 3.9774
             },
             {
               "exception_id": "exc_n16",
@@ -6238,15 +6278,6 @@
               "value": 2.5167
             },
             {
-              "exception_id": "exc_gw_rate_limit",
-              "hops": 0,
-              "base": 1.0,
-              "age_factor": 1.1333,
-              "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 1.5663
-            },
-            {
               "exception_id": "exc_n03",
               "hops": 1,
               "base": 1.3333,
@@ -6256,13 +6287,22 @@
               "value": 1.5532
             },
             {
+              "exception_id": "exc_gw_rate_limit",
+              "hops": 0,
+              "base": 1.0,
+              "age_factor": 1.1333,
+              "overdue": 1.0,
+              "centrality": 0.3487,
+              "value": 1.5286
+            },
+            {
               "exception_id": "exc_n18",
               "hops": 1,
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 1.3676
+              "centrality": 0.1186,
+              "value": 1.3642
             },
             {
               "exception_id": "exc_n07",
@@ -6290,8 +6330,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -6303,7 +6343,7 @@
         "status": "open",
         "title": "15 active exceptions within two hops of mobile-api",
         "summary": "mobile-api and the services it depends on carry 15 active exceptions.",
-        "score": 98.3,
+        "score": 98.2,
         "subject": {
           "kind": "Service",
           "id": "svc_mobile_api",
@@ -6480,9 +6520,9 @@
         },
         "breakdown": {
           "service_id": "svc_mobile_api",
-          "raw": 45.256,
+          "raw": 44.8314,
           "multiplier": 2.25,
-          "score": 98.3,
+          "score": 98.2,
           "band": "critical",
           "contributions": [
             {
@@ -6491,8 +6531,8 @@
               "base": 8.3333,
               "age_factor": 1.5333,
               "overdue": 1.5,
-              "centrality": 0.3821,
-              "value": 15.8938
+              "centrality": 0.3487,
+              "value": 15.5105
             },
             {
               "exception_id": "exc_tls_pin_4",
@@ -6518,8 +6558,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 4.3611
+              "centrality": 0.1186,
+              "value": 4.3503
             },
             {
               "exception_id": "exc_n10",
@@ -6545,8 +6585,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.3259
+              "centrality": 0.1186,
+              "value": 2.3201
             },
             {
               "exception_id": "exc_n04",
@@ -6572,8 +6612,8 @@
               "base": 1.0,
               "age_factor": 1.1333,
               "overdue": 1.0,
-              "centrality": 0.3821,
-              "value": 0.9398
+              "centrality": 0.3487,
+              "value": 0.9171
             },
             {
               "exception_id": "exc_n03",
@@ -6599,8 +6639,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 0.7978
+              "centrality": 0.1186,
+              "value": 0.7958
             },
             {
               "exception_id": "exc_n07",
@@ -6628,8 +6668,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -6748,7 +6788,7 @@
         },
         "breakdown": {
           "service_id": "svc_card_vault",
-          "raw": 26.0628,
+          "raw": 26.0098,
           "multiplier": 2.25,
           "score": 90.4,
           "band": "critical",
@@ -6759,8 +6799,8 @@
               "base": 6.6667,
               "age_factor": 1.6667,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 12.4602
+              "centrality": 0.1186,
+              "value": 12.4294
             },
             {
               "exception_id": "exc_vault_hsm_pin",
@@ -6768,8 +6808,8 @@
               "base": 5.3333,
               "age_factor": 1.1111,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 6.6455
+              "centrality": 0.1186,
+              "value": 6.629
             },
             {
               "exception_id": "exc_n16",
@@ -6786,8 +6826,8 @@
               "base": 1.3333,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.1214,
-              "value": 2.2794
+              "centrality": 0.1186,
+              "value": 2.2737
             },
             {
               "exception_id": "exc_n08",
@@ -6806,8 +6846,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -6819,7 +6859,7 @@
         "status": "open",
         "title": "8 active exceptions within two hops of merchant-dashboard",
         "summary": "merchant-dashboard and the services it depends on carry 8 active exceptions.",
-        "score": 73.6,
+        "score": 73.7,
         "subject": {
           "kind": "Service",
           "id": "svc_merchant_dashboard",
@@ -6971,9 +7011,9 @@
         },
         "breakdown": {
           "service_id": "svc_merchant_dashboard",
-          "raw": 14.7919,
+          "raw": 14.858,
           "multiplier": 2.25,
-          "score": 73.6,
+          "score": 73.7,
           "band": "high",
           "contributions": [
             {
@@ -6991,8 +7031,8 @@
               "base": 3.0,
               "age_factor": 1.6578,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 3.2556
+              "centrality": 0.1077,
+              "value": 3.3054
             },
             {
               "exception_id": "exc_n20",
@@ -7027,8 +7067,8 @@
               "base": 0.6667,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.5528
+              "centrality": 0.1077,
+              "value": 0.5612
             },
             {
               "exception_id": "exc_n05",
@@ -7036,8 +7076,8 @@
               "base": 0.6667,
               "age_factor": 1.1867,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.5179
+              "centrality": 0.1077,
+              "value": 0.5258
             },
             {
               "exception_id": "exc_n08",
@@ -7056,8 +7096,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -7233,8 +7273,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -7246,7 +7286,7 @@
         "status": "open",
         "title": "4 active exceptions within two hops of reporting",
         "summary": "reporting and the services it depends on carry 4 active exceptions.",
-        "score": 57.4,
+        "score": 57.8,
         "subject": {
           "kind": "Service",
           "id": "svc_reporting",
@@ -7338,9 +7378,9 @@
         },
         "breakdown": {
           "service_id": "svc_reporting",
-          "raw": 9.4889,
+          "raw": 9.5991,
           "multiplier": 2.25,
-          "score": 57.4,
+          "score": 57.8,
           "band": "high",
           "contributions": [
             {
@@ -7349,8 +7389,8 @@
               "base": 3.0,
               "age_factor": 1.6578,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 5.4261
+              "centrality": 0.1077,
+              "value": 5.509
             },
             {
               "exception_id": "exc_n15",
@@ -7367,8 +7407,8 @@
               "base": 0.6667,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.9213
+              "centrality": 0.1077,
+              "value": 0.9354
             },
             {
               "exception_id": "exc_n05",
@@ -7376,8 +7416,8 @@
               "base": 0.6667,
               "age_factor": 1.1867,
               "overdue": 1.0,
-              "centrality": 0.091,
-              "value": 0.8631
+              "centrality": 0.1077,
+              "value": 0.8763
             }
           ],
           "rule_hits": [
@@ -7387,8 +7427,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -7516,8 +7556,138 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
+        "snoozed_until": null,
+        "feedback": null,
+        "version": 1
+      },
+      {
+        "id": "alt_7600b0f5789671db1dee9b52",
+        "rule_id": "R4",
+        "severity": "moderate",
+        "status": "open",
+        "title": "3 active exceptions within two hops of ml-features",
+        "summary": "ml-features and the services it depends on carry 3 active exceptions.",
+        "score": 42.1,
+        "subject": {
+          "kind": "Service",
+          "id": "svc_ml_features",
+          "label": "ml-features"
+        },
+        "involved": [
+          {
+            "kind": "Exception",
+            "id": "exc_n19",
+            "label": "Database index created in production by hand"
+          },
+          {
+            "kind": "Exception",
+            "id": "exc_n15",
+            "label": "Kill switch disabled during migration"
+          },
+          {
+            "kind": "Exception",
+            "id": "exc_features_tests",
+            "label": "Feature store integration tests skipped"
+          }
+        ],
+        "proof": {
+          "summary": "ml-features and the services it depends on carry 3 active exceptions.",
+          "nodes": [
+            {
+              "id": "svc_ml_features",
+              "label": "Service",
+              "name": "ml-features"
+            },
+            {
+              "id": "svc_data_warehouse",
+              "label": "Service",
+              "name": "data-warehouse"
+            },
+            {
+              "id": "exc_n15",
+              "label": "Exception",
+              "name": "Kill switch disabled during migration"
+            },
+            {
+              "id": "exc_features_tests",
+              "label": "Exception",
+              "name": "Feature store integration tests skipped"
+            },
+            {
+              "id": "exc_n19",
+              "label": "Exception",
+              "name": "Database index created in production by hand"
+            }
+          ],
+          "edges": [
+            {
+              "from": "svc_ml_features",
+              "to": "svc_data_warehouse",
+              "type": "DEPENDS_ON"
+            },
+            {
+              "from": "exc_n15",
+              "to": "svc_data_warehouse",
+              "type": "AFFECTS"
+            },
+            {
+              "from": "exc_features_tests",
+              "to": "svc_ml_features",
+              "type": "AFFECTS"
+            },
+            {
+              "from": "exc_n19",
+              "to": "svc_ml_features",
+              "type": "AFFECTS"
+            }
+          ]
+        },
+        "breakdown": {
+          "service_id": "svc_ml_features",
+          "raw": 6.0707,
+          "multiplier": 2.25,
+          "score": 42.1,
+          "band": "moderate",
+          "contributions": [
+            {
+              "exception_id": "exc_n15",
+              "hops": 1,
+              "base": 2.0,
+              "age_factor": 1.1867,
+              "overdue": 1.0,
+              "centrality": 0.6,
+              "value": 2.2784
+            },
+            {
+              "exception_id": "exc_features_tests",
+              "hops": 0,
+              "base": 1.3333,
+              "age_factor": 1.2667,
+              "overdue": 1.0,
+              "centrality": 0.1802,
+              "value": 1.9932
+            },
+            {
+              "exception_id": "exc_n19",
+              "hops": 0,
+              "base": 1.0,
+              "age_factor": 1.5244,
+              "overdue": 1.0,
+              "centrality": 0.1802,
+              "value": 1.7991
+            }
+          ],
+          "rule_hits": [
+            "R6",
+            "R8"
+          ],
+          "config_version": 1,
+          "as_of": 1792195200
+        },
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -7529,7 +7699,7 @@
         "status": "open",
         "title": "4 active exceptions within two hops of fraud-scoring",
         "summary": "fraud-scoring and the services it depends on carry 4 active exceptions.",
-        "score": 43.5,
+        "score": 41.0,
         "subject": {
           "kind": "Service",
           "id": "svc_fraud_scoring",
@@ -7631,9 +7801,9 @@
         },
         "breakdown": {
           "service_id": "svc_fraud_scoring",
-          "raw": 6.3482,
+          "raw": 5.8716,
           "multiplier": 2.25,
-          "score": 43.5,
+          "score": 41.0,
           "band": "moderate",
           "contributions": [
             {
@@ -7642,8 +7812,8 @@
               "base": 2.0,
               "age_factor": 1.0889,
               "overdue": 1.0,
-              "centrality": 0.191,
-              "value": 2.5938
+              "centrality": 0.041,
+              "value": 2.2671
             },
             {
               "exception_id": "exc_n15",
@@ -7660,8 +7830,8 @@
               "base": 1.3333,
               "age_factor": 1.2667,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.2747
+              "centrality": 0.1802,
+              "value": 1.1959
             },
             {
               "exception_id": "exc_n19",
@@ -7669,8 +7839,8 @@
               "base": 1.0,
               "age_factor": 1.5244,
               "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.1506
+              "centrality": 0.1802,
+              "value": 1.0795
             }
           ],
           "rule_hits": [
@@ -7680,138 +7850,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
-        "snoozed_until": null,
-        "feedback": null,
-        "version": 1
-      },
-      {
-        "id": "alt_7600b0f5789671db1dee9b52",
-        "rule_id": "R4",
-        "severity": "moderate",
-        "status": "open",
-        "title": "3 active exceptions within two hops of ml-features",
-        "summary": "ml-features and the services it depends on carry 3 active exceptions.",
-        "score": 43.4,
-        "subject": {
-          "kind": "Service",
-          "id": "svc_ml_features",
-          "label": "ml-features"
-        },
-        "involved": [
-          {
-            "kind": "Exception",
-            "id": "exc_n19",
-            "label": "Database index created in production by hand"
-          },
-          {
-            "kind": "Exception",
-            "id": "exc_n15",
-            "label": "Kill switch disabled during migration"
-          },
-          {
-            "kind": "Exception",
-            "id": "exc_features_tests",
-            "label": "Feature store integration tests skipped"
-          }
-        ],
-        "proof": {
-          "summary": "ml-features and the services it depends on carry 3 active exceptions.",
-          "nodes": [
-            {
-              "id": "svc_ml_features",
-              "label": "Service",
-              "name": "ml-features"
-            },
-            {
-              "id": "svc_data_warehouse",
-              "label": "Service",
-              "name": "data-warehouse"
-            },
-            {
-              "id": "exc_n15",
-              "label": "Exception",
-              "name": "Kill switch disabled during migration"
-            },
-            {
-              "id": "exc_features_tests",
-              "label": "Exception",
-              "name": "Feature store integration tests skipped"
-            },
-            {
-              "id": "exc_n19",
-              "label": "Exception",
-              "name": "Database index created in production by hand"
-            }
-          ],
-          "edges": [
-            {
-              "from": "svc_ml_features",
-              "to": "svc_data_warehouse",
-              "type": "DEPENDS_ON"
-            },
-            {
-              "from": "exc_n15",
-              "to": "svc_data_warehouse",
-              "type": "AFFECTS"
-            },
-            {
-              "from": "exc_features_tests",
-              "to": "svc_ml_features",
-              "type": "AFFECTS"
-            },
-            {
-              "from": "exc_n19",
-              "to": "svc_ml_features",
-              "type": "AFFECTS"
-            }
-          ]
-        },
-        "breakdown": {
-          "service_id": "svc_ml_features",
-          "raw": 6.3207,
-          "multiplier": 2.25,
-          "score": 43.4,
-          "band": "moderate",
-          "contributions": [
-            {
-              "exception_id": "exc_n15",
-              "hops": 1,
-              "base": 2.0,
-              "age_factor": 1.1867,
-              "overdue": 1.0,
-              "centrality": 0.6,
-              "value": 2.2784
-            },
-            {
-              "exception_id": "exc_features_tests",
-              "hops": 0,
-              "base": 1.3333,
-              "age_factor": 1.2667,
-              "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 2.1246
-            },
-            {
-              "exception_id": "exc_n19",
-              "hops": 0,
-              "base": 1.0,
-              "age_factor": 1.5244,
-              "overdue": 1.0,
-              "centrality": 0.258,
-              "value": 1.9177
-            }
-          ],
-          "rule_hits": [
-            "R6",
-            "R8"
-          ],
-          "config_version": 1,
-          "as_of": 1792195200
-        },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -7971,8 +8011,8 @@
           "config_version": 1,
           "as_of": 1792195200
         },
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -8190,8 +8230,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -8379,8 +8419,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -8563,8 +8603,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -8622,8 +8662,8 @@
           ]
         },
         "breakdown": null,
-        "created_at": 1792098039,
-        "last_seen_at": 1792098039,
+        "created_at": 1792099678,
+        "last_seen_at": 1792099678,
         "snoozed_until": null,
         "feedback": null,
         "version": 1
@@ -9871,7 +9911,7 @@
         "name": "checkout-api",
         "severity": null,
         "status": null,
-        "score": 99.9
+        "score": 99.8
       },
       {
         "id": "svc_ci_runner",
@@ -9919,7 +9959,7 @@
         "name": "fraud-scoring",
         "severity": null,
         "status": null,
-        "score": 43.5
+        "score": 41.0
       },
       {
         "id": "svc_k8s_platform",
@@ -9943,7 +9983,7 @@
         "name": "merchant-dashboard",
         "severity": null,
         "status": null,
-        "score": 73.6
+        "score": 73.7
       },
       {
         "id": "svc_ml_features",
@@ -9951,7 +9991,7 @@
         "name": "ml-features",
         "severity": null,
         "status": null,
-        "score": 43.4
+        "score": 42.1
       },
       {
         "id": "svc_mobile_api",
@@ -9959,7 +9999,7 @@
         "name": "mobile-api",
         "severity": null,
         "status": null,
-        "score": 98.3
+        "score": 98.2
       },
       {
         "id": "svc_observability",
@@ -9983,7 +10023,7 @@
         "name": "payments-gateway",
         "severity": null,
         "status": null,
-        "score": 98.4
+        "score": 98.3
       },
       {
         "id": "svc_payouts",
@@ -10015,7 +10055,7 @@
         "name": "reporting",
         "severity": null,
         "status": null,
-        "score": 57.4
+        "score": 57.8
       },
       {
         "id": "svc_secrets_manager",
@@ -12064,6 +12104,334 @@
     "truncated": false,
     "total": 185
   },
+  "/api/v1/workspaces/northwind-pay/graph?kinds=Service": {
+    "nodes": [
+      {
+        "id": "svc_auth",
+        "label": "Service",
+        "name": "auth",
+        "severity": null,
+        "status": null,
+        "score": 47.1
+      },
+      {
+        "id": "svc_card_vault",
+        "label": "Service",
+        "name": "card-vault",
+        "severity": null,
+        "status": null,
+        "score": 90.4
+      },
+      {
+        "id": "svc_checkout_api",
+        "label": "Service",
+        "name": "checkout-api",
+        "severity": null,
+        "status": null,
+        "score": 99.8
+      },
+      {
+        "id": "svc_ci_runner",
+        "label": "Service",
+        "name": "ci-runner",
+        "severity": null,
+        "status": null,
+        "score": 11.4
+      },
+      {
+        "id": "svc_data_warehouse",
+        "label": "Service",
+        "name": "data-warehouse",
+        "severity": null,
+        "status": null,
+        "score": 20.4
+      },
+      {
+        "id": "svc_docs_portal",
+        "label": "Service",
+        "name": "docs-portal",
+        "severity": null,
+        "status": null,
+        "score": 5.6
+      },
+      {
+        "id": "svc_email_relay",
+        "label": "Service",
+        "name": "email-relay",
+        "severity": null,
+        "status": null,
+        "score": 1.4
+      },
+      {
+        "id": "svc_etl_pipeline",
+        "label": "Service",
+        "name": "etl-pipeline",
+        "severity": null,
+        "status": null,
+        "score": 58.6
+      },
+      {
+        "id": "svc_fraud_scoring",
+        "label": "Service",
+        "name": "fraud-scoring",
+        "severity": null,
+        "status": null,
+        "score": 41.0
+      },
+      {
+        "id": "svc_k8s_platform",
+        "label": "Service",
+        "name": "k8s-platform",
+        "severity": null,
+        "status": null,
+        "score": 18.3
+      },
+      {
+        "id": "svc_ledger",
+        "label": "Service",
+        "name": "ledger",
+        "severity": null,
+        "status": null,
+        "score": 19.7
+      },
+      {
+        "id": "svc_merchant_dashboard",
+        "label": "Service",
+        "name": "merchant-dashboard",
+        "severity": null,
+        "status": null,
+        "score": 73.7
+      },
+      {
+        "id": "svc_ml_features",
+        "label": "Service",
+        "name": "ml-features",
+        "severity": null,
+        "status": null,
+        "score": 42.1
+      },
+      {
+        "id": "svc_mobile_api",
+        "label": "Service",
+        "name": "mobile-api",
+        "severity": null,
+        "status": null,
+        "score": 98.2
+      },
+      {
+        "id": "svc_observability",
+        "label": "Service",
+        "name": "observability",
+        "severity": null,
+        "status": null,
+        "score": 11.4
+      },
+      {
+        "id": "svc_onboarding_kyc",
+        "label": "Service",
+        "name": "onboarding-kyc",
+        "severity": null,
+        "status": null,
+        "score": 12.9
+      },
+      {
+        "id": "svc_payments_gateway",
+        "label": "Service",
+        "name": "payments-gateway",
+        "severity": null,
+        "status": null,
+        "score": 98.3
+      },
+      {
+        "id": "svc_payouts",
+        "label": "Service",
+        "name": "payouts",
+        "severity": null,
+        "status": null,
+        "score": 12.3
+      },
+      {
+        "id": "svc_push_notifications",
+        "label": "Service",
+        "name": "push-notifications",
+        "severity": null,
+        "status": null,
+        "score": 0.0
+      },
+      {
+        "id": "svc_reconciliation",
+        "label": "Service",
+        "name": "reconciliation",
+        "severity": null,
+        "status": null,
+        "score": 33.2
+      },
+      {
+        "id": "svc_reporting",
+        "label": "Service",
+        "name": "reporting",
+        "severity": null,
+        "status": null,
+        "score": 57.8
+      },
+      {
+        "id": "svc_secrets_manager",
+        "label": "Service",
+        "name": "secrets-manager",
+        "severity": null,
+        "status": null,
+        "score": 37.4
+      },
+      {
+        "id": "svc_status_page",
+        "label": "Service",
+        "name": "status-page",
+        "severity": null,
+        "status": null,
+        "score": 5.6
+      },
+      {
+        "id": "svc_user_profile",
+        "label": "Service",
+        "name": "user-profile",
+        "severity": null,
+        "status": null,
+        "score": 0.0
+      },
+      {
+        "id": "svc_webhooks",
+        "label": "Service",
+        "name": "webhooks",
+        "severity": null,
+        "status": null,
+        "score": 0.0
+      }
+    ],
+    "edges": [
+      {
+        "from": "svc_onboarding_kyc",
+        "to": "svc_user_profile",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_merchant_dashboard",
+        "to": "svc_webhooks",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_merchant_dashboard",
+        "to": "svc_reporting",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_merchant_dashboard",
+        "to": "svc_auth",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_observability",
+        "to": "svc_k8s_platform",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_ci_runner",
+        "to": "svc_k8s_platform",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_ml_features",
+        "to": "svc_data_warehouse",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_reporting",
+        "to": "svc_data_warehouse",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_etl_pipeline",
+        "to": "svc_data_warehouse",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_mobile_api",
+        "to": "svc_push_notifications",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_mobile_api",
+        "to": "svc_auth",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_mobile_api",
+        "to": "svc_payments_gateway",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_auth",
+        "to": "svc_secrets_manager",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_auth",
+        "to": "svc_user_profile",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_payouts",
+        "to": "svc_ledger",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_reconciliation",
+        "to": "svc_data_warehouse",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_reconciliation",
+        "to": "svc_ledger",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_card_vault",
+        "to": "svc_secrets_manager",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_fraud_scoring",
+        "to": "svc_ml_features",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_payments_gateway",
+        "to": "svc_ledger",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_payments_gateway",
+        "to": "svc_card_vault",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_checkout_api",
+        "to": "svc_auth",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_checkout_api",
+        "to": "svc_fraud_scoring",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "svc_checkout_api",
+        "to": "svc_payments_gateway",
+        "type": "DEPENDS_ON"
+      }
+    ],
+    "truncated": false,
+    "total": 25
+  },
   "/api/v1/workspaces/northwind-pay/services": [
     {
       "service": {
@@ -12078,7 +12446,7 @@
         "id": "team_payments",
         "label": "Payments Platform"
       },
-      "score": 99.9,
+      "score": 99.8,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -12100,7 +12468,7 @@
         "id": "team_payments",
         "label": "Payments Platform"
       },
-      "score": 98.4,
+      "score": 98.3,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -12121,7 +12489,7 @@
         "id": "team_mobile",
         "label": "Mobile"
       },
-      "score": 98.3,
+      "score": 98.2,
       "band": "critical",
       "rule_hits": [
         "R3",
@@ -12163,7 +12531,7 @@
         "id": "team_merchant",
         "label": "Merchant Experience"
       },
-      "score": 73.6,
+      "score": 73.7,
       "band": "high",
       "rule_hits": [
         "R6",
@@ -12204,7 +12572,7 @@
         "id": "team_data",
         "label": "Data Platform"
       },
-      "score": 57.4,
+      "score": 57.8,
       "band": "high",
       "rule_hits": [
         "R6",
@@ -12235,27 +12603,6 @@
     {
       "service": {
         "kind": "Service",
-        "id": "svc_fraud_scoring",
-        "label": "fraud-scoring"
-      },
-      "tier": 1,
-      "customer_facing": false,
-      "team": {
-        "kind": "Team",
-        "id": "team_payments",
-        "label": "Payments Platform"
-      },
-      "score": 43.5,
-      "band": "moderate",
-      "rule_hits": [
-        "R6",
-        "R8"
-      ],
-      "active_exceptions": 1
-    },
-    {
-      "service": {
-        "kind": "Service",
         "id": "svc_ml_features",
         "label": "ml-features"
       },
@@ -12266,13 +12613,34 @@
         "id": "team_data",
         "label": "Data Platform"
       },
-      "score": 43.4,
+      "score": 42.1,
       "band": "moderate",
       "rule_hits": [
         "R6",
         "R8"
       ],
       "active_exceptions": 2
+    },
+    {
+      "service": {
+        "kind": "Service",
+        "id": "svc_fraud_scoring",
+        "label": "fraud-scoring"
+      },
+      "tier": 1,
+      "customer_facing": false,
+      "team": {
+        "kind": "Team",
+        "id": "team_payments",
+        "label": "Payments Platform"
+      },
+      "score": 41.0,
+      "band": "moderate",
+      "rule_hits": [
+        "R6",
+        "R8"
+      ],
+      "active_exceptions": 1
     },
     {
       "service": {
@@ -12555,69 +12923,2185 @@
       "active_exceptions": 0
     }
   ],
+  "/api/v1/workspaces/northwind-pay/exceptions": {
+    "items": [
+      {
+        "id": "exc_n18",
+        "title": "Partner data share for pilot",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1782000000,
+        "expires_at": 1802736000,
+        "description": "Partner data share for pilot",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_luis_ortega",
+          "label": "Luis Ortega"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n18"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_status_page",
+        "title": "Status page served without CDN failover",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Status page served without CDN failover",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_status_page",
+            "label": "status-page"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_sara_lindqvist",
+          "label": "Sara Lindqvist"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_status_page"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_chk_3ds_bypass",
+        "title": "3-D Secure challenge bypass for low-value carts",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "expiring",
+        "severity": 4,
+        "granted_at": 1787011200,
+        "expires_at": 1792454400,
+        "description": "3-D Secure challenge bypass for low-value carts",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_strong_customer_auth",
+          "label": "Strong customer authentication (3-D Secure)"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_checkout_api",
+            "label": "checkout-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_chk_3ds_bypass"
+        ],
+        "open_alert_ids": [
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059",
+          "alt_0849fd13336b8dca94c0b4bc"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_gw_tls_legacy",
+        "title": "Legacy TLS 1.1 allowed on acquirer link",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "expired",
+        "severity": 5,
+        "granted_at": 1781827200,
+        "expires_at": 1792022400,
+        "description": "Legacy TLS 1.1 allowed on acquirer link",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_tls_modern",
+          "label": "Modern TLS only (1.2+)"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_payments_gateway",
+            "label": "payments-gateway"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_luis_ortega",
+          "label": "Luis Ortega"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_gw_tls_legacy"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_179c1a8731d84dcb339095f0",
+          "alt_b0a544139f3deafd69e1165d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n04",
+        "title": "Flaky e2e suite quarantined",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1781136000,
+        "expires_at": 1796947200,
+        "description": "Flaky e2e suite quarantined",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_mobile_api",
+            "label": "mobile-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_jonas_weber",
+          "label": "Jonas Weber"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n04"
+        ],
+        "open_alert_ids": [
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_dd0009a6515b50e9f4660b5f"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n22",
+        "title": "Kill switch disabled during migration",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1779408000,
+        "expires_at": 1802304000,
+        "description": "Kill switch disabled during migration",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_arjun_mehta",
+          "label": "Arjun Mehta"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n22"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ledger_batch_export",
+        "title": "Manual batch export of ledger entries for auditors",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1784419200,
+        "expires_at": 1794355200,
+        "description": "Manual batch export of ledger entries for auditors",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reconciliation",
+            "label": "reconciliation"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_dmitri_volkov",
+          "label": "Dmitri Volkov"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ledger_batch_export"
+        ],
+        "open_alert_ids": [
+          "alt_5fdf01935adc02d73fbc5832",
+          "alt_8fe3f1f1eb638023b393e0ce"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_gw_rate_limit",
+        "title": "Raised authorization rate limit for holiday peak",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1789603200,
+        "expires_at": 1796083200,
+        "description": "Raised authorization rate limit for holiday peak",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_payments_gateway",
+            "label": "payments-gateway"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_grace_mensah",
+          "label": "Grace Mensah"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_gw_rate_limit"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n02",
+        "title": "Partner data share for pilot",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1784678400,
+        "expires_at": 1803254400,
+        "description": "Partner data share for pilot",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_nora_fischer",
+          "label": "Nora Fischer"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n02"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n01",
+        "title": "Database index created in production by hand",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1780099200,
+        "expires_at": 1802736000,
+        "description": "Database index created in production by hand",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_checkout_api",
+            "label": "checkout-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n01"
+        ],
+        "open_alert_ids": [
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_features_tests",
+        "title": "Feature store integration tests skipped",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793577600,
+        "description": "Feature store integration tests skipped",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_ml_features",
+            "label": "ml-features"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_pedro_alves",
+          "label": "Pedro Alves"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_features_tests"
+        ],
+        "open_alert_ids": [
+          "alt_7600b0f5789671db1dee9b52",
+          "alt_10ae3aa7e1bd044174bc52b4",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_tls_pin_4",
+        "title": "Certificate pinning disabled in wallet app",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1789603200,
+        "expires_at": 1797379200,
+        "description": "Certificate pinning disabled in wallet app",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_tls_pinning",
+          "label": "Certificate pinning in mobile clients"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_mobile_api",
+            "label": "mobile-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_amara_nwosu",
+          "label": "Amara Nwosu"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_tls_pin_4"
+        ],
+        "open_alert_ids": [
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_70080b1875ad695c5dfb182b"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_vault_hsm_pin",
+        "title": "HSM firmware pinned to vulnerable version",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 4,
+        "granted_at": 1790035200,
+        "expires_at": 1796515200,
+        "description": "HSM firmware pinned to vulnerable version",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_vuln_patching",
+          "label": "Critical vulnerabilities patched within 14 days"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_grace_mensah",
+          "label": "Grace Mensah"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_vault_hsm_pin"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_email_relay",
+        "title": "Email relay cost budget raised for newsletter",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Email relay cost budget raised for newsletter",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_email_relay",
+            "label": "email-relay"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hiro_nakamura",
+          "label": "Hiro Nakamura"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_email_relay"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_fraud_model_skip",
+        "title": "Model drift tests skipped for fraud model v12",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1790467200,
+        "expires_at": 1795651200,
+        "description": "Model drift tests skipped for fraud model v12",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_fraud_scoring",
+            "label": "fraud-scoring"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_fraud_model_skip"
+        ],
+        "open_alert_ids": [
+          "alt_10ae3aa7e1bd044174bc52b4",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n05",
+        "title": "Log ingestion over budget",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1788566400,
+        "expires_at": 1797120000,
+        "description": "Log ingestion over budget",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_pedro_alves",
+          "label": "Pedro Alves"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n05"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_etl_change_freeze",
+        "title": "Pipeline deploys without change approval",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793232000,
+        "description": "Pipeline deploys without change approval",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_change_approval",
+          "label": "Change approval before production deploy"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_nora_fischer",
+          "label": "Nora Fischer"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_etl_change_freeze"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_etl_pii_columns",
+        "title": "PII columns ingested unmasked during migration",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1787011200,
+        "expires_at": 1793145600,
+        "description": "PII columns ingested unmasked during migration",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_arjun_mehta",
+          "label": "Arjun Mehta"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_etl_pii_columns"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n06",
+        "title": "Analyst export of anonymized sample",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1790121600,
+        "expires_at": 1799539200,
+        "description": "Analyst export of anonymized sample",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_dmitri_volkov",
+          "label": "Dmitri Volkov"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n06"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n03",
+        "title": "Container image runs as root",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1782172800,
+        "expires_at": 1803513600,
+        "description": "Container image runs as root",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_ledger",
+            "label": "ledger"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_ben_carter",
+          "label": "Ben Carter"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n03"
+        ],
+        "open_alert_ids": [
+          "alt_5fdf01935adc02d73fbc5832",
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9fa67c412b60b9f21d02fea7",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_docs_portal",
+        "title": "Docs portal behind basic auth instead of SSO",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Docs portal behind basic auth instead of SSO",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_docs_portal",
+            "label": "docs-portal"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_victor_dubois",
+          "label": "Victor Dubois"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_docs_portal"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n20",
+        "title": "Feature flag forced on for beta merchants",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1783987200,
+        "expires_at": 1800662400,
+        "description": "Feature flag forced on for beta merchants",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_merchant_dashboard",
+            "label": "merchant-dashboard"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_ingrid_larsen",
+          "label": "Ingrid Larsen"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n20"
+        ],
+        "open_alert_ids": [
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ghost_vault_key",
+        "title": "Key rotation deferred for card-vault master key",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 4,
+        "granted_at": 1779235200,
+        "expires_at": 1794787200,
+        "description": "Key rotation deferred for card-vault master key",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_key_rotation",
+          "label": "Cryptographic key rotation"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_priya_raman",
+          "label": "Priya Raman"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ghost_vault_key"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_f32bd598852d8759e33cc0e8",
+          "alt_68cb3afae5abe1a584517b33"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_reporting_budget",
+        "title": "Reporting cluster over cost budget",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793404800,
+        "description": "Reporting cluster over cost budget",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_fatima_zahra",
+          "label": "Fatima Zahra"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_reporting_budget"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n21",
+        "title": "Audit log retention below policy",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1784678400,
+        "expires_at": 1799020800,
+        "description": "Audit log retention below policy",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_encrypt_at_rest",
+          "label": "Encryption at rest"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_onboarding_kyc",
+            "label": "onboarding-kyc"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_leila_ahmadi",
+          "label": "Leila Ahmadi"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n21"
+        ],
+        "open_alert_ids": [
+          "alt_b2191f5a8ab49c7c3b74aee6"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      }
+    ],
+    "next_cursor": "25"
+  },
+  "/api/v1/workspaces/northwind-pay/exceptions?limit=25": {
+    "items": [
+      {
+        "id": "exc_n18",
+        "title": "Partner data share for pilot",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1782000000,
+        "expires_at": 1802736000,
+        "description": "Partner data share for pilot",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_luis_ortega",
+          "label": "Luis Ortega"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n18"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_status_page",
+        "title": "Status page served without CDN failover",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Status page served without CDN failover",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_status_page",
+            "label": "status-page"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_sara_lindqvist",
+          "label": "Sara Lindqvist"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_status_page"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_chk_3ds_bypass",
+        "title": "3-D Secure challenge bypass for low-value carts",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "expiring",
+        "severity": 4,
+        "granted_at": 1787011200,
+        "expires_at": 1792454400,
+        "description": "3-D Secure challenge bypass for low-value carts",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_strong_customer_auth",
+          "label": "Strong customer authentication (3-D Secure)"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_checkout_api",
+            "label": "checkout-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_chk_3ds_bypass"
+        ],
+        "open_alert_ids": [
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059",
+          "alt_0849fd13336b8dca94c0b4bc"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_gw_tls_legacy",
+        "title": "Legacy TLS 1.1 allowed on acquirer link",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "expired",
+        "severity": 5,
+        "granted_at": 1781827200,
+        "expires_at": 1792022400,
+        "description": "Legacy TLS 1.1 allowed on acquirer link",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_tls_modern",
+          "label": "Modern TLS only (1.2+)"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_payments_gateway",
+            "label": "payments-gateway"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_luis_ortega",
+          "label": "Luis Ortega"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_gw_tls_legacy"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_179c1a8731d84dcb339095f0",
+          "alt_b0a544139f3deafd69e1165d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n04",
+        "title": "Flaky e2e suite quarantined",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1781136000,
+        "expires_at": 1796947200,
+        "description": "Flaky e2e suite quarantined",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_mobile_api",
+            "label": "mobile-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_jonas_weber",
+          "label": "Jonas Weber"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n04"
+        ],
+        "open_alert_ids": [
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_dd0009a6515b50e9f4660b5f"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n22",
+        "title": "Kill switch disabled during migration",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1779408000,
+        "expires_at": 1802304000,
+        "description": "Kill switch disabled during migration",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_arjun_mehta",
+          "label": "Arjun Mehta"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n22"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ledger_batch_export",
+        "title": "Manual batch export of ledger entries for auditors",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1784419200,
+        "expires_at": 1794355200,
+        "description": "Manual batch export of ledger entries for auditors",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reconciliation",
+            "label": "reconciliation"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_dmitri_volkov",
+          "label": "Dmitri Volkov"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ledger_batch_export"
+        ],
+        "open_alert_ids": [
+          "alt_5fdf01935adc02d73fbc5832",
+          "alt_8fe3f1f1eb638023b393e0ce"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_gw_rate_limit",
+        "title": "Raised authorization rate limit for holiday peak",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1789603200,
+        "expires_at": 1796083200,
+        "description": "Raised authorization rate limit for holiday peak",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_payments_gateway",
+            "label": "payments-gateway"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_grace_mensah",
+          "label": "Grace Mensah"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_gw_rate_limit"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n02",
+        "title": "Partner data share for pilot",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1784678400,
+        "expires_at": 1803254400,
+        "description": "Partner data share for pilot",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_nora_fischer",
+          "label": "Nora Fischer"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n02"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n01",
+        "title": "Database index created in production by hand",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1780099200,
+        "expires_at": 1802736000,
+        "description": "Database index created in production by hand",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_checkout_api",
+            "label": "checkout-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n01"
+        ],
+        "open_alert_ids": [
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_features_tests",
+        "title": "Feature store integration tests skipped",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793577600,
+        "description": "Feature store integration tests skipped",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_ml_features",
+            "label": "ml-features"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_pedro_alves",
+          "label": "Pedro Alves"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_features_tests"
+        ],
+        "open_alert_ids": [
+          "alt_7600b0f5789671db1dee9b52",
+          "alt_10ae3aa7e1bd044174bc52b4",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_tls_pin_4",
+        "title": "Certificate pinning disabled in wallet app",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1789603200,
+        "expires_at": 1797379200,
+        "description": "Certificate pinning disabled in wallet app",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_tls_pinning",
+          "label": "Certificate pinning in mobile clients"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_mobile_api",
+            "label": "mobile-api"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_amara_nwosu",
+          "label": "Amara Nwosu"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_tls_pin_4"
+        ],
+        "open_alert_ids": [
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_70080b1875ad695c5dfb182b"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_vault_hsm_pin",
+        "title": "HSM firmware pinned to vulnerable version",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 4,
+        "granted_at": 1790035200,
+        "expires_at": 1796515200,
+        "description": "HSM firmware pinned to vulnerable version",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_vuln_patching",
+          "label": "Critical vulnerabilities patched within 14 days"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_grace_mensah",
+          "label": "Grace Mensah"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_vault_hsm_pin"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_2e8e9e45f08dcc87bce6d059"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_email_relay",
+        "title": "Email relay cost budget raised for newsletter",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Email relay cost budget raised for newsletter",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_email_relay",
+            "label": "email-relay"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hiro_nakamura",
+          "label": "Hiro Nakamura"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_email_relay"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_fraud_model_skip",
+        "title": "Model drift tests skipped for fraud model v12",
+        "kind": "skipped_test",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1790467200,
+        "expires_at": 1795651200,
+        "description": "Model drift tests skipped for fraud model v12",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_test_coverage",
+          "label": "Required automated tests before release"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_fraud_scoring",
+            "label": "fraud-scoring"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_hana_sato",
+          "label": "Hana Sato"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_fraud_model_skip"
+        ],
+        "open_alert_ids": [
+          "alt_10ae3aa7e1bd044174bc52b4",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n05",
+        "title": "Log ingestion over budget",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1788566400,
+        "expires_at": 1797120000,
+        "description": "Log ingestion over budget",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_pedro_alves",
+          "label": "Pedro Alves"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n05"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_etl_change_freeze",
+        "title": "Pipeline deploys without change approval",
+        "kind": "emergency_change",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793232000,
+        "description": "Pipeline deploys without change approval",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_change_approval",
+          "label": "Change approval before production deploy"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_nora_fischer",
+          "label": "Nora Fischer"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_etl_change_freeze"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_etl_pii_columns",
+        "title": "PII columns ingested unmasked during migration",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 3,
+        "granted_at": 1787011200,
+        "expires_at": 1793145600,
+        "description": "PII columns ingested unmasked during migration",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_arjun_mehta",
+          "label": "Arjun Mehta"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_etl_pii_columns"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n06",
+        "title": "Analyst export of anonymized sample",
+        "kind": "data_export_permission",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1790121600,
+        "expires_at": 1799539200,
+        "description": "Analyst export of anonymized sample",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_pii_export",
+          "label": "No manual export of personal data"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_etl_pipeline",
+            "label": "etl-pipeline"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_dmitri_volkov",
+          "label": "Dmitri Volkov"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n06"
+        ],
+        "open_alert_ids": [
+          "alt_ee457e50d8e38ba747d536b4"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n03",
+        "title": "Container image runs as root",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1782172800,
+        "expires_at": 1803513600,
+        "description": "Container image runs as root",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_ledger",
+            "label": "ledger"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_ben_carter",
+          "label": "Ben Carter"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n03"
+        ],
+        "open_alert_ids": [
+          "alt_5fdf01935adc02d73fbc5832",
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9fa67c412b60b9f21d02fea7",
+          "alt_9c07085e569e192bd8d37136"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ctl_docs_portal",
+        "title": "Docs portal behind basic auth instead of SSO",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1790467200,
+        "expires_at": 1799971200,
+        "description": "Docs portal behind basic auth instead of SSO",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_mfa_admin",
+          "label": "MFA for administrative access"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_docs_portal",
+            "label": "docs-portal"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_victor_dubois",
+          "label": "Victor Dubois"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ctl_docs_portal"
+        ],
+        "open_alert_ids": [],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n20",
+        "title": "Feature flag forced on for beta merchants",
+        "kind": "flag_override",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1783987200,
+        "expires_at": 1800662400,
+        "description": "Feature flag forced on for beta merchants",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_code_review",
+          "label": "Mandatory code review"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_merchant_dashboard",
+            "label": "merchant-dashboard"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_ingrid_larsen",
+          "label": "Ingrid Larsen"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n20"
+        ],
+        "open_alert_ids": [
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_ghost_vault_key",
+        "title": "Key rotation deferred for card-vault master key",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 4,
+        "granted_at": 1779235200,
+        "expires_at": 1794787200,
+        "description": "Key rotation deferred for card-vault master key",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_key_rotation",
+          "label": "Cryptographic key rotation"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_card_vault",
+            "label": "card-vault"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_priya_raman",
+          "label": "Priya Raman"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_ghost_vault_key"
+        ],
+        "open_alert_ids": [
+          "alt_d2665860b4308c1f4da3252c",
+          "alt_d1ad1afde95298f901c022f7",
+          "alt_882f8decf86ab6e0d325061e",
+          "alt_bcb8bc5c7a2c9e33f8e984e4",
+          "alt_dd0009a6515b50e9f4660b5f",
+          "alt_9c07085e569e192bd8d37136",
+          "alt_f32bd598852d8759e33cc0e8",
+          "alt_68cb3afae5abe1a584517b33"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_reporting_budget",
+        "title": "Reporting cluster over cost budget",
+        "kind": "cost_limit_extension",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 2,
+        "granted_at": 1787011200,
+        "expires_at": 1793404800,
+        "description": "Reporting cluster over cost budget",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_cost_budget",
+          "label": "Service cost budget limits"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_reporting",
+            "label": "reporting"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_fatima_zahra",
+          "label": "Fatima Zahra"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_reporting_budget"
+        ],
+        "open_alert_ids": [
+          "alt_2ad6f76c87857778243103fb",
+          "alt_6d1463a82d878b9f63179a84",
+          "alt_9fa67c412b60b9f21d02fea7",
+          "alt_65a4a7d88491e742aae1185d"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      },
+      {
+        "id": "exc_n21",
+        "title": "Audit log retention below policy",
+        "kind": "security_waiver",
+        "status": "active",
+        "effective_status": "active",
+        "severity": 1,
+        "granted_at": 1784678400,
+        "expires_at": 1799020800,
+        "description": "Audit log retention below policy",
+        "version": 1,
+        "control": {
+          "kind": "Control",
+          "id": "ctl_encrypt_at_rest",
+          "label": "Encryption at rest"
+        },
+        "services": [
+          {
+            "kind": "Service",
+            "id": "svc_onboarding_kyc",
+            "label": "onboarding-kyc"
+          }
+        ],
+        "owner": {
+          "kind": "Person",
+          "id": "per_leila_ahmadi",
+          "label": "Leila Ahmadi"
+        },
+        "approver": null,
+        "compensating_controls": [],
+        "evidence": [],
+        "renewal_chain": [
+          "exc_n21"
+        ],
+        "open_alert_ids": [
+          "alt_b2191f5a8ab49c7c3b74aee6"
+        ],
+        "condition_expr": null,
+        "condition_met": null
+      }
+    ],
+    "next_cursor": "25"
+  },
   "/api/v1/workspaces/northwind-pay/reviews": {
     "items": [],
     "next_cursor": null
   },
   "/api/v1/workspaces/northwind-pay/notifications": [
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4f",
+      "id": "ntf_01m50qdyn4e5t3ndqnzvaq4jtj",
       "kind": "critical_alert",
       "title": "17 active exceptions within two hops of checkout-api",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_882f8decf86ab6e0d325061e",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     },
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4g",
+      "id": "ntf_01m50qdyn4e5t3ndqnzvaq4jtk",
       "kind": "critical_alert",
       "title": "15 active exceptions within two hops of mobile-api",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_d1ad1afde95298f901c022f7",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     },
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4c",
+      "id": "ntf_01m50qdyn32yjyn94p7pzw0yyc",
       "kind": "critical_alert",
       "title": "Checkout path depends on 18 active exceptions",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_9c07085e569e192bd8d37136",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     },
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4e",
+      "id": "ntf_01m50qdyn4e5t3ndqnzvaq4jth",
       "kind": "critical_alert",
       "title": "5 active exceptions within two hops of card-vault",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_bcb8bc5c7a2c9e33f8e984e4",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     },
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4d",
+      "id": "ntf_01m50qdyn32yjyn94p7pzw0yyd",
       "kind": "critical_alert",
       "title": "Mobile wallet pay path depends on 15 active exceptions",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_dd0009a6515b50e9f4660b5f",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     },
     {
-      "id": "ntf_01m50nvxrcces0nydr7tcqkw4h",
+      "id": "ntf_01m50qdyn4e5t3ndqnzvaq4jtm",
       "kind": "critical_alert",
       "title": "9 active exceptions within two hops of payments-gateway",
       "body": "New critical alert",
       "ref_kind": "Alert",
       "ref_id": "alt_d2665860b4308c1f4da3252c",
-      "created_at": 1792098039,
+      "created_at": 1792099678,
       "read_at": null
     }
   ]

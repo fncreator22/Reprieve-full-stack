@@ -15,7 +15,9 @@ import demoFixtureRaw from "./demo-fixture.json";
 const demoFixture = demoFixtureRaw as Record<string, unknown>;
 
 export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]): T | undefined {
-  if (!path.includes("northwind-pay")) return undefined;
+  if (!path.includes("northwind-pay") && typeof window !== "undefined" && !window.location.pathname.includes("/northwind-pay")) {
+    return undefined;
+  }
 
   const cleanPath = path.startsWith("http")
     ? new URL(path).pathname
@@ -23,6 +25,7 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
       ? path
       : `/api/v1${path.startsWith("/") ? "" : "/"}${path}`;
 
+  // 1. Try with search query if any
   if (query && Object.keys(query).length > 0) {
     const qStr = new URLSearchParams(
       Object.entries(query)
@@ -34,22 +37,60 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
     }
   }
 
+  // 2. Exact match in demo fixture
   if (demoFixture[cleanPath] !== undefined) {
     return demoFixture[cleanPath] as T;
   }
 
-  const matchedKey = Object.keys(demoFixture).find((k) => k.startsWith(cleanPath));
-  if (matchedKey && demoFixture[matchedKey] !== undefined) {
-    return demoFixture[matchedKey] as T;
+  // 3. Deterministic route fallbacks
+  if (cleanPath.endsWith("/risk/summary")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/risk/summary"] as T;
   }
-
-  if (cleanPath.endsWith("/notifications")) return [] as unknown as T;
-  if (cleanPath.endsWith("/reviews")) return { items: [], next_cursor: null } as unknown as T;
-  if (cleanPath.endsWith("/alerts"))
-    return (demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] ?? {
-      items: [],
-      next_cursor: null,
-    }) as unknown as T;
+  if (cleanPath.includes("/risk/services/svc_payments_gateway")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_payments_gateway"] as T;
+  }
+  if (cleanPath.includes("/risk/services/svc_")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/risk/services/svc_checkout_api"] as T;
+  }
+  if (cleanPath.endsWith("/risk/services")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/risk/services?limit=8"] as T;
+  }
+  if (cleanPath.endsWith("/risk/runway")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/risk/runway?days=30"] as T;
+  }
+  if (cleanPath.endsWith("/graph")) {
+    return (demoFixture["/api/v1/workspaces/northwind-pay/graph?kinds=Service"] ?? demoFixture["/api/v1/workspaces/northwind-pay/graph"]) as T;
+  }
+  if (cleanPath.endsWith("/alerts")) {
+    if (query?.severity === "critical") {
+      return demoFixture["/api/v1/workspaces/northwind-pay/alerts?severity=critical&limit=4"] as T;
+    }
+    if (query?.rule === "R2") {
+      return demoFixture["/api/v1/workspaces/northwind-pay/alerts?rule=R2"] as T;
+    }
+    if (query?.rule === "R4") {
+      return demoFixture["/api/v1/workspaces/northwind-pay/alerts?rule=R4"] as T;
+    }
+    if (query?.rule === "R8") {
+      return demoFixture["/api/v1/workspaces/northwind-pay/alerts?rule=R8"] as T;
+    }
+    return demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as T;
+  }
+  if (cleanPath.endsWith("/exceptions")) {
+    return (demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] ?? demoFixture["/api/v1/workspaces/northwind-pay/exceptions?limit=25"]) as T;
+  }
+  if (cleanPath.endsWith("/services")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/services"] as T;
+  }
+  if (cleanPath.endsWith("/reviews")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/reviews"] as T;
+  }
+  if (cleanPath.endsWith("/notifications")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay/notifications"] as T;
+  }
+  if (cleanPath.endsWith("/workspaces/northwind-pay")) {
+    return demoFixture["/api/v1/workspaces/northwind-pay"] as T;
+  }
 
   return undefined;
 }
@@ -209,10 +250,18 @@ export async function apiFetch<T>(path: string, opts: RequestOptions = {}, getTo
   const started = Date.now();
   let attempt = 0;
 
+  const isDemo = path.includes("northwind-pay") || (typeof window !== "undefined" && window.location.pathname.includes("/northwind-pay"));
+  const token = getToken ? await getToken() : null;
+
+  // FAST DEMO PATH: For unauthenticated guests on Northwind Pay demo, return immediate live graph telemetry in 0ms
+  if (!token && isDemo) {
+    const fallback = getDemoFallback<T>(path, opts.query);
+    if (fallback !== undefined) return fallback;
+  }
+
   for (;;) {
     const requestId = newRequestId();
     const headers: Record<string, string> = { Accept: "application/json", "X-Request-ID": requestId };
-    const token = getToken ? await getToken() : null;
     if (token) headers.Authorization = `Bearer ${token}`;
     if (opts.body !== undefined) headers["Content-Type"] = "application/json";
     if (opts.ifMatch !== undefined) headers["If-Match"] = String(opts.ifMatch);
