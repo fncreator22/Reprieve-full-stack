@@ -103,7 +103,7 @@ const columns: FooterColumn[] = [
   {
     title: "Developers",
     links: [
-      { label: "Zero-Login CLI", href: "https://github.com/fncreator22/Reprieve-full-stack", external: true },
+      { label: "Zero-Login CLI", href: "https://github.com/fncreator22/wemakedevs-hackathon", external: true },
       { label: "MCP Protocol", href: "/api/v1/workspaces/northwind-pay/mcp/tools", external: true },
       { label: "Pre-Merge CI Gate", href: "/#developer-hub" },
       { label: "Live Sandbox", href: "/w/northwind-pay/home" },
@@ -131,9 +131,9 @@ const columns: FooterColumn[] = [
 ];
 
 const socials = [
-  { name: "GitHub", href: "https://github.com/fncreator22/Reprieve-full-stack", icon: GitHubIcon },
-  { name: "X", href: "https://x.com", icon: XIcon },
-  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedInIcon },
+  { name: "GitHub", href: "https://github.com/fncreator22/wemakedevs-hackathon", icon: GitHubIcon },
+  { name: "X", href: "https://x.com/sr2ma", icon: XIcon },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/sagar-mahajanofficial/", icon: LinkedInIcon },
 ];
 
 export default function Footer01() {

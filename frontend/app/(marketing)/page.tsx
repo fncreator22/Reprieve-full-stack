@@ -113,7 +113,7 @@ export default function LandingPage() {
   return (
     <>
       {/* 01. HERO STAGE */}
-      <section aria-labelledby="hero-title" className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24">
+      <section aria-labelledby="hero-title" className="relative overflow-hidden pt-16 pb-28 sm:pt-20 sm:pb-36">
         {/* Subtle Ambient Radial Backlight */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
           <div className="absolute -top-[160px] h-[550px] w-[950px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(99,83,232,0.18)_0%,_rgba(8,9,11,0)_70%)] blur-[90px]" />
