@@ -1,37 +1,40 @@
 # Reprieve Video Production — Verified Asset & Material Inventory
-> **Edition:** Hackathon Production Standards (October 15, 2026)  
+> **Edition:** Hackathon Production Standards (October 16, 2026)  
 > **Master Resolution:** 1920 × 1080 (Retina 2x Source: 3840 × 2160)  
-> **Color Grading Profile:** Obsidian Dark (`#0c0d12`), Studio Rim (`rgba(255,255,255,0.08)`), Violet Accent (`#8b7dff`), Loss Red (`#ef4444`)  
-> **Verification Status:** 100% Gathered, Logged, and Ready for Rendering
+> **Color Grading Profile:** Obsidian Dark (`#0c0d12`), Studio Rim (`rgba(255,255,255,0.08)`), Violet Accent (`#8b7dff`), Loss Red (`#ef4444`), Status Green (`#10b981`)  
+> **Verification Status:** 100% Hydrated, Live Production Renders (All 10 e2e Sandbox Tests Passing)
 
 ---
 
 ## 📸 Master UI & Product Asset Catalog
 
-| Asset Filename | Visual Scene / Surface | Source Page / Component | Key Data / Elements Displayed | Storyboard Scene |
-|---|---|---|---|---|
-| `01_landing_hero.png` | **Marketing Hero Viewport** | `http://localhost:3000/` (`hero-section.tsx`) | Headline, Dual CTAs, Value Proposition, Invariant badges | `00:16 – 00:25` (Shift to Reprieve) |
-| `02_outage_case_studies.png` | **Interactive Case Studies** | `http://localhost:3000/#case-studies` | CrowdStrike, Square, Change Healthcare PIR thumbnails | `00:07 – 00:16` (Real Disasters) |
-| `03_developer_surfaces_bento.png` | **Three Developer Surfaces** | `http://localhost:3000/#how-it-works` | CLI Scanner, MCP Protocol, GitHub CI Gate bento grid | `00:30 – 00:40` (Developer Ergonomics) |
-| `04_dashboard_home.png` | **Enterprise Executive Dashboard** | `/w/northwind-pay/home` | Avalanche Risk 84/100, 60 Exceptions, 24 Live Alerts | `00:20 – 00:30` (Living Risk Mesh) |
-| `05_graph_canvas_explorer.png` | **3D Force Graph & Scrubber** | `/w/northwind-pay/graph` | 25 microservices, 30-Day Scrubber at Day +18 Collision | `00:22 – 00:30` (Topology & Collision) |
-| `06_alerts_catalog.png` | **Shortest Proof Path Detail** | `/w/northwind-pay/alerts` | Rule R4 Single Point of Failure proof chain (`checkout` $\to$ `stripe`) | `00:25 – 00:32` (Proof Path Detail) |
-| `08_steward_live_agent.png` | **Steward Conversational Copilot** | `/w/northwind-pay/steward` | Groundedness Guard, tool execution drawer, proposed action | `00:45 – 01:00` (Steward AI Agent) |
-| `09_workspace_settings.png` | **Settings & Architectural Hub** | `/w/northwind-pay/settings` | Exploration features, documentation guides, workspace metadata | Technical submission walkthrough |
-| `10_integrations_hub.png` | **Integrations & Plugin Mesh** | `/w/northwind-pay/settings/integrations` | Slack, Maileroo, GitHub CI Gate, FalkorDB, MCP config | Technical submission walkthrough |
-| `11_terminal_cli_scan.png` | **Zero-Login CLI Terminal** | Real AST execution card (`bin/reprieve.mjs`) | `npx reprieve scan --strict` finishing in 11.8ms | `00:30 – 00:40` (Zero-Login CLI) |
-| `12_github_pr_gate.png` | **GitHub Pull Request Gate** | Pre-merge circuit breaker card | Reprieve bot blocking merge with compound failure path | `00:40 – 00:45` (CI/CD Circuit Breaker) |
-| `13_brand_lockup.png` | **Studio Wordmark & End Card** | Minimal brand mark lockup | Monospace REPRIEVE, tagline, 0 login badge, live URL | `01:00 – 01:10` (Resolution & CTA) |
+| Asset Filename | Visual Scene / Surface | File Size | Key Data & Hydrated Elements Displayed |
+|---|---|---|---|
+| `01_landing_hero.png` | **Marketing Hero Viewport** | 2,460 KB | Live headline, Dual CTAs (`Run Local Scan`, `Explore Sandbox`), Graph node badge |
+| `02_outage_case_studies.png` | **Interactive Case Studies** | 1,631 KB | CrowdStrike, Square, Change Healthcare post-mortems with official public PIR badges |
+| `03_developer_surfaces_bento.png` | **Three Developer Surfaces** | 1,629 KB | CLI Scanner, MCP Protocol, GitHub CI Gate with real YAML workflow |
+| `04_dashboard_home.png` | **Enterprise Executive Dashboard** | 471 KB | Northwind Pay Risk Score (84/100), Active Exceptions (37), Live Alerts, Top Services |
+| `05_graph_canvas_explorer.png` | **Interactive 3D Force Graph** | 532 KB | 25 microservice nodes, multi-kind legend, live canvas links, temporal horizon |
+| `06_alerts_catalog.png` | **Live Invariant Alerts Feed** | 370 KB | Rule R1 to R8 alerts list with severity badges, blast radius metrics, proof links |
+| `07_exceptions_hub.png` | **Active Exceptions Registry** | 453 KB | Active `#nosec` waivers, assigned owners, expiration countdowns, review actions |
+| `08_services_directory.png` | **Microservices Directory** | 329 KB | Service catalog, computed avalanche risk scores, dependency counts |
+| `08_steward_live_agent.png` | **Steward Conversational Copilot** | 182 KB | Live chat with Groundedness Guard, tool execution drawers, proposed actions |
+| `09_workspace_settings.png` | **Settings & Architectural Hub** | 356 KB | Feature cards, documentation guides, workspace metadata |
+| `10_integrations_hub.png` | **Integrations & Plugin Mesh** | 408 KB | Slack, Maileroo, GitHub CI Gate, FalkorDB, Model Context Protocol (MCP) |
+| `11_terminal_cli_scan.png` | **Zero-Login CLI Terminal** | 191 KB | Real AST execution card (`npx reprieve scan --strict`) finishing in 11.8ms |
+| `12_github_pr_gate.png` | **GitHub Pull Request Gate** | 135 KB | Reprieve bot blocking merge on PR `feat(payment): add load test bypass` |
+| `13_brand_lockup.png` | **Studio Wordmark & End Card** | 343 KB | Obsidian brand lockup: REPRIEVE wordmark, tagline, 0 login badge, live URL |
+| `14_controls_registry.png` | **Compensating Controls Registry** | 304 KB | Compensating controls catalog, active waivers per control |
+| `15_teams_roster.png` | **Engineering Teams Roster** | 255 KB | Team leads, assigned microservices, active exception owners |
 
 ---
 
-## 🎨 Color Tokens & Studio Lighting Rig
+## 🎨 Studio Color Palette Tokens
 
-* **Base Surface (Obsidian Matte):** `#0c0d12`  
-* **Raised Component Background:** `#12141c`  
-* **Card Border / Bevel Rim:** `rgba(255, 255, 255, 0.08)` (Simulated 1px top rim lighting)  
-* **Brand Primary Accent (Violet):** `#8b7dff` (FalkorDB verified node / safe reachability)  
-* **Catastrophe / Damage Red:** `#ef4444` (Strictly used for dollar losses and blocked compound paths)  
-* **Warning Amber:** `#fbbf24` / `#f59e0b` (Expiring waivers, unowned ghost controls)  
-* **Invariant Passing Green:** `#10b981` (Passing CI gates, live telemetry status dots)  
-* **Typography:** Display headlines in Inter / Geist, code and telemetry in JetBrains Mono.
+* **Matte Obsidian Canvas:** `#0c0d12` (Prevents visual fatigue, pure cinema black floor)
+* **Raised Component Card Surface:** `#12141c` (1 elevation unit above canvas)
+* **1px Studio Rim Light:** `rgba(255, 255, 255, 0.08)` (Key light grazing upper card bevels)
+* **Brand Primary Accent (FalkorDB Violet):** `#8b7dff` / `#7928ca` (Safe reachability and primary beams)
+* **Catastrophe Loss Red:** `#ef4444` (Strictly used for dollar losses and blocked PR gates)
+* **Warning Amber:** `#fbbf24` / `#f59e0b` (Expiring waivers, unowned ghost controls)
+* **Passing Status Green:** `#10b981` (Sub-15ms terminal speed, live healthy connections)
