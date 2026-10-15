@@ -535,3 +535,5 @@ Forms stay single-column up to desktop. Decision dialogs become bottom sheets on
 | Build order, tiers (E1/E2/V1), spikes, definition of done per screen | `06-implementation-plan.md` |
 | Final copy for landing, empty states, and error messages | Content pass during `06` polish phase |
 | Product tour coach-mark targets | `05` §components, `06` P6 |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

@@ -27,3 +27,5 @@ Libraries (added when first needed): GSAP, Lenis (marketing only), React Bits, L
 
 - Top-bar breadcrumb shows raw IDs on detail pages; show entity titles.
 - Risk trend sparkline on Home (needs snapshot history).
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

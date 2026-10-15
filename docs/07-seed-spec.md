@@ -75,3 +75,5 @@ Checkout → checkout-api · Mobile wallet pay → mobile-api · Merchant payout
 ```
 
 The eval (`eval/run_eval.py`) passes when every expected `(rule, subject)` exists (recall 5/5), no alert touches a control service, critical services are in the critical band, controls are in the low band, and owner resolution matches.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

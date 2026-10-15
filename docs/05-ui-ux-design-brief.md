@@ -665,3 +665,5 @@ Dates: relative with absolute on hover ("in 5 days"; tooltip "22 Oct 2026, 00:00
 | Light-theme gradient strength on real displays | Founder | Visual review at first landing build |
 | Table density toggle and "Reduce motion" setting | Engineering | R1 |
 | Illustration set (empty states, 6 scenes) | Founder | `06` P6 |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

@@ -52,3 +52,5 @@ See full adversarial analysis, 5-second squint tests, and 10 hostile review crit
 | **08. Final CTA & Footer** | 9 | 10 | 9 | 9 | 9 | 9 | **9.2** | 5.8 |
 
 **Global Post-Redesign Average:** **9.4 / 10** (Baseline was 5.8 / 10). Every individual section scores $\ge 9.0/10$.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

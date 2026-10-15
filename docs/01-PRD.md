@@ -465,3 +465,5 @@ As of an early-October 2026 scan (not exhaustive):
 | `simulate_clock` as an LLM tool | LLM gets a non-persisting what-if tool; persisted clock changes are UI/API only | State changes need human approval |
 | Score formula illustrative | Normative v1 with hop decay and bounded 0–100 scale | Reproducible and displayable |
 | `LEADS` without dates | `LEADS {since, until}` | Correct owner resolution across history |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

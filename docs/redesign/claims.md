@@ -38,3 +38,5 @@ Extracted from the current production codebase prior to redesign. Every numeric 
 3. **GitLab Incident Report:** `https://about.gitlab.com/blog/2017/02/01/gitlab-dot-com-database-incident/`
    - Header check: `HTTP/1.1 301 Moved Permanently` -> `https://about.gitlab.com/blog/gitlab-dot-com-database-incident/`
    - Status: Update href to canonical `https://about.gitlab.com/blog/gitlab-dot-com-database-incident/`.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

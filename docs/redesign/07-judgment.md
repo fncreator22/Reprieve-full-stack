@@ -71,3 +71,5 @@ As an adversarial competition judge and uncompromising designer:
 | **08. Final CTA & Footer** | 9 | 10 | 9 | 9 | 9 | 9 | **9.2** |
 
 **Global System Score:** **9.4 / 10** (Every section $\ge 9.0/10$, comfortably exceeding the $\ge 8.0/10$ threshold).
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

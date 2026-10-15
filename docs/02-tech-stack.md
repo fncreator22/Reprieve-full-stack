@@ -480,3 +480,5 @@ make smoke       # reset + seed + end-to-end smoke (critical path)
 ## 16. Spikes to run before building (throwaway sandbox)
 
 Detailed in `06` §3. Highest risk: algorithm call signatures (`algo.pageRank(label, relType)`, `algo.betweenness`, `algo.WCC`, `algo.SPpaths` with its config map), variable-length `*0..2` support, `shortestPath()` behavior, constraint creation through the client, async client behavior, query timeouts, and the two engine hazards in C6.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

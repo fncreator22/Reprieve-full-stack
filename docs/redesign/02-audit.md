@@ -140,3 +140,5 @@ Status: Gate 2 Passed
 3. **Question 3: Is the claim verifiable? (Proof Paths, Sources, Benchmarks)**
    - *Current issue:* SEC link redirects to 301, GitLab link redirects to 301, "simulated" is buried in footnotes, latency is variously 12ms and <15ms.
    - *Impact score:* **High (Rank 3)**.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

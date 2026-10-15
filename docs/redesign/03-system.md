@@ -131,3 +131,5 @@ No pills, no icons, no borders, no emojis.
 - **Primary Conversion CTA:** `"Book Architecture Audit"` (opens calendar modal).
 - **Secondary / Sandbox CTA:** `"Launch Live Sandbox (0 Login)"` (navigates to `/w/northwind-pay/home`).
 - **Engine Latency:** Strictly **"12ms"**.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

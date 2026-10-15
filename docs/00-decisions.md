@@ -43,3 +43,5 @@
 | Review deciders | R0: assigned reviewer (role reviewer+) or admin. FLOW-05's "team lead decides" assumes the lead's linked user has reviewer role; revisit with RBAC UI in R1. |
 | Render free hours | A 15-minute tick keeps the free instance awake (~744 of 750 h/month); acceptable, move to a paid instance before public beta. |
 | Seed data generation | Python stdlib `random.Random(seed)` with curated name lists (no `faker` dependency). |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

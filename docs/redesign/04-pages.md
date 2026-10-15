@@ -105,3 +105,5 @@ Status: Gate 4 Page Blueprint
   - 4 Link columns (Product, Rules & Specs, Resources, Legal).
   - Newsletter email form moved to top-right to eliminate asymmetric void.
   - Clean copyright & ghost wordmark.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

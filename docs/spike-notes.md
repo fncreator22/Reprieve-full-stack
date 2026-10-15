@@ -37,3 +37,5 @@ Source of truth for Cypher written in `backend/app/graph/queries/`. Re-run befor
 5. Never copy Neo4j syntax (label expressions `:A|B`, regex `=~`, APOC).
 6. Batch writes ≤ 500 rows per `UNWIND`.
 7. MANDATORY constraints are checked at `MERGE` node creation, before `ON CREATE SET`. Only put MANDATORY on the merge key.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

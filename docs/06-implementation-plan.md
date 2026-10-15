@@ -603,3 +603,5 @@ jobs:
 3. "Implement T-013: deterministic seed generator for Northwind Pay per `docs/blueprint.md` §15 and the ground truth file. Output must hash identically on every run."
 4. "Implement T-020 (R2 vertical slice) end to end: query, test, repo function, API route, and a Home alert card. Show me the diff summary only."
 5. "Run `/gate 1` and report failures only."
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

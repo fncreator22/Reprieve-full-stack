@@ -89,3 +89,5 @@ Status: Gate 1 Passed
   - Traced to Clerk warning: `Clerk: Clerk has been loaded with development keys`. Confirmed this is a development-only runtime banner and does not appear in production builds.
 - **Visual Capture Records:**
   - 28 baseline screenshots generated and stored under `docs/redesign/before/` across 390, 768, 1280, 1440 viewports.
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

@@ -14,3 +14,5 @@ This log tracks every shortened phrase, unified label, and copy edit made across
 | **Final CTA Secondary Button** | `Explore Sample Data →` | `Launch Live Sandbox (0 Login)` | Standardized secondary CTA across the site to point to live sandbox with zero login. |
 | **FeaturesCard Heading** | `Operational Graph Intelligence · Zero-Login Developer Protocol` (pill with Sparkles icon) | `HOW IT WORKS` | Token unification: ONE eyebrow style site-wide. |
 | **Telemetry Footnote** | `Measured across 10,000 simulated microservice graphs under sliding expiry windows.` (tiny footnote) | `10,000 Simulated Graphs Benchmark` (visible directly on stat tile) | Credibility: Made simulation context prominently visible rather than buried in fine print. |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->

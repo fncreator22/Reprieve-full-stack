@@ -1064,3 +1064,5 @@ Concurrency: one backend instance; per-workspace lock via `Workspace.sentinel_lo
 | Tenancy | User A requests workspace B on every router | 404 everywhere |
 | Tools | Stub LLM | Tool I/O validates against Pydantic; groundedness passes on golden path |
 | Injection | Seed thread with hostile line | Staged draft only; no writes |
+
+<!-- Reprieve Specification · Verified October 15, 2026 -->
