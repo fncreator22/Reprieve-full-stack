@@ -21,9 +21,9 @@ from app.agents.tools import LABEL_OF
 from app.api.system import bootstrap
 from app.auth.deps import CurrentUser, WorkspaceContext
 from app.graph import client as graph_client
-from app.ids import new_id
 from app.graph.repo import Repo
 from app.graph.schema import ORG, ensure_schema
+from app.ids import new_id
 from app.ingest.loaders import load_bundle, read_bundle
 from app.main import app
 from app.models.api import Role
@@ -49,9 +49,7 @@ async def live_ws(db):
     """Provide a full sample workspace via FastAPI ASGI test client."""
     graph_client._db = None
     await bootstrap()
-    async with httpx.AsyncClient(
-        transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1"
-    ) as client:
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1") as client:
         slug = f"cg-ws-{new_id('ws')[3:12]}"
         resp = await client.post(
             "/workspaces",
@@ -192,18 +190,9 @@ def test_adversarial_massive_hallucination_purge():
     """Adversarial stress test: LLM outputs text with 25 fabricated node IDs across all prefixes."""
     known = {"svc_checkout_api": "Checkout API"}
 
-    fake_claims = [
-        f"Claim {i}: Service `svc_fake_{i}` affects exception `exc_fake_{i}`."
-        for i in range(1, 11)
-    ]
-    fake_claims += [
-        f"Admin `per_hacker_{j}` created control `ctl_rogue_{j}`."
-        for j in range(1, 6)
-    ]
-    raw_response = (
-        "Grounding anchor: `svc_checkout_api` is the only real node. "
-        + " ".join(fake_claims)
-    )
+    fake_claims = [f"Claim {i}: Service `svc_fake_{i}` affects exception `exc_fake_{i}`." for i in range(1, 11)]
+    fake_claims += [f"Admin `per_hacker_{j}` created control `ctl_rogue_{j}`." for j in range(1, 6)]
+    raw_response = "Grounding anchor: `svc_checkout_api` is the only real node. " + " ".join(fake_claims)
 
     clean, citations, removed = ground(raw_response, known)
 
@@ -299,11 +288,7 @@ async def test_adversarial_unmodeled_entity_refusal_response(live_ws, monkeypatc
     script = [
         llm.LLMEvent(
             "done",
-            tool_calls=[
-                llm.ToolCall(
-                    "c_search", "search_entities", '{"q": "Azure SQL Database in Frankfurt"}'
-                )
-            ],
+            tool_calls=[llm.ToolCall("c_search", "search_entities", '{"q": "Azure SQL Database in Frankfurt"}')],
             model="stub-evaluator",
         ),
         llm.LLMEvent(
@@ -381,9 +366,7 @@ async def test_tool_results_collect_known_entities_from_live_graph(seeded_repo):
         )
 
     # 2. Execute get_exception tool for planted scenario S2
-    exc_tool_res = await tools.call(
-        ctx, tools.get_exception, tools.ExceptionArg(exception_id="exc_ghost_vault_key")
-    )
+    exc_tool_res = await tools.call(ctx, tools.get_exception, tools.ExceptionArg(exception_id="exc_ghost_vault_key"))
     assert "exc_ghost_vault_key" in exc_tool_res.known
 
     # 3. Execute find_current_owner tool
@@ -451,8 +434,7 @@ async def test_hallucinated_edge_detector_identifies_fictional_relationships(see
     vault_id = "svc_card_vault"
 
     cypher = (
-        f"MATCH (a:Service {{id: '{docs_id}'}})-[r:DEPENDS_ON]->(b:Service {{id: '{vault_id}'}}) "
-        "RETURN count(r) AS cnt"
+        f"MATCH (a:Service {{id: '{docs_id}'}})-[r:DEPENDS_ON]->(b:Service {{id: '{vault_id}'}}) RETURN count(r) AS cnt"
     )
     res = await seeded_repo.g.query(cypher)
     assert res.result_set and res.result_set[0][0] == 0, "Adversarial check assumption violated: edge should not exist!"

@@ -72,18 +72,22 @@ def serialize_api_key(k: dict[str, Any]) -> dict[str, Any]:
 @router.post("", response_model=ApiKeyCreatedOut, status_code=status.HTTP_201_CREATED)
 async def create_api_key(body: ApiKeyIn, ctx: WorkspaceContext = Depends(admin)) -> dict[str, Any]:
     """Generate a new workspace-scoped API key.
-    
+
     The raw secret is returned ONCE and never stored in the database.
     """
     if ctx.user.api_key_id:
-        raise ApiError("FORBIDDEN", "API keys cannot manage other API keys. Only human administrators can manage API keys.")
+        raise ApiError(
+            "FORBIDDEN", "API keys cannot manage other API keys. Only human administrators can manage API keys."
+        )
 
     clean_name = body.name.strip()
     if not clean_name:
         raise ApiError("BAD_REQUEST", "API key name cannot be empty or whitespace.")
 
     if ROLE_RANK[ctx.role] < ROLE_RANK[body.role]:
-        raise ApiError("FORBIDDEN", f"Cannot grant role '{body.role.value}' exceeding your own role '{ctx.role.value}'.")
+        raise ApiError(
+            "FORBIDDEN", f"Cannot grant role '{body.role.value}' exceeding your own role '{ctx.role.value}'."
+        )
 
     prefix_str = "rep_test" if body.test_key else "rep_live"
     random_bytes = secrets.token_urlsafe(32)
@@ -152,7 +156,9 @@ async def revoke_api_key(
 ) -> None:
     """Revoke or delete an API key, instantly invalidating machine access."""
     if ctx.user.api_key_id:
-        raise ApiError("FORBIDDEN", "API keys cannot manage other API keys. Only human administrators can manage API keys.")
+        raise ApiError(
+            "FORBIDDEN", "API keys cannot manage other API keys. Only human administrators can manage API keys."
+        )
 
     rows = await ctx.platform.read("p_api_key_get", id=key_id, ws_id=ctx.ws_id)
     if not rows:

@@ -304,13 +304,14 @@ def test_bounded_connectivity_two_hops_transitive():
     t = BASE_AS_OF + 2 * DAY_S
     rows = [
         make_collision_row(
-            "exc_front", "svc_frontend", "svc_database", t,
-            hops=2, path_ids=["svc_frontend", "svc_backend", "svc_database"]
+            "exc_front",
+            "svc_frontend",
+            "svc_database",
+            t,
+            hops=2,
+            path_ids=["svc_frontend", "svc_backend", "svc_database"],
         ),
-        make_collision_row(
-            "exc_db", "svc_database", "svc_database", t + 86400,
-            hops=0, path_ids=["svc_database"]
-        ),
+        make_collision_row("exc_db", "svc_database", "svc_database", t + 86400, hops=0, path_ids=["svc_database"]),
     ]
     clusters = compute_temporal_collisions(rows, window_days=7)
     assert len(clusters) == 1
@@ -391,16 +392,37 @@ def test_severity_score_exact_hand_calculated_formula():
 
     rows = [
         make_collision_row(
-            "exc_1", "svc_a", "svc_b", t, hops=1, severity=4,
-            service_tier=1, service_customer_facing=True, path_ids=["svc_a", "svc_b"]
+            "exc_1",
+            "svc_a",
+            "svc_b",
+            t,
+            hops=1,
+            severity=4,
+            service_tier=1,
+            service_customer_facing=True,
+            path_ids=["svc_a", "svc_b"],
         ),
         make_collision_row(
-            "exc_2", "svc_b", "svc_b", t + 86400, hops=0, severity=5,
-            service_tier=1, service_customer_facing=False, path_ids=["svc_b"]
+            "exc_2",
+            "svc_b",
+            "svc_b",
+            t + 86400,
+            hops=0,
+            severity=5,
+            service_tier=1,
+            service_customer_facing=False,
+            path_ids=["svc_b"],
         ),
         make_collision_row(
-            "exc_3", "svc_c", "svc_b", t + 2 * 86400, hops=1, severity=2,
-            service_tier=2, service_customer_facing=False, path_ids=["svc_c", "svc_b"]
+            "exc_3",
+            "svc_c",
+            "svc_b",
+            t + 2 * 86400,
+            hops=1,
+            severity=2,
+            service_tier=2,
+            service_customer_facing=False,
+            path_ids=["svc_c", "svc_b"],
         ),
     ]
 
@@ -457,9 +479,7 @@ def test_stress_scaling_dense_clique_performance():
             s_id = f"svc_{i % 10}"
             target_id = f"svc_{(i + 1) % 10}"
             rows.append(
-                make_collision_row(
-                    eid, s_id, target_id, t + (i % 5) * 86400, hops=1, path_ids=[s_id, target_id]
-                )
+                make_collision_row(eid, s_id, target_id, t + (i % 5) * 86400, hops=1, path_ids=[s_id, target_id])
             )
         return rows
 
@@ -487,7 +507,6 @@ def test_stress_scaling_dense_clique_performance():
         f"[STRESS PROFILE N=200]: processed {len(rows_200)} rows in {dur_200_ms:.2f}ms, "
         f"formed {len(clusters_200)} clusters (O(N*W^2) cubic scaling observed)"
     )
-
 
 
 def test_malformed_rows_resilience():
@@ -558,9 +577,7 @@ async def test_api_endpoint_invalid_query_parameters():
     app.dependency_overrides[viewer] = lambda: mock_context
 
     try:
-        async with httpx.AsyncClient(
-            transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1"
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1") as client:
             # horizon_days < 0 -> 422 Unprocessable Entity
             r_neg = await client.get("/workspaces/ws_val_test/prediction/simulation?horizon_days=-1")
             assert r_neg.status_code == 422, f"Expected 422 for negative horizon, got {r_neg.status_code}"
@@ -591,9 +608,7 @@ def test_benchmark_collisions_in_memory_n50_p95_under_100ms():
         hops = 1 if s_src != s_dst else 0
         path = [s_src, s_dst] if hops == 1 else [s_src]
         dense_rows.append(
-            make_collision_row(
-                eid, s_src, s_dst, t_exp, hops=hops, path_ids=path, severity=random.randint(1, 5)
-            )
+            make_collision_row(eid, s_src, s_dst, t_exp, hops=hops, path_ids=path, severity=random.randint(1, 5))
         )
 
     for _ in range(5):
@@ -766,9 +781,7 @@ async def test_benchmark_http_api_simulation_n50_p95_under_100ms():
     app.dependency_overrides[viewer] = lambda: mock_context
 
     try:
-        async with httpx.AsyncClient(
-            transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1"
-        ) as client:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1") as client:
             for _ in range(5):
                 resp = await client.get("/workspaces/ws_perf_test/prediction/simulation?horizon_days=30")
                 assert resp.status_code == 200

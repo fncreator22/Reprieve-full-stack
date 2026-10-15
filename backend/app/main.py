@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import errors
-from app.api import account, api_keys, chat, data, ingest, integrations, memory, mcp, prediction, risk_alerts, system
+from app.api import account, api_keys, chat, data, ingest, integrations, mcp, memory, prediction, risk_alerts, system
 from app.config import get_settings
 from app.graph.client import close_db
 from app.ids import new_id

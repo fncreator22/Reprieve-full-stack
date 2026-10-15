@@ -18,6 +18,7 @@ from app.config import get_settings
 from app.errors import ApiError
 from app.ids import now
 from app.models.api import (
+    ROLE_RANK,
     AiSettings,
     ClockIn,
     ClockOut,
@@ -25,7 +26,6 @@ from app.models.api import (
     MeOut,
     MePatch,
     OnboardingPatch,
-    ROLE_RANK,
     Role,
     WorkspaceCreate,
     WorkspaceOut,
@@ -64,15 +64,20 @@ async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
         memberships = []
         if ws_rows:
             w = ws_rows[0]["w"]
-            memberships.append({
-                "workspace_id": user.api_key_ws_id,
-                "role": (user.api_key_role or Role.admin).value,
-                "person_id": None,
-                "status": w.get("status", "ready"),
-                "slug": w.get("slug", ""),
-                "name": w.get("name", ""),
-            })
-        return {"user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs}, "memberships": memberships}
+            memberships.append(
+                {
+                    "workspace_id": user.api_key_ws_id,
+                    "role": (user.api_key_role or Role.admin).value,
+                    "person_id": None,
+                    "status": w.get("status", "ready"),
+                    "slug": w.get("slug", ""),
+                    "name": w.get("name", ""),
+                }
+            )
+        return {
+            "user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs},
+            "memberships": memberships,
+        }
     rows = await platform_repo().read("p_memberships", user_id=user.id, email=user.email)
     by_ws: dict[str, dict[str, Any]] = {}
     for r in rows:
@@ -82,6 +87,8 @@ async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
         else:
             current_rank = ROLE_RANK.get(Role(by_ws[ws_id].get("role", "viewer")), 0)
             new_rank = ROLE_RANK.get(Role(r.get("role", "viewer")), 0)
+            if new_rank > current_rank:
+                by_ws[ws_id] = r
     s = get_settings()
     nw_rows = await platform_repo().read("p_workspace_get", ws_id="northwind-pay")
     if nw_rows:
@@ -97,7 +104,10 @@ async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
                 "slug": nw.get("slug", "northwind-pay"),
                 "name": nw.get("name", "Northwind Pay"),
             }
-    return {"user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs}, "memberships": list(by_ws.values())}
+    return {
+        "user": {"id": user.id, "email": user.email, "name": user.name, "prefs": user.prefs},
+        "memberships": list(by_ws.values()),
+    }
 
 
 @router.patch("/me", response_model=MeOut)
@@ -113,9 +123,7 @@ async def patch_me(body: MePatch, user: CurrentUser = Depends(current_user)) -> 
 
 
 @router.post("/workspaces", response_model=WorkspaceOut, status_code=status.HTTP_201_CREATED)
-async def create_workspace(
-    body: WorkspaceCreate, tasks: BackgroundTasks, user: CurrentUser = Depends(current_user)
-):
+async def create_workspace(body: WorkspaceCreate, tasks: BackgroundTasks, user: CurrentUser = Depends(current_user)):
     if user.api_key_id:
         raise ApiError("FORBIDDEN", "API keys are workspace-scoped and cannot create new workspaces.")
     platform = platform_repo()
@@ -163,9 +171,7 @@ async def get_workspace(ctx: WorkspaceContext = Depends(any_status)) -> dict[str
 
 
 @router.patch("/workspaces/{ws_id}", response_model=WorkspaceOut)
-async def patch_workspace(
-    body: WorkspacePatch, ctx: WorkspaceContext = Depends(admin)
-) -> dict[str, Any]:
+async def patch_workspace(body: WorkspacePatch, ctx: WorkspaceContext = Depends(admin)) -> dict[str, Any]:
     if body.name is not None:
         await workspaces.set_fields(ctx.platform, ctx.ws_id, name=body.name)
         ctx.workspace["name"] = body.name

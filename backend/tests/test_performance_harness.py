@@ -45,9 +45,7 @@ async def live_ws(db):
     """Provide a full sample workspace via FastAPI ASGI test client."""
     graph_client._db = None
     await bootstrap()
-    async with httpx.AsyncClient(
-        transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1"
-    ) as client:
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test/api/v1") as client:
         resp = await client.post(
             "/workspaces",
             headers=TEST_AUTH_HEADER,
@@ -95,9 +93,7 @@ async def test_benchmark_avalanche_reachability_cypher_under_100ms(seeded_repo):
 
     stats = compute_quantiles(samples)
     print(f"\n[BENCH] pred_avalanche_reachability: p50={stats['p50']}ms, p95={stats['p95']}ms, max={stats['max']}ms")
-    assert stats["p95"] < LATENCY_P95_MAX_MS, (
-        f"p95 latency {stats['p95']}ms exceeded {LATENCY_P95_MAX_MS}ms budget!"
-    )
+    assert stats["p95"] < LATENCY_P95_MAX_MS, f"p95 latency {stats['p95']}ms exceeded {LATENCY_P95_MAX_MS}ms budget!"
 
 
 async def test_benchmark_avalanche_customer_paths_cypher_under_100ms(seeded_repo):
@@ -115,9 +111,7 @@ async def test_benchmark_avalanche_customer_paths_cypher_under_100ms(seeded_repo
 
     stats = compute_quantiles(samples)
     print(f"\n[BENCH] pred_avalanche_customer_paths: p50={stats['p50']}ms, p95={stats['p95']}ms, max={stats['max']}ms")
-    assert stats["p95"] < LATENCY_P95_MAX_MS, (
-        f"p95 latency {stats['p95']}ms exceeded {LATENCY_P95_MAX_MS}ms budget!"
-    )
+    assert stats["p95"] < LATENCY_P95_MAX_MS, f"p95 latency {stats['p95']}ms exceeded {LATENCY_P95_MAX_MS}ms budget!"
 
 
 async def test_benchmark_temporal_collisions_cypher_under_100ms(seeded_repo):
@@ -205,9 +199,7 @@ async def test_benchmark_full_prediction_simulation_engine_under_100ms(seeded_re
         samples: list[float] = []
         for _ in range(N_ITERATIONS):
             t0 = time.perf_counter()
-            forecast = await run_prediction_simulation(
-                seeded_repo, as_of=as_of, horizon_days=horizon_days
-            )
+            forecast = await run_prediction_simulation(seeded_repo, as_of=as_of, horizon_days=horizon_days)
             elapsed_ms = (time.perf_counter() - t0) * 1000.0
             samples.append(elapsed_ms)
             assert len(forecast.avalanche_centrality) > 0
@@ -229,9 +221,7 @@ async def test_benchmark_targeted_service_simulation_under_100ms(seeded_repo):
     target_sid = "svc_payments_gateway"
 
     for _ in range(WARMUP_ITERATIONS):
-        await run_prediction_simulation(
-            seeded_repo, as_of=as_of, horizon_days=30, target_service_id=target_sid
-        )
+        await run_prediction_simulation(seeded_repo, as_of=as_of, horizon_days=30, target_service_id=target_sid)
 
     samples: list[float] = []
     for _ in range(N_ITERATIONS):
@@ -279,8 +269,7 @@ async def test_benchmark_http_api_simulation_endpoint_under_100ms(live_ws):
 
     stats = compute_quantiles(samples)
     print(
-        f"\n[BENCH] HTTP GET /prediction/simulation: "
-        f"p50={stats['p50']}ms, p95={stats['p95']}ms, max={stats['max']}ms"
+        f"\n[BENCH] HTTP GET /prediction/simulation: p50={stats['p50']}ms, p95={stats['p95']}ms, max={stats['max']}ms"
     )
     assert stats["p95"] < LATENCY_P95_MAX_MS, (
         f"HTTP API simulation p95 latency {stats['p95']}ms exceeded {LATENCY_P95_MAX_MS}ms budget!"

@@ -1,4 +1,5 @@
 import pytest
+
 from app.services import plugins
 
 
@@ -61,9 +62,7 @@ async def test_maileroo_dispatch_with_api_key(monkeypatch, respx_mock):
     )
 
     alert = {"title": "Cascading Bypass", "rule_id": "R4"}
-    integrations = {
-        "email": {"enabled": True, "notify_on_critical": True, "recipients": ["ciso@corp.io"]}
-    }
+    integrations = {"email": {"enabled": True, "notify_on_critical": True, "recipients": ["ciso@corp.io"]}}
 
     results = await plugins.dispatch_alert_to_plugins("ws_prod", alert, integrations)
     assert results["email"]["ok"] is True
@@ -115,4 +114,3 @@ def test_secret_masking_for_roles():
     admin_view = plugins.mask_integrations_for_role(raw_integrations, is_admin=True)
     assert admin_view["webhooks"]["secret"] == "whsec_super_secret_token_12345"
     assert "MY_SECRET_TOKEN" in admin_view["slack"]["webhook_url"]
-

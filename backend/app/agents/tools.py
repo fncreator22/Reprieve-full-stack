@@ -257,12 +257,18 @@ async def predict_avalanche(ctx: WorkspaceContext, a: PredictAvalancheArgs) -> T
     forecast = await run_prediction_simulation(ctx.org, as_of=ctx.as_of, target_service_id=a.service_id)
     item = next((it for it in forecast.avalanche_centrality if it.service_id == a.service_id), None)
     if not item:
-        return ToolResult({"error": f"Service {a.service_id} not found in prediction graph"}, f"Service {a.service_id} not found")
+        return ToolResult(
+            {"error": f"Service {a.service_id} not found in prediction graph"}, f"Service {a.service_id} not found"
+        )
     data = item.model_dump()
     proof_path = [e.model_dump() for e in item.proof.edges]
+    summary = (
+        f"Avalanche Centrality for {item.service_name}: score {item.score} "
+        f"({item.band} risk, SPOF rank #{item.spof_rank})"
+    )
     return ToolResult(
         data=data,
-        summary=f"Avalanche Centrality for {item.service_name}: score {item.score} ({item.band} risk, SPOF rank #{item.spof_rank})",
+        summary=summary,
         proof_paths=proof_path,
     )
 

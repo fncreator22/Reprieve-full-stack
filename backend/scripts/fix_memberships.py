@@ -1,5 +1,7 @@
 import asyncio
+
 from app.graph.client import get_db
+
 
 async def main():
     db = get_db()
@@ -13,6 +15,7 @@ async def main():
     print("Updated memberships:")
     for row in res.result_set:
         print(" ", row)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

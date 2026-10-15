@@ -15,7 +15,7 @@ from app.config import get_settings
 from app.errors import ApiError
 from app.graph.client import get_db, graph_names, platform_graph
 from app.graph.repo import Repo
-from app.ids import is_id, new_id, now
+from app.ids import new_id, now
 from app.models.api import ROLE_RANK, Role
 from app.services.audit import audit
 

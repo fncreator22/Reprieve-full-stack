@@ -254,7 +254,9 @@ async def test_workspace_deletion(api):
     other_user = auth("other_u", "other@example.com")
 
     # Create workspace
-    res = await api.post("/workspaces", headers=user, json={"name": "To Delete", "slug": "to-delete-ws", "data_mode": "blank"})
+    res = await api.post(
+        "/workspaces", headers=user, json={"name": "To Delete", "slug": "to-delete-ws", "data_mode": "blank"}
+    )
     assert res.status_code == 201
     ws_id = res.json()["id"]
 
@@ -282,7 +284,9 @@ async def test_workspace_deletion(api):
 async def test_reset_blank_and_load_sample(api):
     """Test explicit reset to blank slate (0 alerts) and loading sample demo data."""
     user = auth("admin_u", "admin@example.com")
-    res = await api.post("/workspaces", headers=user, json={"name": "Sample WS", "slug": "sample-ws-toggle", "data_mode": "sample"})
+    res = await api.post(
+        "/workspaces", headers=user, json={"name": "Sample WS", "slug": "sample-ws-toggle", "data_mode": "sample"}
+    )
     assert res.status_code == 201
     ws_id = res.json()["id"]
 
@@ -311,4 +315,3 @@ async def test_reset_blank_and_load_sample(api):
 
     s3 = (await api.get(f"/workspaces/{ws_id}/risk/summary", headers=user)).json()
     assert s3["active_exceptions"] > 0
-

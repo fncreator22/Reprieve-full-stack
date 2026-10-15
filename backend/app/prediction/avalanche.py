@@ -215,10 +215,7 @@ def compute_avalanche_centrality(
         k = k_avalanche if (k_avalanche and k_avalanche > 0) else DEFAULT_K_AVALANCHE
         score = 100.0 * (1.0 - math.exp(-raw_ac / k))
 
-        proof_edges = [
-            get_proof_edge(src, dst, rel)
-            for src, dst, rel in sorted(proof_edges_set)
-        ]
+        proof_edges = [get_proof_edge(src, dst, rel) for src, dst, rel in sorted(proof_edges_set)]
 
         reachable_services = sorted(dependents.keys())
         customer_paths = sorted(cp_dict.keys())

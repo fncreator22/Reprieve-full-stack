@@ -204,7 +204,7 @@ def compute_temporal_collisions(
                     proof_edges_set.add((path[i], path[i + 1], "DEPENDS_ON"))
 
         proof_edges = [
-            ProofEdge(from_node=src, to=dst, type=rel)
+            ProofEdge.model_construct(from_node=src, to=dst, type=rel)
             for src, dst, rel in sorted(proof_edges_set)
         ]
 

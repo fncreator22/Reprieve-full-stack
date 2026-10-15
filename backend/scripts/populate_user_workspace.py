@@ -1,7 +1,9 @@
 import asyncio
+
 from app.graph.client import get_db
 from app.graph.repo import Repo
 from app.services.workspaces import provision, set_fields
+
 
 async def main():
     db = get_db()
@@ -23,6 +25,7 @@ async def main():
     """
     await g.query(query, {"email": user_email, "northwind_id": "ws_01m40d2pp9yc08y8cz6e5tnanm"})
     print(f"Granted user {user_email} owner access to Northwind Pay!")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

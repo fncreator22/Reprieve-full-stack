@@ -39,9 +39,7 @@ async def ws(db):
     await bootstrap()
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t/api/v1") as c:
         slug = f"st-ws-{new_id('ws')[3:12]}"
-        r = await c.post(
-            "/workspaces", headers=H, json={"name": "Steward test", "slug": slug, "data_mode": "sample"}
-        )
+        r = await c.post("/workspaces", headers=H, json={"name": "Steward test", "slug": slug, "data_mode": "sample"})
         yield c, f"/workspaces/{r.json()['id']}"
     await graph_client.close_db()
 

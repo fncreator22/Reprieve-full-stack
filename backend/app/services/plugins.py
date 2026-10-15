@@ -94,6 +94,7 @@ def mask_integrations_for_role(integrations: dict[str, Any], is_admin: bool) -> 
             sanitized["slack"]["webhook_url"] = parts[0] + "/••••••••"
     return sanitized
 
+
 DEFAULT_INTEGRATIONS: dict[str, Any] = {
     "slack": {
         "enabled": False,
@@ -136,9 +137,7 @@ def get_integrations(workspace: dict[str, Any]) -> dict[str, Any]:
         return {**DEFAULT_INTEGRATIONS}
 
 
-async def dispatch_alert_to_plugins(
-    ws_id: str, alert: dict[str, Any], integrations: dict[str, Any]
-) -> dict[str, Any]:
+async def dispatch_alert_to_plugins(ws_id: str, alert: dict[str, Any], integrations: dict[str, Any]) -> dict[str, Any]:
     s = get_settings()
     results: dict[str, Any] = {}
 
@@ -164,7 +163,13 @@ async def dispatch_alert_to_plugins(
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": f"*Workspace:* `{ws_id}`\n*Severity:* `CRITICAL`\n*Rule Triggered:* `{rule_id}`\n*Incident Detail:* {title}\n*Action:* <{s.web_origin}/w/{ws_id}/alerts|Open Graph Proof Path>",
+                            "text": (
+                                f"*Workspace:* `{ws_id}`\n"
+                                f"*Severity:* `CRITICAL`\n"
+                                f"*Rule Triggered:* `{rule_id}`\n"
+                                f"*Incident Detail:* {title}\n"
+                                f"*Action:* <{s.web_origin}/w/{ws_id}/alerts|Open Graph Proof Path>"
+                            ),
                         },
                     },
                 ],
@@ -196,16 +201,25 @@ async def dispatch_alert_to_plugins(
                     f"Review proof path at: {s.web_origin}/w/{ws_id}/alerts"
                 )
                 html_body = (
-                    f"<div style='font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;background:#090a0f;color:#e1e4ea;padding:32px;border:1px solid #1f2430;max-width:600px;margin:0 auto;'>"
-                    f"<div style='font-family:monospace;font-size:12px;color:#a855f7;font-weight:700;letter-spacing:1px;margin-bottom:8px;'>REPRIEVE ARCHITECTURAL GATE</div>"
-                    f"<h2 style='font-size:20px;font-weight:700;margin:0 0 16px 0;color:#ffffff;'>🚨 Critical Risk Alert: {title}</h2>"
+                    f"<div style='font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;"
+                    f"background:#090a0f;color:#e1e4ea;padding:32px;border:1px solid #1f2430;"
+                    f"max-width:600px;margin:0 auto;'>"
+                    f"<div style='font-family:monospace;font-size:12px;color:#a855f7;font-weight:700;"
+                    f"letter-spacing:1px;margin-bottom:8px;'>REPRIEVE ARCHITECTURAL GATE</div>"
+                    f"<h2 style='font-size:20px;font-weight:700;margin:0 0 16px 0;color:#ffffff;'>"
+                    f"🚨 Critical Risk Alert: {title}</h2>"
                     f"<div style='background:#12141c;border:1px solid #282f3d;padding:16px;margin-bottom:20px;'>"
-                    f"<p style='margin:0 0 8px 0;font-size:13px;'><strong>Workspace:</strong> <code style='color:#a855f7;'>{ws_id}</code></p>"
-                    f"<p style='margin:0 0 8px 0;font-size:13px;'><strong>Rule Triggered:</strong> <code style='color:#ef4444;'>{rule_id}</code></p>"
+                    f"<p style='margin:0 0 8px 0;font-size:13px;'><strong>Workspace:</strong> "
+                    f"<code style='color:#a855f7;'>{ws_id}</code></p>"
+                    f"<p style='margin:0 0 8px 0;font-size:13px;'><strong>Rule Triggered:</strong> "
+                    f"<code style='color:#ef4444;'>{rule_id}</code></p>"
                     f"<p style='margin:0;font-size:13px;'><strong>Status:</strong> Immediate mitigation required.</p>"
                     f"</div>"
-                    f"<a href='{s.web_origin}/w/{ws_id}/alerts' style='display:inline-block;background:#7e22ce;color:#ffffff;font-size:13px;font-weight:600;padding:10px 18px;text-decoration:none;'>Inspect Shortest Proof Path &rarr;</a>"
-                    f"<div style='margin-top:24px;border-top:1px solid #1f2430;padding-top:12px;font-size:11px;color:#71788e;'>Delivered via Maileroo REST Engine &middot; Reprieve Autonomous Sentinel</div>"
+                    f"<a href='{s.web_origin}/w/{ws_id}/alerts' style='display:inline-block;background:#7e22ce;"
+                    f"color:#ffffff;font-size:13px;font-weight:600;padding:10px 18px;text-decoration:none;'>"
+                    f"Inspect Shortest Proof Path &rarr;</a>"
+                    f"<div style='margin-top:24px;border-top:1px solid #1f2430;padding-top:12px;font-size:11px;"
+                    f"color:#71788e;'>Delivered via Maileroo REST Engine &middot; Reprieve Autonomous Sentinel</div>"
                     f"</div>"
                 )
                 async with httpx.AsyncClient(timeout=5.0) as client:
@@ -245,12 +259,14 @@ async def dispatch_alert_to_plugins(
         else:
             secret = webhooks.get("secret", "whsec_reprieve_demo_token")
             ts = str(int(time.time()))
-            body_json = json.dumps({
-                "event": "alert.critical",
-                "workspace_id": ws_id,
-                "timestamp": ts,
-                "data": alert,
-            })
+            body_json = json.dumps(
+                {
+                    "event": "alert.critical",
+                    "workspace_id": ws_id,
+                    "timestamp": ts,
+                    "data": alert,
+                }
+            )
             sig = hmac.new(secret.encode(), f"{ts}.{body_json}".encode(), hashlib.sha256).hexdigest()
             headers = {
                 "Content-Type": "application/json",
@@ -286,7 +302,12 @@ async def send_test_ping(plugin_name: str, config: dict[str, Any], ws_id: str) -
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": f"*✅ Reprieve Integration Test*\nSuccessfully connected workspace `{ws_id}` to Slack channel `{config.get('channel', '#sre-alerts')}`.\nReal-time Sentinel incidents will broadcast here.",
+                        "text": (
+                            f"*✅ Reprieve Integration Test*\n"
+                            f"Successfully connected workspace `{ws_id}` to Slack channel "
+                            f"`{config.get('channel', '#sre-alerts')}`.\n"
+                            f"Real-time Sentinel incidents will broadcast here."
+                        ),
                     },
                 }
             ],
@@ -307,12 +328,19 @@ async def send_test_ping(plugin_name: str, config: dict[str, Any], ws_id: str) -
         api_key = s.maileroo_api_key or s.resend_api_key
         if api_key:
             try:
-                plain_body = f"This is a test notification from Reprieve workspace {ws_id}. Real-time Sentinel incidents will deliver to this address."
+                plain_body = (
+                    f"This is a test notification from Reprieve workspace {ws_id}. "
+                    f"Real-time Sentinel incidents will deliver to this address."
+                )
                 html_body = (
-                    f"<div style='font-family:-apple-system,sans-serif;background:#090a0f;color:#e1e4ea;padding:28px;border:1px solid #1f2430;max-width:560px;'>"
-                    f"<h3 style='color:#a855f7;margin:0 0 12px 0;'>✅ Reprieve &times; Maileroo Connection Verified</h3>"
-                    f"<p style='font-size:14px;color:#cbd5e1;'>Successfully connected workspace <code>{ws_id}</code> to Maileroo transactional delivery service.</p>"
-                    f"<p style='font-size:12px;color:#94a3b8;'>Real-time Sentinel architectural risk bulletins will route to this inbox.</p>"
+                    f"<div style='font-family:-apple-system,sans-serif;background:#090a0f;color:#e1e4ea;"
+                    f"padding:28px;border:1px solid #1f2430;max-width:560px;'>"
+                    f"<h3 style='color:#a855f7;margin:0 0 12px 0;'>"
+                    f"✅ Reprieve &times; Maileroo Connection Verified</h3>"
+                    f"<p style='font-size:14px;color:#cbd5e1;'>Successfully connected workspace <code>{ws_id}</code> "
+                    f"to Maileroo transactional delivery service.</p>"
+                    f"<p style='font-size:12px;color:#94a3b8;'>Real-time Sentinel architectural risk bulletins "
+                    f"will route to this inbox.</p>"
                     f"</div>"
                 )
                 async with httpx.AsyncClient(timeout=5.0) as client:
@@ -329,13 +357,25 @@ async def send_test_ping(plugin_name: str, config: dict[str, Any], ws_id: str) -
                             },
                         )
                         if res.status_code >= 400:
-                            return {"ok": False, "message": f"Maileroo API returned HTTP {res.status_code}: {res.text}"}
-                return {"ok": True, "message": f"Test email dispatched to {len(recipients)} recipient(s) via Maileroo (3,000 free emails/mo tier)."}
+                            return {
+                                "ok": False,
+                                "message": f"Maileroo API returned HTTP {res.status_code}: {res.text}",
+                            }
+                return {
+                    "ok": True,
+                    "message": (
+                        f"Test email dispatched to {len(recipients)} recipient(s) "
+                        f"via Maileroo (3,000 free emails/mo tier)."
+                    ),
+                }
             except Exception as e:
                 return {"ok": False, "message": f"Maileroo delivery failed: {e}"}
         return {
             "ok": True,
-            "message": f"Simulated delivery to {', '.join(recipients)} (Maileroo sandbox ready; 3,000 free emails/mo with 2 custom domains).",
+            "message": (
+                f"Simulated delivery to {', '.join(recipients)} "
+                f"(Maileroo sandbox ready; 3,000 free emails/mo with 2 custom domains)."
+            ),
         }
 
     if plugin_name == "webhooks":
@@ -347,12 +387,14 @@ async def send_test_ping(plugin_name: str, config: dict[str, Any], ws_id: str) -
             return {"ok": False, "message": reason}
         secret = config.get("secret", "whsec_reprieve_demo_token")
         ts = str(int(time.time()))
-        body_json = json.dumps({
-            "event": "test.ping",
-            "workspace_id": ws_id,
-            "timestamp": ts,
-            "message": "Reprieve webhook handshake test",
-        })
+        body_json = json.dumps(
+            {
+                "event": "test.ping",
+                "workspace_id": ws_id,
+                "timestamp": ts,
+                "message": "Reprieve webhook handshake test",
+            }
+        )
         sig = hmac.new(secret.encode(), f"{ts}.{body_json}".encode(), hashlib.sha256).hexdigest()
         headers = {
             "Content-Type": "application/json",

@@ -163,6 +163,7 @@ async def test_api_key_expiration_enforcement(api):
 
     # Manually backdate expires_at in DB to simulate expired key
     from app.graph.repo import Repo
+
     platform = Repo(graph_client.get_db(), graph_client.platform_graph())
     await platform.write(
         "p_api_key_touch",

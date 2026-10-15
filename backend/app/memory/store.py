@@ -74,7 +74,6 @@ PLAYBOOKS = [
 ]
 
 
-
 async def seed_playbooks(mem: Repo) -> None:
     rows = [{**{k: v for k, v in p.items() if k != "steps"}, "steps_json": json.dumps(p["steps"])} for p in PLAYBOOKS]
     await mem.write("mem_playbooks_seed", rows=rows)

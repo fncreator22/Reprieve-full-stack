@@ -80,7 +80,6 @@ class Repo:
             params["email"] = None
         return _rows(await self.g.query(q, params, timeout=WRITE_TIMEOUT_MS))
 
-
     async def write_batched(
         self, qid: str, rows: list[dict[str, Any]], *, label: str | None = None, **params: Any
     ) -> None:

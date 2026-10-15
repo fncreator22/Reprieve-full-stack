@@ -61,13 +61,22 @@ def _fallback_extract(text: str) -> ExtractedException:
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     first_line = lines[0] if lines else "Temporary Operational Exception"
     # Clean prefixes like "TODO(waiver):", "#nosec", etc.
-    title = re.sub(r"^(?:TODO\s*\([^)]*\)|#\s*(?:nosec|noqa|skip|hotfix)|@skip)\s*[:\-]?\s*", "", first_line, flags=re.IGNORECASE).strip()
+    title = re.sub(
+        r"^(?:TODO\s*\([^)]*\)|#\s*(?:nosec|noqa|skip|hotfix)|@skip)\s*[:\-]?\s*", "", first_line, flags=re.IGNORECASE
+    ).strip()
     if not title:
         title = first_line[:120]
     title = title[:160]
 
     # Detect kind
-    kind: Literal["security_waiver", "flag_override", "skipped_test", "cost_limit_extension", "data_export_permission", "emergency_change"] = "security_waiver"
+    kind: Literal[
+        "security_waiver",
+        "flag_override",
+        "skipped_test",
+        "cost_limit_extension",
+        "data_export_permission",
+        "emergency_change",
+    ] = "security_waiver"
     text_lower = text.lower()
     if "test" in text_lower or "@skip" in text_lower:
         kind = "skipped_test"
@@ -81,7 +90,11 @@ def _fallback_extract(text: str) -> ExtractedException:
         kind = "emergency_change"
 
     # Detect service hints (e.g. svc_*, payment, checkout, gateway, auth, api)
-    svc_matches = re.findall(r"\b(?:svc_[a-z0-9_-]+|(?:payment|checkout|gateway|auth|settlement|order|billing)[a-z0-9_-]*)\b", text, flags=re.IGNORECASE)
+    svc_matches = re.findall(
+        r"\b(?:svc_[a-z0-9_-]+|(?:payment|checkout|gateway|auth|settlement|order|billing)[a-z0-9_-]*)\b",
+        text,
+        flags=re.IGNORECASE,
+    )
     service_hints = list(dict.fromkeys([s.lower() for s in svc_matches]))[:5]
 
     # Detect duration (e.g. "30 days", "2 weeks", "90d")
@@ -111,7 +124,10 @@ async def extract(ws_id: str, ai_mode: str, text: str) -> ExtractedException:
         data: dict[str, Any] = await llm.complete_json(
             ws_id,
             ai_mode,
-            [{"role": "system", "content": SYSTEM}, {"role": "user", "content": f"<untrusted>\n{clipped}\n</untrusted>"}],
+            [
+                {"role": "system", "content": SYSTEM},
+                {"role": "user", "content": f"<untrusted>\n{clipped}\n</untrusted>"},
+            ],
             ExtractedException.model_json_schema(),
             "extracted_exception",
         )
@@ -124,4 +140,3 @@ async def extract(ws_id: str, ai_mode: str, text: str) -> ExtractedException:
     if len(text) > MAX_TEXT:
         out.warnings.append(f"Text was truncated to {MAX_TEXT} characters.")
     return out
-

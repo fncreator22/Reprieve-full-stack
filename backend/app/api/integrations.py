@@ -77,9 +77,7 @@ async def update_integrations(
         else:
             updated[k] = v
 
-    await workspaces.set_fields(
-        ctx.platform, ctx.ws_id, integrations_json=json.dumps(updated)
-    )
+    await workspaces.set_fields(ctx.platform, ctx.ws_id, integrations_json=json.dumps(updated))
     await audit(
         ctx.org,
         actor_kind="user",
@@ -93,7 +91,5 @@ async def update_integrations(
 
 
 @router.post("/workspaces/{ws_id}/integrations/test")
-async def test_integration(
-    body: TestPluginRequest, ctx: WorkspaceContext = Depends(admin)
-) -> dict[str, Any]:
+async def test_integration(body: TestPluginRequest, ctx: WorkspaceContext = Depends(admin)) -> dict[str, Any]:
     return await plugins.send_test_ping(body.plugin, body.config, ctx.ws_id)

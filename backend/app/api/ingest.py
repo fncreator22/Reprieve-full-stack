@@ -185,8 +185,7 @@ async def draft_impact_preview(draft_id: str, ctx: WorkspaceContext = Depends(vi
             "current_band": baseline.canvas_decorations[sid].risk_band,
         }
         for sid in affected_ids
-        if sid in baseline.canvas_decorations
-        and baseline.canvas_decorations[sid].simulated_score >= 50.0
+        if sid in baseline.canvas_decorations and baseline.canvas_decorations[sid].simulated_score >= 50.0
     ]
 
     severity = d.get("severity", 3)
