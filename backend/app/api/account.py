@@ -59,6 +59,8 @@ def workspace_out(w: dict[str, Any], role: str, person_id: str | None) -> dict[s
 
 @router.get("/me", response_model=MeOut)
 async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
+    if user.id == "guest":
+        raise ApiError("UNAUTHENTICATED", "Sign in to continue.")
     if user.api_key_ws_id:
         ws_rows = await platform_repo().read("p_workspace_get", ws_id=user.api_key_ws_id)
         memberships = []
@@ -112,6 +114,8 @@ async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
 
 @router.patch("/me", response_model=MeOut)
 async def patch_me(body: MePatch, user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
+    if user.id == "guest":
+        raise ApiError("UNAUTHENTICATED", "Sign in to modify profile.")
     if user.api_key_id:
         raise ApiError("FORBIDDEN", "API keys cannot modify user profile.")
     prefs = json.dumps({**user.prefs, **body.prefs}) if body.prefs is not None else None
@@ -124,6 +128,8 @@ async def patch_me(body: MePatch, user: CurrentUser = Depends(current_user)) -> 
 
 @router.post("/workspaces", response_model=WorkspaceOut, status_code=status.HTTP_201_CREATED)
 async def create_workspace(body: WorkspaceCreate, tasks: BackgroundTasks, user: CurrentUser = Depends(current_user)):
+    if user.id == "guest":
+        raise ApiError("UNAUTHENTICATED", "Sign in to create a workspace.")
     if user.api_key_id:
         raise ApiError("FORBIDDEN", "API keys are workspace-scoped and cannot create new workspaces.")
     platform = platform_repo()
@@ -140,6 +146,11 @@ async def create_workspace(body: WorkspaceCreate, tasks: BackgroundTasks, user: 
 @router.get("/workspaces", response_model=list[WorkspaceOut])
 async def list_workspaces(user: CurrentUser = Depends(current_user)) -> list[dict[str, Any]]:
     platform = platform_repo()
+    if user.id == "guest":
+        nw_rows = await platform.read("p_workspace_get", ws_id="northwind-pay")
+        if nw_rows:
+            return [workspace_out(nw_rows[0]["w"], "viewer", None)]
+        return []
     if user.api_key_ws_id:
         ws_rows = await platform.read("p_workspace_get", ws_id=user.api_key_ws_id)
         if ws_rows:

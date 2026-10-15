@@ -146,7 +146,7 @@ export function AppShell({ slug, children }: { slug: string; children: ReactNode
       {res.state === "loading" ? (
         <ShellSkeleton />
       ) : res.state === "error" ? (
-        isApiError(res.error) && res.error.code === "UNAUTHENTICATED" ? (
+        isApiError(res.error) && res.error.code === "UNAUTHENTICATED" && slug !== "northwind-pay" ? (
           <ShellSkeleton />
         ) : (
           <main id="main">

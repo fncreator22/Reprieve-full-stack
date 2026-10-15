@@ -56,14 +56,27 @@ export type WorkspaceResolution =
   | { state: "failed"; membership: Membership }
   | { state: "ready"; value: WorkspaceContextValue; workspaceError: unknown };
 
+const GUEST_DEMO_MEMBERSHIP: Membership = {
+  workspace_id: "northwind-pay",
+  slug: "northwind-pay",
+  name: "Northwind Pay",
+  role: "viewer",
+  person_id: null,
+  status: "ready",
+};
+
 /** Resolve a `/w/[ws]` slug to the workspace id via `GET /me` memberships (decision log: slug in URLs). */
 export function useResolveWorkspace(slug: string): WorkspaceResolution {
   const api = useApi();
   const me = useMe();
-  const membership = me.data?.memberships.find((m) => m.slug === slug || m.workspace_id === slug);
+  const isNorthwindDemo = slug === "northwind-pay";
+  const membership =
+    me.data?.memberships.find((m) => m.slug === slug || m.workspace_id === slug) ??
+    (isNorthwindDemo ? GUEST_DEMO_MEMBERSHIP : undefined);
+
   const ws = useQuery({
-    queryKey: workspaceQueryKey(membership?.workspace_id ?? ""),
-    queryFn: ({ signal }) => api<WorkspaceOut>(wsPath(membership!.workspace_id), { signal }),
+    queryKey: workspaceQueryKey(membership?.workspace_id ?? slug),
+    queryFn: ({ signal }) => api<WorkspaceOut>(wsPath(membership?.workspace_id ?? slug), { signal }),
     enabled: !!membership && membership.status === "ready",
   });
 
@@ -72,6 +85,27 @@ export function useResolveWorkspace(slug: string): WorkspaceResolution {
   }, [membership?.status, slug]);
 
   return useMemo<WorkspaceResolution>(() => {
+    if (isNorthwindDemo) {
+      if (ws.isPending && !ws.data) return { state: "loading" };
+      if (ws.isError && !ws.data) return { state: "error", error: ws.error, retry: () => void ws.refetch() };
+      const w = ws.data;
+      const mem = membership ?? GUEST_DEMO_MEMBERSHIP;
+      return {
+        state: "ready",
+        workspaceError: ws.error,
+        value: {
+          wsId: w?.id ?? mem.workspace_id,
+          slug: w?.slug ?? mem.slug,
+          name: w?.name ?? mem.name,
+          role: (w?.role as Role) ?? mem.role,
+          personId: w?.person_id ?? mem.person_id,
+          asOf: w?.as_of ?? null,
+          workspace: w,
+          membership: mem,
+        },
+      };
+    }
+
     if (me.isPending) return { state: "loading" };
     if (me.isError) return { state: "error", error: me.error, retry: () => void me.refetch() };
     if (!membership) return { state: "not-found" };
@@ -92,7 +126,7 @@ export function useResolveWorkspace(slug: string): WorkspaceResolution {
         membership,
       },
     };
-  }, [me, membership, ws.data, ws.error]);
+  }, [isNorthwindDemo, me, membership, ws.data, ws.error, ws.isError, ws.isPending]);
 }
 
 const WorkspaceContext = createContext<WorkspaceContextValue | null>(null);
