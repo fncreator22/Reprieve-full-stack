@@ -369,3 +369,5 @@ jobs:
     workers: process.env.CI ? 2 : undefined,
   });
   ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

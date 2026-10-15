@@ -56,3 +56,5 @@ c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\teamwork_previe
 Include typecheck and build/lint verification commands and outputs.
 
 When finished, send a completion message via send_message to f63e4228-317f-45de-bff4-f932d1431e70.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

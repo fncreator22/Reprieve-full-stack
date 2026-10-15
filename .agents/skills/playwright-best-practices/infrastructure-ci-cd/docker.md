@@ -281,3 +281,5 @@ docker run --rm \
   mcr.microsoft.com/playwright:v1.48.0-noble \
   bash -c "npm ci && npx playwright test"
 ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

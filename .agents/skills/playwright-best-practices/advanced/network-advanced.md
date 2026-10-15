@@ -450,3 +450,5 @@ export const test = base.extend<NetworkFixtures>({
 
 - **Basic Mocking**: See [test-suite-structure.md](../core/test-suite-structure.md) for simple mocking
 - **WebSockets**: See [websockets.md](../browser-apis/websockets.md) for real-time mocking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

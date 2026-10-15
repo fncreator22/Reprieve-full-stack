@@ -413,3 +413,5 @@ When implementation proceeds, the following commands will verify compliance:
 3. `cd backend && uv run pytest tests/test_detection_seed.py` (Verify existing rules R1–R8 remain unbroken)
 4. `cd backend && uv run pytest tests/test_steward.py` (Verify conversational grounding and refusal behavior)
 5. `cd backend && uv run python ../eval/run_eval.py` (Verify complete eval suite passes without regressions)
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

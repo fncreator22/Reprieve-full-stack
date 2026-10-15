@@ -407,3 +407,5 @@ test.describe("visual regression", () => {
 - **Locators**: See [locators.md](../core/locators.md) for mobile-friendly selectors
 - **Browser APIs**: See [browser-apis.md](../browser-apis/browser-apis.md) for permissions (camera, geolocation, notifications)
 - **Canvas/Touch**: See [canvas-webgl.md](../testing-patterns/canvas-webgl.md) for touch gestures on canvas elements
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

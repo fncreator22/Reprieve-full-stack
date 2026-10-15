@@ -301,3 +301,5 @@ After writing or modifying tests:
    - Re-run tests
 3. **Only proceed when all tests pass**
 4. **Run multiple times** for critical tests: `npx playwright test --repeat-each=5`
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

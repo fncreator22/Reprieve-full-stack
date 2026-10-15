@@ -69,3 +69,5 @@ Implement Milestone 1: Hybrid Mathematical Prediction Engine (Avalanche Centrali
 
 ## Loaded Skills
 - None
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -375,3 +375,5 @@ test("verify JSON export", async ({ page }, testInfo) => {
 
 - **Fixtures**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for download fixture patterns
 - **Debugging**: See [debugging.md](../debugging/debugging.md) for troubleshooting download issues
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

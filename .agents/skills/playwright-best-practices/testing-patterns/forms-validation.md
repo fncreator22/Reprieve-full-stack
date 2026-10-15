@@ -559,3 +559,5 @@ await expect(page.getByText("Enter a valid email")).toBeVisible();
 // Or move focus to the next field
 await page.getByLabel("Password").focus();
 ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

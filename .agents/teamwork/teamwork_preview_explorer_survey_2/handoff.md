@@ -131,3 +131,5 @@ To independently verify the frontend state and claims in this handoff:
 5. **Invalidation Conditions**:
    - If `radix-ui` does not export `Slider` or throws on runtime render, a lightweight slider implementation or dedicated `@radix-ui/react-slider` would be needed. (Confirmed present).
    - If backend simulation response format diverges from `SimulationForecastOut`, the frontend type definitions in `frontend/lib/types.ts` must be updated to match Explorer 1's backend schema.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

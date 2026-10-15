@@ -422,3 +422,5 @@ use: {
 ```
 
 The HTML report embeds screenshots from `test-results/`. Deleting that directory removes screenshots from the report.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

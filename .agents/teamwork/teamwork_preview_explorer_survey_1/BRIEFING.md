@@ -50,3 +50,5 @@ Investigate the backend architecture, FalkorDB setup, schema, existing detection
 - `report.md` — Comprehensive backend & graph engine analysis report (320+ lines)
 - `handoff.md` — Standard 5-component handoff report (Observation, Logic Chain, Caveats, Conclusion, Verification Method)
 - `progress.md` — Heartbeat and progress tracking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

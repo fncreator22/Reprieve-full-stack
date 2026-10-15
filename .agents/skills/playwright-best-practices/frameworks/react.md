@@ -529,3 +529,5 @@ test('no unmounted state warnings', async ({ page }) => {
 - [component-testing.md](../testing-patterns/component-testing.md) — in-depth component testing
 - [test-architecture.md](../architecture/test-architecture.md) — E2E vs component vs unit decisions
 - [nextjs.md](nextjs.md) — Next.js-specific patterns for SSR
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

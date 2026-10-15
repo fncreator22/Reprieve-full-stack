@@ -367,3 +367,5 @@ Total: 24 tests, ~22 seconds. API tests catch most regressions. Component tests 
 - [authentication.md](../advanced/authentication.md) — auth flow patterns with `storageState`
 - [when-to-mock.md](when-to-mock.md) — when to mock vs hit real services
 - [pom-vs-fixtures.md](pom-vs-fixtures.md) — organizing shared test logic
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -21,3 +21,5 @@ Status: Complete - Hard handoff report and survey report written.
 
 ## Next Steps
 - Transmit completion message to Project Orchestrator via `send_message`.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

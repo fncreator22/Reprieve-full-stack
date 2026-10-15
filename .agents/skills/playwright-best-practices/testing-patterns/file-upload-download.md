@@ -560,3 +560,5 @@ test('downloads file requiring authentication', async ({ page, request }) => {
 4. **Use `createReadStream()` for content verification**. Reading directly from the stream avoids disk I/O and cleanup of temporary files.
 
 5. **Test both `accept` attribute and JavaScript validation**. The HTML `accept` attribute only filters the OS file dialog. `setInputFiles()` bypasses it, which is exactly what you need to test your app's JavaScript validation.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

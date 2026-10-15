@@ -477,3 +477,5 @@ export interface SimulationForecastOut {
 ## 9. Conclusion
 
 The Reprieve frontend already possesses a solid, modern stack perfectly poised for this implementation. All heavy graphical and streaming dependencies are already present in `package.json`. Implementing R3.1 and R3.2 requires zero new dependencies, builds cleanly upon the existing App Router architecture, and creates an intuitive, high-fidelity experience uniting deterministic mathematical forecasting with grounded conversational intelligence.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

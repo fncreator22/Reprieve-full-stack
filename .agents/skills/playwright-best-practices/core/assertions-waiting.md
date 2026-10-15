@@ -359,3 +359,5 @@ await expect(page.getByRole("button")).toBeVisible({ timeout: 10000 });
 - **Debugging timeout issues**: See [debugging.md](../debugging/debugging.md) for troubleshooting
 - **Fixing flaky tests**: See [debugging.md](../debugging/debugging.md) for race condition solutions
 - **Network interception**: See [test-suite-structure.md](test-suite-structure.md) for API mocking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

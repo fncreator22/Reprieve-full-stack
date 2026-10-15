@@ -401,3 +401,5 @@ test("reconnects after connection loss", async ({ page }) => {
 - **Network**: See [network-advanced.md](../advanced/network-advanced.md) for HTTP mocking patterns
 - **Assertions**: See [assertions-waiting.md](../core/assertions-waiting.md) for polling patterns
 - **Multi-User**: See [multi-user.md](../advanced/multi-user.md) for real-time collaboration testing with multiple users
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

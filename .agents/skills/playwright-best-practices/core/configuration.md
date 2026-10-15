@@ -450,3 +450,5 @@ npx playwright show-report
 - [test-suite-structure.md](test-suite-structure.md) - file structure and naming
 - [authentication.md](../advanced/authentication.md) - setup projects for shared auth
 - [projects-dependencies.md](./projects-dependencies.md) - advanced multi-project patterns
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

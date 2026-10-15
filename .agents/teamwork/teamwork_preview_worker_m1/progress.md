@@ -21,3 +21,5 @@ Milestone 1 Implementation and Verification Complete. All 13 tests passing, ruff
 - [x] Run linter (ruff) and fix all issues
 - [ ] Document findings and write `handoff.md`
 - [ ] Notify Orchestrator via `send_message`
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -28,3 +28,5 @@ and write a standard handoff report to:
 c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\teamwork_preview_explorer_survey_2\handoff.md
 
 When finished, send a concise summary message via send_message to recipient f63e4228-317f-45de-bff4-f932d1431e70 referencing your report paths.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

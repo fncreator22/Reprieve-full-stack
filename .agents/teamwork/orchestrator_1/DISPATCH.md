@@ -15,3 +15,5 @@ The user request and authoritative requirements are recorded at:
 c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\ORIGINAL_REQUEST.md
 
 Please review ORIGINAL_REQUEST.md and existing codebase, establish your plan, maintain your progress in progress.md and BRIEFING.md within your working directory, decompose the tasks to specialists as appropriate, coordinate implementation and testing, and notify me with your completion report once all acceptance criteria are fully met.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

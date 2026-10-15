@@ -490,3 +490,5 @@ export const test = base.extend<{}, { db: DbTransaction }>({
 
 - **Fixtures**: See [fixtures-hooks.md](fixtures-hooks.md) for fixture patterns
 - **API Testing**: See [test-suite-structure.md](test-suite-structure.md) for API mocking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

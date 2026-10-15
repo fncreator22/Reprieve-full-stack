@@ -78,3 +78,5 @@ Orchestrate end-to-end design, implementation, and verification of the Predictiv
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\ORIGINAL_REQUEST.md — Authoritative requirements
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\orchestrator_1\DISPATCH.md — Dispatch log
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\orchestrator_1\progress.md — Liveness & iteration progress
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

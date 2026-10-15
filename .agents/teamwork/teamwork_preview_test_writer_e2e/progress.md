@@ -16,3 +16,5 @@ Tasks complete. All test suites implemented, verified against live FalkorDB, and
 - [x] Run linting (`ruff check`) and ensure 0 violations
 - [x] Compile and publish TEST_READY.md at project root
 - [x] Write handoff.md and report to orchestrator via send_message
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -17,3 +17,5 @@ Last visited: 2026-10-09T09:10:45Z
 - [x] Update BRIEFING.md
 - [x] Compile handoff.md with binary verdict (Verdict: CLEAN)
 - [x] Send completion message
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

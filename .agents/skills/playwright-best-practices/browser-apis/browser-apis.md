@@ -389,3 +389,5 @@ test("handles camera access error", async ({ page }) => {
 
 - **Fixtures**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for context fixtures
 - **Mobile**: See [mobile-testing.md](../advanced/mobile-testing.md) for device emulation
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

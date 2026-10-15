@@ -359,3 +359,5 @@ npx playwright test --grep "@smoke|@critical"
 ```
 
 For project-based filtering and advanced project configuration, see **[projects-dependencies.md](projects-dependencies.md)**.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

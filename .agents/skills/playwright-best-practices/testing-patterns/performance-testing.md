@@ -474,3 +474,5 @@ test("no performance regression", async ({ page }) => {
 
 - **Performance Optimization**: See [performance.md](../infrastructure-ci-cd/performance.md) for test execution performance
 - **CI/CD**: See [ci-cd.md](../infrastructure-ci-cd/ci-cd.md) for CI integration
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

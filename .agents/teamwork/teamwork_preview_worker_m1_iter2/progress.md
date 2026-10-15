@@ -10,3 +10,5 @@
 - [x] Written handoff report to `c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\teamwork_preview_worker_m1_iter2\handoff.md`
 
 Last visited: 2026-10-09T09:24:00Z
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

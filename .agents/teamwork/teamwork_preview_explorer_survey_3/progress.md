@@ -15,3 +15,5 @@ Status: Completed - Survey Report & Handoff Produced
 - [x] Write detailed report (`report.md`)
 - [x] Write 5-component handoff report (`handoff.md`)
 - [x] Send coordination message to orchestrator parent
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

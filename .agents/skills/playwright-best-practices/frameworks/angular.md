@@ -528,3 +528,5 @@ const listbox = page.getByRole('listbox');
 - [core/assertions-waiting.md](../core/assertions-waiting.md) — auto-waiting assertions
 - [core/forms-validation.md](../testing-patterns/forms-validation.md) — form testing patterns
 - [architecture/test-architecture.md](../architecture/test-architecture.md) — E2E vs unit tests with TestBed
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

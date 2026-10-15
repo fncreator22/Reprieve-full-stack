@@ -507,3 +507,5 @@ export const test = base.extend({
 - **Fixtures**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for custom fixture patterns
 - **Component Testing**: See [component-testing.md](component-testing.md) for renderer testing patterns
 - **Debugging**: See [debugging.md](../debugging/debugging.md) for troubleshooting
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

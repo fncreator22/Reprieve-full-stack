@@ -466,3 +466,5 @@ export default defineConfig({
 - **Performance optimization**: See [performance.md](performance.md) for sharding and parallelization
 - **Debugging CI failures**: See [debugging.md](../debugging/debugging.md) for troubleshooting
 - **Test reporting**: See [debugging.md](../debugging/debugging.md) for trace viewer usage
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

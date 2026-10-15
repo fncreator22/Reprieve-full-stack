@@ -85,3 +85,5 @@ Generate a broadcast-grade 60 FPS kinetic technology film (1080p, exact audio sy
    c. Render stills to verify geometry and symmetry.
    d. Encode final MP4 at 60 FPS with audio.
 ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

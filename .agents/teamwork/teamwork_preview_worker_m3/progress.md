@@ -18,3 +18,5 @@ Last visited: 2026-10-09T09:25:30Z
 - [ ] Update frontend/components/steward/steward-chat.tsx if needed for citation pan/callbacks
 - [ ] Verify with `pnpm typecheck` and `pnpm lint`
 - [ ] Write handoff.md and report to orchestrator
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

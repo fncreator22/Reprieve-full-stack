@@ -240,3 +240,5 @@ const exists = (await page.getByRole("button").count()) > 0;
 - **Debugging selector issues**: See [debugging.md](../debugging/debugging.md) for troubleshooting
 - **Waiting for elements**: See [assertions-waiting.md](assertions-waiting.md) for waiting strategies
 - **Using in Page Objects**: See [page-object-model.md](page-object-model.md) for organizing locators
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

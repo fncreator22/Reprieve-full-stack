@@ -502,3 +502,5 @@ test("sync event fires when online", async ({ context, page }) => {
 - **Browser APIs**: See [browser-apis.md](browser-apis.md) for permissions
 - **Network Mocking**: See [network-advanced.md](../advanced/network-advanced.md) for network interception
 - **Browser Extensions**: See [browser-extensions.md](../testing-patterns/browser-extensions.md) for extension service worker patterns
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

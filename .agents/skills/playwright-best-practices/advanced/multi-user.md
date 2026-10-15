@@ -391,3 +391,5 @@ test("chat messages sync between users", async ({ browser }) => {
 
 - **Authentication**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for auth setup
 - **WebSockets**: See [websockets.md](../browser-apis/websockets.md) for real-time mocking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

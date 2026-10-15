@@ -462,3 +462,5 @@ test("tracks purchase event", async ({ page }) => {
 
 - **Network Mocking**: See [network-advanced.md](network-advanced.md) for route patterns
 - **Authentication**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for auth patterns
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

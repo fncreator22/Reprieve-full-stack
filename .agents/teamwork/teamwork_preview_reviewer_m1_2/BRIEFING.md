@@ -66,3 +66,5 @@ Conduct an independent architectural, mathematical, security, and adversarial re
 - BRIEFING.md — Working memory and identity
 - progress.md — Heartbeat and activity log
 - handoff.md — Final review report
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

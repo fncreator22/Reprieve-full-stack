@@ -504,3 +504,5 @@ test("request permissions", async ({ context, extensionId }) => {
 - **Service Workers**: See [service-workers.md](../browser-apis/service-workers.md) for SW testing patterns
 - **Multi-Context**: See [multi-context.md](../advanced/multi-context.md) for popup handling
 - **Browser APIs**: See [browser-apis.md](../browser-apis/browser-apis.md) for permissions testing
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

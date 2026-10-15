@@ -451,3 +451,5 @@ teardown("cleanup", async ({ request }) => {
 - **Global Setup**: See [global-setup.md](global-setup.md) for globalSetup vs setup projects
 - **Fixtures**: See [fixtures-hooks.md](fixtures-hooks.md) for authentication patterns
 - **CI/CD**: See [ci-cd.md](../infrastructure-ci-cd/ci-cd.md) for running projects in CI
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

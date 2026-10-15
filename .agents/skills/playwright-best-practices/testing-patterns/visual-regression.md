@@ -632,3 +632,5 @@ export default defineConfig({
 - Pages after major refactor
 
 Skip pages where functional assertions cover key elements.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

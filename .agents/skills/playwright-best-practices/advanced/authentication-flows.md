@@ -358,3 +358,5 @@ test('logs out from all devices', async ({ page }) => {
 - [authentication.md](authentication.md) — Storage state, OAuth mocking, MFA, role-based access, API login
 - [fixtures-hooks.md](../core/fixtures-hooks.md) — Creating auth fixtures
 - [third-party.md](./third-party.md) — Mocking external auth providers
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

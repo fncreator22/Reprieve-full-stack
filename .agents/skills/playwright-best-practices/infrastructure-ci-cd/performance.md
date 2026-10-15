@@ -451,3 +451,5 @@ test("lighthouse audit", async ({ page }) => {
 - **CI/CD sharding**: See [ci-cd.md](ci-cd.md) for CI configuration
 - **Test organization**: See [test-suite-structure.md](../core/test-suite-structure.md) for structuring tests
 - **Fixtures for reuse**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for authentication patterns
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

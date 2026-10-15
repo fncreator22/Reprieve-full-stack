@@ -572,3 +572,5 @@ test('no Vue warnings during render', async ({ page }) => {
 | Test composables via `page.evaluate` | Composables need Vue's setup context | Test through components or unit test with Vitest |
 | `page.locator('.v-btn')` for Vuetify | Class names change between versions | `page.getByRole('button', { name: 'Submit' })` |
 | Run Nuxt dev server in CI | Dev mode is slower with hot reload overhead | Use `npx nuxi build && npx nuxi preview` |
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

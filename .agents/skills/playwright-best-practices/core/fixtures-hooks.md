@@ -415,3 +415,5 @@ export const test = base.extend<TestData>({
 - **Page Objects with fixtures**: See [page-object-model.md](page-object-model.md) for POM patterns
 - **Test organization**: See [test-suite-structure.md](test-suite-structure.md) for test structure
 - **Debugging fixture issues**: See [debugging.md](../debugging/debugging.md) for troubleshooting
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

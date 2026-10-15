@@ -65,3 +65,5 @@ Objective and adversarial review of Milestone 1 (Hybrid Mathematical Prediction 
   - Routing collision with `data.router`: Verified resolved by mount ordering.
 - **Vulnerabilities found**: None.
 - **Untested angles**: None within Milestone 1 scope.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

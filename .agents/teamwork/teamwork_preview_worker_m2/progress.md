@@ -11,3 +11,5 @@ Status: Investigating requirements and codebase.
 - [ ] Plan and implement changes in tools.py, guard.py, prompts/steward.md, steward.py
 - [ ] Verify test suite and ruff checks
 - [ ] Write handoff.md and send completion message
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

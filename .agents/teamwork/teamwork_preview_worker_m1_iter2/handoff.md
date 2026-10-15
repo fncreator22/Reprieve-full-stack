@@ -149,3 +149,5 @@ uv run ruff check app/prediction tests/test_avalanche_adversarial.py
 Expected result:
 - `32 passed in <2.0s`
 - `All checks passed!`
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

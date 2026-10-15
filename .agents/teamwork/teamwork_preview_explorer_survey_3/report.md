@@ -485,3 +485,5 @@ To implement and enable this testing infrastructure, the following work items sh
 
 ---
 *Report completed by Explorer 3. Ready for handoff.*
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

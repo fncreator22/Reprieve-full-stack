@@ -140,3 +140,5 @@ To independently verify this survey's findings:
    - `cd backend && uv run pytest tests/test_detection_seed.py`
    - `cd backend && uv run pytest tests/test_api_flow.py`
    - `cd backend && uv run python ../eval/run_eval.py`
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -495,3 +495,5 @@ jobs:
 
 - **CI/CD**: See [ci-cd.md](ci-cd.md) for pipeline configuration
 - **Performance**: See [performance.md](performance.md) for optimizing coverage collection
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

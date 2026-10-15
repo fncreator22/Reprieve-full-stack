@@ -381,3 +381,5 @@ test.describe('contract validation', () => {
 | Mock with `page.evaluate()` to stub fetch | Fragile, doesn't survive navigation. | Use `page.route()` which intercepts at network layer. |
 | Copy-paste mocks across files | One API change requires updating many files. | Centralize mocks in fixtures. |
 | Block all network and whitelist | Extremely brittle. Every new endpoint requires update. | Allow all by default. Selectively mock third-party services. |
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

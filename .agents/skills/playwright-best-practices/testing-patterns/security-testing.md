@@ -428,3 +428,5 @@ test("CSP blocks inline scripts", async ({ page }) => {
 - **Authentication**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for auth fixtures
 - **Multi-User**: See [multi-user.md](../advanced/multi-user.md) for role-based testing
 - **Error Testing**: See [error-testing.md](../debugging/error-testing.md) for validation testing
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

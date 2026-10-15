@@ -286,3 +286,5 @@ test("cleanup tabs after test", async ({ context }) => {
 
 - **Authentication**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for auth patterns
 - **Network**: See [network-advanced.md](network-advanced.md) for mocking OAuth
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

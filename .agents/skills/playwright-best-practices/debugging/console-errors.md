@@ -418,3 +418,5 @@ test("capture console for debugging", async ({ page }, testInfo) => {
 
 - **Debugging**: See [debugging.md](debugging.md) for troubleshooting
 - **Error Testing**: See [error-testing.md](error-testing.md) for error scenarios
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -55,3 +55,5 @@ Adversarially challenge Milestone 1: Avalanche Centrality and cascading failure 
 - `backend/tests/test_avalanche_adversarial.py` — Adversarial test suite
 - `handoff.md` — Final challenge report and verdict
 - `progress.md` — Liveness heartbeat and progress tracking
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

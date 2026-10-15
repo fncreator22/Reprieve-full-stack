@@ -401,3 +401,5 @@ test("mock iframe response", async ({ page }) => {
 - **Locators**: See [locators.md](../core/locators.md) for selector strategies
 - **Third-party services**: See [third-party.md](../advanced/third-party.md) for payment iframe patterns
 - **Debugging**: See [debugging.md](../debugging/debugging.md) for troubleshooting iframe issues
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

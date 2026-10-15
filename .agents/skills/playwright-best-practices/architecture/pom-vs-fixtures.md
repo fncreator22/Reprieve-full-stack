@@ -361,3 +361,5 @@ export async function clickButton(page: Page, name: string) {
 ```
 
 Only abstract when there is real duplication (3+ usages) or complexity (5+ interactions).
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

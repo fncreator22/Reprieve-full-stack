@@ -58,3 +58,5 @@ Implement Grounded Conversational Intelligence & Refusal (Milestone 2): predict_
 
 ## Loaded Skills
 None
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

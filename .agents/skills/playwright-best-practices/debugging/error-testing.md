@@ -358,3 +358,5 @@ test("handles server validation errors", async ({ page }) => {
 
 - **Network Mocking**: See [network-advanced.md](../advanced/network-advanced.md) for mock patterns
 - **Assertions**: See [assertions-waiting.md](../core/assertions-waiting.md) for error assertions
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

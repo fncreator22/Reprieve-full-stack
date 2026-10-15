@@ -502,3 +502,5 @@ test("with attachments", async ({ page }, testInfo) => {
 - **Waiting problems**: See [assertions-waiting.md](../core/assertions-waiting.md) for waiting patterns
 - **Test isolation**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for fixtures and isolation
 - **CI issues**: See [ci-cd.md](../infrastructure-ci-cd/ci-cd.md) for CI configuration
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -180,3 +180,5 @@ frontend/
 │   ├── types.ts                      <-- EXTEND: Simulation types
 │   └── hooks.ts                      <-- EXTEND: useSimulationForecast hook
 ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

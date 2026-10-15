@@ -395,3 +395,5 @@ export default defineConfig({
     : [["html", { open: "on-failure" }]],
 });
 ```
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

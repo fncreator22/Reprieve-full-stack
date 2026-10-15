@@ -25,3 +25,5 @@ Gate Result: **FAIL (challenger_1 REQUEST_CHANGES)**
 | auditor_1 | teamwork_preview_auditor | CLEAN | handoff.md |
 
 Gate Result: **PASS**
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

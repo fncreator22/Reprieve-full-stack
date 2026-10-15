@@ -357,3 +357,5 @@ export default defineConfig({
 
 - **Locators**: See [locators.md](../core/locators.md) for role-based selectors
 - **Visual testing**: See [test-suite-structure.md](../core/test-suite-structure.md) for screenshot comparison
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -544,3 +544,5 @@ export default defineConfig({
 - [docker.md](docker.md) — container images
 - [gitlab.md](gitlab.md) — GitLab CI equivalent
 - [other-providers.md](other-providers.md) — CircleCI, Azure DevOps, Jenkins
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

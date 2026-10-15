@@ -362,3 +362,5 @@ await page.clock.install({ time: new Date("2025-01-15T09:00:00") });
 
 - **Assertions**: See [assertions-waiting.md](../core/assertions-waiting.md) for time-based assertions
 - **Fixtures**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for clock fixtures
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

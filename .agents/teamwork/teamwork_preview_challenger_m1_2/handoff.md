@@ -169,3 +169,5 @@ Expected output:
 - Simulation Engine N=50: p95 $\approx 0.23\text{ms}$ (< 100ms).
 - HTTP API Simulation N=50: p95 $\approx 2.13\text{ms}$ (< 100ms).
 - `All checks passed!` from ruff.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

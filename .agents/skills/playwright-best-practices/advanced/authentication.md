@@ -869,3 +869,5 @@ page.on("request", (req) => {
 - [network-advanced.md](network-advanced.md) — route interception patterns used in OAuth mocking
 - [api-testing.md](../testing-patterns/api-testing.md) — API request context used in API-based login
 - [flaky-tests.md](../debugging/flaky-tests.md) — diagnosing auth-related flakiness
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

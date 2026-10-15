@@ -717,3 +717,5 @@ test("API call with browser auth", async ({ page }) => {
 **Cause**: Different environments, database state, or missing environment variables.
 
 **Fix**: Use `process.env` for secrets and base URLs. Run database seeds or migrations in `globalSetup`. Use unique identifiers (timestamps, UUIDs) for test data. Check that the CI `baseURL` matches the deployed service.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

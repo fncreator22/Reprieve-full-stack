@@ -50,3 +50,5 @@ Explore testing infrastructure, mock/fixture setups, FalkorDB test integration, 
 - progress.md — Liveness heartbeat and milestone tracking
 - report.md — Comprehensive survey report
 - handoff.md — 5-component handoff report for Orchestrator
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

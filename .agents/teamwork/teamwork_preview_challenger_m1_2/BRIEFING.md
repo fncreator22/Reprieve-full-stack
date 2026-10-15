@@ -58,3 +58,5 @@ Adversarial empirical challenge of Milestone 1: Temporal Expiry Collision Dynami
 
 ## Loaded Skills
 - None explicitly assigned.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

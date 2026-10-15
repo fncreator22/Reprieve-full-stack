@@ -467,3 +467,5 @@ webServer: [
 - [authentication.md](../advanced/authentication.md) -- authentication setup and `storageState`
 - [api-testing.md](../testing-patterns/api-testing.md) -- testing API routes with `request` context
 - [react.md](react.md) -- React patterns for Next.js client components
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

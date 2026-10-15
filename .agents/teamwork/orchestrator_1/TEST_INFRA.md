@@ -45,3 +45,5 @@
 - Tier 3: Pairwise cross-feature interaction tests (12+ tests)
 - Tier 4: Realistic enterprise application scenarios (5 tests)
 - **Total Minimum Target**: ~140 test cases
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -50,3 +50,5 @@ Remediate 4 mathematical and robustness defects in `backend/app/prediction/avala
 
 ## Loaded Skills
 - None
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

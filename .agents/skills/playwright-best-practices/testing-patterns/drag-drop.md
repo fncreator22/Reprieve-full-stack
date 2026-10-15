@@ -574,3 +574,5 @@ test('drags via touch events', async ({ page }) => {
 4. **Use `boundingBox()` for coordinate assertions**. For canvas editors or position-sensitive drops, capture bounding box after the operation and compare with `toBeCloseTo()` for tolerance.
 
 5. **Test undo after drag operations**. If your app supports Ctrl+Z, verify the drag is reversible — this catches state management bugs.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -494,3 +494,5 @@ export default defineConfig({
 - **Performance**: See [performance.md](../infrastructure-ci-cd/performance.md) for parallel execution patterns
 - **Assertions**: See [assertions-waiting.md](../core/assertions-waiting.md) for auto-waiting patterns
 - **Global Setup**: See [global-setup.md](../core/global-setup.md) for setup vs fixtures decision
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

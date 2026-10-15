@@ -233,3 +233,5 @@ uv run ruff check tests/test_avalanche_adversarial.py
 
 - **Current Status**: 28 passed, 4 xfailed (confirming all 4 bugs).
 - **Post-Fix Invalidation Condition**: Once Worker M1 applies the remediations above, all 4 `xfail` tests in `tests/test_avalanche_adversarial.py` will report `XPASS`, at which point the `@pytest.mark.xfail` decorators can be removed and the full suite will report `32 passed in <3s`.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

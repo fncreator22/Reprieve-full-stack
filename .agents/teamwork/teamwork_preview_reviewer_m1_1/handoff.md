@@ -153,3 +153,5 @@ uv run pytest tests/test_predictions.py -v
 uv run ruff check app/prediction app/api/prediction.py app/main.py tests/test_predictions.py
 ```
 Expected output: 13 passed in under 2 seconds, and `All checks passed!` from ruff.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

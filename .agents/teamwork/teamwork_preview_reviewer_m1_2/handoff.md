@@ -154,3 +154,5 @@ Expected Results:
 - 13 passed tests in `test_predictions.py` in < 2 seconds.
 - Clean linter output: `All checks passed!`.
 - Sub-10ms p95 latencies reported by benchmark assertions.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

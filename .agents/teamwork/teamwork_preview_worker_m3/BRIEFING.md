@@ -56,3 +56,5 @@ Execute Milestone 3: Implement Dual-Pane Interface & Visual Simulation Canvas (S
 - DISPATCH.md — Initial orchestrator dispatch
 - progress.md — Liveness heartbeat and progress tracker
 - handoff.md — Final handoff report (TBD)
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

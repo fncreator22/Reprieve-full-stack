@@ -93,3 +93,5 @@ The testing infrastructure survey is complete. The existing backend testing foun
 4. **Full Test Suite (When FalkorDB is running)**:
    - Command: `cd backend && uv run pytest`
    - Command: `cd backend && uv run python ../eval/run_eval.py`
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

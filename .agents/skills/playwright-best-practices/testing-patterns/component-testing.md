@@ -498,3 +498,5 @@ test("Svelte component", async ({ mount }) => {
 
 - **Accessibility**: See [accessibility.md](accessibility.md) for a11y testing in components
 - **Fixtures**: See [fixtures-hooks.md](../core/fixtures-hooks.md) for shared test setup
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

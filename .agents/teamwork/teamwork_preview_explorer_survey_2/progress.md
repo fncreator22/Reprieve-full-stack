@@ -13,3 +13,5 @@ Current status: All exploration tasks, report, and handoff complete. Sending not
 - [x] Synthesize findings and formulate proposals for R3.1, R3.2, and backend integration
 - [x] Compile comprehensive report.md and handoff.md
 - [x] Send summary message to Orchestrator f63e4228-317f-45de-bff4-f932d1431e70
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -150,3 +150,5 @@ To independently verify the test suite:
 
 5. **Inspect Test Readiness Document**:
    View `c:\Users\sr2ma\Documents\github\webdev-hackthon\TEST_READY.md`.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

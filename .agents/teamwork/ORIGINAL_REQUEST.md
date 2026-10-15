@@ -44,3 +44,5 @@ The prediction and conversational engine must integrate cleanly with the existin
 ### Test Suite & System Verification
 - [ ] Automated pytest suite validates all predictive Cypher queries and mathematical scoring functions.
 - [ ] End-to-end integration test verifies the conversational endpoint and prediction simulation endpoint return valid, synchronized payloads.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -60,3 +60,5 @@ Build and verify the E2E Testing Suite (conversational grounding, performance ha
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\eval\report.md — Automated eval execution report
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\teamwork_preview_test_writer_e2e\progress.md
 - c:\Users\sr2ma\Documents\github\webdev-hackthon\.agents\teamwork\teamwork_preview_test_writer_e2e\handoff.md
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

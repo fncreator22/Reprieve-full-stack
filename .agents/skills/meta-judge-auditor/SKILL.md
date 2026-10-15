@@ -62,3 +62,5 @@ Analyze prior judges' evaluation transcripts:
 Compute the Deflated Score ($S_{final}$):
 $$S_{final} = S_{initial} - \sum \text{Penalties} - D_{syc}$$
 Where $D_{syc}$ (Sycophancy Deflator) = $5.0 \times (\text{Number of Unverified Architectural Praises})$.
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -491,3 +491,5 @@ test("game state changes", async ({ page }) => {
 - **Visual Testing**: See [test-suite-structure.md](../core/test-suite-structure.md) for visual regression setup
 - **Mobile Gestures**: See [mobile-testing.md](../advanced/mobile-testing.md) for touch interactions
 - **Performance**: See [performance-testing.md](performance-testing.md) for FPS monitoring
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

@@ -65,3 +65,5 @@ Forensic integrity audit for Milestone 1 (Hybrid Mathematical Prediction Engine)
 - BRIEFING.md — Persistent situational awareness
 - progress.md — Audit execution heartbeat
 - handoff.md — Final forensic report
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->

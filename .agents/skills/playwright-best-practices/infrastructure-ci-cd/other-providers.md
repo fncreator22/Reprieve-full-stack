@@ -519,3 +519,5 @@ command: npx playwright test --shard=$((CIRCLE_NODE_INDEX + 1))/$CIRCLE_NODE_TOT
 | No artifact upload on success       | Can't verify passing results              | Always upload reports (`condition: always()`)        |
 | Non-root in container without setup | Permission errors on browser binaries     | Run as root or configure permissions                 |
 | Hardcoded shard count               | Must update multiple places               | Use CI-native variables                              |
+
+<!-- Reprieve Agent Skill · October 15, 2026 -->
