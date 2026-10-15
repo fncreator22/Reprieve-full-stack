@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SettingsScreen } from "@/components/settings/settings-screen";

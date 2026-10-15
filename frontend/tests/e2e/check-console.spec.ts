@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { test } from "@playwright/test";
 
 test("check console messages and Next dev overlay", async ({ page }) => {

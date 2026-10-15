@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { redirect } from "next/navigation";
 
 export default async function SettingsIndex({ params }: { params: Promise<{ ws: string }> }) {

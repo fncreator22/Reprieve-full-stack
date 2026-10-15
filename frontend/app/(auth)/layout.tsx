@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Logo } from "@/components/logo";

@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import type { Metadata } from "next";
 import { ControlsList } from "@/components/registry/registry";
 

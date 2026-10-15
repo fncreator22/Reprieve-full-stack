@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import type { Metadata } from "next";
 import { AlertDetail } from "@/components/alerts/alert-detail";
 

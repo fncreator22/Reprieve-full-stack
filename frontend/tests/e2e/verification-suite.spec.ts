@@ -1,3 +1,4 @@
+// Reprieve Architecture Safety Engine · October 15, 2026
 import { test, expect } from "@playwright/test";
 
 test.describe("Phase 6 Verification Gates", () => {
