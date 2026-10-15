@@ -226,7 +226,22 @@ async def load_context(user: CurrentUser, ws_id: str, as_of: int | None = None) 
 
     rows = await platform.read("p_membership", user_id=user.id, email=user.email, ws_id=canonical_ws_id)
     if not rows:
-        if user.clerk_user_id in ("cli_machine", "dev_local") and s.env_name == "local":
+        if w.get("slug") == "northwind-pay" and user.clerk_user_id != "cli_machine":
+            # Northwind Pay is the dedicated public guest demo sandbox (strictly viewer role for guests)
+            names = graph_names(canonical_ws_id)
+            db = get_db()
+            return WorkspaceContext(
+                canonical_ws_id,
+                w,
+                Role.viewer,
+                None,
+                user,
+                Repo(db, names.org),
+                Repo(db, names.mem),
+                platform,
+                as_of if as_of is not None else workspace_as_of(w),
+            )
+        elif user.clerk_user_id in ("cli_machine", "dev_local") and s.env_name == "local":
             names = graph_names(canonical_ws_id)
             db = get_db()
             return WorkspaceContext(
@@ -241,13 +256,13 @@ async def load_context(user: CurrentUser, ws_id: str, as_of: int | None = None) 
                 as_of if as_of is not None else workspace_as_of(w),
             )
         elif w.get("slug") == "northwind-pay":
-            # Northwind Pay is the dedicated public guest demo sandbox
+            # Northwind Pay guest fallback
             names = graph_names(canonical_ws_id)
             db = get_db()
             return WorkspaceContext(
                 canonical_ws_id,
                 w,
-                Role.admin if s.env_name == "local" else Role.viewer,
+                Role.viewer,
                 None,
                 user,
                 Repo(db, names.org),

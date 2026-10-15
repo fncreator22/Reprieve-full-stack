@@ -88,7 +88,7 @@ async def me(user: CurrentUser = Depends(current_user)) -> dict[str, Any]:
         nw = nw_rows[0]["w"]
         nw_id = nw["id"]
         if nw_id not in by_ws and nw.get("status") == "ready":
-            role_val = "admin" if (user.clerk_user_id in ("cli_machine", "dev_local") or s.env_name == "local") else "viewer"
+            role_val = "admin" if (user.clerk_user_id == "cli_machine" and s.env_name == "local") else "viewer"
             by_ws[nw_id] = {
                 "workspace_id": nw_id,
                 "role": role_val,

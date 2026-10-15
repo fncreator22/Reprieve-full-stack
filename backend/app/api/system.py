@@ -24,7 +24,7 @@ STALE_S = 3600
 def _internal(secret: str | None) -> None:
     expected = get_settings().internal_tick_secret
     if not expected or not secret or not hmac.compare_digest(secret, expected):
-        raise ApiError("NOT_FOUND")
+        raise ApiError("UNAUTHENTICATED", "Invalid or missing internal secret.")
 
 
 @router.get("/health")

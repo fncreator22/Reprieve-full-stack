@@ -27,6 +27,7 @@ class Settings(BaseSettings):
 
     llm_primary: Literal["openai", "local", "compat"] = "openai"
     llm_fallback: Literal["none", "local", "compat"] = "none"
+    llm_api_key: str = ""
     openai_api_key: str = ""
     openai_model_agent: str = "gpt-5.1"
     openai_model_fast: str = "gpt-5.1-mini"
@@ -40,6 +41,20 @@ class Settings(BaseSettings):
     llm_max_tool_calls: int = 6
     llm_daily_token_budget_per_ws: int = 400_000
     llm_cache_ttl_s: int = 600
+
+    def model_post_init(self, __context: object) -> None:
+        if self.llm_api_key:
+            if not self.openai_api_key and not self.compat_api_key:
+                if self.llm_api_key.startswith("sk-or-"):
+                    self.compat_api_key = self.llm_api_key
+                    if not self.compat_base_url:
+                        self.compat_base_url = "https://openrouter.ai/api/v1"
+                    if not self.compat_model:
+                        self.compat_model = "nvidia/nemotron-3-super-120b-a12b:free"
+                    self.llm_primary = "compat"
+                else:
+                    self.openai_api_key = self.llm_api_key
+                    self.llm_primary = "openai"
 
     maileroo_api_key: str = ""
     resend_api_key: str = ""
