@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """MCP tool endpoint — exposes Reprieve's graph tools to any MCP-compatible client.
 
 This follows the Model Context Protocol (MCP) tool-call convention so external

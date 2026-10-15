@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Exceptions, registry, graph explorer, search, reviews (03 §10.2)."""
 
 import json

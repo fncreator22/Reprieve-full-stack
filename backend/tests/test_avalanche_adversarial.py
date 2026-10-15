@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Adversarial stress and property-based test harness for Avalanche Centrality (Milestone 1).
 
 Conducted by Challenger 1 (Empirical Challenger):

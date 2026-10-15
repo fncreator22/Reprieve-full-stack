@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 # Rule presets (03 §8.2) and scoring config (03 §8.4). Workspace RuleConfig nodes override these.
 presets:
   strict:

@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Memory graph reads (03 §10.2: /memory/outcomes, /memory/precedent, /memory/handoffs)."""
 
 from typing import Any

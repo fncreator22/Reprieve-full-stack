@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Risk ranking and alerts (03 §10.2: alerts, risk)."""
 
 import json

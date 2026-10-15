@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Owner resolution (03 §9.2), review proposal, and review decisions with ordered idempotent effects (03 §9.1)."""
 
 import hashlib

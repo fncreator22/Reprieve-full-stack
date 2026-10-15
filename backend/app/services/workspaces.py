@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Workspace lifecycle: create, provision (sample/blank), clock, AI mode, onboarding (03 §6.5)."""
 
 from typing import Any

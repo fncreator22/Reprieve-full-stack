@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Load a v1 JSON bundle (03 §13.2) into an org graph. Idempotent (MERGE), batched ≤ 500 rows."""
 
 import json

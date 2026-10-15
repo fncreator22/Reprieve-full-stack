@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """API contracts (03 §11). The frontend mirrors these in frontend/lib/types.ts."""
 
 from enum import StrEnum

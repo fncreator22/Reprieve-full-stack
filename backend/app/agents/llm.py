@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """One OpenAI-compatible adapter (ADR-0006): OpenAI, Ollama, or any compatible host. Primary → one fallback hop."""
 
 import hashlib

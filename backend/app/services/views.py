@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Graph rows → API shapes. Shared by routers and agent tools."""
 
 import json

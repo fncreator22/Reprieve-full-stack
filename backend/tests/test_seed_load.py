@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 import time
 
 from app.graph.schema import ORG, ensure_schema

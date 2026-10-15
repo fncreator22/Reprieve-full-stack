@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """'Why it fired' text for an alert (T-049): cached LLM summary per alert version, deterministic fallback."""
 
 import json

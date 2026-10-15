@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Ground-truth eval on the sample dataset (docs/07-seed-spec.md §4)."""
 
 import json

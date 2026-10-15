@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Deterministic hint → ID resolution (03 §12.3): exact, normalized, then token matching. The LLM never picks IDs."""
 
 import re

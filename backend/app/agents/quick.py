@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Quick answers: deterministic Steward answers that work with AI off or down (FR-STW-10, T-045)."""
 
 from typing import Any

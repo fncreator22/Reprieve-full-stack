@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Deterministic service risk score (03 §8.4). Pure functions: same inputs → same score."""
 
 import math

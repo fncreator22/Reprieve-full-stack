@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """RFC 7807 problem details (03 §10.6)."""
 
 from typing import Any

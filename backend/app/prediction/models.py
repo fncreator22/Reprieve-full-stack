@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Pydantic models for Predictive Company Brain simulation and forecasting."""
 
 from pydantic import BaseModel, ConfigDict, Field

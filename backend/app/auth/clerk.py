@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Clerk session JWT verification via cached JWKS (ADR-0003)."""
 
 import time

@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Steward chat (FR-STW-01..10): sessions, streaming turns, quick answers, proposed-action approval."""
 
 import json

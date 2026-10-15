@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Prediction module: Avalanche Centrality, Temporal Collisions, and Simulation Engine."""
 
 from app.prediction import avalanche, collisions, engine, models

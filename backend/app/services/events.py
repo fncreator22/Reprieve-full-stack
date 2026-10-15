@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """In-process workspace event bus feeding SSE (03 §10.4). Single instance by design (03 §14)."""
 
 import asyncio

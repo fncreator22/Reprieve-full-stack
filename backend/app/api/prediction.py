@@ -1,3 +1,4 @@
+# Reprieve Architecture Safety Engine · October 15, 2026
 """Prediction API endpoints."""
 
 from fastapi import APIRouter, Depends, Query
