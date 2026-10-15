@@ -8,7 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -fsS --max-time 120 -X POST "$API_URL/internal/sentinel/tick" -H "X-Internal-Secret: $INTERNAL_TICK_SECRET"
+          if [ -z "$INTERNAL_TICK_SECRET" ]; then
+            echo "INTERNAL_TICK_SECRET secret not configured in repo; skipping sentinel scheduled tick."
+            exit 0
+          fi
+          TARGET_URL="${API_URL:-https://reprieve-backend.onrender.com}"
+          curl -fsS --max-time 120 -X POST "$TARGET_URL/internal/sentinel/tick" -H "X-Internal-Secret: $INTERNAL_TICK_SECRET"
         env:
           API_URL: ${{ secrets.API_URL }}
           INTERNAL_TICK_SECRET: ${{ secrets.INTERNAL_TICK_SECRET }}

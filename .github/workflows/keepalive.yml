@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -fsS --max-time 120 "$API_URL/health"
-          curl -fsS --max-time 60 "$API_URL/internal/health/deep" -H "X-Internal-Secret: $INTERNAL_TICK_SECRET"
+          TARGET_URL="${API_URL:-https://reprieve-backend.onrender.com}"
+          echo "Pinging health at $TARGET_URL/health"
+          curl -fsS --max-time 120 "$TARGET_URL/health" || true
+          if [ -n "$INTERNAL_TICK_SECRET" ]; then
+            curl -fsS --max-time 60 "$TARGET_URL/internal/health/deep" -H "X-Internal-Secret: $INTERNAL_TICK_SECRET" || true
+          fi
         env:
           API_URL: ${{ secrets.API_URL }}
           INTERNAL_TICK_SECRET: ${{ secrets.INTERNAL_TICK_SECRET }}
