@@ -1,179 +1,161 @@
-# Reprieve — Master Video Storyboard & Production Blueprint
-> **Format:** Self-Contained Documentation & Production Directing Guide  
-> **Master Resolution:** 1920 × 1080 @ 60 FPS  
-> **Aesthetic Standard:** Apple Design System · WWDC Studio Presentation · High-Craft Engineering Motion  
-> **Standalone Exportable HTML:** [`docs/video_storyboard.html`](file:///C:\Users\sr2ma\Documents\github\webdev-hackthon\docs\video_storyboard.html)
+# Reprieve — Master Video Directing Storyboard (70-Second Official Edition)
+> **Master Resolution:** 1920 × 1080p @ 60.00 FPS  
+> **Aesthetic Profile:** Apple Studio Design · WWDC Keynote Hardware Quality · Emil Kowalski Tactile Micro-Interactions  
+> **Standalone PDF-Ready Document:** [`docs/video_storyboard.html`](file:///C:\Users\sr2ma\Documents\github\webdev-hackthon\docs\video_storyboard.html)
 
 ---
 
 
-## Scene 01: The Macro Opening — The Illusion of 'Harmless'
-* **Timing:** `00:00 – 00:07` · Frames 0000 – 0420 (7.0s)
-* **Spoken Voiceover:**
-  > *"A temporary code waiver approved on Friday afternoon. To your sprint board, it’s just another harmless ticket."*
+## Chunk 01: The Macro Code Waiver & The Status Flip
+* **Timestamp & Timing:** `00:00 – 00:10` · Frames 0000 – 0600 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/11_terminal_cli_scan.png`](video_assets/11_terminal_cli_scan.png) (Macro IDE Code Editor showing the temporary auth waiver comment and status pill.)
 
-![The Macro Opening — The Illusion of 'Harmless'](video_assets/11_terminal_cli_scan.png)
+![The Macro Code Waiver & The Status Flip](video_assets/11_terminal_cli_scan.png)
 
-* **Visual & Cinematography:** Simulated 85mm macro lens (f/1.8). Studio key light grazes top card bevel. Cursor blinks with smooth cubic falloff over `// FIXME: bypass auth check for load test`.
-* **Audio & Foley:** Warm analog Rhodes electric piano chord pad (C-minor 9th) fades in at -18 dB. Keychron mechanical keycap tap (-12 dB). Low-pass sub-bass drone (-20 dB).
-* **Source Asset:** [`11_terminal_cli_scan.png`](video_assets/11_terminal_cli_scan.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"A temporary code waiver approved on Friday afternoon. To your sprint board, it’s just another harmless ticket."*
 
----
+### 🎥 Visual Choreography & Lighting
+Simulated 85mm optical prime lens (f/1.8). Soft 3-point studio lighting with a delicate 1px white specular rim along the top card bevel. Unhurried forward push-in (1.00x to 1.04x). The code editor displays: '// FIXME: bypass auth check for load test (expires: +48h)'. The status badge quietly flips from 'In Review' to 'Approved'.
 
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Extreme macro close-up on the code line at coordinate (x: 0, y: 0, z: 0).`
+* **🔴 Ending Point (Out-Point Anchor):** `Status badge settles on 'Approved'. The card begins a slow backward drift into the dark obsidian void at (x: 0, y: 0, z: -100).`
 
-## Scene 02: Spatial Pull-Out — The Compound Failure Path
-* **Timing:** `00:07 – 00:16` · Frames 0421 – 0960 (9.0s)
-* **Spoken Voiceover:**
-  > *"To your microservice mesh... it's a silent multi-hop failure path waiting to take down checkout."*
-
-![Spatial Pull-Out — The Compound Failure Path](video_assets/02_outage_case_studies.png)
-
-* **Visual & Cinematography:** Overdamped mass-spring camera tracking pull-out (1.03x to 0.95x). Single ticket recedes into multi-hop dependency chain. Disaster loss figures glow in structured crimson.
-* **Audio & Foley:** Soft tactile switch click (-8 dB). Paper slide texture foley (-14 dB). Rhodes chord suspends with subtle tension.
-* **Source Asset:** [`02_outage_case_studies.png`](video_assets/02_outage_case_studies.png)
+### 🔊 Audio, Music & Foley
+Warm analog Rhodes electric piano chord (C-minor 9th) fades in at -18 dB. Subtle Keychron mechanical switch tap (-12 dB). Low-pass sub-bass drone (-20 dB).
 
 ---
 
 
-## Scene 03: The Shift to Reprieve — Living FalkorDB Risk Mesh
-* **Timing:** `00:16 – 00:30` · Frames 0961 – 1800 (14.0s)
-* **Spoken Voiceover:**
-  > *"Meet Reprieve — the graph-native architecture safety engine. We model every waiver, test skip, and orphan control as a living promise in FalkorDB, computing avalanche centrality across your entire topology."*
+## Chunk 02: Spatial Pull-Out & The 3 Outage Case Studies
+* **Timestamp & Timing:** `00:10 – 00:20` · Frames 0600 – 1200 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/02_outage_case_studies.png`](video_assets/02_outage_case_studies.png) (Interactive case studies displaying CrowdStrike, Square, and Change Healthcare public post-mortems.)
 
-![The Shift to Reprieve — Living FalkorDB Risk Mesh](video_assets/05_graph_canvas_explorer.png)
+![Spatial Pull-Out & The 3 Outage Case Studies](video_assets/02_outage_case_studies.png)
 
-* **Visual & Cinematography:** Camera glides into the live 25-microservice force graph canvas. 30-Day Temporal Horizon Scrubber slides to Day +18, illuminating overlapping failure paths in crimson.
-* **Audio & Foley:** Cinematic 40Hz sub-bass impact hit (-12 dB). Warm melodic synth sequence begins. Tactile timeline ratchet clicks (-10 dB).
-* **Source Asset:** [`05_graph_canvas_explorer.png`](video_assets/05_graph_canvas_explorer.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"To your microservice mesh... it's a silent multi-hop failure path waiting to take down checkout."*
 
----
+### 🎥 Visual Choreography & Lighting
+Continuous camera pull-out (1.00x to 0.90x) using overdamped mass-spring-damper easing (damping: 28). The single waiver recedes into a dark multi-hop dependency mesh. Two distant tickets illuminate in amber. Disaster badges emerge in structured crimson: CrowdStrike (8.5M Systems), Square (24-Hour Outage), Change Healthcare ($1.6B Freeze).
 
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Starts on the receding ticket from Chunk 01 at coordinate (x: 0, y: 0, z: -100).`
+* **🔴 Ending Point (Out-Point Anchor):** `A crimson failure line pulses across checkout-api → payments-gateway → card-token-vault, locking onto checkout-api as center pivot.`
 
-## Scene 04: Executive Architecture Telemetry & Invariant Alerts
-* **Timing:** `00:20 – 00:30 (Context Shot)` · Detail View
-* **Spoken Voiceover:**
-  > *"Continuous deterministic scanning calculates blast radius, ghost owners, and broken compensating controls in real time."*
-
-![Executive Architecture Telemetry & Invariant Alerts](video_assets/04_dashboard_home.png)
-
-* **Visual & Cinematography:** Full dashboard viewport displaying live Avalanche Risk Score (84/100), Active Exceptions (37), and top at-risk services.
-* **Audio & Foley:** Soft ambient digital pulse (-22 dB). Subdued data flow texture.
-* **Source Asset:** [`04_dashboard_home.png`](video_assets/04_dashboard_home.png)
+### 🔊 Audio, Music & Foley
+Tactile switch click (-8 dB). Paper slide texture foley (-14 dB). Rhodes suspended chord shift.
 
 ---
 
 
-## Scene 05: Shortest Proof Path Graph Reasoning
-* **Timing:** `00:25 – 00:32 (Detail Shot)` · Detail View
-* **Spoken Voiceover:**
-  > *"Reprieve doesn’t guess. It proves root cause by tracing the deterministic topological path from ingress to database."*
+## Chunk 03: The Living FalkorDB Mesh & Avalanche Centrality
+* **Timestamp & Timing:** `00:20 – 00:30` · Frames 1200 – 1800 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/05_graph_canvas_explorer.png`](video_assets/05_graph_canvas_explorer.png) (Authentic 25-node live 3D Force Graph canvas of Northwind Pay with Day +18 temporal scrubber.)
 
-![Shortest Proof Path Graph Reasoning](video_assets/06_alerts_catalog.png)
+![The Living FalkorDB Mesh & Avalanche Centrality](video_assets/05_graph_canvas_explorer.png)
 
-* **Visual & Cinematography:** Alert detail card for Rule R4 (Service Concentration on checkout-api), proving reachability through payments-gateway to card-token-vault.
-* **Audio & Foley:** Crisp UI notification ping (-14 dB).
-* **Source Asset:** [`06_alerts_catalog.png`](video_assets/06_alerts_catalog.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"Meet Reprieve — the graph-native architecture safety engine. We model every waiver as a living promise in FalkorDB, computing avalanche centrality across your entire topology."*
+
+### 🎥 Visual Choreography & Lighting
+The crimson failure line blossoms into the full 25-microservice Northwind Pay dependency canvas. Nodes float in obsidian space. The 30-Day Temporal Horizon Scrubber at the bottom slides smoothly to Day +18, illuminating overlapping collision vectors in vivid crimson (#ef4444) with avalanche badge 'P = 0.94'.
+
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Starts on the glowing checkout-api cluster from Chunk 02.`
+* **🔴 Ending Point (Out-Point Anchor):** `Camera pushes forward (1.00x to 1.06x), centering on the Day +18 collision peak and the central violet beam.`
+
+### 🔊 Audio, Music & Foley
+Cinematic 40Hz sub-bass impact hit (-12 dB). Warm melodic synth sequence begins. Tactile timeline ratchet clicks (-10 dB).
 
 ---
 
 
-## Scene 06: Developer Ergonomics — 11.8ms CLI AST Scanner
-* **Timing:** `00:30 – 00:40` · Frames 1801 – 2400 (10.0s)
-* **Spoken Voiceover:**
-  > *"Run local AST scans with zero login in under fifteen milliseconds."*
+## Chunk 04: Developer Ergonomics — 11.8ms CLI AST Scanner
+* **Timestamp & Timing:** `00:30 – 00:40` · Frames 1800 – 2400 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/03_developer_surfaces_bento.png`](video_assets/03_developer_surfaces_bento.png) (Three native developer interfaces with live CLI terminal scan card.)
 
 ![Developer Ergonomics — 11.8ms CLI AST Scanner](video_assets/03_developer_surfaces_bento.png)
 
-* **Visual & Cinematography:** Split focus on developer surfaces bento grid. Local scanner parses 1,420 nodes in 11.8 milliseconds without requiring an account.
-* **Audio & Foley:** Keychron mechanical keyboard clatter (-10 dB). Digital chime on scan pass.
-* **Source Asset:** [`03_developer_surfaces_bento.png`](video_assets/03_developer_surfaces_bento.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"Run local AST scans with zero login in under fifteen milliseconds."*
+
+### 🎥 Visual Choreography & Lighting
+From the central beam, a sleek dark zsh terminal card locks into the left side of the frame. Cursor types 'npx reprieve scan --strict'. In 11.8 milliseconds, the terminal renders a green telemetry summary: 'AST Latency: 11.8ms · Invariant Rule R4 Blocked'. Right half of screen stays dark, primed for the PR gate.
+
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Pans smoothly from the graph center into the left terminal window.`
+* **🔴 Ending Point (Out-Point Anchor):** `Terminal output completes with green checkmarks. Right side of screen remains empty in obsidian black.`
+
+### 🔊 Audio, Music & Foley
+Keychron mechanical keyboard clatter (-10 dB). Digital chime on 11.8ms scan pass.
 
 ---
 
 
-## Scene 07: GitHub Actions Pre-Merge Circuit Breaker
-* **Timing:** `00:40 – 00:45` · Frames 2401 – 2700 (5.0s)
-* **Spoken Voiceover:**
-  > *"Or let it block compound failure paths directly in your pull request before code ever merges."*
+## Chunk 05: GitHub Actions Pre-Merge Circuit Breaker
+* **Timestamp & Timing:** `00:40 – 00:50` · Frames 2400 – 3000 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/12_github_pr_gate.png`](video_assets/12_github_pr_gate.png) (GitHub PR circuit breaker comment from @reprieve-bot blocking merge with proof path table.)
 
 ![GitHub Actions Pre-Merge Circuit Breaker](video_assets/12_github_pr_gate.png)
 
-* **Visual & Cinematography:** GitHub pull request card intercepted by Reprieve bot, blocking merge with clear architectural reason.
-* **Audio & Foley:** Soft UI block chime (-8 dB).
-* **Source Asset:** [`12_github_pr_gate.png`](video_assets/12_github_pr_gate.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"Or let it block compound failure paths directly in your pull request before code ever merges."*
+
+### 🎥 Visual Choreography & Lighting
+The right half of the frame receives a dark-mode GitHub Pull Request card: 'feat(payment): add load test bypass'. @reprieve-bot comments instantly with an alert banner: '⛔ Pull Request Blocked: 1 Compound Failure Invariant Triggered', displaying the shortest proof path table (checkout-api → payments-gateway → stripe).
+
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Slides in from right border, completing the two-panel developer surface view.`
+* **🔴 Ending Point (Out-Point Anchor):** `Bot comment locks into place. A white Apple-style cursor enters from bottom right.`
+
+### 🔊 Audio, Music & Foley
+Soft UI card slide foley (-12 dB). Subdued warning block chime (-8 dB).
 
 ---
 
 
-## Scene 08: Steward AI Agent & Grounded Tri-Planar Memory
-* **Timing:** `00:45 – 01:00` · Frames 2701 – 3600 (15.0s)
-* **Spoken Voiceover:**
-  > *"Steward, our on-call AI agent, recalls historical precedents across our three-graph memory — grounded strictly in mathematical proof paths, with zero AI hallucinations."*
+## Chunk 06: Steward AI Agent & Grounded Tri-Planar Memory
+* **Timestamp & Timing:** `00:50 – 01:00` · Frames 3000 – 3600 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/08_steward_live_agent.png`](video_assets/08_steward_live_agent.png) (Steward Live Copilot drawer with verified Groundedness Guard and ProposedAction card.)
 
 ![Steward AI Agent & Grounded Tri-Planar Memory](video_assets/08_steward_live_agent.png)
 
-* **Visual & Cinematography:** Cursor presses send button with tactile recoil. Steward streams response with tool inspection drawer and ProposedAction card. Groundedness badge verified green.
-* **Audio & Foley:** Tactile mouse click (-6 dB). Digital token streaming soundscape (-16 dB).
-* **Source Asset:** [`08_steward_live_agent.png`](video_assets/08_steward_live_agent.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"Steward, our on-call AI agent, recalls historical precedents across our three-graph memory — grounded strictly in mathematical proof paths."*
+
+### 🎥 Visual Choreography & Lighting
+Cursor moves along a smooth cubic bezier curve into the Steward chat drawer. The chat send button depresses (scale: 0.95) with tactile spring rebound. Steward streams back the token response with tool inspection drawers and a ProposedAction approval card. Verified green badge glows: '✓ Groundedness Guard Active (0 Hallucinations)'.
+
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Cursor enters the chat input at coordinate (x: 820, y: 640).`
+* **🔴 Ending Point (Out-Point Anchor):** `Response token stream completes. ProposedAction card illuminates in soft amber.`
+
+### 🔊 Audio, Music & Foley
+Tactile mouse click (-6 dB). Digital token streaming soundscape (-16 dB).
 
 ---
 
 
-## Scene 09: Connected Tooling & Enterprise Ecosystem
-* **Timing:** `Technical Demo` · Ecosystem View
-* **Spoken Voiceover:**
-  > *"Deeply connected to your existing stack: from Slack incident broadcasts to signed enterprise HMAC webhooks."*
-
-![Connected Tooling & Enterprise Ecosystem](video_assets/10_integrations_hub.png)
-
-* **Visual & Cinematography:** Grid of 6 connected integrations with green live health status dots.
-* **Audio & Foley:** Warm Rhodes synth flourish (-18 dB).
-* **Source Asset:** [`10_integrations_hub.png`](video_assets/10_integrations_hub.png)
-
----
-
-
-## Scene 10: Minimal Brand Resolution & Zero-Login Sandbox
-* **Timing:** `01:00 – 01:10` · Frames 3601 – 4200 (10.0s)
-* **Spoken Voiceover:**
-  > *"Intercept compound risk before merge. Try the live sandbox today."*
+## Chunk 07: Minimal Brand Resolution & Zero-Login Sandbox
+* **Timestamp & Timing:** `01:00 – 01:10` · Frames 3601 – 4200 (10.0s)
+* **Assigned Production Asset:** [`docs/video_assets/13_brand_lockup.png`](video_assets/13_brand_lockup.png) (Obsidian brand lockup with zero-login pill and live demo URL.)
 
 ![Minimal Brand Resolution & Zero-Login Sandbox](video_assets/13_brand_lockup.png)
 
-* **Visual & Cinematography:** Obsidian brand lockup with glowing pill: `npx reprieve scan --strict` · `0 Login Required` · `frontend-six-neon-97.vercel.app`.
-* **Audio & Foley:** Rhodes chord resolves to root tonic. Clean power-down click (-10 dB). Tail decay to silence.
-* **Source Asset:** [`13_brand_lockup.png`](video_assets/13_brand_lockup.png)
+### 🎙️ Spoken Voiceover Script (Single Audio Spine)
+> *"Intercept compound risk before merge. Try the live sandbox today."*
+
+### 🎥 Visual Choreography & Lighting
+The view pulls back smoothly into a centered obsidian frame with a soft radial violet glow (rgba(139,125,255,0.12)). Symmetrical typography reveals bold white wordmark 'REPRIEVE', tagline 'The Graph-Native Architecture Safety Engine', and glowing pill: 'npx reprieve scan --strict · 0 Login Required · frontend-six-neon-97.vercel.app'. A 1px specular light sweep glides across the logo bevel as the screen fades to black.
+
+### 🔄 Spatial Match-Cut Continuity
+* **🟢 Starting Point (In-Point Anchor):** `Pulls out from the Steward chat center into symmetrical wide framing.`
+* **🔴 Ending Point (Out-Point Anchor):** `Pristine centered obsidian brand card fading to pure black at 01:10.`
+
+### 🔊 Audio, Music & Foley
+Warm Rhodes chord resolves to root key. Clean power-down switch click (-10 dB). Tail decay to total silence.
 
 ---
 
-
-## 🚀 30-Second AI Video Generation Prompt (Gemini / Veo / Sora)
-
-```markdown
-PROMPT: 30-Second Product Launch Commercial — Reprieve (Graph-Native Architecture Safety Engine)
-
-CINEMATOGRAPHY & LIGHTING:
-- Style: Apple Design System, WWDC product reveal, high-end developer tool commercial. Clean, restrained, dark-mode studio aesthetic.
-- Color Palette: Matte obsidian black (#0c0d12), raised charcoal card surface (#12141c), 1px white bevel rim light (rgba(255,255,255,0.08)), luminous FalkorDB violet (#8b7dff), catastrophe red (#ef4444), passing emerald (#10b981).
-- Camera & Lens: Simulated 85mm prime lens with shallow depth-of-field and soft optical bokeh. Mass-spring-damper camera physics with organic deceleration (zero linear robotic pans, zero strobe flashes, zero chaotic cyber-glitches).
-- Frame Rate & Resolution: 1920x1080 60 FPS, pin-sharp monospace code typography and high-contrast UI borders.
-
-SCENE SEQUENCE (30 SECONDS TOTAL):
-
-SHOT 1 (00:00 - 00:07) — THE MACRO WAIVER:
-Extreme macro close-up on a floating dark graphite code card under soft 3-point studio lighting. An elegant monospace code editor displays: "// FIXME: bypass auth check for load test (expires: +48h)". A cursor blinks with smooth cubic falloff. Above it, a minimal dark status badge transitions from "Review" to "Approved". Subtle camera push-in from 1.0x to 1.04x. The top bevel of the card catches a delicate studio rim reflection.
-
-SHOT 2 (00:07 - 00:15) — THE LIVING GRAPH CANVAS & SCRUBBER:
-The camera pulls smoothly out with spatial continuity into an expansive 3D microservice graph canvas (FalkorDB engine). 25 dark nodes with glowing labels (checkout-api, payments-gateway, card-token-vault) float in an obsidian space connected by delicate luminous threads. At the bottom, a sleek frosted-glass timeline slider ("30-Day Temporal Horizon Scrubber") smoothly slides from T+0 to Day +18. Exactly at Day +18, three overlapping exception vectors pulse in vivid crimson (#ef4444), revealing a multi-hop compound failure chain.
-
-SHOT 3 (00:15 - 00:23) — ZERO-LOGIN CLI & GITHUB PR GATE:
-Seamless split-focus transition. On the left, a minimal zsh terminal window executes "npx reprieve scan --strict", parsing 1,420 AST nodes with green telemetry readout: "11.8ms AST Latency · Blocked Rule R4". On the right, a pristine dark-mode GitHub Pull Request card appears, showing an automated comment from "reprieve-bot" with an alert banner: "Pull Request Blocked: 1 Compound Failure Invariant Triggered", displaying the shortest proof path table (checkout-api -> payments-gateway -> stripe).
-
-SHOT 4 (00:23 - 00:30) — STEWARD AI & MINIMAL BRAND RESOLUTION:
-A realistic mouse cursor glides along a smooth cubic bezier curve, pressing a violet chat button with tactile scale depression (scale: 0.95). A conversational AI drawer ("Steward") streams back a grounded proof path with a green badge: "✓ Groundedness Guard Active (0 Hallucinations)". The camera tracks smoothly back to center, resolving into a symmetrical obsidian brand lockup: Bold white sans-serif wordmark "REPRIEVE", tagline "The Graph-Native Architecture Safety Engine", with a glowing pill: "npx reprieve scan --strict · 0 Login Required". A subtle light sweep glides across the logo bevel as the scene fades to pure obsidian.
-
-AUDIO & FOLEY CUES:
-- Music: Warm analog Rhodes electric piano chord pad (C-minor 9th) fading in, deep 40Hz sub-bass foundation, gentle melodic progression.
-- Foley: Keychron mechanical switch click at 00:01, tactile slider ratchet click at 00:10, crisp keyboard clatter at 00:16, soft mouse button click at 00:24.
-- Voice: Calm, authoritative, confident 130 WPM tech narration.
-```
