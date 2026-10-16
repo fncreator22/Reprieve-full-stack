@@ -163,13 +163,14 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
 
   if (cleanPath.includes("/services/svc_") || cleanPath.includes("/risk/services/svc_")) {
     const svcId = cleanPath.split("/").pop() ?? "";
-    const svcList = (demoFixture["/api/v1/workspaces/northwind-pay/services"] ?? []) as Array<Record<string, any>>;
-    const found = svcList.find((s) => s.service?.id === svcId);
+    const svcList = (demoFixture["/api/v1/workspaces/northwind-pay/services"] ?? []) as Array<Record<string, unknown>>;
+    const found = svcList.find((s) => (s.service as Record<string, unknown> | undefined)?.id === svcId);
     if (found) {
+      const svcObj = (found.service ?? {}) as Record<string, unknown>;
       return {
-        id: found.service.id,
-        name: found.service.label,
-        label: found.service.label,
+        id: svcObj.id,
+        name: svcObj.label,
+        label: svcObj.label,
         tier: found.tier,
         customer_facing: found.customer_facing,
         team: found.team,
@@ -187,14 +188,14 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
 
   if (cleanPath.includes("/exceptions/exc_")) {
     const excId = cleanPath.split("/").pop() ?? "";
-    const excData = demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] as { items?: Array<Record<string, any>> } | undefined;
+    const excData = demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] as { items?: Array<Record<string, unknown>> } | undefined;
     const found = excData?.items?.find((e) => e.id === excId);
     if (found) return found as T;
   }
 
   if (cleanPath.includes("/alerts/alt_")) {
     const altId = cleanPath.split("/").pop() ?? "";
-    const altData = demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as { items?: Array<Record<string, any>> } | undefined;
+    const altData = demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as { items?: Array<Record<string, unknown>> } | undefined;
     const found = altData?.items?.find((a) => a.id === altId);
     if (found) return found as T;
   }
@@ -295,9 +296,12 @@ export function getDemoFallback<T>(path: string, query?: RequestOptions["query"]
     return demoFixture["/api/v1/workspaces/northwind-pay/alerts?limit=100"] as T;
   }
   if (cleanPath.endsWith("/exceptions")) {
-    const raw = (demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] ?? demoFixture["/api/v1/workspaces/northwind-pay/exceptions?limit=25"]) as { items?: Array<Record<string, any>>; total?: number } | undefined;
+    const raw = (demoFixture["/api/v1/workspaces/northwind-pay/exceptions"] ?? demoFixture["/api/v1/workspaces/northwind-pay/exceptions?limit=25"]) as { items?: Array<Record<string, unknown>>; total?: number } | undefined;
     if (query?.service_id && raw?.items) {
-      const filtered = raw.items.filter((item) => item.services?.some((s: any) => s.id === query.service_id));
+      const filtered = raw.items.filter((item) => {
+        const services = (item.services ?? []) as Array<Record<string, unknown>>;
+        return services.some((s) => s.id === query.service_id);
+      });
       return { ...raw, items: filtered, total: filtered.length } as T;
     }
     return raw as T;

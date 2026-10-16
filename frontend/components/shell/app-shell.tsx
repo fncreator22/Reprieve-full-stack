@@ -128,15 +128,16 @@ function ReadyShell({
 
 /** Data missing (SCR-X-04) is detected from the workspace record request. */
 function WorkspaceErrorGate({ value, error }: { value: WorkspaceContextValue; error: unknown }) {
-  if (value.slug === "northwind-pay") {
-    return null;
-  }
   const api = useApi();
   const qc = useQueryClient();
   const rehydrate = useMutation({
     mutationFn: () => api<unknown>(wsPath(value.wsId, "/sample-data"), { method: "POST" }),
     onSuccess: () => qc.invalidateQueries(),
   });
+
+  if (value.slug === "northwind-pay") {
+    return null;
+  }
   if (errorBehavior(error) === "data-missing")
     return (
       <DataMissingView isAdmin={hasRole(value.role, "admin")} onRehydrate={() => rehydrate.mutate()} busy={rehydrate.isPending} />

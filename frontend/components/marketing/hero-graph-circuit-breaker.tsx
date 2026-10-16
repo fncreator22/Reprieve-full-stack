@@ -2,14 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  ShieldAlert,
-  ShieldCheck,
   CheckCircle2,
-  AlertTriangle,
-  GitPullRequest,
   Terminal,
   Zap,
-  ArrowRight,
   UserCheck,
   RotateCcw,
   Sparkles,
@@ -67,6 +62,7 @@ export function HeroGraphCircuitBreaker() {
 
     frameId = requestAnimationFrame(animateScores);
     return () => cancelAnimationFrame(frameId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isResolved]);
 
   // Toggle state
