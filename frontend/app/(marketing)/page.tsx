@@ -131,20 +131,20 @@ export default function LandingPage() {
           <div className="absolute -top-[160px] h-[550px] w-[950px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(99,83,232,0.18)_0%,_rgba(8,9,11,0)_70%)] blur-[90px]" />
         </div>
 
-        <div className="mx-auto max-w-[1280px] px-6 sm:px-10">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-            {/* Left Column: Mission, Value Claim & Actions */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+        <div className="mx-auto max-w-[1360px] px-6 sm:px-10">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-start xl:items-center">
+            {/* Left Column: Mission, Value Claim & Actions (6 cols) */}
+            <div className="lg:col-span-6 space-y-6 text-left">
               <span className="text-[12px] font-mono uppercase tracking-[0.1em] text-zinc-400 font-semibold block">
                 PRE-MERGE ARCHITECTURE SAFETY ENGINE
               </span>
 
-              <h1 id="hero-title" className="text-[2.75rem] sm:text-[3.5rem] lg:text-[4rem] font-display font-bold tracking-[-0.04em] text-white leading-[1.05]">
+              <h1 id="hero-title" className="text-[2.5rem] sm:text-[3.25rem] lg:text-[3.75rem] font-display font-bold tracking-[-0.04em] text-white leading-[1.05]">
                 Three harmless exceptions. One catastrophic collision.{" "}
                 <span className="text-zinc-400 font-normal block sm:inline">Reprieve intercepts compound risk before merge.</span>
               </h1>
 
-              <p className="text-[1.125rem] text-zinc-300 leading-relaxed max-w-2xl">
+              <p className="text-[1.05rem] text-zinc-300 leading-relaxed max-w-xl">
                 Sprint boards treat waivers as isolated tickets. Reprieve models temporary bypasses and skipped tests as promises on your microservice graph to stop multi-hop cascading outages.
               </p>
 
@@ -166,8 +166,8 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Column: Hero Graph Circuit Breaker */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            {/* Right Column: Hero Graph Circuit Breaker (6 cols, side-by-side) */}
+            <div className="lg:col-span-6 flex justify-center lg:justify-end">
               <HeroGraphCircuitBreaker />
             </div>
           </div>

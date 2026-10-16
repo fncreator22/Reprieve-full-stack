@@ -62,19 +62,7 @@ export function MarketingNav() {
           ))}
         </ul>
         <div className="ml-auto hidden items-center gap-3 sm:flex">
-          <button
-            type="button"
-            onClick={() => {
-              window.dispatchEvent(new CustomEvent("open-command-menu"));
-              window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true }));
-            }}
-            className="flex items-center gap-2 rounded-none border border-white/[0.08] bg-[#121316] px-3 py-1.5 text-xs text-zinc-400 transition-colors hover:border-white/[0.2] hover:text-zinc-200"
-          >
-            <span>Ask Steward</span>
-            <kbd className="inline-flex h-4 items-center justify-center rounded-none border border-white/[0.1] bg-black/40 px-1 font-mono text-[10px] text-zinc-400">
-              ⌘K
-            </kbd>
-          </button>
+          {/* Ask Steward removed from marketing nav per instruction */}
           {authEnabled && isSignedIn ? (
             <>
               <Button asChild variant="ghost">
